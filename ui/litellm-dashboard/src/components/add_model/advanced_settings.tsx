@@ -9,6 +9,7 @@ import CacheControlSettings from "./cache_control_settings";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 import { Tag } from "../tag_management/types";
 import { formItemValidateJSON } from "../../utils/textUtils";
+import { useTranslation } from "react-i18next";
 const { Link } = Typography;
 
 interface AdvancedSettingsProps {
@@ -29,6 +30,7 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
   accessToken,
 }) => {
   const [form] = Form.useForm();
+  const { t } = useTranslation();
   const [customPricing, setCustomPricing] = React.useState(false);
   const [pricingModel, setPricingModel] = React.useState<"per_token" | "per_second">("per_token");
   const [showCacheControl, setShowCacheControl] = React.useState(false);
@@ -39,7 +41,7 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
       return Promise.resolve();
     }
     if (isNaN(Number(value)) || Number(value) < 0) {
-      return Promise.reject("Please enter a valid positive number");
+      return Promise.reject(t("advancedSettings.invalidPositiveNumber"));
     }
     return Promise.resolve();
   };
@@ -106,19 +108,19 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
     <>
       <Accordion className="mt-2 mb-4">
         <AccordionHeader>
-          <b>Advanced Settings</b>
+          <b>{t("advancedSettings.title")}</b>
         </AccordionHeader>
         <AccordionBody>
           <div className="bg-white rounded-lg">
-            <Form.Item label="Custom Pricing" name="custom_pricing" valuePropName="checked" className="mb-4">
+            <Form.Item label={t("advancedSettings.customPricing")} name="custom_pricing" valuePropName="checked" className="mb-4">
               <Switch onChange={handleCustomPricingChange} className="bg-gray-600" />
             </Form.Item>
 
             <Form.Item
               label={
                 <span>
-                  Attached Knowledge Bases (RAG){" "}
-                  <Tooltip title="Vector stores to use for RAG. Every request to this model will automatically retrieve context from these knowledge bases.">
+                  {t("advancedSettings.knowledgeBases")}{" "}
+                  <Tooltip title={t("advancedSettings.knowledgeBasesTooltip")}>
                     <a
                       href="https://docs.litellm.ai/docs/completion/knowledgebase"
                       target="_blank"
@@ -132,20 +134,20 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
               }
               name="vector_store_ids"
               className="mt-4"
-              help="Select vector stores to attach. Requests to this model will automatically use these for RAG. Set up vector stores in Tools > Vector Stores."
+              help={t("advancedSettings.knowledgeBasesHelp")}
             >
               <VectorStoreSelector
                 onChange={() => {}}
                 accessToken={accessToken}
-                placeholder="Select knowledge bases (optional)"
+                placeholder={t("advancedSettings.knowledgeBasesPlaceholder")}
               />
             </Form.Item>
 
             <Form.Item
               label={
                 <span>
-                  Guardrails{" "}
-                  <Tooltip title="Apply safety guardrails to this key to filter content or enforce policies">
+                  {t("advancedSettings.guardrails")}{" "}
+                  <Tooltip title={t("advancedSettings.guardrailsTooltip")}>
                     <a
                       href="https://docs.litellm.ai/docs/proxy/guardrails/quick_start"
                       target="_blank"
@@ -159,21 +161,21 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
               }
               name="guardrails"
               className="mt-4"
-              help="Select existing guardrails. Go to 'Guardrails' tab to create new guardrails."
+              help={t("advancedSettings.guardrailsHelp")}
             >
               <Select
                 mode="tags"
                 style={{ width: "100%" }}
-                placeholder="Select or enter guardrails"
+                placeholder={t("advancedSettings.guardrailsPlaceholder")}
                 options={guardrailsList.map((name) => ({ value: name, label: name }))}
               />
             </Form.Item>
 
-            <Form.Item label="Tags" name="tags" className="mb-4">
+            <Form.Item label={t("advancedSettings.tags")} name="tags" className="mb-4">
               <Select
                 mode="tags"
                 style={{ width: "100%" }}
-                placeholder="Select or enter tags"
+                placeholder={t("advancedSettings.tagsPlaceholder")}
                 options={Object.values(tagsList).map((tag) => ({
                   value: tag.name,
                   label: tag.name,
@@ -184,13 +186,13 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
 
             {customPricing && (
               <div className="ml-6 pl-4 border-l-2 border-gray-200">
-                <Form.Item label="Pricing Model" name="pricing_model" className="mb-4">
+                <Form.Item label={t("advancedSettings.pricingModel")} name="pricing_model" className="mb-4">
                   <Select
                     defaultValue="per_token"
                     onChange={(value: "per_token" | "per_second") => setPricingModel(value)}
                     options={[
-                      { value: "per_token", label: "Per Million Tokens" },
-                      { value: "per_second", label: "Per Second" },
+                      { value: "per_token", label: t("advancedSettings.perMillionTokens") },
+                      { value: "per_second", label: t("advancedSettings.perSecond") },
                     ]}
                   />
                 </Form.Item>
@@ -198,7 +200,7 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                 {pricingModel === "per_token" ? (
                   <>
                     <Form.Item
-                      label="Input Cost (per 1M tokens)"
+                      label={t("advancedSettings.inputCost")}
                       name="input_cost_per_token"
                       rules={[{ validator: validateNumber }]}
                       className="mb-4"
@@ -206,7 +208,7 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                       <TextInput />
                     </Form.Item>
                     <Form.Item
-                      label="Output Cost (per 1M tokens)"
+                      label={t("advancedSettings.outputCost")}
                       name="output_cost_per_token"
                       rules={[{ validator: validateNumber }]}
                       className="mb-4"
@@ -214,27 +216,27 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
                       <TextInput />
                     </Form.Item>
                     <Form.Item
-                      label="Cache Read Cost (per 1M tokens)"
+                      label={t("advancedSettings.cacheReadCost")}
                       name="cache_read_input_token_cost"
                       rules={[{ validator: validateNumber }]}
-                      tooltip="If left blank, defaults to Input Cost."
+                      tooltip={t("advancedSettings.cacheReadCostTooltip")}
                       className="mb-4"
                     >
-                      <TextInput placeholder="Defaults to Input Cost if blank" />
+                      <TextInput placeholder={t("advancedSettings.defaultsToInputCost")} />
                     </Form.Item>
                     <Form.Item
-                      label="Cache Write Cost (per 1M tokens)"
+                      label={t("advancedSettings.cacheWriteCost")}
                       name="cache_creation_input_token_cost"
                       rules={[{ validator: validateNumber }]}
-                      tooltip="If left blank, defaults to Input Cost (the backend falls back to input_cost_per_token when no cache-write rate is set)."
+                      tooltip={t("advancedSettings.cacheWriteCostTooltip")}
                       className="mb-4"
                     >
-                      <TextInput placeholder="Defaults to Input Cost if blank" />
+                      <TextInput placeholder={t("advancedSettings.defaultsToInputCost")} />
                     </Form.Item>
                   </>
                 ) : (
                   <Form.Item
-                    label="Cost Per Second"
+                    label={t("advancedSettings.costPerSecond")}
                     name="input_cost_per_second"
                     rules={[{ validator: validateNumber }]}
                     className="mb-4"
@@ -246,15 +248,15 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
             )}
 
             <Form.Item
-              label="Use in pass through routes"
+              label={t("advancedSettings.useInPassThroughRoutes")}
               name="use_in_pass_through"
               valuePropName="checked"
               className="mb-4 mt-4"
               tooltip={
                 <span>
-                  Allow using these credentials in pass through routes.{" "}
+                  {t("advancedSettings.useInPassThroughTooltip")}{" "}
                   <Link href="https://docs.litellm.ai/docs/pass_through/vertex_ai" target="_blank">
-                    Learn more
+                    {t("advancedSettings.learnMore")}
                   </Link>
                 </span>
               }
@@ -268,9 +270,9 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
               onCacheControlChange={handleCacheControlChange}
             />
             <Form.Item
-              label="Polyglot Params"
+              label={t("advancedSettings.litellmParams")}
               name="litellm_extra_params"
-              tooltip="Optional litellm params used for making a litellm.completion() call."
+              tooltip={t("advancedSettings.litellmParamsTooltip")}
               className="mb-4 mt-4"
               rules={[{ validator: formItemValidateJSON }]}
             >
@@ -287,17 +289,17 @@ const AdvancedSettings: React.FC<AdvancedSettingsProps> = ({
               <Col span={10}></Col>
               <Col span={10}>
                 <Text className="text-gray-600 text-sm">
-                  Pass JSON of litellm supported params{" "}
+                  {t("advancedSettings.litellmParamsHelpPre")}{" "}
                   <Link href="https://docs.litellm.ai/docs/completion/input" target="_blank">
-                    litellm.completion() call
+                    {t("advancedSettings.litellmParamsHelpLink")}
                   </Link>
                 </Text>
               </Col>
             </Row>
             <Form.Item
-              label="Model Info"
+              label={t("advancedSettings.modelInfo")}
               name="model_info_params"
-              tooltip="Optional model info params. Returned when calling `/model/info` endpoint."
+              tooltip={t("advancedSettings.modelInfoTooltip")}
               className="mb-0"
               rules={[{ validator: formItemValidateJSON }]}
             >
