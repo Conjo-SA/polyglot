@@ -716,24 +716,24 @@ else:
 ui_link = f"{server_root_path}/ui"
 fallback_login_link = f"{server_root_path}/fallback/login"
 model_hub_link = f"{server_root_path}/ui/model_hub_table"
-ui_message = f"👉 [```LiteLLM Admin Panel on /ui```]({ui_link}). Create, Edit Keys with SSO. Having issues? Try [```Fallback Login```]({fallback_login_link})"
-ui_message += "\n\n💸 [```LiteLLM Model Cost Map```](https://models.litellm.ai/)."
+ui_message = f"👉 [```Painel Admin Polyglot em /ui```]({ui_link}). Crie e edite chaves com SSO. Com problemas? Tente [```Login Alternativo```]({fallback_login_link})"
+ui_message += "\n\n💸 [```Tabela de Custos de Modelos Polyglot```](https://models.litellm.ai/)."
 
-ui_message += f"\n\n🔎 [```LiteLLM Model Hub```]({model_hub_link}). See available models on the proxy. [**Docs**](https://docs.litellm.ai/docs/proxy/ai_hub)"
+ui_message += f"\n\n🔎 [```Model Hub Polyglot```]({model_hub_link}). Veja os modelos disponíveis no proxy. [**Docs**](https://docs.litellm.ai/docs/proxy/ai_hub)"
 
 custom_swagger_message = (
-    "[**Customize Swagger Docs**](https://docs.litellm.ai/docs/proxy/enterprise#swagger-docs---custom-routes--branding)"
+    "[**Personalizar Docs do Swagger**](https://docs.litellm.ai/docs/proxy/enterprise#swagger-docs---custom-routes--branding)"
 )
 
 ### CUSTOM BRANDING [ENTERPRISE FEATURE] ###
-_title = os.getenv("DOCS_TITLE", "LiteLLM API") if premium_user else "LiteLLM API"
+_title = os.getenv("DOCS_TITLE", "Polyglot API") if premium_user else "Polyglot API"
 _description = (
     os.getenv(
         "DOCS_DESCRIPTION",
-        f"Enterprise Edition \n\nProxy Server to call 100+ LLMs in the OpenAI format. {custom_swagger_message}\n\n{ui_message}",
+        f"Edição Enterprise \n\nProxy Server para chamar 100+ LLMs no formato OpenAI. {custom_swagger_message}\n\n{ui_message}",
     )
     if premium_user
-    else f"Proxy Server to call 100+ LLMs in the OpenAI format. {custom_swagger_message}\n\n{ui_message}"
+    else f"Proxy Server para chamar 100+ LLMs no formato OpenAI. {custom_swagger_message}\n\n{ui_message}"
 )
 
 
