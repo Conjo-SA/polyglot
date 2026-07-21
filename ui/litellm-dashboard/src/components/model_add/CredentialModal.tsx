@@ -2,6 +2,7 @@ import { TextInput } from "@tremor/react";
 import { Select as AntdSelect, Button, Form, Modal, Tooltip, Typography } from "antd";
 import type { UploadProps } from "antd/es/upload";
 import { useState } from "react";
+import { useTranslation } from "react-i18next";
 import ProviderSpecificFields from "../add_model/provider_specific_fields";
 import { CredentialItem } from "../networking";
 import { Providers, providerLogoMap } from "../provider_info_helpers";
@@ -27,6 +28,7 @@ export default function CredentialModal({
   mode,
   existingCredential = null,
 }: CredentialModalProps) {
+  const { t } = useTranslation();
   const isEdit = mode === "edit";
   const [form] = Form.useForm();
   const [selectedProvider, setSelectedProvider] = useState<Providers>(
@@ -61,7 +63,7 @@ export default function CredentialModal({
 
   return (
     <Modal
-      title={isEdit ? "Edit Credential" : "Add New Credential"}
+      title={isEdit ? t("credentialModal.editTitle") : t("credentialModal.addTitle")}
       open={open}
       onCancel={closeAndReset}
       footer={null}
@@ -70,18 +72,18 @@ export default function CredentialModal({
     >
       <Form form={form} onFinish={handleSubmit} layout="vertical" initialValues={initialValues}>
         <Form.Item
-          label="Credential Name:"
+          label={t("credentialModal.credentialNameLabel")}
           name="credential_name"
-          rules={[{ required: true, message: "Credential name is required" }]}
+          rules={[{ required: true, message: t("credentialModal.credentialNameRequired") }]}
         >
-          <TextInput placeholder="Enter a friendly name for these credentials" disabled={isEdit} />
+          <TextInput placeholder={t("credentialModal.credentialNamePlaceholder")} disabled={isEdit} />
         </Form.Item>
 
         <Form.Item
-          rules={[{ required: true, message: "Required" }]}
-          label="Provider:"
+          rules={[{ required: true, message: t("credentialModal.requiredField") }]}
+          label={t("credentialModal.provider")}
           name="custom_llm_provider"
-          tooltip="Helper to auto-populate provider specific fields"
+          tooltip={t("credentialModal.providerTooltip")}
         >
           <AntdSelect
             showSearch
@@ -118,15 +120,15 @@ export default function CredentialModal({
         <ProviderSpecificFields selectedProvider={selectedProvider} uploadProps={uploadProps} />
 
         <div className="flex justify-between items-center">
-          <Tooltip title="Get help on our github">
-            <Link href="https://github.com/BerriAI/litellm/issues">Need Help?</Link>
+          <Tooltip title={t("credentialModal.needHelpTooltip")}>
+            <Link href="https://github.com/BerriAI/litellm/issues">{t("credentialModal.needHelp")}</Link>
           </Tooltip>
 
           <div>
             <Button onClick={closeAndReset} style={{ marginRight: 10 }}>
-              Cancel
+              {t("credentialModal.cancel")}
             </Button>
-            <Button htmlType="submit">{isEdit ? "Update Credential" : "Add Credential"}</Button>
+            <Button htmlType="submit">{isEdit ? t("credentialModal.updateCredential") : t("credentialModal.addCredential")}</Button>
           </div>
         </div>
       </Form>
