@@ -78,6 +78,8 @@ import type { Organization } from "./networking";
 import SidebarAccountMenu from "./SidebarAccountMenu/SidebarAccountMenu";
 import SidebarUsageCard from "./SidebarUsageCard";
 import { MIGRATED_PAGES, migratedHref, legacyPageHref } from "@/utils/migratedPages";
+import { useTranslation } from "react-i18next";
+import type { TFunction } from "i18next";
 
 const ICON = { strokeWidth: 1.75 } as const;
 
@@ -328,6 +330,106 @@ const menuGroups: MenuGroup[] = [
   },
 ];
 
+// Maps the raw (English) groupLabel/item.key values above to i18n keys, so the
+// menuGroups data structure itself (used for matching/filtering) never needs to change.
+const GROUP_I18N_KEYS: Record<string, string> = {
+  "AI GATEWAY": "nav.groups.aiGateway",
+  OBSERVABILITY: "nav.groups.observability",
+  "ACCESS CONTROL": "nav.groups.accessControl",
+  "DEVELOPER TOOLS": "nav.groups.developerTools",
+  SETTINGS: "nav.groups.settings",
+};
+
+const ITEM_I18N_KEYS: Record<string, string> = {
+  "api-keys": "nav.items.virtualKeys",
+  "llm-playground": "nav.items.playground",
+  models: "nav.items.modelsAndEndpoints",
+  agentic: "nav.items.agentic",
+  agents: "nav.items.agents",
+  workflows: "nav.items.workflowRuns",
+  memory: "nav.items.memory",
+  "mcp-servers": "nav.items.mcpServers",
+  skills: "nav.items.skills",
+  guardrails: "nav.items.guardrails",
+  policies: "nav.items.policies",
+  tools: "nav.items.tools",
+  "search-tools": "nav.items.searchTools",
+  "vector-stores": "nav.items.vectorStores",
+  "tool-policies": "nav.items.toolPolicies",
+  new_usage: "nav.items.usage",
+  "cost-optimization": "nav.items.costOptimization",
+  logs: "nav.items.logs",
+  "guardrails-monitor": "nav.items.guardrailsMonitor",
+  teams: "nav.items.teams",
+  users: "nav.items.internalUsers",
+  organizations: "nav.items.organizations",
+  "access-groups": "nav.items.accessGroups",
+  budgets: "nav.items.budgets",
+  api_ref: "nav.items.apiReference",
+  "model-hub-table": "nav.items.aiHub",
+  "learning-resources": "nav.items.learningResources",
+  caching: "nav.items.caching",
+  experimental: "nav.items.experimental",
+  prompts: "nav.items.prompts",
+  "transform-request": "nav.items.apiPlayground",
+  "tag-management": "nav.items.tagManagement",
+  "4": "nav.items.oldUsage",
+  "router-settings": "nav.items.routerSettings",
+  "logging-and-alerts": "nav.items.loggingAndAlerts",
+  "cost-tracking": "nav.items.costTracking",
+  "ui-theme": "nav.items.uiTheme",
+  // JSX-labeled items (rendered with a badge) — plain-text translation used for
+  // the breadcrumb / collapsed tooltip, where the badge itself isn't shown.
+  projects: "nav.items.projects",
+  settings: "nav.items.settings",
+  "admin-panel": "nav.items.adminSettings",
+};
+
+// Translates a group's label for display, keeping the original English string as the lookup key.
+const translateGroupLabel = (t: TFunction, groupLabel: string): string =>
+  GROUP_I18N_KEYS[groupLabel] ? t(GROUP_I18N_KEYS[groupLabel]) : groupLabel;
+
+// Translates an item's label for display. Items with a JSX label (badge next to text)
+// get their text re-built with the translated word so the badge is preserved.
+const translateItemLabel = (t: TFunction, item: MenuItem): React.ReactNode => {
+  const i18nKey = ITEM_I18N_KEYS[item.key];
+  if (!i18nKey) return item.label;
+
+  if (item.key === "projects") {
+    return (
+      <span className="flex items-center gap-2">
+        {t(i18nKey)} <BetaBadge />
+      </span>
+    );
+  }
+  if (item.key === "settings") {
+    return (
+      <span className="flex items-center gap-2">
+        {t(i18nKey)} <NewBadge />
+      </span>
+    );
+  }
+  if (item.key === "admin-panel") {
+    return (
+      <span className="flex items-center gap-2">
+        {t(i18nKey)}{" "}
+        <NewBadge dot>
+          <span />
+        </NewBadge>
+      </span>
+    );
+  }
+  return t(i18nKey);
+};
+
+// Recursively applies translated labels to a list of menu items (and their children).
+const translateItems = (t: TFunction, items: MenuItem[]): MenuItem[] =>
+  items.map((item) => ({
+    ...item,
+    label: translateItemLabel(t, item),
+    children: item.children ? translateItems(t, item.children) : undefined,
+  }));
+
 const findParentKey = (page: string): string | null => {
   for (const group of menuGroups) {
     for (const item of group.items) {
@@ -365,14 +467,20 @@ const prettify = (key: string): string =>
     .join(" ");
 
 // Breadcrumb ("Section" / "Page") for the top bar, derived from the same nav config.
-export const getBreadcrumb = (page: string): { section: string | null; title: string } => {
+// Pass the `t` function from useTranslation() to get localized titles; omitting it
+// falls back to the raw English labels (kept for any callers outside a translation context).
+export const getBreadcrumb = (page: string, t?: TFunction): { section: string | null; title: string } => {
+  const titleFor = (item: MenuItem): string => {
+    const i18nKey = ITEM_I18N_KEYS[item.key];
+    if (t && i18nKey) return t(i18nKey);
+    return typeof item.label === "string" ? item.label : prettify(item.key);
+  };
   for (const group of menuGroups) {
     for (const item of group.items) {
-      const section = SECTION_DISPLAY[group.groupLabel] ?? group.groupLabel;
-      if (item.page === page)
-        return { section, title: typeof item.label === "string" ? item.label : prettify(item.key) };
+      const section = t ? translateGroupLabel(t, group.groupLabel) : (SECTION_DISPLAY[group.groupLabel] ?? group.groupLabel);
+      if (item.page === page) return { section, title: titleFor(item) };
       const child = item.children?.find((c) => c.page === page);
-      if (child) return { section, title: typeof child.label === "string" ? child.label : prettify(child.key) };
+      if (child) return { section, title: titleFor(child) };
     }
   }
   return { section: null, title: prettify(page) };
@@ -390,6 +498,7 @@ const Sidebar_: React.FC<SidebarProps> = ({
   disableVectorStoresForInternalUsers,
   allowVectorStoresForTeamAdmins,
 }) => {
+  const { t } = useTranslation();
   const { userId, accessToken, userRole } = useAuthorized();
   const { data: organizations } = useOrganizations();
   const { data: teams } = useTeams();
@@ -467,7 +576,11 @@ const Sidebar_: React.FC<SidebarProps> = ({
 
   const visibleGroups = menuGroups
     .filter((group) => !group.roles || group.roles.includes(userRole))
-    .map((group) => ({ groupLabel: group.groupLabel, items: filterItemsByRole(group.items) }))
+    .map((group) => ({
+      groupLabel: group.groupLabel,
+      groupLabelText: translateGroupLabel(t, group.groupLabel),
+      items: translateItems(t, filterItemsByRole(group.items)),
+    }))
     .filter((group) => group.items.length > 0);
 
   const toggleGroup = (key: string) => {
@@ -608,7 +721,7 @@ const Sidebar_: React.FC<SidebarProps> = ({
           {visibleGroups.map((group, gi) => (
             <SidebarGroup key={group.groupLabel}>
               {gi > 0 && <SidebarSeparator className="hidden group-data-[collapsed=true]/sidebar:block" />}
-              <SidebarGroupLabel>{group.groupLabel}</SidebarGroupLabel>
+              <SidebarGroupLabel>{group.groupLabelText}</SidebarGroupLabel>
               <SidebarMenu>{group.items.map((item) => renderItem(item))}</SidebarMenu>
             </SidebarGroup>
           ))}
