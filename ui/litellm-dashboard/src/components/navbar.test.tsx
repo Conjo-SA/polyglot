@@ -237,7 +237,7 @@ describe("Navbar", () => {
 
     renderWithProviders(<Navbar {...defaultProps} />);
 
-    const logoImg = screen.getByAltText("LiteLLM Brand");
+    const logoImg = screen.getByAltText("Polyglot Brand");
     expect(logoImg).toHaveAttribute("src", "https://example.com/custom-logo.png");
 
     // Reset mock

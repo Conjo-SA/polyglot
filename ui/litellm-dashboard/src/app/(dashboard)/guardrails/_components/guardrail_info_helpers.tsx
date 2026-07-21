@@ -18,7 +18,7 @@ export const populateGuardrailProviders = (providerParamsResponse: Record<string
   providers.PresidioPII = "Presidio PII";
   providers.Bedrock = "Bedrock Guardrail";
   providers.Lakera = "Lakera";
-  providers.LlmAsAJudge = "LiteLLM LLM as a Judge";
+  providers.LlmAsAJudge = "Polyglot LLM as a Judge";
 
   // Add dynamic providers from API response
   Object.entries(providerParamsResponse).forEach(([key, value]) => {
@@ -128,7 +128,7 @@ export const shouldRenderContentFilterConfigSettings = (provider: string | null)
   // Check both dynamic and legacy providers
   const currentProviders = getGuardrailProviders();
   const providerEnum = currentProviders[provider as keyof typeof currentProviders];
-  return providerEnum === "LiteLLM Content Filter";
+  return providerEnum === "Polyglot Content Filter";
 };
 
 export const shouldRenderLLMJudgeFields = (provider: string | null) => {
@@ -162,8 +162,8 @@ export const guardrailLogoMap: Record<string, string> = {
   "Prompt Security": `${asset_logos_folder}prompt_security.png`,
   PromptGuard: `${asset_logos_folder}promptguard.svg`,
   XecGuard: `${asset_logos_folder}xecguard.svg`,
-  "LiteLLM Content Filter": `${asset_logos_folder}litellm_logo.jpg`,
-  "LiteLLM LLM as a Judge": `${asset_logos_folder}litellm_logo.jpg`,
+  "Polyglot Content Filter": `${asset_logos_folder}litellm_logo.jpg`,
+  "Polyglot LLM as a Judge": `${asset_logos_folder}litellm_logo.jpg`,
   Akto: `${asset_logos_folder}akto.svg`,
   "DeepKeep AI Firewall": `${asset_logos_folder}deepkeep.svg`,
   "Qostodian Nexus": `${asset_logos_folder}qohash.jpg`,

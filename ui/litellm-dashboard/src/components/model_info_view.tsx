@@ -306,13 +306,13 @@ export default function ModelInfoView({
       if (!accessToken) return;
       setIsSaving(true);
 
-      // Parse LiteLLM extra params from JSON text area
+      // Parse Polyglot extra params from JSON text area
       let parsedExtraParams: Record<string, any> = {};
       try {
         parsedExtraParams = values.litellm_extra_params ? JSON.parse(values.litellm_extra_params) : {};
         delete parsedExtraParams.litellm_credential_name;
       } catch (e) {
-        NotificationsManager.fromBackend("Invalid JSON in LiteLLM Params");
+        NotificationsManager.fromBackend("Invalid JSON in Polyglot Params");
         setIsSaving(false);
         return;
       }
@@ -688,7 +688,7 @@ export default function ModelInfoView({
                 </div>
               </Card>
               <Card>
-                <Text>LiteLLM Model</Text>
+                <Text>Polyglot Model</Text>
                 <div className="mt-2 overflow-hidden">
                   <Tooltip title={modelData.litellm_model_name || "Not Set"}>
                     <div className="break-all text-sm font-medium leading-relaxed cursor-pointer">
@@ -842,10 +842,10 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">LiteLLM Model Name</Text>
+                        <Text className="font-medium">Polyglot Model Name</Text>
                         {isEditing ? (
                           <Form.Item name="litellm_model_name" className="mb-0">
-                            <TextInput placeholder="Enter LiteLLM model name" />
+                            <TextInput placeholder="Enter Polyglot model name" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">{localModelData.litellm_model_name}</div>
@@ -1360,8 +1360,8 @@ export default function ModelInfoView({
                       </div>
                       <div>
                         <Text className="font-medium">
-                          LiteLLM Params
-                          <Tooltip title="Optional litellm params used for making a litellm.completion() call. Some params are automatically added by LiteLLM.">
+                          Polyglot Params
+                          <Tooltip title="Optional litellm params used for making a litellm.completion() call. Some params are automatically added by Polyglot.">
                             <a
                               href="https://docs.litellm.ai/docs/completion/input"
                               target="_blank"
@@ -1447,7 +1447,7 @@ export default function ModelInfoView({
             value: modelData?.model_name || "Not Set",
           },
           {
-            label: "LiteLLM Model Name",
+            label: "Polyglot Model Name",
             value: modelData?.litellm_model_name || "Not Set",
           },
           {
