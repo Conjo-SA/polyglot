@@ -14,7 +14,7 @@ FROM $UV_IMAGE AS uvbin
 # Admin UI builder. Pinned to the build platform so the architecture-independent
 # Next.js static export compiles once natively even in a multi-arch build,
 # instead of once per target arch under QEMU.
-FROM --platform=$BUILDPLATFORM $UI_BUILD_IMAGE AS ui-builder
+FROM $UI_BUILD_IMAGE AS ui-builder
 
 ENV NEXT_TELEMETRY_DISABLED=1 \
     npm_config_fund=false \
