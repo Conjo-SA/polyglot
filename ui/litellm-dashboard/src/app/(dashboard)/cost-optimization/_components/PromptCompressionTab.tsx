@@ -79,7 +79,7 @@ const PromptCompressionTab: React.FC<PromptCompressionTabProps> = ({ accessToken
         </CardHeader>
         <CardContent>
           <p className="mb-4 text-sm text-muted-foreground">
-            Headroom is a native LiteLLM guardrail that compresses your prompts before they reach the model, so you pay
+            Headroom is a native Polyglot guardrail that compresses your prompts before they reach the model, so you pay
             for fewer input tokens. The tokens it removes are priced and shown on the Usage tab as compression savings.{" "}
             <a
               href="https://docs.litellm.ai/docs/proxy/headroom"
@@ -138,7 +138,7 @@ const PromptCompressionTab: React.FC<PromptCompressionTabProps> = ({ accessToken
             <Form.Item
               name="apiBase"
               label="Headroom API base"
-              tooltip="Base URL of your Headroom compression service (LiteLLM calls its /v1/compress endpoint)"
+              tooltip="Base URL of your Headroom compression service (Polyglot calls its /v1/compress endpoint)"
               extra="The URL where your Headroom compression service is hosted"
               rules={[{ required: true, message: "API base is required" }]}
             >
@@ -150,7 +150,7 @@ const PromptCompressionTab: React.FC<PromptCompressionTabProps> = ({ accessToken
             <div className="mb-4 rounded-lg border border-yellow-200 bg-yellow-50 p-3">
               <p className="text-sm text-yellow-800">
                 Applying compression to all requests is available to all users. Enabling it selectively per key or team
-                is a LiteLLM Enterprise feature. Get a trial key{" "}
+                is a Polyglot Enterprise feature. Get a trial key{" "}
                 <a
                   href="https://www.litellm.ai/#pricing"
                   target="_blank"

@@ -732,7 +732,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
 
 client = openai.OpenAI(
     api_key="your_api_key",
-    base_url="${getProxyBaseUrl()}"  # Your LiteLLM Proxy URL
+    base_url="${getProxyBaseUrl()}"  # Your Polyglot Proxy URL
 )
 
 response = client.chat.completions.create(

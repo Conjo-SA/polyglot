@@ -218,7 +218,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
         };
         setToken(mcpServer.server_id, browserHeldToken, userID);
         NotificationsManager.success(
-          "Token held for this browser session. Tools can now be loaded and configured; the token is not saved to LiteLLM.",
+          "Token held for this browser session. Tools can now be loaded and configured; the token is not saved to Polyglot.",
         );
         return;
       }
@@ -1086,7 +1086,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
                   Max Concurrent Requests (optional)
-                  <Tooltip title="Maximum number of tool calls LiteLLM will run against this server at the same time. Additional calls wait for a free slot. Leave blank for no limit.">
+                  <Tooltip title="Maximum number of tool calls Polyglot will run against this server at the same time. Additional calls wait for a free slot. Leave blank for no limit.">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
@@ -1115,7 +1115,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                     <Select.Option value="oauth2">OAuth</Select.Option>
                     <Select.Option value="oauth2_token_exchange">OAuth Token Exchange (OBO)</Select.Option>
                     <Select.Option value="aws_sigv4">AWS SigV4 (Bedrock AgentCore MCPs)</Select.Option>
-                    <Select.Option value="true_passthrough">True Passthrough (no LiteLLM auth)</Select.Option>
+                    <Select.Option value="true_passthrough">True Passthrough (no Polyglot auth)</Select.Option>
                     <Select.Option value="oauth_delegate">
                       OAuth Delegate (client-supplied upstream token)
                     </Select.Option>
@@ -1250,7 +1250,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                     showIcon
                     className="mb-4 rounded-lg"
                     message="This server has no OAuth flow set"
-                    description="Choose Machine-to-Machine (M2M) or Interactive (PKCE) so LiteLLM authenticates it the way you intend, then save. Until it is set, LiteLLM falls back to interactive per-user auth and treats a machine-to-machine credential shape conservatively."
+                    description="Choose Machine-to-Machine (M2M) or Interactive (PKCE) so Polyglot authenticates it the way you intend, then save. Until it is set, Polyglot falls back to interactive per-user auth and treats a machine-to-machine credential shape conservatively."
                   />
                 )}
                 <Form.Item
@@ -1544,7 +1544,7 @@ const MCPServerEdit: React.FC<MCPServerEditProps> = ({
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
                       AWS Role ARN
-                      <Tooltip title="Optional. IAM role ARN to assume via STS before signing. If set, LiteLLM calls sts:AssumeRole to get temporary credentials.">
+                      <Tooltip title="Optional. IAM role ARN to assume via STS before signing. If set, Polyglot calls sts:AssumeRole to get temporary credentials.">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>

@@ -451,7 +451,7 @@ export default function KeyInfoView({
         backButtonText={backButtonText}
         regenerateDisabled={!premiumUser}
         regenerateTooltip={
-          !premiumUser ? "This is a LiteLLM Enterprise feature, and requires a valid key to use." : undefined
+          !premiumUser ? "This is a Polyglot Enterprise feature, and requires a valid key to use." : undefined
         }
       />
 
