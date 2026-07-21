@@ -9,6 +9,7 @@ import { Providers } from "../provider_info_helpers";
 import AddAutoRouterTab from "./add_auto_router_tab";
 import AddModelForm from "./AddModelForm";
 import { handleAddAutoRouterSubmit } from "./handle_add_auto_router_submit";
+import { useTranslation } from "react-i18next";
 
 interface AddModelTabProps {
   form: FormInstance; // For the Add Model tab
@@ -45,6 +46,7 @@ const AddModelTab: React.FC<AddModelTabProps> = ({
 }) => {
   // Create separate form instance for auto router
   const [autoRouterForm] = Form.useForm();
+  const { t } = useTranslation();
 
   const handleAutoRouterOk = () => {
     autoRouterForm
@@ -61,8 +63,8 @@ const AddModelTab: React.FC<AddModelTabProps> = ({
     <>
       <TabGroup className="w-full">
         <TabList className="mb-4">
-          <Tab>Add Model</Tab>
-          <Tab>Add Auto Router</Tab>
+          <Tab>{t("addModel.title")}</Tab>
+          <Tab>{t("addAutoRouter.tabLabel")}</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
