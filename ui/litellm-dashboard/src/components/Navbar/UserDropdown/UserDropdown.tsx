@@ -18,11 +18,14 @@ import {
   UserOutlined,
 } from "@ant-design/icons";
 import type { MenuProps } from "antd";
-import { Button, Divider, Dropdown, Space, Switch, Tag, Tooltip, Typography } from "antd";
-import { ChevronsUpDown } from "lucide-react";
+import { Button, Divider, Dropdown, Select, Space, Switch, Tag, Tooltip, Typography } from "antd";
+import { ChevronsUpDown, Languages } from "lucide-react";
 import { Avatar, AvatarFallback } from "@/components/ui/avatar";
 import { cn } from "@/lib/cva.config";
 import React, { useEffect, useState } from "react";
+import { useTranslation } from "react-i18next";
+import { useLanguage } from "@/contexts/I18nProvider";
+import type { SupportedLanguage } from "@/i18n/config";
 
 const { Text } = Typography;
 
@@ -74,6 +77,8 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout, variant = "navbar
   const disableBlogPosts = useDisableBlogPosts();
   const disableBouncingIcon = useDisableBouncingIcon();
   const [disableShowNewBadge, setDisableShowNewBadge] = useState(false);
+  const { t } = useTranslation();
+  const { language, setLanguage } = useLanguage();
 
   useEffect(() => {
     const storedValue = getLocalStorageItem("disableShowNewBadge");
@@ -86,7 +91,7 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout, variant = "navbar
       label: (
         <Space>
           <LogoutOutlined />
-          Logout
+          {t("common.logout", { defaultValue: "Logout" })}
         </Space>
       ),
       onClick: onLogout,
@@ -126,6 +131,23 @@ const UserDropdown: React.FC<UserDropdownProps> = ({ onLogout, variant = "navbar
           <Text type="secondary">Role</Text>
         </Space>
         <Text>{userRole}</Text>
+      </Space>
+      <Divider style={{ margin: "8px 0" }} />
+      <Space style={{ width: "100%", justifyContent: "space-between" }}>
+        <Space>
+          <Languages size={14} />
+          <Text type="secondary">{t("language.label")}</Text>
+        </Space>
+        <Select<SupportedLanguage>
+          size="small"
+          value={language}
+          onChange={(value) => setLanguage(value)}
+          style={{ width: 140 }}
+          options={[
+            { value: "pt-BR", label: t("language.portuguese") },
+            { value: "en", label: t("language.english") },
+          ]}
+        />
       </Space>
       <Divider style={{ margin: "8px 0" }} />
       <Space style={{ width: "100%", justifyContent: "space-between" }}>
