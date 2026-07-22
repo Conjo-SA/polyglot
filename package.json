@@ -1,4 +1,7 @@
 {
+  "scripts": {
+    "start": "uvicorn litellm.proxy.proxy_server:app --reload --port 4000"
+  },
   "dependencies": {
     "prism-react-renderer": "2.4.1",
     "prisma": "5.17.0",
