@@ -2,6 +2,7 @@ import React, { useState, useEffect } from "react";
 import { Text, Badge } from "@tremor/react";
 import { ServerIcon, ChevronDownIcon, ChevronRightIcon } from "@heroicons/react/outline";
 import { Tooltip } from "antd";
+import { useTranslation } from "react-i18next";
 import { fetchMCPServers, fetchMCPToolsets } from "../networking";
 import { MCPServer, MCPToolset } from "../mcp_tools/types";
 import { ALL_PROXY_MCP_SERVERS_SENTINEL, NO_MCP_SERVERS_SENTINEL } from "../mcp_tools/constants";
@@ -21,6 +22,7 @@ export function MCPServerPermissions({
   mcpToolsets = [],
   accessToken,
 }: MCPServerPermissionsProps) {
+  const { t } = useTranslation();
   const [mcpServerDetails, setMCPServerDetails] = useState<MCPServer[]>([]);
   const [toolsetDetails, setToolsetDetails] = useState<MCPToolset[]>([]);
   const [expandedServers, setExpandedServers] = useState<Set<string>>(new Set());
@@ -111,23 +113,21 @@ export function MCPServerPermissions({
     <div className="space-y-3">
       <div className="flex items-center gap-2">
         <ServerIcon className="h-4 w-4 text-blue-600" />
-        <Text className="font-semibold text-gray-900">MCP Servers</Text>
+        <Text className="font-semibold text-gray-900">{t("objectPermissionsView.mcpServers")}</Text>
         <Badge color={blocksAllMcpServers ? "red" : "blue"} size="xs">
-          {blocksAllMcpServers ? "Blocked" : grantsAllProxyMcpServers ? "All" : totalCount}
+          {blocksAllMcpServers ? t("objectPermissionsView.blocked") : grantsAllProxyMcpServers ? t("objectPermissionsView.all") : totalCount}
         </Badge>
       </div>
 
       {blocksAllMcpServers ? (
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-red-50 border border-red-200">
           <ServerIcon className="h-4 w-4 text-red-400" />
-          <Text className="text-red-700 text-sm">
-            No MCP servers — this key is blocked from all MCP servers, including its team&apos;s servers
-          </Text>
+          <Text className="text-red-700 text-sm">{t("objectPermissionsView.noMcpServersBlocked")}</Text>
         </div>
       ) : grantsAllProxyMcpServers ? (
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-blue-50 border border-blue-200">
           <ServerIcon className="h-4 w-4 text-blue-400" />
-          <Text className="text-blue-700 text-sm">All Proxy MCP Servers</Text>
+          <Text className="text-blue-700 text-sm">{t("objectPermissionsView.allProxyMcpServers")}</Text>
         </div>
       ) : totalCount > 0 ? (
         <div className="max-h-[400px] overflow-y-auto space-y-2 pr-1">
@@ -146,7 +146,7 @@ export function MCPServerPermissions({
                 >
                   <div className="flex items-center gap-2 flex-1 min-w-0">
                     {item.type === "server" ? (
-                      <Tooltip title={`Full ID: ${item.value}`} placement="top">
+                      <Tooltip title={t("objectPermissionsView.fullId", { id: item.value })} placement="top">
                         <div className="inline-flex items-center gap-2 min-w-0">
                           <span className="inline-block w-1.5 h-1.5 bg-blue-500 rounded-full shrink-0"></span>
                           <span className="text-sm font-medium text-gray-900 truncate">
@@ -159,7 +159,7 @@ export function MCPServerPermissions({
                         <span className="inline-block w-1.5 h-1.5 bg-green-500 rounded-full shrink-0"></span>
                         <span className="text-sm font-medium text-gray-900 truncate">{item.value}</span>
                         <span className="ml-1 px-1.5 py-0.5 text-[9px] font-semibold text-green-600 bg-green-50 border border-green-200 rounded-sm uppercase tracking-wide shrink-0">
-                          Group
+                          {t("objectPermissionsView.group")}
                         </span>
                       </div>
                     )}
@@ -168,7 +168,7 @@ export function MCPServerPermissions({
                   {hasToolRestrictions && (
                     <div className="flex items-center gap-1 shrink-0 whitespace-nowrap">
                       <span className="text-xs font-medium text-gray-600">{toolsForServer.length}</span>
-                      <span className="text-xs text-gray-500">{toolsForServer.length === 1 ? "tool" : "tools"}</span>
+                      <span className="text-xs text-gray-500">{toolsForServer.length === 1 ? t("objectPermissionsView.tool") : t("objectPermissionsView.tools")}</span>
                       {isExpanded ? (
                         <ChevronDownIcon className="h-3.5 w-3.5 text-gray-400 ml-0.5" />
                       ) : (
@@ -218,13 +218,13 @@ export function MCPServerPermissions({
                         {detail?.toolset_name ?? toolsetId}
                       </span>
                       <span className="ml-1 px-1.5 py-0.5 text-[9px] font-semibold text-purple-600 bg-purple-50 border border-purple-200 rounded-sm uppercase tracking-wide shrink-0">
-                        Toolset
+                        {t("objectPermissionsView.toolset")}
                       </span>
                     </div>
                     {toolCount > 0 && (
                       <div className="flex items-center gap-1 shrink-0 whitespace-nowrap">
                         <span className="text-xs font-medium text-gray-600">{toolCount}</span>
-                        <span className="text-xs text-gray-500">{toolCount === 1 ? "tool" : "tools"}</span>
+                        <span className="text-xs text-gray-500">{toolCount === 1 ? t("objectPermissionsView.tool") : t("objectPermissionsView.tools")}</span>
                         {isExpanded ? (
                           <ChevronDownIcon className="h-3.5 w-3.5 text-gray-400 ml-0.5" />
                         ) : (
@@ -256,7 +256,7 @@ export function MCPServerPermissions({
       ) : (
         <div className="flex items-center gap-2 px-3 py-2 rounded-lg bg-gray-50 border border-gray-200">
           <ServerIcon className="h-4 w-4 text-gray-400" />
-          <Text className="text-gray-500 text-sm">No MCP servers, access groups, or toolsets configured</Text>
+          <Text className="text-gray-500 text-sm">{t("objectPermissionsView.noMcpConfigured")}</Text>
         </div>
       )}
     </div>
