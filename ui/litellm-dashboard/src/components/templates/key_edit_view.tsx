@@ -99,7 +99,7 @@ export function KeyEditView({
   premiumUser = false,
 }: KeyEditViewProps) {
   const { t } = useTranslation();
-  const canEditGuardrails = premiumUser || (userRole != null && rolesWithWriteAccess.includes(userRole));
+  const canEditGuardrails = userRole != null && rolesWithWriteAccess.includes(userRole);
   const [form] = Form.useForm();
   const [promptsList, setPromptsList] = useState<string[]>([]);
   const [tagsList, setTagsList] = useState<Record<string, Tag>>({});
@@ -626,7 +626,7 @@ export function KeyEditView({
               form.setFieldValue("policies", v);
             }}
             accessToken={accessToken}
-            disabled={!premiumUser}
+            disabled={false}
           />
         )}
       </Form.Item>
@@ -645,21 +645,16 @@ export function KeyEditView({
       </Form.Item>
 
       <Form.Item label={t("keyEditView.prompts")} name="prompts">
-        <Tooltip title={!premiumUser ? t("keyEditView.promptsPremiumTooltip") : ""} placement="top">
-          <Select
-            mode="tags"
-            style={{ width: "100%" }}
-            disabled={!premiumUser}
-            placeholder={
-              !premiumUser
-                ? t("keyEditView.promptsPremiumPlaceholder")
-                : Array.isArray(keyData.metadata?.prompts) && keyData.metadata.prompts.length > 0
-                  ? `Current: ${keyData.metadata.prompts.join(", ")}`
-                  : t("keyEditView.selectOrEnterPrompts")
-            }
-            options={promptsList.map((name) => ({ value: name, label: name }))}
-          />
-        </Tooltip>
+        <Select
+          mode="tags"
+          style={{ width: "100%" }}
+          placeholder={
+            Array.isArray(keyData.metadata?.prompts) && keyData.metadata.prompts.length > 0
+              ? `Current: ${keyData.metadata.prompts.join(", ")}`
+              : t("keyEditView.selectOrEnterPrompts")
+          }
+          options={promptsList.map((name) => ({ value: name, label: name }))}
+        />
       </Form.Item>
 
       <Form.Item
@@ -677,25 +672,17 @@ export function KeyEditView({
       </Form.Item>
 
       <Form.Item label={t("keyEditView.allowedPassThroughRoutes")} name="allowed_passthrough_routes">
-        <Tooltip
-          title={!premiumUser ? t("keyEditView.passThroughRoutesPremiumTooltip") : ""}
-          placement="top"
-        >
-          <PassThroughRoutesSelector
-            onChange={(values: string[]) => form.setFieldValue("allowed_passthrough_routes", values)}
-            value={form.getFieldValue("allowed_passthrough_routes")}
-            accessToken={accessToken || ""}
-            placeholder={
-              !premiumUser
-                ? t("keyEditView.passThroughRoutesPremiumPlaceholder")
-                : Array.isArray(keyData.metadata?.allowed_passthrough_routes) &&
-                    keyData.metadata.allowed_passthrough_routes.length > 0
-                  ? `Current: ${keyData.metadata.allowed_passthrough_routes.join(", ")}`
-                  : t("keyEditView.selectOrEnterPassThroughRoutes")
-            }
-            disabled={!premiumUser}
-          />
-        </Tooltip>
+        <PassThroughRoutesSelector
+          onChange={(values: string[]) => form.setFieldValue("allowed_passthrough_routes", values)}
+          value={form.getFieldValue("allowed_passthrough_routes")}
+          accessToken={accessToken || ""}
+          placeholder={
+            Array.isArray(keyData.metadata?.allowed_passthrough_routes) &&
+            keyData.metadata.allowed_passthrough_routes.length > 0
+              ? `Current: ${keyData.metadata.allowed_passthrough_routes.join(", ")}`
+              : t("keyEditView.selectOrEnterPassThroughRoutes")
+          }
+        />
       </Form.Item>
 
       <Form.Item label={t("objectPermissionsView.vectorStores")} name="vector_stores">
