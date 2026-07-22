@@ -21,6 +21,7 @@ import { Col, Grid, Icon, Tab, TabGroup, TabList, TabPanel, TabPanels } from "@t
 import type { UploadProps } from "antd";
 import { Form } from "antd";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
+import { useTranslation } from "react-i18next";
 import AddModelTab from "../../../components/add_model/add_model_tab";
 import HealthCheckComponent from "../../../components/model_dashboard/HealthCheckComponent";
 import ModelGroupAliasSettings from "../../../components/model_group_alias_settings";
@@ -53,6 +54,7 @@ interface RouterSettings {
 const HEALTH_PAGE_SIZE = 50;
 
 const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, teams }) => {
+  const { t } = useTranslation();
   const { accessToken, token, userRole, userId: userID } = useAuthorized();
   const [addModelForm] = Form.useForm();
   const [lastRefreshed, setLastRefreshed] = useState("");
@@ -178,9 +180,9 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
     },
     onChange(info) {
       if (info.file.status === "done") {
-        NotificationsManager.success(`${info.file.name} file uploaded successfully`);
+        NotificationsManager.success(t("models.fileUploadSuccess", { name: info.file.name }));
       } else if (info.file.status === "error") {
-        NotificationsManager.fromBackend(`${info.file.name} file upload failed.`);
+        NotificationsManager.fromBackend(t("models.fileUploadError", { name: info.file.name }));
       }
     },
   };
@@ -228,11 +230,11 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
       },
       {
         onSuccess: () => {
-          NotificationsManager.success("Retry settings saved successfully");
+          NotificationsManager.success(t("models.retrySaved"));
           loadRetrySettings();
         },
         onError: () => {
-          NotificationsManager.fromBackend("Failed to save retry settings");
+          NotificationsManager.fromBackend(t("models.retryFailed"));
         },
       },
     );
@@ -270,8 +272,8 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
           ?.map((field: any) => {
             return `${field.name.join(".")}: ${field.errors.join(", ")}`;
           })
-          .join(" | ") || "Unknown validation error";
-      NotificationsManager.fromBackend(`Please fill in the following required fields: ${errorMessages}`);
+          .join(" | ") || t("models.unknownValidationError");
+      NotificationsManager.fromBackend(t("models.fillRequiredFields", { errors: errorMessages }));
     }
   };
 
@@ -302,11 +304,11 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
           {/* Model Management Header */}
           <div className="flex justify-between items-center mb-4">
             <div>
-              <h2 className="text-lg font-semibold">Model Management</h2>
+              <h2 className="text-lg font-semibold">{t("models.title")}</h2>
               {!all_admin_roles.includes(userRole) ? (
-                <p className="text-sm text-gray-600">Add models for teams you are an admin for.</p>
+                <p className="text-sm text-gray-600">{t("models.subtitleNonAdmin")}</p>
               ) : (
-                <p className="text-sm text-gray-600">Add and manage models for the proxy</p>
+                <p className="text-sm text-gray-600">{t("models.subtitleAdmin")}</p>
               )}
             </div>
           </div>
@@ -339,7 +341,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
               const isAdmin = all_admin_roles.includes(userRole);
               const visibleTabs: Array<{ tab: React.ReactElement; panel: React.ReactElement }> = [
                 {
-                  tab: <Tab key="all-models">{isAdmin ? "All Models" : "Your Models"}</Tab>,
+                  tab: <Tab key="all-models">{isAdmin ? t("models.tabs.allModels") : t("models.tabs.yourModels")}</Tab>,
                   panel: (
                     <AllModelsTab
                       key="all-models"
@@ -355,7 +357,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
               ];
               if (!shouldHideAddModelTab) {
                 visibleTabs.push({
-                  tab: <Tab key="add-model">Add Model</Tab>,
+                  tab: <Tab key="add-model">{t("models.tabs.addModel")}</Tab>,
                   panel: (
                     <TabPanel key="add-model" className="h-full">
                       <AddModelTab
@@ -381,7 +383,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
               if (isAdmin) {
                 visibleTabs.push(
                   {
-                    tab: <Tab key="llm-credentials">LLM Credentials</Tab>,
+                    tab: <Tab key="llm-credentials">{t("models.tabs.llmCredentials")}</Tab>,
                     panel: (
                       <TabPanel key="llm-credentials">
                         <CredentialsPanel uploadProps={uploadProps} />
@@ -389,7 +391,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="pass-through">Pass-Through Endpoints</Tab>,
+                    tab: <Tab key="pass-through">{t("models.tabs.passThrough")}</Tab>,
                     panel: (
                       <TabPanel key="pass-through">
                         <PassThroughSettings
@@ -402,7 +404,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="health-status">Health Status</Tab>,
+                    tab: <Tab key="health-status">{t("models.tabs.healthStatus")}</Tab>,
                     panel: (
                       <TabPanel key="health-status">
                         <HealthCheckComponent
@@ -422,7 +424,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="model-retry-settings">Model Retry Settings</Tab>,
+                    tab: <Tab key="model-retry-settings">{t("models.tabs.retrySettings")}</Tab>,
                     panel: (
                       <ModelRetrySettingsTab
                         key="model-retry-settings"
@@ -440,7 +442,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="model-group-alias">Model Group Alias</Tab>,
+                    tab: <Tab key="model-group-alias">{t("models.tabs.groupAlias")}</Tab>,
                     panel: (
                       <TabPanel key="model-group-alias">
                         <ModelGroupAliasSettings
@@ -452,7 +454,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                     ),
                   },
                   {
-                    tab: <Tab key="price-data-reload">Price Data Reload</Tab>,
+                    tab: <Tab key="price-data-reload">{t("models.tabs.priceDataReload")}</Tab>,
                     panel: <PriceDataManagementTab key="price-data-reload" />,
                   },
                 );
@@ -464,10 +466,14 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                   className="gap-2 h-[75vh] w-full "
                 >
                   <TabList className="flex justify-between mt-2 w-full items-center">
-                    <div className="flex">{visibleTabs.map((t) => t.tab)}</div>
+                    <div className="flex">{visibleTabs.map((item) => item.tab)}</div>
 
                     <div className="flex items-center space-x-2 self-center">
-                      {lastRefreshed && <span className="text-xs text-gray-500">Last Refreshed: {lastRefreshed}</span>}
+                      {lastRefreshed && (
+                        <span className="text-xs text-gray-500">
+                          {t("models.lastRefreshed", { time: lastRefreshed })}
+                        </span>
+                      )}
                       <Icon
                         icon={RefreshIcon}
                         variant="shadow"
@@ -477,7 +483,7 @@ const ModelsAndEndpointsView: React.FC<ModelDashboardProps> = ({ premiumUser, te
                       />
                     </div>
                   </TabList>
-                  <TabPanels>{visibleTabs.map((t) => t.panel)}</TabPanels>
+                  <TabPanels>{visibleTabs.map((item) => item.panel)}</TabPanels>
                 </TabGroup>
               );
             })()
