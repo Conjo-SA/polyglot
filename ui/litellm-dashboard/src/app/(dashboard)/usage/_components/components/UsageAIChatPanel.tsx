@@ -243,7 +243,7 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({ open, onClose, acce
             <svg className="w-5 h-5 text-blue-600" viewBox="0 0 16 16" fill="currentColor">
               <path d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11 6.5 7.5 3 6l3.5-1.5L8 1zm4 7l.75 1.75L14.5 10.5l-1.75.75L12 13l-.75-1.75L9.5 10.5l1.75-.75L12 8zM4 9l.75 1.75L6.5 11.5l-1.75.75L4 14l-.75-1.75L1.5 11.5l1.75-.75L4 9z" />
             </svg>
-            <h3 className="text-base font-semibold text-gray-900">Ask AI</h3>
+            <h3 className="text-base font-semibold text-gray-900">Perguntar à IA</h3>
           </div>
           <button
             onClick={handleClose}
@@ -254,7 +254,7 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({ open, onClose, acce
             </svg>
           </button>
         </div>
-        <p className="text-xs text-gray-500">Ask about your spend, models, keys, and trends</p>
+        <p className="text-xs text-gray-500">Pergunte sobre seu gasto, modelos, chaves e tendências</p>
       </div>
 
       {/* Model selector */}

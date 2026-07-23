@@ -41,8 +41,8 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
   ];
 
   const tabs = [
-    { key: "overview", label: "Overview" },
-    { key: "usage", label: "How to Use" },
+    { key: "overview", label: "Visão Geral" },
+    { key: "usage", label: "Como Usar" },
   ];
 
   return (
@@ -100,14 +100,12 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
         <div style={{ display: "flex", gap: 64 }}>
           {/* Left column */}
           <div style={{ flex: 1, minWidth: 0 }}>
-            <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 4px 0" }}>Skill Details</h2>
-            <p style={{ fontSize: 13, color: "#5f6368", margin: "0 0 16px 0" }}>Metadata registered with this skill</p>
+            <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 4px 0" }}>Detalhes da Habilidade</h2>
+            <p style={{ fontSize: 13, color: "#5f6368", margin: "0 0 16px 0" }}>Metadados registrados com esta habilidade</p>
             <table style={{ width: "100%", borderCollapse: "collapse", fontSize: 14 }}>
               <thead>
                 <tr style={{ borderBottom: "1px solid #dadce0" }}>
-                  <th style={{ textAlign: "left", padding: "12px 0", color: "#5f6368", fontWeight: 500, width: 160 }}>
-                    Property
-                  </th>
+                  <th style={{ textAlign: "left", padding: "12px 0", color: "#5f6368", fontWeight: 500, width: 160 }}>Propriedade</th>
                   <th style={{ textAlign: "left", padding: "12px 0", color: "#5f6368", fontWeight: 500 }}>
                     {skill.name}
                   </th>
@@ -138,13 +136,13 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
                   fontWeight: 500,
                 }}
               >
-                {skill.enabled ? "Public" : "Draft"}
+                {skill.enabled ? "Público" : "Rascunho"}
               </span>
             </div>
 
             {sourceUrl && (
               <div style={{ marginBottom: 24 }}>
-                <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 4 }}>Source</div>
+                <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 4 }}>Fonte</div>
                 <a
                   href={sourceUrl}
                   target="_blank"
@@ -188,7 +186,7 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
             )}
 
             <div>
-              <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 4 }}>Skill ID</div>
+              <div style={{ fontSize: 12, color: "#5f6368", marginBottom: 4 }}>ID da Habilidade</div>
               <div style={{ fontSize: 12, fontFamily: "monospace", color: "#3c4043", wordBreak: "break-all" }}>
                 {skill.id}
               </div>
@@ -200,10 +198,8 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
       {/* How to Use tab */}
       {activeTab === "usage" && (
         <div style={{ maxWidth: 640 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 8px 0" }}>Using this skill</h2>
-          <p style={{ fontSize: 14, color: "#5f6368", margin: "0 0 24px 0", lineHeight: 1.6 }}>
-            Once your proxy is set as a marketplace, enable this skill in Claude Code with one command:
-          </p>
+          <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 8px 0" }}>Usando esta habilidade</h2>
+          <p style={{ fontSize: 14, color: "#5f6368", margin: "0 0 24px 0", lineHeight: 1.6 }}>Assim que seu proxy estiver configurado como marketplace, habilite esta habilidade no Claude Code com um comando:</p>
 
           {/* Install command */}
           <div
@@ -224,7 +220,7 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
                 borderBottom: "1px solid #dadce0",
               }}
             >
-              <span style={{ fontSize: 13, color: "#3c4043", fontWeight: 500 }}>Run in Claude Code</span>
+              <span style={{ fontSize: 13, color: "#3c4043", fontWeight: 500 }}>Executar no Claude Code</span>
               <button
                 onClick={() => copyToClipboard(installCommand, "install")}
                 style={{
@@ -240,7 +236,7 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
                 }}
               >
                 {copiedKey === "install" ? <CheckOutlined /> : <CopyOutlined />}
-                {copiedKey === "install" ? "Copied" : "Copy"}
+                {copiedKey === "install" ? "Copiado" : "Copiar"}
               </button>
             </div>
             <pre
@@ -258,9 +254,9 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
           </div>
 
           <p style={{ fontSize: 13, color: "#5f6368", lineHeight: 1.6, margin: 0 }}>
-            Don&apos;t have the marketplace configured yet?{" "}
+            Ainda não configurou o marketplace?{" "}
             <span onClick={() => setActiveTab("setup")} style={{ color: "#1a73e8", cursor: "pointer" }}>
-              See one-time setup →
+              Ver configuração única →
             </span>
           </p>
         </div>
@@ -269,15 +265,13 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
       {/* Setup tab (linked from usage) */}
       {activeTab === "setup" && (
         <div style={{ maxWidth: 640 }}>
-          <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 8px 0" }}>
-            One-time marketplace setup
-          </h2>
+          <h2 style={{ fontSize: 18, fontWeight: 400, color: "#202124", margin: "0 0 8px 0" }}>Configuração única do marketplace</h2>
           <p style={{ fontSize: 14, color: "#5f6368", margin: "0 0 24px 0", lineHeight: 1.6 }}>
-            Add this to{" "}
+            Adicione isto ao{" "}
             <code style={{ fontSize: 13, backgroundColor: "#f1f3f4", padding: "1px 6px", borderRadius: 4 }}>
               ~/.claude/settings.json
             </code>{" "}
-            to point Claude Code at your proxy:
+            para apontar o Claude Code para seu proxy:
           </p>
           <div
             style={{
@@ -326,7 +320,7 @@ const SkillDetail: React.FC<SkillDetailProps> = ({ skill, onBack }) => {
                 }}
               >
                 {copiedKey === "settings" ? <CheckOutlined /> : <CopyOutlined />}
-                {copiedKey === "settings" ? "Copied" : "Copy"}
+                {copiedKey === "settings" ? "Copiado" : "Copiar"}
               </button>
             </div>
             <pre

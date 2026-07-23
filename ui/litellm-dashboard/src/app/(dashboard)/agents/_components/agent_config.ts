@@ -35,22 +35,22 @@ export const AGENT_FORM_CONFIG: {
 } = {
   basic: {
     key: "basic",
-    title: "Basic Information",
+    title: "Informações Básicas",
     defaultExpanded: true,
     fields: [
       {
         name: "name",
-        label: "Display Name",
+        label: "Nome de Exibição",
         type: "text",
         required: true,
-        placeholder: "e.g., Customer Support Agent",
+        placeholder: "ex.: Agente de Suporte ao Cliente",
       },
       {
         name: "description",
-        label: "Description",
+        label: "Descrição",
         type: "textarea",
         required: true,
-        placeholder: "Describe what this agent does...",
+        placeholder: "Descreva o que este agente faz...",
         rows: 3,
       },
       {
@@ -59,35 +59,35 @@ export const AGENT_FORM_CONFIG: {
         type: "url",
         required: false,
         placeholder: "http://localhost:9999/",
-        tooltip: "Base URL where the agent is hosted (optional)",
+        tooltip: "URL base onde o agente está hospedado (opcional)",
       },
       {
         name: "version",
-        label: "Version",
+        label: "Versão",
         type: "text",
         placeholder: "1.0.0",
         defaultValue: "1.0.0",
       },
       {
         name: "protocolVersion",
-        label: "Protocol Version",
+        label: "Versão do Protocolo",
         type: "select",
         options: ["1.0", "0.3"],
         defaultValue: "1.0",
         tooltip:
-          "The A2A protocol version Polyglot serves to clients for this agent. Polyglot converts the upstream agent's responses to this version, so clients always see the version you pick here regardless of the original agent's version.",
+          "A versão do protocolo A2A que o Polyglot fornece aos clientes para este agente. O Polyglot converte as respostas do agente upstream para esta versão, assim os clientes sempre veem a versão que você escolheu aqui independentemente da versão original do agente.",
         helpText:
-          "Polyglot serves this version to clients and converts the upstream agent's responses to match it, regardless of the original agent's version.",
+          "O Polyglot fornece esta versão aos clientes e converte as respostas do agente upstream para corresponder a ela, independentemente da versão original do agente.",
       },
     ],
   },
   skills: {
     key: "skills",
-    title: "Skills",
+    title: "Habilidades",
     fields: [
       {
         name: "skills",
-        label: "Skills",
+        label: "Habilidades",
         type: "list",
         defaultValue: [],
       },
@@ -95,7 +95,7 @@ export const AGENT_FORM_CONFIG: {
   },
   capabilities: {
     key: "capabilities",
-    title: "Capabilities",
+    title: "Capacidades",
     fields: [
       {
         name: "streaming",
@@ -105,92 +105,92 @@ export const AGENT_FORM_CONFIG: {
       },
       {
         name: "pushNotifications",
-        label: "Push Notifications",
+        label: "Notificações Push",
         type: "switch",
       },
       {
         name: "stateTransitionHistory",
-        label: "State Transition History",
+        label: "Histórico de Transição de Estado",
         type: "switch",
       },
     ],
   },
   optional: {
     key: "optional",
-    title: "Optional Settings",
+    title: "Configurações Opcionais",
     fields: [
       {
         name: "iconUrl",
-        label: "Icon URL",
+        label: "URL do Ícone",
         type: "url",
-        placeholder: "https://example.com/icon.png",
+        placeholder: "https://exemplo.com/icone.png",
       },
       {
         name: "documentationUrl",
-        label: "Documentation URL",
+        label: "URL da Documentação",
         type: "url",
-        placeholder: "https://docs.example.com",
+        placeholder: "https://docs.exemplo.com",
       },
       {
         name: "supportsAuthenticatedExtendedCard",
-        label: "Supports Authenticated Extended Card",
+        label: "Suporta Cartão Estendido Autenticado",
         type: "switch",
       },
     ],
   },
   litellm: {
     key: "litellm",
-    title: "Polyglot Parameters",
+    title: "Parâmetros do Polyglot",
     fields: [
       {
         name: "model",
-        label: "Model (Optional)",
+        label: "Modelo (Opcional)",
         type: "text",
       },
       {
         name: "make_public",
-        label: "Make Public",
+        label: "Tornar Público",
         type: "switch",
       },
     ],
   },
   cost: {
     key: "cost",
-    title: "Cost Configuration",
+    title: "Configuração de Custos",
     fields: [
       {
         name: "cost_per_query",
-        label: "Cost Per Query ($)",
+        label: "Custo Por Consulta ($)",
         type: "text",
         placeholder: "0.0",
-        tooltip: "Fixed cost per query",
+        tooltip: "Custo fixo por consulta",
       },
       {
         name: "input_cost_per_token",
-        label: "Input Cost Per Token ($)",
+        label: "Custo Por Token de Entrada ($)",
         type: "text",
         placeholder: "0.000001",
-        tooltip: "Cost per input token",
+        tooltip: "Custo por token de entrada",
       },
       {
         name: "output_cost_per_token",
-        label: "Output Cost Per Token ($)",
+        label: "Custo Por Token de Saída ($)",
         type: "text",
         placeholder: "0.000002",
-        tooltip: "Cost per output token",
+        tooltip: "Custo por token de saída",
       },
     ],
   },
   tracing: {
     key: "tracing",
-    title: "Tracing",
+    title: "Rastreamento",
     fields: [
       {
         name: "enable_tracing",
-        label: "Enable Tracing",
+        label: "Ativar Rastreamento",
         type: "switch",
         defaultValue: false,
-        tooltip: "Enable request tracing for this agent",
+        tooltip: "Ativar rastreamento de requisições para este agente",
       },
     ],
   },

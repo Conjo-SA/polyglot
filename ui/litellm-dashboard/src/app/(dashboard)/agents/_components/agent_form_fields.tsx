@@ -23,19 +23,19 @@ const AgentFormFields: React.FC<AgentFormFieldsProps> = ({ showAgentName = true,
     <>
       {showAgentName && (
         <Form.Item
-          label="Agent Name"
+          label="Nome do Agente"
           name="agent_name"
-          rules={[{ required: true, message: "Please enter a unique agent name" }]}
-          tooltip="Unique identifier for the agent"
+          rules={[{ required: true, message: "Por favor, informe um nome único para o agente" }]}
+          tooltip="Identificador único para o agente"
         >
-          <Input placeholder="e.g., customer-support-agent" />
+          <Input placeholder="ex.: suporte-cliente" />
         </Form.Item>
       )}
 
       <Collapse defaultActiveKey={["basic"]} style={{ marginBottom: 16 }}>
         {/* Basic Information */}
         {shouldShow(AGENT_FORM_CONFIG.basic.key) && (
-          <Panel header={`${AGENT_FORM_CONFIG.basic.title} (Required)`} key={AGENT_FORM_CONFIG.basic.key}>
+          <Panel header={`${AGENT_FORM_CONFIG.basic.title} (Obrigatório)`} key={AGENT_FORM_CONFIG.basic.key}>
             {AGENT_FORM_CONFIG.basic.fields.map((field) => (
               <Form.Item
                 key={field.name}

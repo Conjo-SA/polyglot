@@ -119,11 +119,11 @@ export const PromptCachingPanel: React.FC<{
 
   return (
     <Card>
-      <Title>Prompt Caching</Title>
+      <Title>Cache de Prompt</Title>
 
       <div className="mt-6 flex items-start justify-between gap-8">
         <div className="max-w-2xl">
-          <Text className="font-medium">Automatic Anthropic prompt caching</Text>
+          <Text className="font-medium">Cache automático de prompt Anthropic</Text>
           <p className="mt-1 text-xs text-gray-500">{enableSetting.field_description}</p>
         </div>
         <Switch checked={enabled} onChange={(checked) => persist(ENABLE_ANTHROPIC_PROMPT_CACHING, checked)} />
@@ -132,14 +132,14 @@ export const PromptCachingPanel: React.FC<{
       {ttlSetting && (
         <div className="mt-6 flex items-start justify-between gap-8">
           <div className="max-w-2xl">
-            <Text className={`font-medium ${enabled ? "" : "text-gray-400"}`}>Cache lifetime (TTL)</Text>
+            <Text className={`font-medium ${enabled ? "" : "text-gray-400"}`}>Tempo de vida do cache (TTL)</Text>
             <p className="mt-1 text-xs text-gray-500">{ttlSetting.field_description}</p>
           </div>
           <AntdSelect
             allowClear
             disabled={!enabled}
             style={{ minWidth: "10rem" }}
-            placeholder="5m (default)"
+            placeholder="5m (padrão)"
             value={ttlSetting.field_value || undefined}
             options={(ttlSetting.field_options ?? []).map((option) => ({ label: option, value: option }))}
             onChange={(newValue) => persist(ANTHROPIC_PROMPT_CACHING_TTL, newValue ?? "")}
@@ -220,11 +220,11 @@ const GeneralSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, user
     <div className="w-full">
       <TabGroup className="h-[75vh] w-full">
         <TabList variant="line" defaultValue="1" className="px-8 pt-4">
-          <Tab value="1">Loadbalancing</Tab>
-          <Tab value="2">Routing Groups</Tab>
+          <Tab value="1">Balanceamento de Carga</Tab>
+          <Tab value="2">Grupos de Roteamento</Tab>
           <Tab value="3">Fallbacks</Tab>
-          <Tab value="5">Prompt Caching</Tab>
-          <Tab value="4">General</Tab>
+          <Tab value="5">Cache de Prompt</Tab>
+          <Tab value="4">Geral</Tab>
         </TabList>
         <TabPanels className="px-8 py-6">
           <TabPanel>

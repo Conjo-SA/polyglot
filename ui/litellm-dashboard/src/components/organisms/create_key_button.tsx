@@ -701,7 +701,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
     <div>
       {userRole && rolesWithWriteAccess.includes(userRole) && (
         <Button className="mx-auto" onClick={() => setIsModalVisible(true)} data-testid="create-key-button">
-          + Create New Key
+          + Criar Nova Chave
         </Button>
       )}
       <Modal open={isModalVisible} width={1000} footer={null} onOk={handleOk} onCancel={handleCancel}>
@@ -721,11 +721,11 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
               className="mb-4"
             >
               <Radio.Group onChange={(e) => setKeyOwner(e.target.value)} value={keyOwner}>
-                <Radio value="you">You</Radio>
-                <Radio value="service_account">Service Account</Radio>
-                {userRole === "Admin" && <Radio value="another_user">Another User</Radio>}
+                <Radio value="you">Você</Radio>
+                <Radio value="service_account">Conta de Serviço</Radio>
+                {userRole === "Admin" && <Radio value="another_user">Outro Usuário</Radio>}
                 <Radio value="agent">
-                  Agent <Tag color="purple">New</Tag>
+                  Agente <Tag color="purple">Novo</Tag>
                 </Radio>
               </Radio.Group>
             </Form.Item>
@@ -745,7 +745,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                 rules={[
                   {
                     required: keyOwner === "another_user",
-                    message: `Please input the user ID of the user you are assigning the key to`,
+                    message: `Por favor, informe o ID do usuário ao qual você está atribuindo a chave`,
                   },
                 ]}
               >
@@ -753,7 +753,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                   <div style={{ display: "flex", marginBottom: "8px" }}>
                     <Select
                       showSearch
-                      placeholder="Type email to search for users"
+                      placeholder="Digite o e-mail para buscar usuários"
                       filterOption={false}
                       onSearch={handleUserSearch}
                       onSelect={(value, option) => handleUserSelect(value, option as UserOption)}
@@ -761,13 +761,13 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                       loading={userSearchLoading}
                       allowClear
                       style={{ width: "100%" }}
-                      notFoundContent={userSearchLoading ? "Searching..." : "No users found"}
+                      notFoundContent={userSearchLoading ? "Buscando..." : "Nenhum usuário encontrado"}
                     />
                     <Button2 onClick={() => setIsCreateUserModalVisible(true)} style={{ marginLeft: "8px" }}>
-                      Create User
+                      Criar Usuário
                     </Button2>
                   </div>
-                  <div className="text-xs text-gray-500">Search by email to find users</div>
+                  <div className="text-xs text-gray-500">Busque por e-mail para encontrar usuários</div>
                 </div>
               </Form.Item>
             )}
@@ -780,7 +780,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                 </div>
                 <Select
                   showSearch
-                  placeholder="Select an agent"
+                  placeholder="Selecionar um agente"
                   style={{ width: "100%" }}
                   value={selectedAgentId}
                   onChange={(value) => setSelectedAgentId(value)}
@@ -909,12 +909,12 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
               <Form.Item
                 label={
                   <span>
-                    {keyOwner === "you" || keyOwner === "another_user" ? "Key Name" : "Service Account ID"}{" "}
+                    {keyOwner === "you" || keyOwner === "another_user" ? "Nome da Chave" : "ID da Conta de Serviço"}{" "}
                     <Tooltip
                       title={
                         keyOwner === "you" || keyOwner === "another_user"
-                          ? "A descriptive name to identify this key"
-                          : "Unique identifier for this service account"
+                          ? "Um nome descritivo para identificar esta chave"
+                          : "Identificador único para esta conta de serviço"
                       }
                     >
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
@@ -925,10 +925,10 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                 rules={[
                   {
                     required: true,
-                    message: `Please input a ${keyOwner === "you" ? "key name" : "service account ID"}`,
+                    message: `Por favor, informe um ${keyOwner === "you" ? "nome para a chave" : "ID para a conta de serviço"}`,
                   },
                 ]}
-                help="required"
+                help="obrigatório"
               >
                 <TextInput placeholder="" />
               </Form.Item>
@@ -946,8 +946,8 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                 rules={[]}
                 help={
                   keyType === "management" || keyType === "read_only"
-                    ? "Models field is disabled for this key type"
-                    : "optional - leave empty to allow access to all models"
+                    ? "O campo Modelos está desabilitado para este tipo de chave"
+                    : "opcional - deixe vazio para permitir acesso a todos os modelos"
                 }
                 className="mt-4"
               >
@@ -966,12 +966,12 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                 >
                   {!selectedProjectId && selectedCreateKeyTeam && (
                     <Option key="all-team-models" value="all-team-models">
-                      All Team Models
+                      Todos os Modelos do Time
                     </Option>
                   )}
                   {!selectedProjectId && !selectedCreateKeyTeam && (
                     <Option key="all-proxy-models" value="all-proxy-models">
-                      All Proxy Models
+                      Todos os Modelos do Proxy
                     </Option>
                   )}
                   {modelsToPick.map((model: string) => (
@@ -1627,7 +1627,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
             <Button2 htmlType="submit" disabled={isFormDisabled} style={{ opacity: isFormDisabled ? 0.5 : 1 }}>
-              Create Key
+              {t("createKeyModal.createKeyButton")}
             </Button2>
           </div>
         </Form>
@@ -1636,7 +1636,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
       {/* Add the Create User Modal */}
       {isCreateUserModalVisible && (
         <Modal
-          title="Create New User"
+          title={t("createKeyModal.createNewUser")}
           open={isCreateUserModalVisible}
           onCancel={() => setIsCreateUserModalVisible(false)}
           footer={null}

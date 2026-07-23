@@ -355,7 +355,7 @@ const RouterSettingsAccordion = forwardRef<RouterSettingsAccordionRef, RouterSet
       <div className="w-full">
         <TabGroup className="w-full">
           <TabList variant="line" defaultValue="1" className="px-8 pt-4">
-            <Tab value="1">Loadbalancing</Tab>
+            <Tab value="1">Balanceamento de Carga</Tab>
             <Tab value="2">Fallbacks</Tab>
           </TabList>
           <TabPanels className="px-8 py-6">
