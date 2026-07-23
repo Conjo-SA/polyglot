@@ -212,9 +212,14 @@ sandbox_tools:
 
 litellm_settings:
   drop_params: True
+  request_timeout: 600
   telemetry: False
   code_interpreter_interception_params:
     enabled: true
     sandbox_tool_name: e2b_sandbox
   callbacks:
     - code_interpreter_interception
+
+router_settings:
+  disable_cooldowns: true
+  num_retries: 3
