@@ -24,7 +24,8 @@ const ChatImageRenderer: React.FC<ChatImageRendererProps> = ({ message }) => {
       ) : (
         <Image
           src={message.imagePreviewUrl || ""}
-          alt="User uploaded image"
+
+          alt="Imagem enviada pelo usuário"
           width={256}
           height={200}
           className="max-w-64 rounded-md border border-gray-200 shadow-xs"

@@ -48,11 +48,11 @@ interface CompareUIProps {
   disabledPersonalKeyCreation: boolean;
 }
 const GENERIC_FOLLOW_UPS = [
-  "Can you summarize the key points?",
-  "What assumptions did you make?",
-  "What are the next steps?",
+  "Você pode resumir os pontos principais?",
+  "Quais suposições você fez?",
+  "Quais são os próximos passos?",
 ];
-const SUGGESTED_PROMPTS = ["Write me a poem", "Explain quantum computing", "Draft a polite email requesting a meeting"];
+const SUGGESTED_PROMPTS = ["Escreva-me um poema", "Explique computação quântica", "Rascunhe um e-mail educado solicitando uma reunião"];
 const DEFAULT_ENDPOINT = EndpointId.CHAT_COMPLETIONS;
 export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: CompareUIProps) {
   const [comparisons, setComparisons] = useState<ComparisonInstance[]>([
@@ -689,17 +689,15 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
         <div className="border-b px-4 py-2">
           <div className="flex flex-wrap items-center justify-between gap-3">
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-600">Virtual Key Source</span>
+              <span className="text-sm font-medium text-gray-600">Fonte da Chave Virtual</span>
               <Select
                 value={apiKeySource}
                 onChange={(value) => setApiKeySource(value as "session" | "custom")}
                 disabled={disabledPersonalKeyCreation}
                 className="w-48"
               >
-                <Select.Option value="session" disabled={!canUseSessionKey}>
-                  Current UI Session
-                </Select.Option>
-                <Select.Option value="custom">Virtual Key</Select.Option>
+                <Select.Option value="session" disabled={!canUseSessionKey}>Sessão Atual da Interface</Select.Option>
+                <Select.Option value="custom">Chave Virtual</Select.Option>
               </Select>
               {apiKeySource === "custom" && (
                 <Input.Password
@@ -711,7 +709,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
               )}
             </div>
             <div className="flex items-center gap-2">
-              <span className="text-sm font-medium text-gray-600">Endpoint</span>
+              <span className="text-sm font-medium text-gray-600">Ponto de Extremidade</span>
               <Select
                 value={selectedEndpoint}
                 onChange={(value) => setSelectedEndpoint(value as EndpointIdType)}
@@ -725,17 +723,13 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
               </Select>
             </div>
             <div className="flex items-center gap-3">
-              <Button onClick={clearAllChats} disabled={!hasMessages} icon={<ClearOutlined />}>
-                Clear All Chats
-              </Button>
+              <Button onClick={clearAllChats} disabled={!hasMessages} icon={<ClearOutlined />}>Limpar Todos os Chats</Button>
               <Tooltip
                 title={
-                  comparisons.length >= maxComparisons ? "Compare up to 3 models at a time" : "Add another comparison"
+                  comparisons.length >= maxComparisons ? "Compare até 3 modelos por vez" : "Adicionar outra comparação"
                 }
               >
-                <Button onClick={addComparison} disabled={comparisons.length >= maxComparisons} icon={<PlusOutlined />}>
-                  Add Comparison
-                </Button>
+                <Button onClick={addComparison} disabled={comparisons.length >= maxComparisons} icon={<PlusOutlined />}>Adicionar Comparação</Button>
               </Tooltip>
             </div>
           </div>
@@ -766,7 +760,7 @@ export default function CompareUI({ accessToken, disabledPersonalKeyCreation }: 
             <div className="border border-gray-200 shadow-lg rounded-xl bg-white p-4">
               <div className="flex items-center justify-between gap-4 mb-3 min-h-8">
                 {hasAttachment ? (
-                  <span className="text-sm text-gray-500">Attachment ready to send</span>
+                  <span className="text-sm text-gray-500">Anexo pronto para envio</span>
                 ) : showSuggestedPrompts ? (
                   <div className="flex items-center gap-2 overflow-x-auto">
                     {SUGGESTED_PROMPTS.map((prompt) => (

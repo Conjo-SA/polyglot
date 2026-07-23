@@ -1,4 +1,6 @@
 import { InfoCircleOutlined } from "@ant-design/icons";
+
+
 import { Text } from "@tremor/react";
 import { Checkbox, InputNumber, Popover, Slider, Tooltip, Typography } from "antd";
 import React, { useEffect, useState } from "react";
@@ -65,13 +67,13 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
   return (
     <div className="space-y-4 p-4 w-80">
       <Checkbox checked={useAdvancedParams} onChange={(e) => handleUseAdvancedParamsChange(e.target.checked)}>
-        <span className="font-medium">Use Advanced Parameters</span>
-      </Checkbox>
+              <span className="font-medium">Usar Parâmetros Avançados</span>
+            </Checkbox>
 
       {onMockTestFallbacksChange && (
         <div className="flex items-center gap-1">
           <Checkbox checked={mockTestFallbacks ?? false} onChange={(e) => onMockTestFallbacksChange(e.target.checked)}>
-            <span className="font-medium">Simulate failure to test fallbacks</span>
+            <span className="font-medium">Simular falha para testar fallbacks</span>
           </Checkbox>
           <Popover
             trigger="hover"
@@ -79,11 +81,10 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
             content={
               <div style={{ maxWidth: 340 }}>
                 <Typography.Paragraph className="text-sm" style={{ marginBottom: 8 }}>
-                  Causes the first request to fail so the router tries fallbacks (if configured). Use this to verify
-                  your fallback setup.
+                  Faz com que a primeira solicitação falhe para que o roteador tente fallbacks (se configurado). Use isso para verificar sua configuração de fallback.
                 </Typography.Paragraph>
                 <Typography.Paragraph className="text-sm" style={{ marginBottom: 0 }}>
-                  Behavior can differ when keys, teams, or router settings are configured.{" "}
+                  O comportamento pode diferir quando chaves, equipes ou configurações de roteador estão configuradas.{" "}
                   <a
                     href="https://docs.litellm.ai/docs/proxy/keys_teams_router_settings"
                     target="_blank"
@@ -108,8 +109,8 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1">
-              <Text className={`text-sm ${disabledTextColor}`}>Temperature</Text>
-              <Tooltip title="Controls randomness. Lower values make output more deterministic, higher values more creative.">
+              <Text className={`text-sm ${disabledTextColor}`}>Temperatura</Text>
+              <Tooltip title="Controla aleatoriedade. Valores mais baixos tornam a saída mais determinística, valores mais altos mais criativos.">
                 <InfoCircleOutlined className={`text-xs ${disabledTextColor} cursor-help`} />
               </Tooltip>
             </div>
@@ -142,8 +143,8 @@ const AdditionalModelSettings: React.FC<AdditionalModelSettingsProps> = ({
         <div>
           <div className="flex items-center justify-between mb-2">
             <div className="flex items-center gap-1">
-              <Text className={`text-sm ${disabledTextColor}`}>Max Tokens</Text>
-              <Tooltip title="Maximum number of tokens to generate in the response.">
+              <Text className={`text-sm ${disabledTextColor}`}>Máximo de Tokens</Text>
+              <Tooltip title="Número máximo de tokens a serem gerados na resposta.">
                 <InfoCircleOutlined className={`text-xs ${disabledTextColor} cursor-help`} />
               </Tooltip>
             </div>

@@ -30,7 +30,7 @@ const SessionManagement: React.FC<SessionManagementProps> = ({
 
   const getSessionDisplay = () => {
     if (!responsesSessionId) {
-      return useApiSessionManagement ? "API Session: Ready" : "UI Session: Ready";
+      return useApiSessionManagement ? "Sessão API: Pronta" : "Sessão UI: Pronta";
     }
 
     const sessionPrefix = useApiSessionManagement ? "Response ID" : "UI Session";
@@ -41,13 +41,16 @@ const SessionManagement: React.FC<SessionManagementProps> = ({
   const getSessionDescription = () => {
     if (!responsesSessionId) {
       return useApiSessionManagement
-        ? "Polyglot will manage session using previous_response_id"
-        : "UI will manage session using chat history";
+            ? "O Polyglot gerenciará a sessão usando previous_response_id"
+            : "A interface gerenciará a sessão usando o histórico do chat";
     }
 
+
+
+
     return useApiSessionManagement
-      ? "Polyglot API session active - context maintained server-side"
-      : "UI session active - context maintained client-side";
+          ? "Sessão da API Polyglot ativa - contexto mantido no servidor"
+          : "Sessão da interface ativa - contexto mantido no cliente";
   };
 
   return (
@@ -55,8 +58,8 @@ const SessionManagement: React.FC<SessionManagementProps> = ({
       {/* Session Management Toggle */}
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
-          <span className="text-sm font-medium text-gray-700">Session Management</span>
-          <Tooltip title="Choose between Polyglot API session management (using previous_response_id) or UI-based session management (using chat history)">
+          <span className="text-sm font-medium text-gray-700">Gerenciamento de Sessão</span>
+          <Tooltip title="Escolha entre o gerenciamento de sessão da API Polyglot (usando previous_response_id) ou o gerenciamento baseado na interface (usando histórico do chat)">
             <InfoCircleOutlined className="text-gray-400" style={{ fontSize: "12px" }} />
           </Tooltip>
         </div>

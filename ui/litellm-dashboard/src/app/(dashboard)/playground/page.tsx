@@ -40,9 +40,9 @@ export default function PlaygroundPage() {
       <TabGroup className="w-full" style={{ flex: 1, minHeight: 0, display: "flex", flexDirection: "column" }}>
         <TabList className="mb-0">
           <Tab>Chat</Tab>
-          <Tab>Compare</Tab>
-          <Tab>Compliance</Tab>
-          <Tab>Agent Builder (Experimental)</Tab>
+          <Tab>Comparar</Tab>
+          <Tab>Conformidade</Tab>
+          <Tab>Construtor de Agentes (Experimental)</Tab>
         </TabList>
         <TabPanels className="h-full">
           <TabPanel className="h-full">
@@ -62,7 +62,7 @@ export default function PlaygroundPage() {
             <ComplianceUI accessToken={accessToken} disabledPersonalKeyCreation={disabledPersonalKeyCreation} />
           </TabPanel>
           <TabPanel className="h-full">
-            <DeprecationBanner featureName="The Playground's Agent Builder" />
+            <DeprecationBanner featureName="O Construtor de Agentes do Playground" />
             <AgentBuilderView
               accessToken={accessToken}
               token={token}

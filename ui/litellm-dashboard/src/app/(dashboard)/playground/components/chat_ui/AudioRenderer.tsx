@@ -14,7 +14,7 @@ const AudioRenderer: React.FC<AudioRendererProps> = ({ message }) => {
   return (
     <div className="mb-2">
       <audio controls src={message.content} className="max-w-full" style={{ maxWidth: "500px" }}>
-        Your browser does not support the audio element.
+        Seu navegador não suporta o elemento de áudio.
       </audio>
     </div>
   );
