@@ -36,7 +36,7 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
 
   const handleNext = () => {
     if (selectedSkills.size === 0) {
-      NotificationsManager.fromBackend("Please select at least one skill");
+      NotificationsManager.fromBackend("Por favor, selecione pelo menos uma habilidade");
       return;
     }
     setCurrentStep(1);
@@ -69,7 +69,7 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
 
   const handleSubmit = async () => {
     if (selectedSkills.size === 0) {
-      NotificationsManager.fromBackend("Please select at least one skill");
+      NotificationsManager.fromBackend("Por favor, selecione pelo menos uma habilidade");
       return;
     }
 
@@ -89,12 +89,12 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
         }),
       );
 
-      NotificationsManager.success(`Skill Hub updated — ${selectedSkills.size} skill(s) published`);
+      NotificationsManager.success(`Hub de Habilidades atualizado — ${selectedSkills.size} habilidade${selectedSkills.size !== 1 ? "s" : ""} publicada${selectedSkills.size !== 1 ? "s" : ""}`);
       handleClose();
       onSuccess();
     } catch (error) {
-      console.error("Error publishing skills:", error);
-      NotificationsManager.fromBackend("Failed to update skills. Please try again.");
+      console.error("Erro ao publicar habilidades:", error);
+      NotificationsManager.fromBackend("Falha ao atualizar as habilidades. Por favor, tente novamente.");
     } finally {
       setLoading(false);
     }
@@ -106,26 +106,26 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
   const renderStep1 = () => (
     <div className="space-y-4">
       <div className="flex items-center justify-between">
-        <Title>Select Skills to Publish</Title>
+        <Title>Selecionar Habilidades para Publicar</Title>
         <Checkbox
           checked={allSelected}
           indeterminate={isIndeterminate}
           onChange={(e) => handleSelectAll(e.target.checked)}
           disabled={skillsList.length === 0}
         >
-          Select All ({skillsList.length})
+          Selecionar Tudo ({skillsList.length})
         </Checkbox>
       </div>
 
       <Text className="text-sm text-gray-600">
-        Selected skills will be visible to all users in the Skill Hub. Deselected skills will be unpublished.
+        Habilidades selecionadas serão visíveis para todos os usuários no Skill Hub. Habilidades não selecionadas serão despublicadas.
       </Text>
 
       <div className="max-h-96 overflow-y-auto border rounded-lg p-4">
         <div className="space-y-3">
           {skillsList.length === 0 ? (
             <div className="text-center py-8 text-gray-500">
-              <Text>No skills registered yet.</Text>
+              <Text>Nenhuma habilidade registrada ainda.</Text>
             </div>
           ) : (
             skillsList.map((skill) => (
@@ -139,7 +139,7 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
                     <Text className="font-medium font-mono text-sm">{skill.name}</Text>
                     {skill.enabled && (
                       <Badge color="green" size="xs">
-                        Public
+                        Público
                       </Badge>
                     )}
                   </div>
@@ -161,7 +161,7 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
       {selectedSkills.size > 0 && (
         <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
           <Text className="text-sm text-blue-800">
-            <strong>{selectedSkills.size}</strong> skill{selectedSkills.size !== 1 ? "s" : ""} will be published
+            <strong>{selectedSkills.size}</strong> habilidade{selectedSkills.size !== 1 ? "s" : ""} será{selectedSkills.size !== 1 ? "ão" : ""} publicada{selectedSkills.size !== 1 ? "s" : ""}
           </Text>
         </div>
       )}
@@ -170,17 +170,16 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
 
   const renderStep2 = () => (
     <div className="space-y-4">
-      <Title>Confirm Publish to Skill Hub</Title>
+      <Title>Confirmar Publicação no Skill Hub</Title>
 
       <div className="bg-yellow-50 border border-yellow-200 rounded-lg p-4">
         <Text className="text-sm text-yellow-800">
-          <strong>Note:</strong> Published skills will be visible to all users in the Skill Hub tab. Skills not in the
-          list below will be unpublished.
+          <strong>Nota:</strong> Habilidades publicadas serão visíveis para todos os usuários na aba Skill Hub. Habilidades não listadas abaixo serão despublicadas.
         </Text>
       </div>
 
       <div className="space-y-3">
-        <Text className="font-medium">Skills to be published:</Text>
+        <Text className="font-medium">Habilidades a serem publicadas:</Text>
         <div className="max-h-48 overflow-y-auto border rounded-lg p-3">
           <div className="space-y-2">
             {Array.from(selectedSkills).map((name) => {
@@ -202,7 +201,7 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
 
       <div className="bg-blue-50 border border-blue-200 rounded-lg p-3">
         <Text className="text-sm text-blue-800">
-          Total: <strong>{selectedSkills.size}</strong> skill{selectedSkills.size !== 1 ? "s" : ""} will be published
+          Total: <strong>{selectedSkills.size}</strong> habilidade{selectedSkills.size !== 1 ? "s" : ""} será{selectedSkills.size !== 1 ? "ão" : ""} publicada{selectedSkills.size !== 1 ? "s" : ""}
         </Text>
       </div>
     </div>
@@ -210,7 +209,7 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
 
   return (
     <Modal
-      title="Publish to Skill Hub"
+      title="Publicar no Skill Hub"
       open={visible}
       onCancel={handleClose}
       footer={null}
@@ -227,17 +226,17 @@ const MakeSkillPublicForm: React.FC<MakeSkillPublicFormProps> = ({
 
         <div className="flex justify-between mt-6">
           <Button onClick={currentStep === 0 ? handleClose : () => setCurrentStep(0)}>
-            {currentStep === 0 ? "Cancel" : "Previous"}
+            {currentStep === 0 ? "Cancelar" : "Anterior"}
           </Button>
           <div className="flex space-x-2">
             {currentStep === 0 && (
               <Button onClick={handleNext} disabled={selectedSkills.size === 0}>
-                Next
+                Próximo
               </Button>
             )}
             {currentStep === 1 && (
               <Button onClick={handleSubmit} loading={loading}>
-                Publish to Hub
+                Publicar no Hub
               </Button>
             )}
           </div>

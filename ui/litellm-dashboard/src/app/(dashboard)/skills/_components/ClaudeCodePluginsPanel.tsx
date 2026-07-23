@@ -82,14 +82,14 @@ const ClaudeCodePluginsPanel: React.FC<ClaudeCodePluginsPanelProps> = ({ accessT
       ) : (
         <>
           <div className="flex flex-col gap-2 mb-4">
-            <h1 className="text-2xl font-bold">Skills</h1>
+            <h1 className="text-2xl font-bold">Habilidades</h1>
             <p className="text-sm text-gray-600">
-              Register Claude Code skills. Published skills appear in the Skill Hub for all users and are served via{" "}
+              Registre habilidades do Claude Code. Habilidades publicadas aparecem no Hub de Habilidades para todos os usuários e são servidas via{" "}
               <code className="bg-gray-100 px-1 rounded-sm">/claude-code/marketplace.json</code>.
             </p>
             <div className="mt-2 flex gap-2">
               <Button onClick={() => setIsAddModalVisible(true)} disabled={!accessToken || !isAdmin}>
-                + Add Skill
+                + Adicionar Habilidade
               </Button>
             </div>
           </div>
@@ -116,18 +116,18 @@ const ClaudeCodePluginsPanel: React.FC<ClaudeCodePluginsPanelProps> = ({ accessT
 
       {pluginToDelete && (
         <Modal
-          title="Delete Skill"
+          title="Excluir Habilidade"
           open={pluginToDelete !== null}
           onOk={handleDeleteConfirm}
           onCancel={() => setPluginToDelete(null)}
           confirmLoading={isDeleting}
-          okText="Delete"
+          okText="Excluir"
           okButtonProps={{ danger: true }}
         >
           <p>
-            Are you sure you want to delete skill: <strong>{pluginToDelete.displayName}</strong>?
+            Tem certeza que deseja excluir a habilidade: <strong>{pluginToDelete.displayName}</strong>?
           </p>
-          <p>This action cannot be undone.</p>
+          <p>Esta ação não pode ser desfeita.</p>
         </Modal>
       )}
     </div>

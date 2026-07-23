@@ -160,14 +160,14 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({ visible, onClose, accessT
   };
 
   return (
-    <Modal title="Add New Skill" open={visible} onCancel={handleCancel} footer={null} width={700} className="top-8">
+    <Modal title="Adicionar Nova Habilidade" open={visible} onCancel={handleCancel} footer={null} width={700} className="top-8">
       <Form form={form} layout="vertical" onFinish={handleSubmit} className="mt-4">
         {/* Smart URL Input */}
         <Form.Item
-          label="Repository URL"
+          label="URL do Repositório"
           name="skillUrl"
-          rules={[{ required: true, message: "Please enter a repository URL" }]}
-          tooltip="Paste an HTTPS git repository URL from GitHub, GitLab, Bitbucket, or a self-hosted host. E.g. github.com/org/repo, gitlab.com/org/repo, or github.com/org/repo/tree/main/my-skill"
+          rules={[{ required: true, message: "Por favor, insira uma URL do repositório" }]}
+          tooltip="Cole uma URL de repositório git HTTPS do GitHub, GitLab, Bitbucket ou um host auto-hospedado. Ex.: github.com/org/repo, gitlab.com/org/repo, ou github.com/org/repo/tree/main/my-skill"
         >
           <Input
             placeholder="https://github.com/org/repo or https://gitlab.com/org/repo"
@@ -178,7 +178,7 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({ visible, onClose, accessT
 
         {/* Optional subfolder for monorepos */}
         <Form.Item
-          label="Subfolder path (Optional)"
+          label="Caminho da subpasta (Opcional)"
           name="subPath"
           rules={[
             {
@@ -187,13 +187,13 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({ visible, onClose, accessT
                   ? Promise.resolve()
                   : Promise.reject(
                       new Error(
-                        "Subfolder must be a relative path like plugins/my-skill (letters, numbers, dots, hyphens, underscores)",
+                        "A subpasta deve ser um caminho relativo como plugins/my-skill (letras, números, pontos, hífens, underscores)",
                       ),
                     ),
             },
           ]}
-          tooltip="Path within the repository where the skill lives (e.g., plugins/my-skill). Leave empty if the skill is at the repo root."
-          extra={urlEncodesSubdir ? "The URL already points to a subfolder, so this field is disabled" : undefined}
+          tooltip="Caminho dentro do repositório onde a habilidade reside (ex.: plugins/my-skill). Deixe vazio se a habilidade estiver na raiz do repositório."
+          extra={urlEncodesSubdir ? "A URL já aponta para uma subpasta, então este campo está desativado" : undefined}
         >
           <Input
             placeholder="plugins/my-skill"
@@ -206,22 +206,22 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({ visible, onClose, accessT
         {/* Parsed preview */}
         {urlPreview && (
           <div className="mb-4 px-3 py-2 bg-blue-50 border border-blue-200 rounded-lg text-sm text-blue-700">
-            Detected: {urlPreview.label}
+            Detectado: {urlPreview.label}
           </div>
         )}
 
         {/* Skill Name */}
         <Form.Item
-          label="Skill Name"
+          label="Nome da Habilidade"
           name="name"
           rules={[
-            { required: true, message: "Please enter skill name" },
+            { required: true, message: "Por favor, insira o nome da habilidade" },
             {
               pattern: /^[a-z0-9-]+$/,
-              message: "Name must be kebab-case (lowercase, numbers, hyphens only)",
+              message: "O nome deve estar no formato kebab-case (apenas letras minúsculas, números e hífens)",
             },
           ]}
-          tooltip="Unique identifier in kebab-case format (e.g., my-skill)"
+          tooltip="Identificador único no formato kebab-case (ex.: my-skill)"
         >
           <Input placeholder="my-skill" className="rounded-lg" />
         </Form.Item>
@@ -229,17 +229,17 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({ visible, onClose, accessT
         {/* Domain and Namespace — side by side */}
         <div className="flex gap-4">
           <Form.Item
-            label="Domain (Optional)"
+            label="Domínio (Opcional)"
             name="domain"
-            tooltip="Top-level grouping in the Skill Hub (e.g., Productivity)"
+            tooltip="Agrupamento de nível superior no Hub de Habilidades (ex.: Productivity)"
             className="flex-1"
           >
             <Input placeholder="Productivity" className="rounded-lg" />
           </Form.Item>
           <Form.Item
-            label="Namespace (Optional)"
+            label="Namespace (Opcional)"
             name="namespace"
-            tooltip="Sub-grouping within domain (e.g., workflows)"
+            tooltip="Sub-agrupamento dentro do domínio (ex.: workflows)"
             className="flex-1"
           >
             <Input placeholder="workflows" className="rounded-lg" />
@@ -247,14 +247,14 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({ visible, onClose, accessT
         </div>
 
         {/* Description */}
-        <Form.Item label="Description (Optional)" name="description" tooltip="Brief description of what the skill does">
-          <TextArea rows={3} placeholder="A skill that helps with..." maxLength={500} className="rounded-lg" />
+        <Form.Item label="Descrição (Opcional)" name="description" tooltip="Breve descrição do que a habilidade faz">
+          <TextArea rows={3} placeholder="Uma habilidade que ajuda com..." maxLength={500} className="rounded-lg" />
         </Form.Item>
 
         {/* Category */}
-        <Form.Item label="Category (Optional)" name="category" tooltip="Select a category or enter a custom one">
+        <Form.Item label="Categoria (Opcional)" name="category" tooltip="Selecione uma categoria ou digite uma personalizada">
           <Select
-            placeholder="Select or type a category"
+            placeholder="Selecione ou digite uma categoria"
             allowClear
             showSearch
             optionFilterProp="children"
@@ -269,26 +269,26 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({ visible, onClose, accessT
         </Form.Item>
 
         {/* Keywords */}
-        <Form.Item label="Keywords (Optional)" name="keywords" tooltip="Comma-separated list of keywords for search">
-          <Input placeholder="search, web, api" className="rounded-lg" />
+        <Form.Item label="Palavras-chave (Opcional)" name="keywords" tooltip="Lista de palavras-chave separadas por vírgula para busca">
+          <Input placeholder="busca, web, api" className="rounded-lg" />
         </Form.Item>
 
         {/* Version */}
-        <Form.Item label="Version (Optional)" name="version" tooltip="Semantic version (e.g., 1.0.0)">
+        <Form.Item label="Versão (Opcional)" name="version" tooltip="Versão semântica (ex.: 1.0.0)">
           <Input placeholder="1.0.0" className="rounded-lg" />
         </Form.Item>
 
         {/* Author Name */}
-        <Form.Item label="Author Name (Optional)" name="authorName" tooltip="Name of the skill author or organization">
-          <Input placeholder="Your Name or Organization" className="rounded-lg" />
+        <Form.Item label="Nome do Autor (Opcional)" name="authorName" tooltip="Nome do autor ou organização da habilidade">
+          <Input placeholder="Seu Nome ou Organização" className="rounded-lg" />
         </Form.Item>
 
         {/* Author Email */}
         <Form.Item
-          label="Author Email (Optional)"
+          label="Email do Autor (Opcional)"
           name="authorEmail"
-          rules={[{ type: "email", message: "Please enter a valid email" }]}
-          tooltip="Contact email for the skill author"
+          rules={[{ type: "email", message: "Por favor, insira um email válido" }]}
+          tooltip="Email de contato para o autor da habilidade"
         >
           <Input type="email" placeholder="author@example.com" className="rounded-lg" />
         </Form.Item>
@@ -297,10 +297,10 @@ const AddPluginForm: React.FC<AddPluginFormProps> = ({ visible, onClose, accessT
         <Form.Item className="mb-0 mt-6">
           <div className="flex justify-end gap-2">
             <Button variant="secondary" onClick={handleCancel} disabled={isSubmitting}>
-              Cancel
+              Cancelar
             </Button>
             <Button type="submit" loading={isSubmitting}>
-              {isSubmitting ? "Adding..." : "Add Skill"}
+              {isSubmitting ? "Adicionando..." : "Adicionar Habilidade"}
             </Button>
           </div>
         </Form.Item>
