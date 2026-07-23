@@ -1748,6 +1748,12 @@ async def add_litellm_data_to_request(
         user_api_key_dict=user_api_key_dict,
     )
 
+    # Default prompt_id from key metadata (if request didn't specify one explicitly)
+    _add_default_prompt_id_from_key_metadata(
+        key_metadata=user_api_key_dict.metadata,
+        data=data,
+    )
+
     # Save pre-alias model name for credential override lookup
     _pre_alias_model = data.get("model")
 
@@ -2173,6 +2179,30 @@ def _enforced_params_check(
                     f"BadRequest please pass param=[{_enforced_params[0]}][{_enforced_params[1]}] in request body. This is a required param"
                 )
     return True
+
+
+def _add_default_prompt_id_from_key_metadata(
+    key_metadata: Optional[dict],
+    data: dict,
+) -> None:
+    """
+    If the request does not already specify a `prompt_id`, and the API key has one or more
+    prompts configured in its metadata (the "Prompts" field on the key), automatically apply
+    the first configured prompt_id as the default for this request.
+
+    This makes key-level "Prompts" behave as a default prompt to use, rather than only an
+    allowlist that the caller must still reference explicitly via `prompt_id` in the request.
+    """
+    if data.get("prompt_id"):
+        # Caller already explicitly specified a prompt_id - respect it, don't override
+        return
+
+    if not key_metadata:
+        return
+
+    key_prompts = key_metadata.get("prompts")
+    if isinstance(key_prompts, list) and len(key_prompts) > 0:
+        data["prompt_id"] = key_prompts[0]
 
 
 def _add_guardrails_from_key_or_team_metadata(
