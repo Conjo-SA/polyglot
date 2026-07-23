@@ -532,11 +532,11 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
               <TabGroup>
                 <div className="flex justify-between items-center">
                   <TabList variant="solid" className="mt-1">
-                    <Tab>Cost</Tab>
-                    <Tab>Model Activity</Tab>
-                    <Tab>Key Activity</Tab>
-                    <Tab>MCP Server Activity</Tab>
-                    <Tab>Endpoint Activity</Tab>
+                    <Tab>Custo</Tab>
+                    <Tab>Atividade do Modelo</Tab>
+                    <Tab>Atividade da Chave</Tab>
+                    <Tab>Atividade do Servidor MCP</Tab>
+                    <Tab>Atividade do Endpoint</Tab>
                   </TabList>
                   <div className="flex items-center gap-2">
                     <Button
@@ -547,7 +547,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                         </svg>
                       }
                     >
-                      Ask AI
+                      Perguntar à IA
                     </Button>
                     <Button
                       onClick={() => setIsGlobalExportModalOpen(true)}
@@ -562,7 +562,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                         </svg>
                       }
                     >
-                      Export Data
+                      Exportar Dados
                     </Button>
                   </div>
                 </div>
@@ -574,7 +574,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                       <Col numColSpan={2}>
                         <div className="flex items-center gap-4 mt-2 mb-2">
                           <Text className="text-tremor-default text-tremor-content dark:text-dark-tremor-content text-lg">
-                            Project Spend{" "}
+                            Gasto do Projeto{" "}
                             {dateValue.from && dateValue.to && (
                               <>
                                 {dateValue.from.toLocaleDateString("en-US", {
@@ -606,20 +606,20 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                           <Title>Usage Metrics</Title>
                           <Grid numItems={5} className="gap-4 mt-4">
                             <Card>
-                              <Title>Total Requests</Title>
+                              <Title>Total de Requisições</Title>
                               <Text className="text-2xl font-bold mt-2">
                                 {userSpendData.metadata?.total_api_requests?.toLocaleString() || 0}
                               </Text>
                             </Card>
                             <Card>
-                              <Title>Successful Requests</Title>
+                              <Title>Requisições Bem-sucedidas</Title>
                               <Text className="text-2xl font-bold mt-2 text-green-600">
                                 {userSpendData.metadata?.total_successful_requests?.toLocaleString() || 0}
                               </Text>
                             </Card>
                             <Card>
                               <div className="flex items-center gap-2">
-                                <Title>Failed Requests</Title>
+                                <Title>Requisições com Falha</Title>
                                 <Tooltip title="Includes requests that failed to route to a provider, tool usage failures, and other request errors where the provider cannot be determined.">
                                   <InfoCircleOutlined className="text-gray-400 hover:text-gray-600" />
                                 </Tooltip>
@@ -629,7 +629,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                               </Text>
                             </Card>
                             <Card>
-                              <Title>Average Cost per Request</Title>
+                              <Title>Custo médio por Requisição</Title>
                               <Text className="text-2xl font-bold mt-2">
                                 $
                                 {formatNumberWithCommas(
@@ -643,7 +643,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                               onClick={() => setShowTokenBreakdown(!showTokenBreakdown)}
                             >
                               <div className="flex items-center gap-2">
-                                <Title>Total Tokens</Title>
+                                <Title>Total de Tokens</Title>
                                 {showTokenBreakdown ? (
                                   <DownOutlined className="text-gray-400 text-xs" />
                                 ) : (
@@ -658,25 +658,25 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                           {showTokenBreakdown && (
                             <Grid numItems={4} className="gap-4 mt-4">
                               <Card>
-                                <Title>Input Tokens</Title>
+                                <Title>Tokens de Entrada</Title>
                                 <Text className="text-2xl font-bold mt-2 text-blue-600">
                                   {(userSpendData.metadata?.total_prompt_tokens || 0).toLocaleString()}
                                 </Text>
                               </Card>
                               <Card>
-                                <Title>Output Tokens</Title>
+                                <Title>Tokens de Saída</Title>
                                 <Text className="text-2xl font-bold mt-2 text-cyan-600">
                                   {userSpendData.metadata?.total_completion_tokens?.toLocaleString() || 0}
                                 </Text>
                               </Card>
                               <Card>
-                                <Title>Cache Read Tokens</Title>
+                                <Title>Tokens de Leitura do Cache</Title>
                                 <Text className="text-2xl font-bold mt-2 text-green-600">
                                   {userSpendData.metadata?.total_cache_read_input_tokens?.toLocaleString() || 0}
                                 </Text>
                               </Card>
                               <Card>
-                                <Title>Cache Write Tokens</Title>
+                                <Title>Tokens de Escrita do Cache</Title>
                                 <Text className="text-2xl font-bold mt-2 text-purple-600">
                                   {userSpendData.metadata?.total_cache_creation_input_tokens?.toLocaleString() || 0}
                                 </Text>
@@ -741,7 +741,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                       {/* Top Models */}
                       <Col numColSpan={1}>
                         <Card className="h-full">
-                          <Title>{modelViewType === "groups" ? "Top Public Model Names" : "Top Litellm Models"}</Title>
+                          <Title>{modelViewType === "groups" ? "Principais Nomes Públicos dos Modelos" : "Principais Modelos LiteLLM"}</Title>
                           <div className="flex justify-between items-center mb-4">
                             <Segmented
                               options={[
@@ -762,7 +762,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                 }`}
                                 onClick={() => setModelViewType("groups")}
                               >
-                                Public Model Name
+                                Nome Público do Modelo
                               </button>
                               <button
                                 className={`px-3 py-1 text-sm rounded-md transition-colors ${
@@ -772,7 +772,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                 }`}
                                 onClick={() => setModelViewType("individual")}
                               >
-                                Litellm Model Name
+                                Nome do Modelo LiteLLM
                               </button>
                             </div>
                           </div>

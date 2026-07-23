@@ -19,22 +19,22 @@ const CostOptimizationView: React.FC<CostOptimizationViewProps> = ({ accessToken
   const items = [
     {
       key: "usage",
-      label: "Usage",
+      label: "Uso",
       children: <UsageTab accessToken={accessToken} userId={userId} userRole={userRole} />,
     },
     {
       key: "compression",
-      label: "Prompt Compression",
+      label: "Compressão de Prompt",
       children: <PromptCompressionTab accessToken={accessToken} />,
     },
     {
       key: "autorouter",
-      label: "Autorouter",
+      label: "Autorroteador",
       children: <AutorouterTab accessToken={accessToken} userId={userId} userRole={userRole} />,
     },
     {
       key: "caching",
-      label: "Prompt Caching",
+      label: "Cache de Prompt",
       children: <PromptCachingTab accessToken={accessToken} />,
     },
   ];
@@ -44,20 +44,20 @@ const CostOptimizationView: React.FC<CostOptimizationViewProps> = ({ accessToken
       <div>
         <div className="flex items-center gap-2">
           <PiggyBank className="size-6 text-emerald-600" strokeWidth={1.75} />
-          <h1 className="text-xl font-semibold text-foreground">Cost Optimization</h1>
+          <h1 className="text-xl font-semibold text-foreground">Otimização de Custos</h1>
         </div>
         <p className="mt-1 text-sm text-muted-foreground">
-          Track and configure the mechanisms that save you money: prompt compression, prompt caching, and auto routing
+          Monitore e configure os mecanismos que economizam seu dinheiro: compressão de prompt, cache de prompt e roteamento automático
         </p>
       </div>
 
       <Alert
         type="info"
         showIcon
-        message="This is an experimental dashboard"
+        message="Este é um painel experimental"
         description={
           <span>
-            Have feedback? Join the discussion{" "}
+            Tem feedback? Participe da discussão{" "}
             <a
               href="https://github.com/BerriAI/litellm/discussions/32172"
               target="_blank"

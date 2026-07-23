@@ -531,6 +531,10 @@ const en = {
     spend: "Spend",
     budget: "Budget",
   },
+  createKeyModal: {
+    createKeyButton: "Create Key",
+    createNewUser: "Create New User",
+  },
   models: {
     title: "Model Management",
     subtitleAdmin: "Add and manage models for the proxy",

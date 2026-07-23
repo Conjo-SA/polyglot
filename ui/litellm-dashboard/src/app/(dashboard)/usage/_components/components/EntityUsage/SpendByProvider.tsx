@@ -59,7 +59,7 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
   return (
     <Card className="h-full">
       <div className="flex justify-between items-center mb-4">
-        <Title>Spend by Provider</Title>
+        <Title>Gasto por Provedor</Title>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <label className="text-sm text-gray-700">Show Zero Spend</label>

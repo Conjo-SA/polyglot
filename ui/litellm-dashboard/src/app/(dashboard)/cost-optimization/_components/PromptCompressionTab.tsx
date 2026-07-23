@@ -75,25 +75,25 @@ const PromptCompressionTab: React.FC<PromptCompressionTabProps> = ({ accessToken
     <div className="w-full space-y-6">
       <Card>
         <CardHeader>
-          <CardTitle>Headroom prompt compression</CardTitle>
+          <CardTitle>Compressão de prompt Headroom</CardTitle>
         </CardHeader>
         <CardContent>
           <p className="mb-4 text-sm text-muted-foreground">
-            Headroom is a native Polyglot guardrail that compresses your prompts before they reach the model, so you pay
-            for fewer input tokens. The tokens it removes are priced and shown on the Usage tab as compression savings.{" "}
+            Headroom é um guardrail nativo do Polyglot que comprime seus prompts antes que eles cheguem ao modelo, então você paga
+           _por menos tokens de entrada. Os tokens removidos são precificados e mostrados na aba Uso como economia por compressão.{" "}
             <a
               href="https://docs.litellm.ai/docs/proxy/headroom"
               target="_blank"
               rel="noopener noreferrer"
               className="text-blue-600 underline"
             >
-              Headroom setup docs
+              Documentação da configuração do Headroom
             </a>
           </p>
-          {isLoading && <p className="text-sm text-muted-foreground">Loading...</p>}
+          {isLoading && <p className="text-sm text-muted-foreground">Carregando...</p>}
           {!isLoading && guardrails.length === 0 && (
             <p className="text-sm text-muted-foreground">
-              No prompt compression guardrails configured yet. Add one below to start saving on input tokens
+              Nenhum guardrail de compressão de prompt configurado ainda. Adicione um abaixo para começar a economizar nos tokens de entrada
             </p>
           )}
           {!isLoading && guardrails.length > 0 && (
@@ -111,7 +111,7 @@ const PromptCompressionTab: React.FC<PromptCompressionTabProps> = ({ accessToken
                         : "bg-gray-100 text-gray-600"
                     }`}
                   >
-                    {guardrail.litellm_params?.default_on ? "Always on" : "Opt-in"}
+                    {guardrail.litellm_params?.default_on ? "Sempre ativado" : "Ativar opcionalmente"}
                   </span>
                 </li>
               ))}
@@ -122,7 +122,7 @@ const PromptCompressionTab: React.FC<PromptCompressionTabProps> = ({ accessToken
 
       <Card>
         <CardHeader>
-          <CardTitle>Add Headroom compression guardrail</CardTitle>
+          <CardTitle>Adicionar guardrail de compressão Headroom</CardTitle>
         </CardHeader>
         <CardContent>
           <Form
@@ -132,8 +132,8 @@ const PromptCompressionTab: React.FC<PromptCompressionTabProps> = ({ accessToken
             onFinish={handleAdd}
             initialValues={{ defaultOn: true }}
           >
-            <Form.Item name="name" label="Name" rules={[{ required: true, message: "Name is required" }]}>
-              <Input placeholder="headroom-compression" />
+            <Form.Item name="name" label="Nome" rules={[{ required: true, message: "Nome é obrigatório" }]}>
+              <Input placeholder="compressao-headroom" />
             </Form.Item>
             <Form.Item
               name="apiBase"
@@ -144,26 +144,26 @@ const PromptCompressionTab: React.FC<PromptCompressionTabProps> = ({ accessToken
             >
               <Input placeholder="https://your-headroom-endpoint" />
             </Form.Item>
-            <Form.Item name="defaultOn" label="Apply to all requests" valuePropName="checked">
+            <Form.Item name="defaultOn" label="Aplicar a todas as requisições" valuePropName="checked">
               <Switch />
             </Form.Item>
             <div className="mb-4 rounded-lg border border-yellow-200 bg-yellow-50 p-3">
               <p className="text-sm text-yellow-800">
-                Applying compression to all requests is available to all users. Enabling it selectively per key or team
-                is a Polyglot Enterprise feature. Get a trial key{" "}
+                Aplicar compressão a todas as requisições está disponível para todos os usuários. Habilitá-la seletivamente por chave ou equipe
+                é um recurso Enterprise do Polyglot. Obtenha uma chave de teste{" "}
                 <a
                   href="https://www.litellm.ai/#pricing"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="underline"
                 >
-                  here
+                  aqui
                 </a>
               </p>
             </div>
             <div className="flex justify-end">
               <Button type="primary" htmlType="submit" loading={isSaving}>
-                Add guardrail
+                Adicionar guardrail
               </Button>
             </div>
           </Form>

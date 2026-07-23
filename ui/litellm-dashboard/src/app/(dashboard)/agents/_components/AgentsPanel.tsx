@@ -120,14 +120,14 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
   return (
     <div className="w-full mx-auto flex-auto overflow-y-auto m-8 p-2">
       <div className="flex flex-col gap-2 mb-4">
-        <h1 className="text-2xl font-bold">Agents</h1>
+        <h1 className="text-2xl font-bold">Agentes</h1>
         <p className="text-sm text-gray-600">
-          List of A2A-spec agents that are available to be used in your organization. Go to AI Hub, to make agents
-          public.
+          Lista de agentes especificados A2A disponíveis para uso em sua organização. Vá para o AI Hub para tornar os agentes
+          públicos.
         </p>
         <Alert
-          message="Why do agents need keys?"
-          description="Keys scope access to an agent and allow it to call MCP tools. Assign a key when creating an agent or from the Virtual Keys page."
+          message="Por que os agentes precisam de chaves?"
+          description="Chaves controlam o acesso a um agente e permitem que ele chame ferramentas MCP. Atribua uma chave ao criar um agente ou na página de Chaves Virtuais."
           type="info"
           showIcon
           className="mb-3"
@@ -135,13 +135,13 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
         <div className="mt-2 flex items-center gap-4">
           {isAdmin && (
             <Button onClick={handleAddAgent} disabled={!accessToken}>
-              + Add New Agent
+              + Adicionar Novo Agente
             </Button>
           )}
           <Tooltip title="When enabled, only agents with reachable URLs are shown">
             <div className="flex items-center gap-2">
               <CheckCircleOutlined className={healthCheckEnabled ? "text-green-500" : "text-gray-400"} />
-              <span className="text-sm text-gray-600">Health Check</span>
+              <span className="text-sm text-gray-600">Verificação de Saúde</span>
               <Switch
                 size="small"
                 checked={healthCheckEnabled}
@@ -182,7 +182,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
                   <TableRow>
                     <TableCell colSpan={columnCount}>
                       <Text className="text-center">
-                        No agents found. Click &quot;+ Add New Agent&quot; to create one.
+                        Nenhum agente encontrado. Clique em &quot;+ Adicionar Novo Agente&quot; para criar um.
                       </Text>
                     </TableCell>
                   </TableRow>

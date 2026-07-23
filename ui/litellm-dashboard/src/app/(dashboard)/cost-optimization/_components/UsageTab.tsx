@@ -40,27 +40,27 @@ const MethodologyNote = () => (
     items={[
       {
         key: "methodology",
-        label: <span className="text-sm font-medium">How savings are calculated</span>,
+        label: <span className="text-sm font-medium">Como as economias são calculadas</span>,
         children: (
           <div className="space-y-3 text-sm text-muted-foreground">
             <p>
-              Savings are computed for each request when it is logged, using the provider&apos;s reported usage and the
-              model&apos;s pricing, then summed into a daily rollup. Totals below are read from that rollup over the
-              selected date range, so the numbers never require a scan of raw request logs.
+              As economias são calculadas para cada requisição quando ela é registrada, usando o uso informado pelo provedor e o
+              preço do modelo, depois somadas em um registro diário. Os totais abaixo são lidos desse registro no
+              período selecionado, então os números nunca exigem varredura dos registros brutos de requisições.
             </p>
             <p>
-              Compression savings are the tokens Headroom removed before the call, priced at the model&apos;s input
-              rate: <code>compression_saved_tokens * input_cost_per_token</code>
+              As economias por compressão são os tokens removidos pelo Headroom antes da chamada, precificados pela taxa de entrada do modelo:
+              <code>tokens_comprimidos * custo_por_token_de_entrada</code>
             </p>
             <p>
-              Prompt caching savings are the tokens the provider served from cache (Anthropic{" "}
-              <code>cache_read_input_tokens</code>, or OpenAI-style <code>prompt_tokens_details.cached_tokens</code>),
-              priced at the discount between the normal input rate and the cache-read rate:{" "}
-              <code>cache_read_input_tokens * max(input_cost_per_token - cache_read_input_token_cost, 0)</code>
+              As economias por cache de prompt são os tokens servidos pelo provedor a partir do cache (Anthropic{" "}
+              <code>tokens_lidos_do_cache</code>, ou estilo OpenAI <code>detalhes_do_prompt.tokens_em_cache</code>),
+              precificados com o desconto entre a taxa normal de entrada e a taxa de leitura do cache:{" "}
+              <code>tokens_lidos_do_cache * max(custo_por_token_de_entrada - custo_do_token_de_leitura_do_cache, 0)</code>
             </p>
             <p>
-              Total saved is the sum of both drivers. Models without a separate cache-read price in the pricing map
-              contribute zero caching savings rather than erroring.
+              O total economizado é a soma de ambos os drivers. Modelos sem preço separado de leitura de cache no mapa de preços
+              contribuem com zero economia por cache em vez de gerar erro.
             </p>
           </div>
         ),
@@ -132,22 +132,22 @@ const UsageTab: React.FC<UsageTabProps> = ({ accessToken, userId, userRole }) =>
 
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <SummaryCard
-          label="Total saved"
+          label="Total economizado"
           value={usd(totalSaved)}
-          hint={loading || isFetchingMore ? "Loading..." : "Compression + prompt caching"}
+          hint={loading || isFetchingMore ? "Carregando..." : "Compressão + cache de prompt"}
         />
         <SummaryCard
-          label="Compression savings"
+          label="Economia por compressão"
           value={usd(compressionTotal)}
-          hint={`${formatNumberWithCommas(savedTokensTotal)} tokens compressed`}
+          hint={`${formatNumberWithCommas(savedTokensTotal)} tokens comprimidos`}
         />
-        <SummaryCard label="Prompt caching savings" value={usd(cachingTotal)} hint="Cache read discount" />
+        <SummaryCard label="Economia por cache de prompt" value={usd(cachingTotal)} hint="Desconto na leitura do cache" />
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
         <Card className="lg:col-span-2">
           <CardHeader>
-            <CardTitle>Savings over time</CardTitle>
+            <CardTitle>Economias ao longo do tempo</CardTitle>
           </CardHeader>
           <CardContent>
             <AreaChart
@@ -161,7 +161,7 @@ const UsageTab: React.FC<UsageTabProps> = ({ accessToken, userId, userRole }) =>
         </Card>
         <Card>
           <CardHeader>
-            <CardTitle>Savings by driver</CardTitle>
+            <CardTitle>Economias por driver</CardTitle>
           </CardHeader>
           <CardContent>
             <DonutChart
