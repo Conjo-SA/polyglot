@@ -55,7 +55,7 @@ export function ModelSelector({ value, onChange, models, loading, disabled }: Mo
         onChange={handleSelectChange}
         disabled={disabled}
         loading={loading}
-        placeholder={loading ? "Loading models..." : "Select a model"}
+        placeholder={loading ? "Carregando modelos..." : "Selecione um modelo"}
         className="w-full rounded-md"
         showSearch
         optionFilterProp="children"
@@ -65,7 +65,7 @@ export function ModelSelector({ value, onChange, models, loading, disabled }: Mo
             {model}
           </Select.Option>
         ))}
-        <Select.Option value="__custom__">+ Add custom model</Select.Option>
+        <Select.Option value="__custom__">+ Adicionar modelo personalizado</Select.Option>
       </Select>
       {isAddingCustom && (
         <TextInput

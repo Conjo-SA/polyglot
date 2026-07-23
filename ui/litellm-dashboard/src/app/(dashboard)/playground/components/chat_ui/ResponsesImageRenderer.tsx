@@ -23,7 +23,8 @@ const ResponsesImageRenderer: React.FC<ResponsesImageRendererProps> = ({ message
       ) : (
         <img
           src={message.imagePreviewUrl}
-          alt="User uploaded image"
+
+          alt="Imagem enviada pelo usuário"
           className="max-w-64 rounded-md border border-gray-200 shadow-xs"
           style={{ maxHeight: "200px" }}
         />
