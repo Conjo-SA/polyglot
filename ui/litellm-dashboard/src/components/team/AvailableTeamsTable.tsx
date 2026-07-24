@@ -22,16 +22,16 @@ function EmptyState() {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Users className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">No available teams to join</div>
+      <div className="text-sm font-medium text-foreground">Nenhuma equipe disponível para ingressar</div>
       <div className="text-sm text-muted-foreground">
-        See how to set available teams{" "}
+        Veja como configurar equipes disponíveis{" "}
         <a
           href="https://docs.litellm.ai/docs/proxy/self_serve#all-settings-for-self-serve--sso-flow"
           target="_blank"
           rel="noopener noreferrer"
           className="text-primary underline-offset-4 hover:underline"
         >
-          here
+          aqui
         </a>
       </div>
     </div>
@@ -52,7 +52,7 @@ const AvailableTeamsTable: React.FC<AvailableTeamsTableProps> = ({ teams, isLoad
       sorting={sorting}
       onSortingChange={setSorting}
       isLoading={isLoading}
-      loadingMessage="Loading available teams…"
+      loadingMessage="Carregando equipes disponíveis…"
       noDataMessage={<EmptyState />}
       size="compact"
     />

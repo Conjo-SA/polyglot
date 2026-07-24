@@ -417,11 +417,9 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
             <div className="flex items-center justify-between">
               <span>
                 <LoadingOutlined spin className="mr-2" />
-                Currently fetching spend data: fetched {progress.currentPage} / {progress.totalPages} pages. Charts will
-                update periodically as data loads. Moving off of this page will stop and reset this. To continue using
-                the UI in the meantime,{" "}
+                Atualmente buscando dados de gastos: {progress.currentPage} / {progress.totalPages} páginas carregadas. Os gráficos serão atualizados periodicamente conforme os dados carregam. Sair desta página irá parar e reiniciar este processo. Para continuar utilizando a interface meanwhile,{" "}
                 <a href={window.location.href} target="_blank" rel="noopener noreferrer">
-                  open a new tab <ExportOutlined />
+                  abra uma nova aba <ExportOutlined />
                 </a>
                 .
               </span>
@@ -439,7 +437,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
           className="mb-2"
           message={
             <span>
-              Showing partial data ({progress.currentPage}/{progress.totalPages} pages loaded)
+              Mostrando dados parciais ({progress.currentPage}/{progress.totalPages} páginas carregadas)
             </span>
           }
         />
@@ -475,14 +473,14 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
           className="mb-2"
           message={
             <span>
-              Showing partial agent data ({agentProgress.currentPage}/{agentProgress.totalPages} pages loaded)
+              Mostrando dados parciais do agente ({agentProgress.currentPage}/{agentProgress.totalPages} páginas carregadas)
             </span>
           }
         />
       )}
       {entityType === "team" && (
         <div className="mb-4">
-          <Text className="mb-2">Filter by team</Text>
+          <Text className="mb-2">Filtrar por equipe</Text>
           <TeamMultiSelect value={selectedTags} onChange={setSelectedTags} />
         </div>
       )}
@@ -501,11 +499,11 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
       />
       <TabGroup>
         <TabList variant="solid" className="mt-1">
-          <Tab>Cost</Tab>
-          <Tab>{entityType === "agent" ? "Request / Token Consumption" : "Model Activity"}</Tab>
-          {entityType === "team" ? <Tab>Agent Activity</Tab> : <></>}
-          <Tab>Key Activity</Tab>
-          <Tab>Endpoint Activity</Tab>
+          <Tab>Custo</Tab>
+          <Tab>{entityType === "agent" ? "Consumo de Requisições / Tokens" : "Atividade do Modelo"}</Tab>
+          {entityType === "team" ? <Tab>Atividade do Agente</Tab> : <></>}
+          <Tab>Atividade da Chave</Tab>
+          <Tab>Atividade do Endpoint</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -513,34 +511,34 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               {/* Total Spend Card */}
               <Col numColSpan={2}>
                 <Card>
-                  <Title>{capitalizedEntityLabel} Spend Overview</Title>
+                  <Title>Visão Geral do Gasto de {capitalizedEntityLabel}</Title>
                   <Grid numItems={5} className="gap-4 mt-4">
                     <Card>
-                      <Title>Total Spend</Title>
+                      <Title>Gasto Total</Title>
                       <Text className="text-2xl font-bold mt-2">
                         ${formatNumberWithCommas(spendData.metadata.total_spend, 2)}
                       </Text>
                     </Card>
                     <Card>
-                      <Title>Total Requests</Title>
+                      <Title>Total de Requisições</Title>
                       <Text className="text-2xl font-bold mt-2">
                         {spendData.metadata.total_api_requests.toLocaleString()}
                       </Text>
                     </Card>
                     <Card>
-                      <Title>Successful Requests</Title>
+                      <Title>Requisições Bem-sucedidas</Title>
                       <Text className="text-2xl font-bold mt-2 text-green-600">
                         {spendData.metadata.total_successful_requests.toLocaleString()}
                       </Text>
                     </Card>
                     <Card>
-                      <Title>Failed Requests</Title>
+                      <Title>Requisições Falhas</Title>
                       <Text className="text-2xl font-bold mt-2 text-red-600">
                         {spendData.metadata.total_failed_requests.toLocaleString()}
                       </Text>
                     </Card>
                     <Card>
-                      <Title>Total Tokens</Title>
+                      <Title>Total de Tokens</Title>
                       <Text className="text-2xl font-bold mt-2">
                         {spendData.metadata.total_tokens.toLocaleString()}
                       </Text>
@@ -553,7 +551,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               <Col numColSpan={2}>
                 <ShadcnCard>
                   <CardHeader>
-                    <CardTitle className="text-base font-semibold">Daily Spend</CardTitle>
+                    <CardTitle className="text-base font-semibold">Gasto Diário</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <BarChart
@@ -618,10 +616,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                 <Card>
                   <div className="flex flex-col space-y-4">
                     <div className="flex flex-col space-y-2">
-                      <Title>Spend Per {capitalizedEntityLabel}</Title>
-                      <Subtitle className="text-xs">Showing Top 5 by Spend</Subtitle>
+                      <Title>Gasto Por {capitalizedEntityLabel}</Title>
+                      <Subtitle className="text-xs">Mostrando os 5 principais por Gasto</Subtitle>
                       <div className="flex items-center text-sm text-gray-500">
-                        <span>Get Started by Tracking cost per {capitalizedEntityLabel} </span>
+                        <span>Comece acompanhando o custo por {capitalizedEntityLabel} </span>
                         <a
                           href="https://docs.litellm.ai/docs/proxy/enterprise#spend-tracking"
                           className="text-blue-500 hover:text-blue-700 ml-1"
@@ -702,7 +700,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               {/* Top API Keys */}
               <Col numColSpan={1}>
                 <Card>
-                  <Title>Top Virtual Keys</Title>
+                  <Title>Principais Chaves Virtuais</Title>
                   <TopKeyView
                     topKeys={getTopAPIKeys()}
                     teams={null}
@@ -716,7 +714,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               {/* Top Models */}
               <Col numColSpan={1}>
                 <Card>
-                  <Title>{entityType === "agent" ? "Top Agents" : "Top Models"}</Title>
+                  <Title>{entityType === "agent" ? "Principais Agentes" : "Melhores Modelos"}</Title>
                   <TopModelView
                     topModels={getTopModels()}
                     topModelsLimit={topModelsLimit}
@@ -729,7 +727,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               {entityType === "team" && (
                 <Col numColSpan={2}>
                   <Card>
-                    <Title>Top Agents Driving Spend</Title>
+                    <Title>Principais Agentes Gerando Gasto</Title>
                     <TopModelView
                       topModels={getTopAgents()}
                       topModelsLimit={topAgentsLimit}
@@ -743,7 +741,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               <Col numColSpan={2}>
                 <Card>
                   <div className="flex flex-col space-y-4">
-                    <Title>Provider Usage</Title>
+                    <Title>Uso por Provedor</Title>
                     <Grid numItems={2}>
                       <Col numColSpan={1}>
                         <DonutChart

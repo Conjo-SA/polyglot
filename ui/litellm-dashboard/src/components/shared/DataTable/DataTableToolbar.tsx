@@ -37,7 +37,7 @@ export function DataTableToolbar<TData>({
   table,
   searchValue,
   onSearchChange,
-  searchPlaceholder = "Search",
+  searchPlaceholder = "Buscar",
   onOpenFilters,
   onRefresh,
   isRefreshing = false,
@@ -91,7 +91,7 @@ export function DataTableToolbar<TData>({
             onClick={() => table.setColumnFilters([])}
             data-testid="datatable-clear-filters"
           >
-            Clear all
+            Limpar tudo
           </Button>
         )}
       </div>
@@ -114,7 +114,7 @@ export function DataTableToolbar<TData>({
         {onOpenFilters !== undefined && (
           <Button variant="outline" size="sm" onClick={onOpenFilters} data-testid="datatable-filters-trigger">
             <SlidersHorizontal />
-            Filters
+            Filtros
             {filters.length > 0 && (
               <Badge className="ml-1 h-5 min-w-5 justify-center rounded-full px-1" data-testid="datatable-filter-count">
                 {filters.length}

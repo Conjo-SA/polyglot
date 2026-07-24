@@ -197,13 +197,13 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
         initialValues={{ user_role: "internal_user_viewer", send_invite_email: true }}
       >
         <Alert
-          message="Email invitations"
+          message="Convites por e-mail"
           description={
             <>
-              New users receive an email invite only when an email integration (SMTP, Resend, or SendGrid) is
-              configured.{" "}
+              Novos usuários recebem um convite por e-mail apenas quando uma integração de e-mail (SMTP, Resend ou SendGrid) está
+              configurada.{" "}
               <Link href="https://docs.litellm.ai/docs/proxy/email" target="_blank">
-                Learn how to set up email notifications
+                Saiba como configurar notificações por e-mail
               </Link>
             </>
           }
@@ -211,10 +211,10 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           showIcon
           className="mb-4"
         />
-        <Form.Item label="User Email" name="user_email">
+        <Form.Item label="E-mail do Usuário" name="user_email">
           <TextInput placeholder="" />
         </Form.Item>
-        <Form.Item label="User Role" name="user_role">
+        <Form.Item label="Função do Usuário" name="user_role">
           <Select2>
             {possibleUIRoles &&
               Object.entries(possibleUIRoles).map(([role, { ui_label, description }]) => (
@@ -229,20 +229,20 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
               ))}
           </Select2>
         </Form.Item>
-        <Form.Item label="Team" name="team_id">
+        <Form.Item label="Time" name="team_id">
           <TeamDropdown />
         </Form.Item>
 
-        <Form.Item label="Metadata" name="metadata">
-          <Input.TextArea rows={4} placeholder="Enter metadata as JSON" />
+        <Form.Item label="Metadados" name="metadata">
+          <Input.TextArea rows={4} placeholder="Insira metadados como JSON" />
         </Form.Item>
 
-        <Form.Item label="Send invitation email" name="send_invite_email" valuePropName="checked">
+        <Form.Item label="Enviar e-mail de convite" name="send_invite_email" valuePropName="checked">
           <Checkbox />
         </Form.Item>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button htmlType="submit">Create User</Button>
+          <Button htmlType="submit">Criar Usuário</Button>
         </div>
       </Form>
     );
@@ -252,11 +252,11 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
   return (
     <div className="flex gap-2">
       <Button type="primary" className="mb-0" onClick={() => setIsModalVisible(true)}>
-        + Invite User
+        + Convidar Usuário
       </Button>
       <BulkCreateUsers accessToken={accessToken} teams={teams} possibleUIRoles={possibleUIRoles} />
       <Modal
-        title="Invite User"
+        title="Convidar Usuário"
         open={isModalVisible}
         width={800}
         footer={null}
@@ -264,15 +264,15 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
         onCancel={handleCancel}
       >
         <Space direction="vertical" size="middle">
-          <Text className="mb-1">Create a User who can own keys</Text>
+          <Text className="mb-1">Criar um Usuário que possa possuir chaves</Text>
           <Alert
-            message="Email invitations"
+            message="Convites por e-mail"
             description={
               <>
-                New users receive an email invite only when an email integration (SMTP, Resend, or SendGrid) is
-                configured.{" "}
+                Novos usuários recebem um convite por e-mail apenas quando uma integração de e-mail (SMTP, Resend ou SendGrid) está
+                configurada.{" "}
                 <Link href="https://docs.litellm.ai/docs/proxy/email" target="_blank">
-                  Learn how to set up email notifications
+                  Saiba como configurar notificações por e-mail
                 </Link>
               </>
             }
@@ -289,14 +289,14 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           labelAlign="left"
           initialValues={{ user_role: "internal_user_viewer", send_invite_email: true }}
         >
-          <Form.Item label="User Email" name="user_email">
+          <Form.Item label="E-mail do Usuário" name="user_email">
             <Input />
           </Form.Item>
           <Form.Item
             label={
               <span>
-                Global Proxy Role{" "}
-                <Tooltip title="This role is independent of any team/org specific roles. Configure Team / Organization Admins in the Settings">
+                Função Global do Proxy{" "}
+                <Tooltip title="Esta função é independente de funções específicas de equipe/organização. Configure administradores de equipe/organização nas Configurações">
                   <InfoCircleOutlined />
                 </Tooltip>
               </span>
@@ -318,18 +318,18 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
           </Form.Item>
 
           <Form.Item
-            label="Team"
+            label="Time"
             className="gap-2"
             name="team_id"
-            help="If selected, user will be added as a 'user' role to the team."
+            help="Se selecionado, o usuário será adicionado como papel 'usuário' à equipe."
           >
             <TeamDropdown />
           </Form.Item>
 
           <Form.Item
-            label="Organization"
+            label="Organização"
             name="organization_ids"
-            help="The user will be added to the selected organization(s)."
+            help="O usuário será adicionado à organização(ões) selecionada(s)."
           >
             <Select mode="multiple" placeholder="Select Organization" style={{ width: "100%" }}>
               {organizations.map((org) => (
@@ -340,29 +340,29 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
             </Select>
           </Form.Item>
 
-          <Form.Item label="Metadata" name="metadata">
-            <Input.TextArea rows={4} placeholder="Enter metadata as JSON" />
+          <Form.Item label="Metadados" name="metadata">
+            <Input.TextArea rows={4} placeholder="Insira metadados como JSON" />
           </Form.Item>
-          <Form.Item label="Send invitation email" name="send_invite_email" valuePropName="checked">
+          <Form.Item label="Enviar e-mail de convite" name="send_invite_email" valuePropName="checked">
             <Checkbox />
           </Form.Item>
           <Accordion>
             <AccordionHeader>
-              <Text strong>Personal Key Creation</Text>
+              <Text strong>Criação de Chave Pessoal</Text>
             </AccordionHeader>
             <AccordionBody>
               <Form.Item
                 className="gap-2"
                 label={
                   <span>
-                    Models{" "}
-                    <Tooltip title="Models user has access to, outside of team scope.">
+                    Modelos{" "}
+                    <Tooltip title="Modelos aos quais o usuário tem acesso, fora do escopo da equipe.">
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
                 }
                 name="models"
-                help="Models user has access to, outside of team scope."
+                help="Modelos aos quais o usuário tem acesso, fora do escopo da equipe."
               >
                 <Select2 mode="multiple" placeholder="Select models" style={{ width: "100%" }}>
                   <Select2.Option key="all-proxy-models" value="all-proxy-models">
@@ -383,7 +383,7 @@ export const CreateUserButton: React.FC<CreateuserProps> = ({
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
             <Button type="primary" icon={<UserAddOutlined />} htmlType="submit">
-              Invite User
+              Convidar Usuário
             </Button>
           </div>
         </Form>

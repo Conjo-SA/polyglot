@@ -30,7 +30,7 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
           setAvailableTeams(response);
         }
       } catch (error) {
-        console.error("Error fetching available teams:", error);
+        console.error("Erro ao buscar equipes disponíveis:", error);
       } finally {
         if (!ignore) {
           setIsLoading(false);
@@ -54,11 +54,11 @@ const AvailableTeamsPanel: React.FC<AvailableTeamsProps> = ({ accessToken, userI
         role: "user",
       });
 
-      NotificationsManager.success("Successfully joined team");
+      NotificationsManager.success("Equipe ingressada com sucesso");
       setAvailableTeams((teams) => teams.filter((team) => team.team_id !== teamId));
     } catch (error) {
-      console.error("Error joining team:", error);
-      NotificationsManager.fromBackend("Failed to join team");
+      console.error("Erro ao ingressar na equipe:", error);
+      NotificationsManager.fromBackend("Falha ao ingressar na equipe");
     }
   };
 

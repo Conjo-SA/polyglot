@@ -101,8 +101,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Model Scope
-          <Tooltip title="Models this member can access. Empty means they inherit all team models.">
+          Escopo de Modelos
+          <Tooltip title="Modelos a que este membro tem acesso. Vazio significa que ele herda todos os modelos da equipe.">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -111,7 +111,7 @@ export default function TeamMemberTab({
       render: (_: unknown, record: Member) => {
         const models = getUserAllowedModels(record.user_id);
         if (!models) {
-          return <Typography.Text type="secondary">(all team models)</Typography.Text>;
+          return <Typography.Text type="secondary">(todos os modelos da equipe)</Typography.Text>;
         }
         const displayed = models.slice(0, 2);
         const remaining = models.length - displayed.length;
@@ -124,7 +124,7 @@ export default function TeamMemberTab({
             ))}
             {remaining > 0 && (
               <Tooltip title={models.slice(2).join(", ")}>
-                <Typography.Text type="secondary">+{remaining} more</Typography.Text>
+                <Typography.Text type="secondary">+{remaining} mais</Typography.Text>
               </Tooltip>
             )}
           </Space>
@@ -134,8 +134,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Current Cycle Spend (USD)
-          <Tooltip title="Spend for the current budget cycle. Resets to $0 when the member's budget window rolls over. This is the value checked against the member's budget.">
+          Gastos no Ciclo Atual (USD)
+          <Tooltip title="Gastos no ciclo de orçamento atual. Reseta para $0 quando a janela de orçamento do membro rollover. Este é o valor verificado contra o orçamento do membro.">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -148,8 +148,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Total Spend (USD)
-          <Tooltip title="Cumulative spend by this member within this team, across all budget cycles. Tracking began 2026-04-21; spend from before that date is not included.">
+          Gasto Total (USD)
+          <Tooltip title="Gasto acumulado por este membro dentro desta equipe, em todos os ciclos de orçamento. O acompanhamento começou em 2026-04-21; os gastos antes desta data não estão incluídos.">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -158,22 +158,22 @@ export default function TeamMemberTab({
       render: (_: unknown, record: Member) => <MoneyCell value={getUserTotalSpend(record.user_id)} decimals={4} />,
     },
     {
-      title: "Team Member Budget (USD)",
+      title: "Orçamento do Membro da Equipe (USD)",
       key: "budget",
       render: (_: unknown, record: Member) => (
-        <MoneyCell value={getUserBudget(record.user_id)} decimals={4} emptyText="Unlimited" showZero />
+        <MoneyCell value={getUserBudget(record.user_id)} decimals={4} emptyText="Ilimitado" showZero />
       ),
     },
     {
-      title: "Budget Reset",
+      title: "Reinício do Orçamento",
       key: "budget_reset",
       render: (_: unknown, record: Member) => <DateCell value={getUserBudgetReset(record.user_id)} precision="date" />,
     },
     {
       title: (
         <Space direction="horizontal">
-          Team Member Rate Limits
-          <Tooltip title="Rate limits for this member's usage within this team.">
+          Limites de Taxa do Membro da Equipe
+          <Tooltip title="Limites de taxa para o uso deste membro dentro desta equipe.">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -202,8 +202,8 @@ export default function TeamMemberTab({
       }}
       onDelete={handleMemberDelete}
       onAddMember={() => setIsAddMemberModalVisible(true)}
-      roleColumnTitle="Team Role"
-      roleTooltip="This role applies only to this team and is independent from the user's proxy-level role."
+      roleColumnTitle="Cargo na Equipe"
+      roleTooltip="Este cargo se aplica apenas a esta equipe e é independente do cargo de nível proxy do usuário."
       extraColumns={extraColumns}
       showDeleteForMember={() =>
         isProxyAdmin || (canEditTeam && !isUserTeamAdmin) || (isUserTeamAdmin && !disableTeamAdminDeleteTeamUser)
