@@ -14,6 +14,7 @@ import { useDebouncedCallback } from "@tanstack/react-pacer/debouncer";
 import { DEBOUNCE_WAIT_MS } from "@/utils/debounceConstants";
 import React, { useEffect, useState } from "react";
 import { rolesWithWriteAccess } from "../../utils/roles";
+
 import AgentSelector from "../agent_management/AgentSelector";
 import { mapDisplayToInternalNames } from "../callback_info_helpers";
 import AccessGroupSelector from "../common_components/AccessGroupSelector";
@@ -165,8 +166,8 @@ export const fetchUserModels = async (
  * ─────────────────────────────────────────────────────────────────────────
  */
 const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOpenCreate, prefillData }) => {
-  const { accessToken, userId: userID, userRole, premiumUser } = useAuthorized();
-  const canEditGuardrails = premiumUser || (userRole != null && rolesWithWriteAccess.includes(userRole));
+  
+  const { accessToken, userId: userID, userRole } = useAuthorized();
   const { data: organizations, isLoading: isOrganizationsLoading } = useOrganizations();
   const { data: projects, isLoading: isProjectsLoading } = useProjects();
   const { data: uiSettingsData } = useUISettings();
@@ -735,8 +736,8 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
               <Form.Item
                 label={
                   <span>
-                    User ID{" "}
-                    <Tooltip title="The user who will own this key and be responsible for its usage">
+                    ID do Usuário{" "}
+                    <Tooltip title="O usuário que será responsável pela chave">
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
@@ -1232,12 +1233,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      disabled={!canEditGuardrails}
-                      placeholder={
-                        !canEditGuardrails
-                          ? "Premium feature - Upgrade to set guardrails by key"
-                          : "Select or enter guardrails"
-                      }
+                      placeholder="Select or enter guardrails"
                       options={guardrailsList.map((name) => ({ value: name, label: name }))}
                     />
                   </Form.Item>
@@ -1262,7 +1258,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     valuePropName="checked"
                     help="Ignorar guardrails globais para esta chave"
                   >
-                    <Switch disabled={!canEditGuardrails} checkedChildren="Yes" unCheckedChildren="No" />
+                    <Switch checkedChildren="Yes" unCheckedChildren="No" />
                   </Form.Item>
                   <Form.Item
                     label={
@@ -1287,10 +1283,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      disabled={!premiumUser}
-                      placeholder={
-                        !premiumUser ? "Premium feature - Upgrade to set policies by key" : "Select or enter policies"
-                      }
+                      placeholder="Select or enter policies"
                       options={policiesList.map((name) => ({ value: name, label: name }))}
                     />
                   </Form.Item>
@@ -1317,10 +1310,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      disabled={!premiumUser}
-                      placeholder={
-                        !premiumUser ? "Premium feature - Upgrade to set prompts by key" : "Select or enter prompts"
-                      }
+                      placeholder="Select or enter prompts"
                       options={promptsList.map((name) => ({ value: name, label: name }))}
                     />
                   </Form.Item>
@@ -1363,12 +1353,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                       onChange={(values: string[]) => form.setFieldValue("allowed_passthrough_routes", values)}
                       value={form.getFieldValue("allowed_passthrough_routes")}
                       accessToken={accessToken}
-                      placeholder={
-                        !premiumUser
-                          ? "Premium feature - Upgrade to set pass through routes by key"
-                          : "Select or enter pass through routes"
-                      }
-                      disabled={!premiumUser}
+                      placeholder="Select or enter pass through routes"
                       teamId={selectedCreateKeyTeam ? selectedCreateKeyTeam.team_id : null}
                     />
                   </Form.Item>
@@ -1509,7 +1494,6 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     </AccordionBody>
                   </Accordion>
 
-                  {premiumUser ? (
                     <Accordion className="mt-4 mb-4">
                       <AccordionHeader>
                         <b>Configurações de Registro</b>
@@ -1526,41 +1510,6 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                         </div>
                       </AccordionBody>
                     </Accordion>
-                  ) : (
-                    <Tooltip
-                      title={
-                        <span>
-                          Key-level logging settings is an enterprise feature, get in touch -
-                          <a href="https://www.litellm.ai/enterprise" target="_blank">
-                            https://www.litellm.ai/enterprise
-                          </a>
-                        </span>
-                      }
-                      placement="top"
-                    >
-                      <div style={{ position: "relative" }}>
-                        <div style={{ opacity: 0.5 }}>
-                          <Accordion className="mt-4 mb-4">
-                            <AccordionHeader>
-                              <b>Logging Settings</b>
-                            </AccordionHeader>
-                            <AccordionBody>
-                              <div className="mt-4">
-                                <PremiumLoggingSettings
-                                  value={loggingSettings}
-                                  onChange={setLoggingSettings}
-                                  premiumUser={false}
-                                  disabledCallbacks={disabledCallbacks}
-                                  onDisabledCallbacksChange={setDisabledCallbacks}
-                                />
-                              </div>
-                            </AccordionBody>
-                          </Accordion>
-                        </div>
-                        <div style={{ position: "absolute", inset: 0, cursor: "not-allowed" }} />
-                      </div>
-                    </Tooltip>
-                  )}
 
                   <Accordion key={`router-settings-accordion-${routerSettingsKey}`} className="mt-4 mb-4">
                     <AccordionHeader>
@@ -1679,16 +1628,16 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
             <Button2 htmlType="submit" disabled={isFormDisabled} style={{ opacity: isFormDisabled ? 0.5 : 1 }}>
-              {t("createKeyModal.createKeyButton")}
+              Criar Chave
             </Button2>
           </div>
         </Form>
       </Modal>
 
-      {/* Add the Create User Modal */}
+      {/* Add the Criar Usuário Modal */}
       {isCreateUserModalVisible && (
         <Modal
-          title={t("createKeyModal.createNewUser")}
+          title="Criar Novo Usuário"
           open={isCreateUserModalVisible}
           onCancel={() => setIsCreateUserModalVisible(false)}
           footer={null}
