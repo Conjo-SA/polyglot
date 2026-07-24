@@ -485,10 +485,6 @@ const ptBR = {
     spend: "Gasto",
     budget: "Orçamento",
   },
-  createKeyModal: {
-    createKeyButton: "Criar Chave",
-    createNewUser: "Criar Novo Usuário",
-  },
   models: {
     title: "Gerenciamento de Modelos",
     subtitleAdmin: "Adicione e gerencie modelos do proxy",

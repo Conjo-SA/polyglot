@@ -483,11 +483,6 @@ const en = {
     unknown: "Unknown",
     unlimited: "Unlimited",
     spend: "Spend",
-    budget: "Budget",
-  },
-  createKeyModal: {
-    createKeyButton: "Create Key",
-    createNewUser: "Create New User",
   },
   models: {
     title: "Model Management",

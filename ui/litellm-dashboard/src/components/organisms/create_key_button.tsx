@@ -14,7 +14,7 @@ import { useDebouncedCallback } from "@tanstack/react-pacer/debouncer";
 import { DEBOUNCE_WAIT_MS } from "@/utils/debounceConstants";
 import React, { useEffect, useState } from "react";
 import { rolesWithWriteAccess } from "../../utils/roles";
-import { useTranslation } from "react-i18next";
+
 import AgentSelector from "../agent_management/AgentSelector";
 import { mapDisplayToInternalNames } from "../callback_info_helpers";
 import AccessGroupSelector from "../common_components/AccessGroupSelector";
@@ -166,7 +166,7 @@ export const fetchUserModels = async (
  * ─────────────────────────────────────────────────────────────────────────
  */
 const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOpenCreate, prefillData }) => {
-  const { t } = useTranslation();
+  
   const { accessToken, userId: userID, userRole } = useAuthorized();
   const { data: organizations, isLoading: isOrganizationsLoading } = useOrganizations();
   const { data: projects, isLoading: isProjectsLoading } = useProjects();
@@ -714,7 +714,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
             <Form.Item
               label={
                 <span>
-                  Owned By{" "}
+                  Proprietário Por{" "}
                   <Tooltip title="Select who will own this Virtual Key">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
@@ -736,8 +736,8 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
               <Form.Item
                 label={
                   <span>
-                    User ID{" "}
-                    <Tooltip title="The user who will own this key and be responsible for its usage">
+                    ID do Usuário{" "}
+                    <Tooltip title="O usuário que será responsável pela chave">
                       <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                     </Tooltip>
                   </span>
@@ -1629,16 +1629,16 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
             <Button2 htmlType="submit" disabled={isFormDisabled} style={{ opacity: isFormDisabled ? 0.5 : 1 }}>
-              {t("createKeyModal.createKeyButton")}
+              Criar Chave
             </Button2>
           </div>
         </Form>
       </Modal>
 
-      {/* Add the Create User Modal */}
+      {/* Add the Criar Usuário Modal */}
       {isCreateUserModalVisible && (
         <Modal
-          title={t("createKeyModal.createNewUser")}
+          title="Criar Novo Usuário"
           open={isCreateUserModalVisible}
           onCancel={() => setIsCreateUserModalVisible(false)}
           footer={null}
