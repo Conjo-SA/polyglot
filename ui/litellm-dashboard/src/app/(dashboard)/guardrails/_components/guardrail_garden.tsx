@@ -47,7 +47,7 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
       <div style={{ marginBottom: 24 }}>
         <Input
           size="large"
-          placeholder="Search guardrails"
+          placeholder="Buscar guardrails"
           prefix={<SearchOutlined style={{ color: "#9ca3af" }} />}
           value={searchQuery}
           onChange={(e) => setSearchQuery(e.target.value)}
@@ -58,7 +58,7 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
       {/* Polyglot Content Filter Section */}
       <div style={{ marginBottom: 40 }}>
         <div style={{ display: "flex", alignItems: "center", justifyContent: "space-between", marginBottom: 4 }}>
-          <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: 0 }}>Polyglot Content Filter</h2>
+          <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: 0 }}>Filtro de Conteúdo Polyglot</h2>
           <span
             style={{
               display: "inline-flex",
@@ -71,17 +71,17 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
             onClick={() => setShowAllLitellm(!showAllLitellm)}
           >
             {showAllLitellm ? (
-              <>Show less</>
+              <>Mostrar menos</>
             ) : (
               <>
                 <ArrowRightOutlined style={{ fontSize: 12 }} />
-                {`Show all (${litellmCards.length})`}
+                {`Mostrar todos (${litellmCards.length})`}
               </>
             )}
           </span>
         </div>
         <p style={{ fontSize: 13, color: "#6b7280", margin: "4px 0 20px 0" }}>
-          Built-in guardrails powered by Polyglot. Zero latency, no external dependencies, no additional cost.
+          Guardrails embutidos alimentados pelo Polyglot. Latência zero, sem dependências externas, sem custo adicional.
         </p>
         <div
           style={{
@@ -98,9 +98,9 @@ const GuardrailGarden: React.FC<GuardrailGardenProps> = ({ accessToken, onGuardr
 
       {/* Partner Guardrails Section */}
       <div style={{ marginBottom: 40 }}>
-        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: "0 0 4px 0" }}>Partner Guardrails</h2>
+        <h2 style={{ fontSize: 20, fontWeight: 600, color: "#111827", margin: "0 0 4px 0" }}>Guardrails Parceiros</h2>
         <p style={{ fontSize: 13, color: "#6b7280", margin: "4px 0 20px 0" }}>
-          Third-party guardrail integrations from leading AI security providers.
+          Integrações de guardrail de terceiros de provedores líderes em segurança de IA.
         </p>
         <div
           style={{

@@ -283,9 +283,9 @@ const en = {
     keyTypeTooltip: "Select the type of key to determine what routes and operations this key can access",
     optionalSettings: "Optional Settings",
     maxBudgetTooltip:
-      "Maximum amount in USD this key can spend. When reached, the key will be blocked from making further requests",
-    budgetCannotExceedTeam: "Budget cannot exceed team max budget: ${{budget}}",
-    budgetCannotExceedTeamError: "Budget cannot exceed team max budget: ${{budget}}",
+      "Maximum amount in BRL this key can spend. When reached, the key will be blocked from making further requests",
+    budgetCannotExceedTeam: "Budget cannot exceed team max budget: R$ {{budget}}",
+    budgetCannotExceedTeamError: "Budget cannot exceed team max budget: R$ {{budget}}",
     unlimitedLower: "unlimited",
     resetBudgetTooltip:
       "How often the budget should reset. For example, setting 'daily' will reset the budget every 24 hours",

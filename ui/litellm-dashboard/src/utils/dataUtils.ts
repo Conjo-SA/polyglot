@@ -57,10 +57,10 @@ export const getSpendString = (value: number | null | undefined, decimals: numbe
 
   if (numericFormatted === 0) {
     const threshold = (1 / 10 ** decimals).toFixed(decimals);
-    return `< $${threshold}`;
+    return `< R$ ${threshold}`;
   }
 
-  return `$${formatted}`;
+  return `R$ ${formatted}`;
 };
 
 export const copyToClipboard = async (

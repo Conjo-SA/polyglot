@@ -123,7 +123,7 @@ function RequestIdSection({ requestId }: { requestId: string }) {
       <Tooltip title={requestId}>
         <Text
           strong
-          copyable={{ text: requestId, tooltips: ["Copy Request ID", "Copied!"] }}
+          copyable={{ text: requestId, tooltips: ["Copiar ID da solicitação", "Copiado!"] }}
           style={{
             fontSize: FONT_SIZE_HEADER,
             fontFamily: FONT_FAMILY_MONO,
@@ -173,7 +173,7 @@ function NavigationSection({
         <DownOutlined />
         <span style={keyboardShortcutStyle}>J</span>
       </Button>
-      <Tooltip title="ESC to close">
+      <Tooltip title="ESC para fechar">
         <Button type="text" icon={<CloseOutlined />} onClick={onClose} />
       </Tooltip>
     </Space>

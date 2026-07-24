@@ -332,7 +332,7 @@ export function LogDetailsDrawer({
               <div className="flex items-start justify-between gap-2">
                 <div>
                   <div className="text-[10px] uppercase tracking-wide text-slate-500">
-                    {isSessionMode ? "Session" : "Trace"}
+                    {isSessionMode ? "Sessão" : "Registro"}
                   </div>
                   <div className="font-mono text-[12px] text-slate-900 leading-tight flex items-center gap-1">
                     <span className="truncate">{leftPanelDisplayId}</span>
@@ -384,7 +384,7 @@ export function LogDetailsDrawer({
               </div>
               {isSessionMode && sessionTruncated && (
                 <div className="mt-1 text-[11px] text-amber-600 font-mono">
-                  Showing most recent {logsForList.length} of {sessionTotalCount}
+                  Mostrando os mais recentes {logsForList.length} de {sessionTotalCount}
                 </div>
               )}
               {isSessionMode && (
@@ -393,9 +393,9 @@ export function LogDetailsDrawer({
                   size="small"
                   className="mt-1.5 [&_.ant-segmented-item-label]:text-[11px]"
                   options={[
-                    { label: "Duration", value: "duration" },
-                    { label: "Start time", value: "start_time" },
-                  ]}
+                    { label: "Duração", value: "duration" },
+                    { label: "Horário de início", value: "start_time" },
+                  ]
                   value={sessionSortMode}
                   onChange={(value) => setSessionSortMode(value as SessionLogSortMode)}
                 />

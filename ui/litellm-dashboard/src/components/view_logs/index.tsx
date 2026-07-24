@@ -237,15 +237,15 @@ export default function SpendLogsTable({ accessToken, token, userRole, userID, p
     <div className="w-full p-6 overflow-x-hidden box-border">
       <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "request logs" : "audit logs")}>
         <TabList>
-          <Tab>Request Logs</Tab>
-          <Tab>Audit Logs</Tab>
-          <Tab>Deleted Keys</Tab>
-          <Tab>Deleted Teams</Tab>
+          <Tab>Logs de Solicitação</Tab>
+          <Tab>Logs de Auditoria</Tab>
+          <Tab>Chaves Excluídas</Tab>
+          <Tab>Equipes Excluídas</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
             <div className="flex items-center justify-between mb-4">
-              <h1 className="text-xl font-semibold">Request Logs</h1>
+              <h1 className="text-xl font-semibold">Logs de Solicitação</h1>
             </div>
             {selectedKeyInfo && selectedKeyIdInfoView && selectedKeyInfo.api_key === selectedKeyIdInfoView ? (
               <KeyInfoView
@@ -253,7 +253,7 @@ export default function SpendLogsTable({ accessToken, token, userRole, userID, p
                 keyData={selectedKeyInfo}
                 teams={allTeams ?? []}
                 onClose={() => setSelectedKeyIdInfoView(null)}
-                backButtonText="Back to Logs"
+                backButtonText="Voltar aos Logs"
               />
             ) : (
               <>
