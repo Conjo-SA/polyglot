@@ -284,9 +284,9 @@ const ptBR = {
     keyTypeTooltip: "Selecione o tipo de chave para determinar quais rotas e operações esta chave pode acessar",
     optionalSettings: "Configurações Opcionais",
     maxBudgetTooltip:
-      "Valor máximo em USD que esta chave pode gastar. Ao atingir esse valor, a chave será bloqueada de fazer novas requisições",
-    budgetCannotExceedTeam: "O orçamento não pode exceder o orçamento máximo do time: ${{budget}}",
-    budgetCannotExceedTeamError: "O orçamento não pode exceder o orçamento máximo do time: ${{budget}}",
+      "Valor máximo em BRL que esta chave pode gastar. Ao atingir esse valor, a chave será bloqueada de fazer novas requisições",
+    budgetCannotExceedTeam: "O orçamento não pode exceder o orçamento máximo do time: R$ {{budget}}",
+    budgetCannotExceedTeamError: "O orçamento não pode exceder o orçamento máximo do time: R$ {{budget}}",
     unlimitedLower: "ilimitado",
     resetBudgetTooltip:
       "Com que frequência o orçamento deve ser redefinido. Por exemplo, definir 'diário' redefine o orçamento a cada 24 horas",

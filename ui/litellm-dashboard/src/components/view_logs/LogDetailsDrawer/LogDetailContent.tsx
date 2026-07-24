@@ -100,7 +100,7 @@ export function LogDetailContent({ logEntry, isLoadingDetails = false, accessTok
         <Alert
           type="error"
           showIcon
-          message="Request Failed"
+          message="Falha na solicitação"
           description={<ErrorDescription errorInfo={errorInfo} />}
           className="mb-6"
         />
@@ -220,12 +220,12 @@ function ErrorDescription({ errorInfo }: { errorInfo: any }) {
     <div>
       {errorInfo.error_code && (
         <div>
-          <Text strong>Error Code:</Text> {errorInfo.error_code}
+          <Text strong>Código do Erro:</Text> {errorInfo.error_code}
         </div>
       )}
       {errorInfo.error_message && (
         <div>
-          <Text strong>Message:</Text> {errorInfo.error_message}
+          <Text strong>Mensagem:</Text> {errorInfo.error_message}
         </div>
       )}
     </div>

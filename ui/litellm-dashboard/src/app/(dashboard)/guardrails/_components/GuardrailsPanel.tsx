@@ -101,11 +101,11 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
     setIsDeleting(true);
     try {
       await deleteGuardrailCall(accessToken, guardrailToDelete.guardrail_id);
-      NotificationsManager.success(`Guardrail "${guardrailToDelete.guardrail_name}" deleted successfully`);
+      NotificationsManager.success(`Guardrail "${guardrailToDelete.guardrail_name}" excluído com sucesso`);
       await fetchGuardrails();
     } catch (error) {
-      console.error("Error deleting guardrail:", error);
-      NotificationsManager.fromBackend("Failed to delete guardrail");
+      console.error("Erro ao excluir guardrail:", error);
+      NotificationsManager.fromBackend("Falha ao excluir guardrail");
     } finally {
       setIsDeleting(false);
       setIsDeleteModalOpen(false);
@@ -132,7 +132,7 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
             ? [
                 {
                   key: "garden",
-                  label: "Guardrail Garden",
+                  label: "Jardim de Guardrails",
                   children: <GuardrailGarden accessToken={accessToken} onGuardrailCreated={handleSuccess} />,
                 },
                 {
@@ -147,17 +147,17 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
                             className={cn(buttonVariants({ variant: "default" }))}
                           >
                             <Plus />
-                            Add New Guardrail
+                            Adicionar Nova Guardrail
                             <ChevronDown />
                           </DropdownMenuTrigger>
                           <DropdownMenuContent align="start" className="w-56">
                             <DropdownMenuItem onClick={handleAddGuardrail}>
                               <Plus />
-                              Add Provider Guardrail
+                              Adicionar Guardrail de Provedor
                             </DropdownMenuItem>
                             <DropdownMenuItem onClick={handleAddCustomCodeGuardrail}>
                               <Code />
-                              Create Custom Code Guardrail
+                              Criar Guardrail com Código Personalizado
                             </DropdownMenuItem>
                           </DropdownMenuContent>
                         </DropdownMenu>
@@ -195,17 +195,17 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
 
                       <DeleteResourceModal
                         isOpen={isDeleteModalOpen}
-                        title="Delete Guardrail"
-                        message={`Are you sure you want to delete guardrail: ${guardrailToDelete?.guardrail_name}? This action cannot be undone.`}
-                        resourceInformationTitle="Guardrail Information"
+                        title="Excluir Guardrail"
+                        message={`Tem certeza que deseja excluir o guardrail: ${guardrailToDelete?.guardrail_name}? Esta ação não pode ser desfeita.`}
+                        resourceInformationTitle="Informações do Guardrail"
                         resourceInformation={[
-                          { label: "Name", value: guardrailToDelete?.guardrail_name },
+                          { label: "Nome", value: guardrailToDelete?.guardrail_name },
                           { label: "ID", value: guardrailToDelete?.guardrail_id, code: true },
-                          { label: "Provider", value: providerDisplayName },
-                          { label: "Mode", value: guardrailToDelete?.litellm_params.mode },
+                          { label: "Provedor", value: providerDisplayName },
+                          { label: "Modo", value: guardrailToDelete?.litellm_params.mode },
                           {
-                            label: "Default On",
-                            value: guardrailToDelete?.litellm_params.default_on ? "Yes" : "No",
+                            label: "Ativo por Padrão",
+                            value: guardrailToDelete?.litellm_params.default_on ? "Sim" : "Não",
                           },
                         ]}
                         onCancel={handleDeleteCancel}
@@ -217,7 +217,7 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
                 },
                 {
                   key: "playground",
-                  label: "Test Playground",
+                  label: "Ambiente de Testes",
                   disabled: !accessToken,
                   children: (
                     <GuardrailTestPlayground
@@ -232,7 +232,7 @@ const GuardrailsPanel: React.FC<GuardrailsPanelProps> = ({ accessToken, userRole
             : []),
           {
             key: "submitted",
-            label: "Submitted Guardrails",
+            label: "Guardrails Enviados",
             children: <TeamGuardrailsTab accessToken={accessToken} />,
           },
         ]}

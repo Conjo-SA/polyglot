@@ -113,19 +113,19 @@ function submissionToTeamGuardrail(item: GuardrailSubmissionItem): TeamGuardrail
 
 const STATUS_CONFIG: Record<GuardrailStatus, { label: string; bg: string; text: string; dot: string }> = {
   active: {
-    label: "Active",
+    label: "Ativo",
     bg: "bg-green-50",
     text: "text-green-700",
     dot: "bg-green-500",
   },
   pending: {
-    label: "Pending Review",
+    label: "Aguardando Revisão",
     bg: "bg-yellow-50",
     text: "text-yellow-700",
     dot: "bg-yellow-500",
   },
   rejected: {
-    label: "Rejected",
+    label: "Rejeitado",
     bg: "bg-red-50",
     text: "text-red-700",
     dot: "bg-red-500",
@@ -240,7 +240,7 @@ function GuardrailCard({
       <div className="flex items-start justify-between gap-4">
         <div className="flex-1 min-w-0">
           <div className="flex items-center gap-2 mb-1.5 flex-wrap">
-            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${teamColor}`}>Team: {g.team}</span>
+            <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${teamColor}`}>Time: {g.team}</span>
             <span
               className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${status.bg} ${status.text}`}
             >
@@ -256,10 +256,10 @@ function GuardrailCard({
           </div>
           <div className="flex items-center gap-4 text-xs text-gray-500">
             <span>
-              Model: <span className="font-medium text-gray-700">{g.model}</span>
+              Modelo: <span className="font-medium text-gray-700">{g.model}</span>
             </span>
             <span>
-              Submitted: <span className="font-medium text-gray-700">{g.submittedAt}</span>
+              Enviado em: <span className="font-medium text-gray-700">{g.submittedAt}</span>
             </span>
           </div>
         </div>
@@ -274,7 +274,7 @@ function GuardrailCard({
               onClick={onSelect}
               className="text-xs border border-gray-300 text-gray-600 hover:bg-gray-50 px-3 py-1.5 rounded-md transition-colors font-medium"
             >
-              {isSelected ? "Close" : "Review"}
+              {isSelected ? "Fechar" : "Revisar"}
             </button>
             {g.status === "pending" && (
               <>
@@ -283,14 +283,14 @@ function GuardrailCard({
                   onClick={onApprove}
                   className="text-xs bg-green-500 hover:bg-green-600 text-white px-3 py-1.5 rounded-md transition-colors font-medium"
                 >
-                  Approve
+                  Aprovar
                 </button>
                 <button
                   type="button"
                   onClick={onReject}
                   className="text-xs border border-red-300 text-red-600 hover:bg-red-50 px-3 py-1.5 rounded-md transition-colors font-medium"
                 >
-                  Reject
+                  Rejeitar
                 </button>
               </>
             )}
@@ -304,7 +304,7 @@ function GuardrailCard({
           className="flex items-center gap-1.5 text-xs text-gray-500 hover:text-gray-700 transition-colors"
         >
           {isHeadersExpanded ? <ChevronUpIcon className="h-3.5 w-3.5" /> : <ChevronDownIcon className="h-3.5 w-3.5" />}
-          Static headers
+          Cabeçalhos estáticos
           {g.customHeaders.length > 0 && (
             <span className="ml-1 bg-gray-100 text-gray-600 rounded-full px-1.5 py-0.5 text-xs">
               {g.customHeaders.length}
@@ -314,7 +314,7 @@ function GuardrailCard({
         {isHeadersExpanded && (
           <div className="mt-2">
             {g.customHeaders.length === 0 ? (
-              <p className="text-xs text-gray-400 italic">No static headers configured.</p>
+              <p className="text-xs text-gray-400 italic">Nenhum cabeçalho estático configurado.</p>
             ) : (
               <div className="space-y-1">
                 {g.customHeaders.map((h, i) => (
@@ -377,7 +377,7 @@ function DetailPanel({
         <div className="flex items-start justify-between mb-4">
           <div>
             <div className="flex items-center gap-2 mb-1">
-              <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${teamColor}`}>Team: {g.team}</span>
+              <span className={`text-xs font-medium px-2 py-0.5 rounded-full ${teamColor}`}>Time: {g.team}</span>
               <span
                 className={`inline-flex items-center gap-1.5 text-xs font-medium px-2 py-0.5 rounded-full ${status.bg} ${status.text}`}
               >
@@ -387,7 +387,7 @@ function DetailPanel({
             </div>
             <h2 className="text-base font-semibold text-gray-900">{g.name}</h2>
             <p className="text-xs text-gray-500 mt-0.5">
-              Submitted by {g.submittedBy} on {g.submittedAt}
+              Enviado por {g.submittedBy} em {g.submittedAt}
             </p>
           </div>
           <button
@@ -423,29 +423,28 @@ function DetailPanel({
             <div className="flex items-center justify-between mb-2">
               <div className="flex items-center gap-1.5">
                 <KeyIcon className="h-3.5 w-3.5 text-blue-500" />
-                <span className="text-xs font-semibold text-blue-800">Forward Polyglot API Key</span>
+                <span className="text-xs font-semibold text-blue-800">Encaminhar chave API do Polyglot</span>
               </div>
               <Toggle enabled={g.forwardKey} onToggle={onToggleForwardKey} />
             </div>
             <p className="text-xs text-blue-700 leading-relaxed">
-              When enabled, the caller&apos;s Polyglot API key is forwarded as an{" "}
-              <code className="font-mono bg-blue-100 px-1 rounded-sm">Authorization</code> header to your guardrail
-              endpoint. This allows your guardrail to authenticate model calls using the original caller&apos;s
-              credentials.
+              Quando ativado, a chave API do chamador do Polyglot é encaminhada como um cabeçalho{" "}
+              <code className="font-mono bg-blue-100 px-1 rounded-sm">Authorization</code> para o endpoint do guardrail.
+              Isso permite que o guardrail autentique chamadas de modelo usando as credenciais originais do chamador.
             </p>
           </div>
           <div>
             <div className="flex items-center gap-1.5 mb-2">
-              <span className="text-xs font-semibold text-gray-700">Static headers</span>
+              <span className="text-xs font-semibold text-gray-700">Cabeçalhos estáticos</span>
               {g.customHeaders.length > 0 && (
                 <span className="bg-gray-100 text-gray-600 rounded-full px-1.5 py-0.5 text-xs">
                   {g.customHeaders.length}
                 </span>
               )}
             </div>
-            <p className="text-xs text-gray-400 mb-2">Sent with every request to the guardrail.</p>
+            <p className="text-xs text-gray-400 mb-2">Enviado com cada requisição ao guardrail.</p>
             {g.customHeaders.length === 0 ? (
-              <p className="text-xs text-gray-400 italic mb-2">No static headers configured.</p>
+              <p className="text-xs text-gray-400 italic mb-2">Nenhum cabeçalho estático configurado.</p>
             ) : (
               <ul className="list-none space-y-1 mb-2">
                 {g.customHeaders.map((h, i) => (
@@ -492,7 +491,7 @@ function DetailPanel({
                 type="text"
                 value={newStaticHeaderValue}
                 onChange={(e) => setNewStaticHeaderValue(e.target.value)}
-                placeholder="Value"
+                placeholder="Valor"
                 className="flex-1 min-w-0 text-xs font-mono border border-gray-200 rounded-sm px-2 py-1.5 text-gray-700 placeholder-gray-400 focus:outline-hidden focus:ring-1 focus:ring-blue-500"
                 onKeyDown={(e) => {
                   if (e.key === "Enter") {
@@ -520,7 +519,7 @@ function DetailPanel({
                 }}
                 className="text-xs font-medium text-blue-600 hover:text-blue-700 border border-blue-200 bg-blue-50 hover:bg-blue-100 px-2 py-1.5 rounded-sm transition-colors shrink-0"
               >
-                Add
+                Adicionar
               </button>
             </div>
           </div>
@@ -613,17 +612,16 @@ function DetailPanel({
           <div className="flex items-start gap-2 bg-gray-50 border border-gray-200 rounded-lg p-3">
             <InfoIcon className="h-3.5 w-3.5 text-gray-400 shrink-0 mt-0.5" />
             <p className="text-xs text-gray-500 leading-relaxed">
-              This guardrail runs on a separate instance. It receives the user request and forwards the result to the
-              next step in the pipeline. See{" "}
+              Este guardrail é executado em uma instância separada. Ele recebe a solicitação do usuário e encaminha o resultado para a próxima etapa do pipeline. Veja{" "}
               <a
                 href="https://docs.litellm.ai/docs/adding_provider/generic_guardrail_api"
                 target="_blank"
                 rel="noopener noreferrer"
                 className="text-blue-500 hover:underline"
               >
-                Polyglot Generic Guardrail API docs
+                documentação do Polyglot Generic Guardrail API
               </a>{" "}
-              for configuration details.
+              para detalhes de configuração.
             </p>
           </div>
         </div>
@@ -633,7 +631,7 @@ function DetailPanel({
             className="w-full flex items-center justify-center gap-2 border border-gray-300 text-gray-700 hover:bg-gray-50 text-sm font-medium py-2 rounded-md transition-colors"
           >
             <ExternalLinkIcon className="h-4 w-4" />
-            Test Endpoint
+            Testar Endpoint
           </button>
           {g.status === "pending" && (
             <div className="flex gap-2">
@@ -643,7 +641,7 @@ function DetailPanel({
                 className="flex-1 flex items-center justify-center gap-1.5 bg-green-500 hover:bg-green-600 text-white text-sm font-medium py-2 rounded-md transition-colors"
               >
                 <CheckIcon className="h-4 w-4" />
-                Approve
+                Aprovar
               </button>
               <button
                 type="button"
@@ -651,7 +649,7 @@ function DetailPanel({
                 className="flex-1 flex items-center justify-center gap-1.5 border border-red-300 text-red-600 hover:bg-red-50 text-sm font-medium py-2 rounded-md transition-colors"
               >
                 <XIcon className="h-4 w-4" />
-                Reject
+                Rejeitar
               </button>
             </div>
           )}
@@ -894,10 +892,10 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             onChange={(e) => setStatusFilter(e.target.value as typeof statusFilter)}
             className="border border-gray-200 rounded-md px-3 py-2 text-sm text-gray-700 focus:outline-hidden focus:ring-1 focus:ring-blue-500 focus:border-blue-500 bg-white"
           >
-            <option value="all">All Status</option>
-            <option value="pending">Pending Review</option>
-            <option value="active">Active</option>
-            <option value="rejected">Rejected</option>
+            <option value="all">Todos os Status</option>
+            <option value="pending">Aguardando Revisão</option>
+            <option value="active">Ativo</option>
+            <option value="rejected">Rejeitado</option>
           </select>
           <button
             type="button"
@@ -954,17 +952,17 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
       )}
 
       <Modal
-        title="Submit Guardrail for Review"
+        title="Enviar Guardrail para Revisão"
         open={isSubmitModalOpen}
         onCancel={() => {
           setIsSubmitModalOpen(false);
           submitForm.resetFields();
         }}
         onOk={() => submitForm.submit()}
-        okText="Submit for Review"
+        okText="Enviar para Revisão"
       >
         <div className="rounded-md bg-blue-50 border border-blue-200 px-4 py-3 text-sm text-blue-800 mb-4">
-          Your guardrail will be sent for admin review before it becomes active.
+          Seu guardrail será enviado para revisão de admin antes de se tornar ativo.
         </div>
         <Form
           form={submitForm}
@@ -997,17 +995,17 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             <TeamDropdown />
           </Form.Item>
           <Form.Item
-            label="Guardrail Name"
+            label="Nome do Guardrail"
             name="guardrail_name"
-            rules={[{ required: true, message: "Enter a guardrail name" }]}
+            rules={[{ required: true, message: "Informe um nome para o guardrail" }]}
           >
-            <Input placeholder="e.g. pii-detection" />
+            <Input placeholder="ex: detecção-pii" />
           </Form.Item>
-          <Form.Item label="Mode" name="mode" rules={[{ required: true, message: "Select a mode" }]}>
+          <Form.Item label="Modo" name="mode" rules={[{ required: true, message: "Selecione um modo" }]}>
             <Select>
-              <Select.Option value="pre_call">Pre Call</Select.Option>
-              <Select.Option value="post_call">Post Call</Select.Option>
-              <Select.Option value="during_call">During Call</Select.Option>
+              <Select.Option value="pre_call">Pré Chamada</Select.Option>
+              <Select.Option value="post_call">Pós Chamada</Select.Option>
+              <Select.Option value="during_call">Durante Chamada</Select.Option>
             </Select>
           </Form.Item>
           <Form.Item

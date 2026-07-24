@@ -22,9 +22,9 @@ type DateRange = { from?: Date; to?: Date };
 
 const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
-const usd = (value: number): string => {
+const brl = (value: number): string => {
   const decimals = value > 0 && value < 1 ? 4 : 2;
-  return `$${formatNumberWithCommas(value, decimals)}`;
+  return `R$ ${formatNumberWithCommas(value, decimals)}`;
 };
 
 const shortDate = (iso: string): string =>
@@ -133,15 +133,15 @@ const UsageTab: React.FC<UsageTabProps> = ({ accessToken, userId, userRole }) =>
       <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3">
         <SummaryCard
           label="Total economizado"
-          value={usd(totalSaved)}
+          value={brl(totalSaved)}
           hint={loading || isFetchingMore ? "Carregando..." : "Compressão + cache de prompt"}
         />
         <SummaryCard
           label="Economia por compressão"
-          value={usd(compressionTotal)}
+          value={brl(compressionTotal)}
           hint={`${formatNumberWithCommas(savedTokensTotal)} tokens comprimidos`}
         />
-        <SummaryCard label="Economia por cache de prompt" value={usd(cachingTotal)} hint="Desconto na leitura do cache" />
+        <SummaryCard label="Economia por cache de prompt" value={brl(cachingTotal)} hint="Desconto na leitura do cache" />
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-3">
@@ -155,7 +155,7 @@ const UsageTab: React.FC<UsageTabProps> = ({ accessToken, userId, userRole }) =>
               index="date"
               categories={["Compression", "Prompt caching"]}
               colors={["emerald", "blue"]}
-              valueFormatter={usd}
+              valueFormatter={brl}
             />
           </CardContent>
         </Card>
@@ -170,9 +170,9 @@ const UsageTab: React.FC<UsageTabProps> = ({ accessToken, userId, userRole }) =>
               index="driver"
               category="usd"
               colors={["emerald", "blue"]}
-              valueFormatter={usd}
+              valueFormatter={brl}
               showLabel
-              label={usd(totalSaved)}
+              label={brl(totalSaved)}
             />
           </CardContent>
         </Card>

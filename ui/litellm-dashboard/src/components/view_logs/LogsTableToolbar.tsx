@@ -148,7 +148,7 @@ export function LogsTableToolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-900">Live Tail</span>
+                <span className="text-sm font-medium text-gray-900">Atualização ao Vivo</span>
                 <Switch checked={isLiveTail} defaultChecked={true} onChange={onIsLiveTailChange} />
               </div>
 
@@ -157,9 +157,9 @@ export function LogsTableToolbar({
                 icon={<SyncOutlined spin={isButtonLoading} />}
                 onClick={onRefetch}
                 disabled={isButtonLoading}
-                title="Fetch data"
+                title="Buscar dados"
               >
-                {isButtonLoading ? "Fetching" : "Fetch"}
+                {isButtonLoading ? "Buscando" : "Buscar"}
               </Button>
             </div>
 
@@ -217,14 +217,14 @@ export function LogsTableToolbar({
                 disabled={isLoading || currentPage === 1}
                 className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Previous
+                Anterior
               </button>
               <button
                 onClick={() => onCurrentPageChange((p: number) => Math.min(filteredLogs.total_pages || 1, p + 1))}
                 disabled={isLoading || currentPage === (filteredLogs.total_pages || 1)}
                 className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Next
+                Próximo
               </button>
             </div>
           </div>
