@@ -92,7 +92,7 @@ const UsageExportHeader: React.FC<UsageExportHeaderProps> = ({
                 </svg>
               )}
             >
-              Export Data
+              Exportar Dados
             </Button>
           </div>
         </div>

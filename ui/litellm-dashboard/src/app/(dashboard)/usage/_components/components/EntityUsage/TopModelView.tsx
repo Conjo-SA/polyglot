@@ -73,13 +73,13 @@ export default function TopModelView({ topModels, topModelsLimit, setTopModelsLi
             onClick={() => setModelViewMode("table")}
             className={`px-3 py-1 text-sm rounded-md ${modelViewMode === "table" ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-700"}`}
           >
-            Table View
+            Visualização de Tabela
           </button>
           <button
             onClick={() => setModelViewMode("chart")}
             className={`px-3 py-1 text-sm rounded-md ${modelViewMode === "chart" ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-700"}`}
           >
-            Chart View
+            Visualização de Gráfico
           </button>
         </div>
       </div>

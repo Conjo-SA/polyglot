@@ -26,7 +26,7 @@ function AvailableTeamRowActions({ team, onJoinTeam }: { team: AvailableTeam; on
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Open team actions"
+        aria-label="Abrir ações da equipe"
         data-testid={`available-team-actions-${team.team_id}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -35,7 +35,7 @@ function AvailableTeamRowActions({ team, onJoinTeam }: { team: AvailableTeam; on
       <DropdownMenuContent align="end" className="w-44">
         <DropdownMenuItem data-testid="available-team-action-join" onClick={() => onJoinTeam(team.team_id)}>
           <UserPlus />
-          Join team
+          Entrar na equipe
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -52,8 +52,8 @@ export const getAvailableTeamsTableColumns = ({
   {
     id: "team_alias",
     accessorKey: "team_alias",
-    meta: { title: "Team Name" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Team Name" />,
+    meta: { title: "Nome da Equipe" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Nome da Equipe" />,
     size: 220,
     enableSorting: true,
     cell: ({ row }) => (
@@ -63,15 +63,15 @@ export const getAvailableTeamsTableColumns = ({
   {
     id: "description",
     accessorKey: "description",
-    meta: { title: "Description" },
-    header: "Description",
+    meta: { title: "Descrição" },
+    header: "Descrição",
     size: 280,
     enableSorting: false,
     cell: ({ row }) => {
       const description = row.original.description;
       return (
         <span className="block max-w-72 truncate text-sm text-muted-foreground" title={description || undefined}>
-          {description || "No description available"}
+          {description || "Nenhuma descrição disponível"}
         </span>
       );
     },
@@ -79,18 +79,18 @@ export const getAvailableTeamsTableColumns = ({
   {
     id: "members",
     accessorFn: (team) => team.members_with_roles.length,
-    meta: { title: "Members" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Members" />,
+    meta: { title: "Membros" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Membros" />,
     size: 120,
     enableSorting: true,
     cell: ({ row }) => (
-      <span className="text-sm text-muted-foreground">{row.original.members_with_roles.length} members</span>
+      <span className="text-sm text-muted-foreground">{row.original.members_with_roles.length} membros</span>
     ),
   },
   {
     id: "models",
-    meta: { title: "Models" },
-    header: "Models",
+    meta: { title: "Modelos" },
+    header: "Modelos",
     size: 260,
     enableSorting: false,
     cell: ({ row }) => <ModelsCell models={row.original.models} />,

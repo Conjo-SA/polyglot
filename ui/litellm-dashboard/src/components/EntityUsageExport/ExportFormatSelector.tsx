@@ -22,7 +22,7 @@ const ExportFormatSelector: React.FC<ExportFormatSelectorProps> = ({ value, onCh
           },
           {
             value: "json",
-            label: "JSON (includes metadata)",
+            label: "JSON (inclui metadados)",
           },
         ]}
       />

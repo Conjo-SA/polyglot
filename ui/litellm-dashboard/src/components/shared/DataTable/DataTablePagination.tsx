@@ -39,7 +39,7 @@ export function DataTablePagination({
   return (
     <div className={cn("flex flex-wrap items-center justify-between gap-4 px-4 py-2.5", className)}>
       <div className="flex items-center gap-2 text-sm text-muted-foreground">
-        <span>Rows per page</span>
+        <span>Linhas por página</span>
         <Select
           value={String(pageSize)}
           onValueChange={(value) => {
@@ -63,10 +63,10 @@ export function DataTablePagination({
 
       <div className="flex items-center gap-4">
         <span data-testid="pagination-range" className="text-sm text-muted-foreground tabular-nums">
-          {rowCount === 0 ? "No results" : `Showing ${start}-${end} of ${rowCount}`}
+          {rowCount === 0 ? "Nenhum resultado" : `Mostrando ${start}-${end} de ${rowCount}`}
         </span>
         <span data-testid="pagination-page" className="text-sm text-muted-foreground tabular-nums">
-          Page {page + 1} of {Math.max(pageCount, 1)}
+          Página {page + 1} de {Math.max(pageCount, 1)}
         </span>
         <div className="flex items-center gap-1">
           <Button

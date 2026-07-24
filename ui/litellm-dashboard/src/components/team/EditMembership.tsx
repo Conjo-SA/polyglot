@@ -131,7 +131,7 @@ const MemberModal = <T extends BaseMember>({
             step={field.step || 1}
             min={field.min || 0}
             style={{ width: "100%" }}
-            placeholder={field.placeholder || "Enter a numerical value"}
+            placeholder={field.placeholder || "Digite um valor numérico"}
           />
         );
       case "select":
@@ -148,7 +148,7 @@ const MemberModal = <T extends BaseMember>({
         return (
           <Select
             mode="multiple"
-            placeholder={field.placeholder || "Select options"}
+            placeholder={field.placeholder || "Selecione opções"}
             options={field.options}
             allowClear
           />
@@ -162,7 +162,7 @@ const MemberModal = <T extends BaseMember>({
 
   return (
     <Modal
-      title={config.title || (mode === "add" ? "Add Member" : "Edit Member")}
+      title={config.title || (mode === "add" ? "Adicionar Membro" : "Editar Membro")}
       open={visible}
       width={1000}
       footer={null}
@@ -171,46 +171,46 @@ const MemberModal = <T extends BaseMember>({
       <Form form={form} onFinish={handleSubmit} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         {config.showEmail && (
           <Form.Item
-            label="Email"
+            label="E-mail"
             name="user_email"
             className="mb-4"
-            rules={[{ type: "email", message: "Please enter a valid email!" }]}
+            rules={[{ type: "email", message: "Por favor, informe um e-mail válido!" }]}
           >
-            <TextInput placeholder="user@example.com" />
+            <TextInput placeholder="usuario@exemplo.com" />
           </Form.Item>
         )}
 
         {config.showEmail && config.showUserId && (
           <div className="text-center mb-4">
-            <Text>OR</Text>
+            <Text>OU</Text>
           </div>
         )}
 
         {config.showUserId && (
-          <Form.Item label="User ID" name="user_id" className="mb-4">
-            <TextInput placeholder="user_123" />
+          <Form.Item label="ID do Usuário" name="user_id" className="mb-4">
+            <TextInput placeholder="usuario_123" />
           </Form.Item>
         )}
 
         <Form.Item
           label={
             <div className="flex items-center gap-2">
-              <span>Role</span>
+              <span>Cargo</span>
               {mode === "edit" && initialData && (
-                <span className="text-gray-500 text-sm">(Current: {getRoleLabel(initialData.role)})</span>
+                <span className="text-gray-500 text-sm">(Atual: {getRoleLabel(initialData.role)})</span>
               )}
             </div>
           }
           name="role"
           className="mb-4"
-          rules={[{ required: true, message: "Please select a role!" }]}
+          rules={[{ required: true, message: "Por favor, selecione um cargo!" }]}
         >
           <Select>
             {mode === "edit" && initialData
               ? [
-                  // Current role first
+                  // Cargo atual primeiro
                   ...config.roleOptions.filter((option) => option.value === initialData.role),
-                  // Then all other roles
+                  // Depois todos os outros cargos
                   ...config.roleOptions.filter((option) => option.value !== initialData.role),
                 ].map((option) => (
                   <Select.Option key={option.value} value={option.value}>
@@ -233,10 +233,10 @@ const MemberModal = <T extends BaseMember>({
 
         <div className="text-right mt-6">
           <AntButton onClick={onCancel} className="mr-2" disabled={isSubmitting}>
-            Cancel
+            Cancelar
           </AntButton>
           <AntButton type="default" htmlType="submit" loading={isSubmitting}>
-            {mode === "add" ? (isSubmitting ? "Adding..." : "Add Member") : isSubmitting ? "Saving..." : "Save Changes"}
+            {mode === "add" ? (isSubmitting ? "Adicionando..." : "Adicionar Membro") : isSubmitting ? "Salvando..." : "Salvar Alterações"}
           </AntButton>
         </div>
       </Form>

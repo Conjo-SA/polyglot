@@ -74,7 +74,7 @@ const EntityUsageExportModal: React.FC<EntityUsageExportModalProps> = ({
         ) : (
           <div className="flex items-center justify-end gap-2 pt-4 border-t">
             <Button variant="outlined" onClick={onClose} disabled={isExporting}>
-              Cancel
+              Cancelar
             </Button>
             <Button
               onClick={() => handleExport()}
@@ -82,7 +82,7 @@ const EntityUsageExportModal: React.FC<EntityUsageExportModalProps> = ({
               disabled={isExporting || isLoadingTeams}
               type="primary"
             >
-              {isExporting ? "Exporting..." : `Export ${exportFormat.toUpperCase()}`}
+              {isExporting ? "Exportando..." : `Exportar ${exportFormat.toUpperCase()}`}
             </Button>
           </div>
         )}
