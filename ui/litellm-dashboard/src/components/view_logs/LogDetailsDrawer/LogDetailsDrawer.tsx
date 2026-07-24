@@ -395,7 +395,7 @@ export function LogDetailsDrawer({
                   options={[
                     { label: "Duração", value: "duration" },
                     { label: "Horário de início", value: "start_time" },
-                  ]
+                  ]}
                   value={sessionSortMode}
                   onChange={(value) => setSessionSortMode(value as SessionLogSortMode)}
                 />
