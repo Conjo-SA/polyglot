@@ -85,7 +85,7 @@ const PolicyTemplateCard: React.FC<PolicyTemplateCardProps> = ({
 
       <div className="mb-6">
         <span className="text-xs font-medium text-gray-500 uppercase tracking-wider block mb-2">
-          Included Guardrails
+          Guardrails Inclusos
         </span>
         <div className="flex flex-wrap gap-2">
           {guardrails.map((g) => (
@@ -202,16 +202,16 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({
     <div className="space-y-6">
       <div className="flex justify-between items-end">
         <div>
-          <h2 className="text-lg font-medium text-gray-900">Policy Templates</h2>
+          <h2 className="text-lg font-medium text-gray-900">Modelos de Política</h2>
           <p className="text-sm text-gray-500 mt-1">
-            Start with a pre-configured policy template to quickly set up guardrails for your organization.
+            Comece com um modelo de política pré-configurado para configurar rapidamente os guardrails para sua organização.
           </p>
         </div>
         <Button type="default" onClick={onOpenAiSuggestion} className="flex items-center gap-1.5">
           <svg className="w-4 h-4" viewBox="0 0 16 16" fill="currentColor">
             <path d="M8 1l1.5 3.5L13 6l-3.5 1.5L8 11 6.5 7.5 3 6l3.5-1.5L8 1zm4 7l.75 1.75L14.5 10.5l-1.75.75L12 13l-.75-1.75L9.5 10.5l1.75-.75L12 8zM4 9l.75 1.75L6.5 11.5l-1.75.75L4 14l-.75-1.75L1.5 11.5l1.75-.75L4 9z" />
           </svg>
-          Use AI to find templates
+          Usar IA para encontrar modelos
         </Button>
       </div>
 
@@ -221,10 +221,10 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({
           <div className="w-52 shrink-0">
             <div className="sticky top-4">
               <div className="flex items-center justify-between mb-3">
-                <span className="text-sm font-semibold text-gray-900">Categories</span>
+                <span className="text-sm font-semibold text-gray-900">Categorias</span>
                 {selectedTags.size > 0 && (
                   <button onClick={handleClearAll} className="text-xs text-blue-600 hover:text-blue-800">
-                    Clear all
+                    Limpar tudo
                   </button>
                 )}
               </div>
@@ -252,7 +252,7 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({
         <div className="flex-1">
           {selectedTags.size > 0 && (
             <div className="mb-4 text-sm text-gray-500">
-              Showing {filteredTemplates.length} of {templates.length} templates
+              Mostrando {filteredTemplates.length} de {templates.length} modelos
             </div>
           )}
           <div className="grid grid-cols-1 md:grid-cols-2 xl:grid-cols-3 gap-6">
@@ -275,9 +275,9 @@ const PolicyTemplates: React.FC<PolicyTemplatesProps> = ({
 
           {filteredTemplates.length === 0 && (
             <div className="text-center py-12 text-gray-500">
-              <p>No templates match the selected filters.</p>
+              <p>Nenhum modelo corresponde aos filtros selecionados.</p>
               <button onClick={handleClearAll} className="text-blue-600 hover:text-blue-800 mt-2 text-sm">
-                Clear all filters
+                Limpar todos os filtros
               </button>
             </div>
           )}

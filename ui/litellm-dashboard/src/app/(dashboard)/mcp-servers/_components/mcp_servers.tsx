@@ -34,10 +34,10 @@ import { listMCPUserEnvVarStatus } from "@/components/networking";
 type SortKey = "created_desc" | "updated_desc" | "name_asc" | "health";
 
 const SORT_OPTIONS: { value: SortKey; label: string }[] = [
-  { value: "created_desc", label: "Recently created" },
-  { value: "updated_desc", label: "Recently updated" },
-  { value: "name_asc", label: "Name (A→Z)" },
-  { value: "health", label: "Health (unhealthy first)" },
+  { value: "created_desc", label: "Criado recentemente" },
+  { value: "updated_desc", label: "Atualizado recentemente" },
+  { value: "name_asc", label: "Nome (A→Z)" },
+  { value: "health", label: "Saúde (não saudável primeiro)" },
 ];
 
 const HEALTH_RANK: Record<string, number> = {
@@ -323,7 +323,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
     try {
       setIsDeletingServer(true);
       await deleteMCPServer(accessToken, serverIdToDelete);
-      NotificationsManager.success("Deleted MCP Server successfully");
+      NotificationsManager.success("Servidor MCP excluído com sucesso");
       // If the user is currently viewing the detail page of the server they
       // just deleted, return them to the All Servers list. Otherwise the
       // detail view would stay mounted, fall back to an empty stub server,
@@ -393,25 +393,25 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
     <div className="w-full h-full p-6">
       <Modal
         open={isDeleteModalOpen}
-        title="Delete MCP Server?"
+        title="Excluir Servidor MCP?"
         onOk={confirmDelete}
-        okText={isDeletingServer ? "Deleting..." : "Delete"}
+        okText={isDeletingServer ? "Excluindo..." : "Excluir"}
         onCancel={cancelDelete}
-        cancelText="Cancel"
+        cancelText="Cancelar"
         cancelButtonProps={{ disabled: isDeletingServer }}
         okButtonProps={{ danger: true }}
         confirmLoading={isDeletingServer}
       >
         <div className="space-y-4">
           <AntdText className="text-gray-600">
-            This action is permanent and cannot be undone. All associated configurations will be removed.
+            Esta ação é permanente e não pode ser desfeita. Todas as configurações associadas serão removidas.
           </AntdText>
 
           {serverToDelete && (
             <div className="mt-3 p-4 bg-gray-50 rounded-lg border border-gray-200">
               <Descriptions column={1} size="small" colon={false}>
                 {serverToDelete.server_name && (
-                  <Descriptions.Item label={<span className="text-gray-500 text-sm">Name</span>}>
+                  <Descriptions.Item label={<span className="text-gray-500 text-sm">Nome</span>}>
                     <AntdText strong className="text-sm">
                       {serverToDelete.server_name}
                     </AntdText>
@@ -452,19 +452,19 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
       <div className="flex items-center justify-between">
         <div>
           <div className="flex items-center gap-3">
-            <Title>MCP Servers</Title>
+            <Title>Servidores MCP</Title>
             {filteredServers.length > 0 && (
               <span className="inline-flex items-center text-xs font-medium px-2 py-0.5 rounded-full bg-gray-100 text-gray-600 border border-gray-200">
                 {filteredServers.length}
               </span>
             )}
           </div>
-          <Text className="text-tremor-content mt-1">Configure and manage your MCP servers</Text>
+          <Text className="text-tremor-content mt-1">Configure e gerencie seus servidores MCP</Text>
         </div>
         <div className="flex items-center gap-2">
           {isAdminRole(userRole) && (
             <Button className="shrink-0" onClick={() => setDiscoveryVisible(true)}>
-              + Add New MCP Server
+              + Adicionar Novo Servidor MCP
             </Button>
           )}
           {!isAdminRole(userRole) && (
@@ -476,7 +476,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
               }}
               variant="secondary"
             >
-              + Submit MCP Server
+              + Enviar Servidor MCP
             </Button>
           )}
         </div>
@@ -499,15 +499,15 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
       <TabGroup className="w-full h-full">
         <TabList className="flex justify-between mt-2 w-full items-center">
           <div className="flex">
-            <Tab>All Servers</Tab>
-            <Tab>Toolsets</Tab>
-            <Tab>Connect</Tab>
-            {isAdminRole(userRole) && <Tab>Semantic Filter</Tab>}
-            {isAdminRole(userRole) && <Tab>Network Settings</Tab>}
+            <Tab>Todos os Servidores</Tab>
+            <Tab>Conjuntos de Ferramentas</Tab>
+            <Tab>Conectar</Tab>
+            {isAdminRole(userRole) && <Tab>Filtro Semântico</Tab>}
+            {isAdminRole(userRole) && <Tab>Configurações de Rede</Tab>}
             {isAdminRole(userRole) && (
               <Tab>
                 <span className="flex items-center gap-2">
-                  Submitted MCPs <NewBadge />
+                  MCPs Enviados <NewBadge />
                 </span>
               </Tab>
             )}
@@ -534,15 +534,15 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                   <div className="flex flex-col space-y-4">
                     <div className="flex items-center gap-6 bg-white rounded-lg px-4 py-3 border border-gray-200">
                       <div className="flex items-center gap-2">
-                        <Text className="text-sm font-medium text-gray-600 whitespace-nowrap">Team</Text>
+                        <Text className="text-sm font-medium text-gray-600 whitespace-nowrap">Equipe</Text>
                         <Select value={selectedTeam} onChange={handleTeamChange} style={{ width: 220 }} size="middle">
                           <Option value="all">
                             <span className="font-medium">
-                              {isInternalUser ? "All Available Servers" : "All Servers"}
+                              {isInternalUser ? "Todos os Servidores Disponíveis" : "Todos os Servidores"}
                             </span>
                           </Option>
                           <Option value="personal">
-                            <span className="font-medium">Personal</span>
+                            <span className="font-medium">Pessoal</span>
                           </Option>
                           {uniqueTeams.map((team) => (
                             <Option key={team.team_id} value={team.team_id}>
@@ -554,8 +554,8 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                       <div className="h-6 w-px bg-gray-200"></div>
                       <div className="flex items-center gap-2">
                         <Text className="text-sm font-medium text-gray-600 whitespace-nowrap">
-                          Access Group
-                          <Tooltip title="An MCP Access Group is a set of users or teams that have permission to access specific MCP servers. Use access groups to control and organize who can connect to which servers.">
+                          Grupo de Acesso
+                          <Tooltip title="Um Grupo de Acesso MCP é um conjunto de usuários ou equipes que têm permissão para acessar servidores MCP específicos. Use grupos de acesso para controlar e organizar quem pode se conectar a quais servidores.">
                             <QuestionCircleOutlined style={{ marginLeft: 4, color: "#9ca3af" }} />
                           </Tooltip>
                         </Text>
@@ -566,7 +566,7 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                           size="middle"
                         >
                           <Option value="all">
-                            <span className="font-medium">All Access Groups</span>
+                            <span className="font-medium">Todos os Grupos de Acesso</span>
                           </Option>
                           {uniqueMcpAccessGroups.map((group) => (
                             <Option key={group} value={group}>
@@ -582,13 +582,13 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                   <Input
                     allowClear
                     prefix={<SearchOutlined className="text-gray-400" />}
-                    placeholder="Search by name, alias, URL, or ID"
+                    placeholder="Pesquisar por nome, apelido, URL ou ID"
                     value={searchQuery}
                     onChange={(e) => setSearchQuery(e.target.value)}
                     style={{ maxWidth: 320 }}
                   />
                   <div className="flex items-center gap-2">
-                    <Text className="whitespace-nowrap text-sm font-medium text-gray-600">Sort</Text>
+                    <Text className="whitespace-nowrap text-sm font-medium text-gray-600">Ordenar</Text>
                     <Select
                       value={sortKey}
                       onChange={(v: SortKey) => setSortKey(v)}
@@ -609,15 +609,15 @@ const MCPServers: React.FC<MCPServerProps> = ({ accessToken, userRole, userID })
                 <div className="mt-4 w-full">
                   {isLoadingServers ? (
                     <div className="flex items-center justify-center rounded-lg border border-dashed border-gray-200 bg-white p-12">
-                      <Spin tip="Loading MCP servers..." />
+                      <Spin tip="Carregando servidores MCP..." />
                     </div>
                   ) : displayedServers.length === 0 ? (
                     <div className="rounded-lg border border-dashed border-gray-200 bg-white p-12">
                       <Empty
                         description={
                           filteredServers.length === 0
-                            ? "No MCP servers configured. Click '+ Add New MCP Server' to get started."
-                            : "No servers match the current filters or search."
+                            ? "Nenhum servidor MCP configurado. Clique em '+ Adicionar Novo Servidor MCP' para começar."
+                            : "Nenhum servidor corresponde aos filtros ou pesquisa atuais."
                         }
                       />
                     </div>

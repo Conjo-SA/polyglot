@@ -16,7 +16,7 @@ export function ScoreChart({ data }: ScoreChartProps) {
   return (
     <Card>
       <CardHeader>
-        <CardTitle className="text-base font-semibold">Request Outcomes Over Time</CardTitle>
+        <CardTitle className="text-base font-semibold">Resultado das Solicitações ao Longo do Tempo</CardTitle>
       </CardHeader>
       <CardContent>
         <div className="h-80 min-h-[280px]">
@@ -34,7 +34,7 @@ export function ScoreChart({ data }: ScoreChartProps) {
             />
           ) : (
             <div className="flex items-center justify-center h-full text-sm text-gray-500">
-              No chart data for this period
+              Sem dados de gráfico para este período
             </div>
           )}
         </div>

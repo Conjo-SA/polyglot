@@ -38,12 +38,12 @@ const UserEnvVarsModal: React.FC<UserEnvVarsModalProps> = ({ server, open, acces
   const saveMutation = useMutation({
     mutationFn: (values: Record<string, string>) => storeMCPUserEnvVars(accessToken!, server!.server_id, values),
     onSuccess: (saved) => {
-      NotificationsManager.success("Credentials saved");
+      NotificationsManager.success("Credenciais salvas");
       onSaved?.(saved);
       onClose();
     },
     onError: (err) => {
-      NotificationsManager.fromBackend(`Failed to save env vars: ${err instanceof Error ? err.message : String(err)}`);
+      NotificationsManager.fromBackend(`Falha ao salvar variáveis de ambiente: ${err instanceof Error ? err.message : String(err)}`);
     },
   });
 
@@ -74,9 +74,9 @@ const UserEnvVarsModal: React.FC<UserEnvVarsModalProps> = ({ server, open, acces
         <div>
           <div className="flex items-center gap-2">
             <Title level={5} style={{ margin: 0 }}>
-              Set your credentials
+              Definir suas credenciais
             </Title>
-            <Tag color="blue">Per-user</Tag>
+            <Tag color="blue">Por usuário</Tag>
           </div>
           <Text type="secondary" className="text-xs">
             {displayName}
@@ -92,13 +92,12 @@ const UserEnvVarsModal: React.FC<UserEnvVarsModalProps> = ({ server, open, acces
         ) : isError ? (
           <Alert type="error" showIcon message="Failed to load env vars" />
         ) : required.length === 0 ? (
-          <Alert type="info" showIcon message="No per-user fields configured for this server." />
+          <Alert type="info" showIcon message="Nenhum campo por usuário configurado para este servidor." />
         ) : (
           <>
             <Text className="text-sm text-gray-600 block">
-              These values are private to you. Your admin configured this MCP server to require these per-user
-              credentials. Saved values are never shown back; leave an already-set field blank to keep it, or enter a
-              value to set or change it.
+              Esses valores são privados para você. Seu administrador configurou este servidor MCP para exigir essas credenciais por usuário.
+              Os valores salvos nunca são mostrados novamente; deixe um campo já definido em branco para mantê-lo, ou digite um valor para definir ou alterar.
             </Text>
             <Form form={form} layout="vertical" onFinish={handleSave} disabled={isSaving}>
               {required.map((spec) => (
@@ -124,10 +123,10 @@ const UserEnvVarsModal: React.FC<UserEnvVarsModalProps> = ({ server, open, acces
               ))}
               <div className="flex items-center justify-end gap-2 pt-2 border-t border-gray-100">
                 <Button onClick={onClose} disabled={isSaving}>
-                  Cancel
+                  Cancelar
                 </Button>
                 <Button type="primary" htmlType="submit" loading={isSaving}>
-                  Save Credentials
+                  Salvar Credenciais
                 </Button>
               </div>
             </Form>

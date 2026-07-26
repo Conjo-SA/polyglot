@@ -106,13 +106,13 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
                 objectFit: "contain",
               }}
             />
-            <h2 className="text-xl font-semibold text-gray-900">Add MCP Server</h2>
+            <h2 className="text-xl font-semibold text-gray-900">Adicionar Servidor MCP</h2>
           </div>
           <button
             onClick={onCustomServer}
             className="text-sm text-blue-600 hover:text-blue-800 cursor-pointer bg-transparent border-none font-medium"
           >
-            + Custom Server
+            + Servidor Personalizado
           </button>
         </div>
       }
@@ -154,7 +154,7 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
 
       {/* Search */}
       <Search
-        placeholder="Search servers..."
+        placeholder="Pesquisar servidores..."
         value={searchQuery}
         onChange={(e) => setSearchQuery(e.target.value)}
         style={{ marginBottom: 16 }}
@@ -179,16 +179,16 @@ const MCPDiscovery: React.FC<MCPDiscoveryProps> = ({
 
       {error && (
         <div style={{ textAlign: "center", padding: "32px 0", color: "#9ca3af" }}>
-          <Text>Failed to load servers: {error}</Text>
+          <Text>Falha ao carregar servidores: {error}</Text>
         </div>
       )}
 
       {!loading && !error && filteredServers.length === 0 && (
         <div style={{ textAlign: "center", padding: "32px 0", color: "#9ca3af" }}>
           <Text>
-            No servers found.{" "}
+            Nenhum servidor encontrado.{" "}
             <a onClick={onCustomServer} style={{ color: "#2563eb", cursor: "pointer" }}>
-              Add a custom server
+              Adicione um servidor personalizado
             </a>
           </Text>
         </div>

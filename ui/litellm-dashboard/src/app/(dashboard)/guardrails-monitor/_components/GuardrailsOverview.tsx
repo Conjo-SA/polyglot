@@ -186,22 +186,22 @@ export function GuardrailsOverview({
             <SafetyOutlined className="text-lg text-indigo-500" />
             <h1 className="text-xl font-semibold text-gray-900">Guardrails Monitor</h1>
           </div>
-          <p className="text-sm text-gray-500">Monitor guardrail performance across all requests</p>
+          <p className="text-sm text-gray-500">Monitore o desempenho dos guardrails em todas as solicitações</p>
         </div>
         <div className="flex items-center gap-3">
           <Button type="default" icon={<DownloadOutlined />} title="Coming soon">
-            Export Data
+            Exportar Dados
           </Button>
         </div>
       </div>
 
       <Row gutter={[16, 16]} className="mb-6">
         <Col xs={12} sm={12} md={8} flex="1 0 20%">
-          <MetricCard label="Total Evaluations" value={metrics.totalRequests.toLocaleString()} />
+          <MetricCard label="Avaliações Totais" value={metrics.totalRequests.toLocaleString()} />
         </Col>
         <Col xs={12} sm={12} md={8} flex="1 0 20%">
           <MetricCard
-            label="Blocked Requests"
+            label="Solicitações Bloqueadas"
             value={metrics.totalBlocked.toLocaleString()}
             valueColor="text-red-600"
             icon={<WarningOutlined className="text-red-400" />}
@@ -209,7 +209,7 @@ export function GuardrailsOverview({
         </Col>
         <Col xs={12} sm={12} md={8} flex="1 0 20%">
           <MetricCard
-            label="Pass Rate"
+            label="Taxa de Passagem"
             value={`${metrics.passRate}%`}
             valueColor="text-green-600"
             icon={<RiseOutlined className="text-green-400" />}
@@ -225,7 +225,7 @@ export function GuardrailsOverview({
           />
         </Col>
         <Col xs={12} sm={12} md={8} flex="1 0 20%">
-          <MetricCard label="Active Guardrails" value={metrics.count} />
+          <MetricCard label="Guardrails Ativos" value={metrics.count} />
         </Col>
       </Row>
 
@@ -237,22 +237,22 @@ export function GuardrailsOverview({
         {(isLoading || error) && (
           <div className="px-6 py-4 border-b border-gray-200 flex items-center gap-2">
             {isLoading && <Spin size="small" />}
-            {error && <span className="text-sm text-red-600">Failed to load data. Try again.</span>}
+            {error && <span className="text-sm text-red-600">Falha ao carregar dados. Tente novamente.</span>}
           </div>
         )}
         <div className="px-6 py-4 border-b border-gray-200 flex items-start justify-between gap-4">
           <div>
             <Typography.Title level={5} className="mb-0! text-gray-900">
-              Guardrail Performance
+              Desempenho do Guardrail
             </Typography.Title>
-            <p className="text-xs text-gray-500 mt-0.5">Click a guardrail to view details, logs, and configuration</p>
+            <p className="text-xs text-gray-500 mt-0.5">Clique em um guardrail para ver detalhes, logs e configuração</p>
           </div>
           <div className="flex items-center gap-2">
             <Button
               type="default"
               icon={<SettingOutlined />}
               onClick={() => setEvaluationModalOpen(true)}
-              title="Evaluation settings"
+              title="Configurações de Avaliação"
             />
           </div>
         </div>
@@ -263,7 +263,7 @@ export function GuardrailsOverview({
           pagination={false}
           loading={isLoading}
           onChange={handleTableChange}
-          locale={activeData.length === 0 && !isLoading ? { emptyText: "No data for this period" } : undefined}
+          locale={activeData.length === 0 && !isLoading ? { emptyText: "Sem dados para este período" } : undefined}
           onRow={(row) => ({
             onClick: () => onSelectGuardrail(row.id),
             style: { cursor: "pointer" },

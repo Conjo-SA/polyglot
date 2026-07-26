@@ -271,11 +271,11 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       <Space direction="vertical" size="large" style={{ width: "100%" }}>
         <div>
           <Title level={3} style={{ marginBottom: 4 }}>
-            Memory
+            Memória
           </Title>
           <Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            Inspect what your agents have stored under <Text code>/v1/memory</Text>. Scoped to memories visible to your
-            user / team (admins see all).
+            Inspeccione o que seus agentes armazenaram em <Text code>/v1/memory</Text>. Limitado às memórias visíveis ao seu
+            usuário / equipe (administradores veem todas).
           </Paragraph>
         </div>
 
@@ -291,7 +291,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
             <Space>
               <Input
                 allowClear
-                placeholder='Filter by key prefix, e.g. "user:"'
+                placeholder='Filtrar por prefixo de chave, ex. "user:"'
                 prefix={<SearchOutlined />}
                 value={searchInput}
                 onChange={(e) => setSearchInput(e.target.value)}
@@ -303,14 +303,14 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
                 style={{ width: 280 }}
               />
               <Button type="primary" ghost onClick={() => setAppliedSearch(searchInput.trim())}>
-                Search
+                Pesquisar
               </Button>
               <Button icon={<ReloadOutlined />} onClick={() => invalidateList()} loading={isFetching && !isLoading}>
-                Refresh
+                Atualizar
               </Button>
             </Space>
             <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsCreateOpen(true)}>
-              New memory
+              Nova memória
             </Button>
           </Space>
 
@@ -334,7 +334,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
               emptyText: (
                 <Empty
                   description={
-                    appliedSearch ? `No memories with keys starting with "${appliedSearch}"` : "No memories stored yet"
+                    appliedSearch ? `Nenhuma memória com chaves iniciando com "${appliedSearch}"` : "Nenhuma memória armazenada ainda"
                   }
                 />
               ),
@@ -353,7 +353,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
               <Text code>{detailRow.key}</Text>
             </Space>
           ) : (
-            "Memory"
+            "Memória"
           )
         }
         width={720}
@@ -364,7 +364,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
             <Space size="large" wrap>
               <div>
                 <Text strong style={{ display: "block" }}>
-                  Memory ID
+                  ID da Memória
                 </Text>
                 <Text code style={{ fontSize: 12 }}>
                   {detailRow.memory_id}
@@ -372,19 +372,19 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
               </div>
               <div>
                 <Text strong style={{ display: "block" }}>
-                  User ID
+                  ID do Usuário
                 </Text>
                 <Text type={detailRow.user_id ? undefined : "secondary"}>{detailRow.user_id ?? "-"}</Text>
               </div>
               <div>
                 <Text strong style={{ display: "block" }}>
-                  Team ID
+                  ID da Equipe
                 </Text>
                 <Text type={detailRow.team_id ? undefined : "secondary"}>{detailRow.team_id ?? "-"}</Text>
               </div>
             </Space>
             <div>
-              <Text strong>Value</Text>
+              <Text strong>Valor</Text>
               <Paragraph
                 style={{
                   background: "#fafafa",
@@ -400,7 +400,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
             </div>
             {detailRow.metadata !== undefined && detailRow.metadata !== null && (
               <div>
-                <Text strong>Metadata</Text>
+                <Text strong>Metadados</Text>
                 <Paragraph
                   style={{
                     background: "#fafafa",
@@ -417,12 +417,12 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
             )}
             <Space split={<Text type="secondary">·</Text>} wrap size="small" style={{ color: "rgba(0,0,0,0.45)" }}>
               <Text type="secondary">
-                Created {formatTimestamp(detailRow.created_at)}
-                {detailRow.created_by ? ` by ${detailRow.created_by}` : ""}
+                Criado {formatTimestamp(detailRow.created_at)}
+                {detailRow.created_by ? ` por ${detailRow.created_by}` : ""}
               </Text>
               <Text type="secondary">
-                Updated {formatTimestamp(detailRow.updated_at)}
-                {detailRow.updated_by ? ` by ${detailRow.updated_by}` : ""}
+                Atualizado {formatTimestamp(detailRow.updated_at)}
+                {detailRow.updated_by ? ` por ${detailRow.updated_by}` : ""}
               </Text>
             </Space>
           </Space>
@@ -444,16 +444,16 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       {/* Delete confirmation modal */}
       <DeleteResourceModal
         isOpen={!!deleteRow}
-        title="Delete memory"
-        message="This action cannot be undone."
-        resourceInformationTitle="Memory"
+        title="Excluir memória"
+        message="Esta ação não pode ser desfeita."
+        resourceInformationTitle="Memória"
         resourceInformation={
           deleteRow
             ? [
-                { label: "Key", value: deleteRow.key, code: true },
-                { label: "Memory ID", value: deleteRow.memory_id, code: true },
-                { label: "User ID", value: deleteRow.user_id ?? "-", code: true },
-                { label: "Team ID", value: deleteRow.team_id ?? "-", code: true },
+                { label: "Chave", value: deleteRow.key, code: true },
+                { label: "ID da Memória", value: deleteRow.memory_id, code: true },
+                { label: "ID do Usuário", value: deleteRow.user_id ?? "-", code: true },
+                { label: "ID da Equipe", value: deleteRow.team_id ?? "-", code: true },
               ]
             : []
         }

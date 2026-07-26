@@ -78,7 +78,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
       setPoliciesList(response.policies || []);
     } catch (error) {
       console.error("Error fetching policies:", error);
-      MessageManager.error("Failed to fetch policies");
+      MessageManager.error("Falha ao buscar políticas");
     } finally {
       setIsLoading(false);
     }
@@ -93,7 +93,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
       setAttachmentsList(response.attachments || []);
     } catch (error) {
       console.error("Error fetching attachments:", error);
-      MessageManager.error("Failed to fetch attachments");
+      MessageManager.error("Falha ao buscar anexos");
     } finally {
       setIsAttachmentsLoading(false);
     }
@@ -146,11 +146,11 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
     setIsDeleting(true);
     try {
       await deletePolicyCall(accessToken, policyToDelete.policy_id);
-      MessageManager.success(`Policy "${policyToDelete.policy_name}" deleted successfully`);
+      MessageManager.success(`Política "${policyToDelete.policy_name}" excluída com sucesso`);
       await fetchPolicies();
     } catch (error) {
       console.error("Error deleting policy:", error);
-      MessageManager.error("Failed to delete policy");
+      MessageManager.error("Falha ao excluir política");
     } finally {
       setIsDeleting(false);
       setIsDeleteModalOpen(false);
@@ -195,7 +195,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
 
   const handleUseTemplate = async (template: any) => {
     if (!accessToken) {
-      MessageManager.error("Authentication required");
+      MessageManager.error("Autenticação obrigatória");
       return;
     }
 
@@ -223,7 +223,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
       setIsGuardrailSelectionModalOpen(true);
     } catch (error) {
       console.error("Error fetching guardrails:", error);
-      MessageManager.error("Failed to load guardrails. Please try again.");
+      MessageManager.error("Falha ao carregar guardrails. Por favor, tente novamente.");
     }
   };
 
@@ -273,7 +273,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
       await proceedWithTemplate(enrichedTemplate);
     } catch (error) {
       console.error("Error enriching template:", error);
-      MessageManager.error("Failed to configure template. Please try again.");
+      MessageManager.error("Falha ao configurar o modelo. Por favor, tente novamente.");
       setIsEnrichingTemplate(false);
     }
   };
@@ -320,15 +320,15 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
       // Show success message
       if (createdGuardrails.length > 0) {
         MessageManager.success(
-          `Created ${createdGuardrails.length} guardrail${createdGuardrails.length > 1 ? "s" : ""}! Complete the policy form to save.`,
+          `Criado ${createdGuardrails.length} guardrail${createdGuardrails.length > 1 ? "s" : ""}! Complete o formulário da política para salvar.`,
         );
       } else {
-        MessageManager.success("Template ready! Complete the policy form to save.");
+        MessageManager.success("Modelo pronto! Complete o formulário da política para salvar.");
       }
 
       if (failedGuardrails.length > 0) {
         MessageManager.warning(
-          `Failed to create ${failedGuardrails.length} guardrail(s): ${failedGuardrails.join(", ")}. You may need to create them manually.`,
+          `Falha ao criar ${failedGuardrails.length} guardrail(s): ${failedGuardrails.join(", ")}. Você pode precisar criá-los manualmente.`,
         );
       }
 
@@ -347,7 +347,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
       setTemplateQueue([]);
       setTemplateQueueProgress(null);
       console.error("Error creating guardrails:", error);
-      MessageManager.error("Failed to create guardrails. Please try again.");
+      MessageManager.error("Falha ao criar guardrails. Por favor, tente novamente.");
     }
   };
 
@@ -362,10 +362,10 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
     <div className="w-full mx-auto flex-auto overflow-y-auto m-8 p-2">
       <TabGroup index={activeTab} onIndexChange={setActiveTab}>
         <TabList className="mb-4">
-          <Tab>Templates</Tab>
-          <Tab>Policies</Tab>
-          <Tab>Attachments</Tab>
-          <Tab>Policy Simulator</Tab>
+          <Tab>Modelos</Tab>
+          <Tab>Políticas</Tab>
+          <Tab>Anexos</Tab>
+          <Tab>Simulador de Política</Tab>
         </TabList>
 
         <TabPanels>
@@ -440,7 +440,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
 
             <div className="flex justify-between items-center mb-4">
               <Button onClick={handleAddPolicy} disabled={!accessToken}>
-                + Add New Policy
+                + Adicionar Nova Política
               </Button>
             </div>
 
@@ -489,16 +489,14 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
 
             <DeleteResourceModal
               isOpen={isDeleteModalOpen}
-              title="Delete Policy"
-              message={`Are you sure you want to delete policy: ${policyToDelete?.policy_name}? This action cannot be undone.`}
-              resourceInformationTitle="Policy Information"
-              resourceInformation={[
-                { label: "Name", value: policyToDelete?.policy_name },
-                { label: "ID", value: policyToDelete?.policy_id, code: true },
-                { label: "Description", value: policyToDelete?.description || "-" },
-                { label: "Inherits From", value: policyToDelete?.inherit || "-" },
-              ]}
-              onCancel={handleDeleteCancel}
+        title="Excluir Política"
+        message={`Tem certeza que deseja excluir a política: ${policyToDelete?.policy_name}? Esta ação não pode ser desfeita.`}
+        resourceInformationTitle="Informações da Política"
+        resourceInformation={[
+          { label: "Nome", value: policyToDelete?.policy_name },
+          { label: "ID", value: policyToDelete?.policy_id, code: true },
+          { label: "Descrição", value: policyToDelete?.description || "-" },
+          { label: "Herdado De", value: policyToDelete?.inherit || "-" },
               onOk={handleDeleteConfirm}
               confirmLoading={isDeleting}
             />
@@ -525,32 +523,32 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
 
           <TabPanel>
             <Alert
-              message="About Policy Attachments"
+              message="Sobre Anexos de Política"
               description={
                 <div>
                   <p className="mb-3">
-                    Policy attachments control where your policies apply. Policies don&apos;t do anything until you
-                    attach them to specific teams, keys, models, tags, or globally.
+                    Os anexos de política controlam onde suas políticas se aplicam. As políticas não fazem nada até que você
+                    os anexe a equipes específicas, chaves, modelos, tags ou globalmente.
                   </p>
-                  <p className="mb-2 font-semibold">Attachment Scopes:</p>
+                  <p className="mb-2 font-semibold">Escopos de Anexo:</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
                     <li>
-                      <strong>Global (*)</strong> - Applies to all requests
+                      <strong>Global (*)</strong> - Se aplica a todas as solicitações
                     </li>
                     <li>
-                      <strong>Teams</strong> - Applies only to specific teams
+                      <strong>Equipes</strong> - Se aplica apenas a equipes específicas
                     </li>
                     <li>
-                      <strong>Keys</strong> - Applies only to specific API keys (supports wildcards like dev-*)
+                      <strong>Chaves</strong> - Se aplica apenas a chaves de API específicas (suporta curingas como dev-*)
                     </li>
                     <li>
-                      <strong>Models</strong> - Applies only when specific models are used
+                      <strong>Modelos</strong> - Se aplica apenas quando modelos específicos são utilizados
                     </li>
                     <li>
-                      <strong>Tags</strong> - Matches tags from key/team <code>metadata.tags</code> or tags passed
-                      dynamically in the request body (<code>metadata.tags</code>). Use this to enforce policies across
-                      groups, e.g. &quot;all keys tagged <code>healthcare</code> get HIPAA guardrails.&quot; Supports
-                      wildcards (<code>prod-*</code>).
+                      <strong>Tags</strong> - Combina tags do metadata da chave/equipe ou tags passadas
+                      dinamicamente no corpo da solicitação (<code>metadata.tags</code>). Use isso para impor políticas across
+                      grupos, ex. &quot;todas as chaves marcadas com <code>saúde</code> recebem guardrails HIPAA.&quot; Suporta
+                      curingas (<code>prod-*</code>).
                     </li>
                   </ul>
                   <a
@@ -559,7 +557,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline inline-block mt-1"
                   >
-                    Learn more about attachments →
+                    Saiba mais sobre anexos →
                   </a>
                 </div>
               }
@@ -571,8 +569,8 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
             />
 
             <Alert
-              message="Enterprise Feature Notice"
-              description="Parts of policy attachments will be on Polyglot Enterprise in subsequent releases."
+              message="Aviso de Recurso Empresarial"
+              description="Partes dos anexos de política estarão disponíveis no Polyglot Enterprise em lançamentos futuros."
               type="warning"
               showIcon
               closable
@@ -584,7 +582,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
                 onClick={() => setIsAddAttachmentModalVisible(true)}
                 disabled={!accessToken || policiesList.length === 0}
               >
-                + Add New Attachment
+                + Adicionar Novo Anexo
               </Button>
             </div>
 
@@ -614,13 +612,13 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
 
       <DeleteResourceModal
         isOpen={isDeleteAttachmentModalOpen}
-        title="Delete Attachment"
-        message="Are you sure you want to delete this attachment? This action cannot be undone."
-        resourceInformationTitle="Attachment Information"
+        title="Excluir Anexo"
+        message="Tem certeza que deseja excluir este anexo? Esta ação não pode ser desfeita."
+        resourceInformationTitle="Informações do Anexo"
         resourceInformation={[
-          { label: "Attachment ID", value: attachmentToDelete?.attachment_id, code: true },
-          { label: "Policy", value: attachmentToDelete?.policy_name ?? "-" },
-          { label: "Scope", value: attachmentToDelete?.scope ?? "-" },
+          { label: "ID do Anexo", value: attachmentToDelete?.attachment_id, code: true },
+          { label: "Política", value: attachmentToDelete?.policy_name ?? "-" },
+          { label: "Escopo", value: attachmentToDelete?.scope ?? "-" },
         ]}
         onCancel={handleAttachmentDeleteCancel}
         onOk={handleAttachmentDeleteConfirm}

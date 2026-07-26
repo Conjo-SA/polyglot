@@ -111,7 +111,7 @@ export function GuardrailDetail({ guardrailId, onBack, accessToken = null, start
     <div>
       <div className="mb-6">
         <Button type="link" icon={<ArrowLeftOutlined />} onClick={onBack} className="pl-0 mb-4">
-          Back to Overview
+          Voltar ao Visão Geral
         </Button>
 
         <div className="flex items-start justify-between">
@@ -146,7 +146,7 @@ export function GuardrailDetail({ guardrailId, onBack, accessToken = null, start
         activeKey={activeTab}
         onChange={setActiveTab}
         items={[
-          { key: "overview", label: "Overview" },
+          { key: "overview", label: "Visão Geral" },
           { key: "logs", label: "Logs" },
         ]}
       />
@@ -155,22 +155,22 @@ export function GuardrailDetail({ guardrailId, onBack, accessToken = null, start
         <div className="space-y-6 mt-4">
           <Row gutter={[16, 16]}>
             <Col xs={12} md={8}>
-              <MetricCard label="Requests Evaluated" value={data.requestsEvaluated.toLocaleString()} />
+              <MetricCard label="Solicitações Avaliadas" value={data.requestsEvaluated.toLocaleString()} />
             </Col>
             <Col xs={12} md={8}>
               <MetricCard
-                label="Fail Rate"
+                label="Taxa de Falha"
                 value={`${data.failRate}%`}
                 valueColor={
                   data.failRate > 15 ? "text-red-600" : data.failRate > 5 ? "text-amber-600" : "text-green-600"
                 }
-                subtitle={`${Math.round((data.requestsEvaluated * data.failRate) / 100).toLocaleString()} blocked`}
+                subtitle={`${Math.round((data.requestsEvaluated * data.failRate) / 100).toLocaleString()} bloqueadas`}
                 icon={data.failRate > 15 ? <WarningOutlined className="text-red-400" /> : undefined}
               />
             </Col>
             <Col xs={12} md={8}>
               <MetricCard
-                label="Avg. latency added"
+                label="Latência média adicionada"
                 value={data.avgLatency != null ? `${Math.round(data.avgLatency)}ms` : "—"}
                 valueColor={
                   data.avgLatency != null
@@ -181,7 +181,7 @@ export function GuardrailDetail({ guardrailId, onBack, accessToken = null, start
                         : "text-green-600"
                     : "text-gray-500"
                 }
-                subtitle={data.avgLatency != null ? "Per request (avg)" : "No data"}
+                subtitle={data.avgLatency != null ? "Por solicitação (média)" : "Sem dados"}
               />
             </Col>
           </Row>
