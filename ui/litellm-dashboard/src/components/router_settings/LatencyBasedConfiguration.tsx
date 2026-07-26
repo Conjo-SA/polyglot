@@ -50,7 +50,7 @@ const LatencyBasedConfiguration: React.FC<LatencyBasedConfigurationProps> = ({ r
       </div>
 
       <div className="border-t border-gray-200" />
-    </>
+    </div>
   );
 };
 

@@ -293,7 +293,7 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
           </Checkbox>
 
           {addToTeams && (
-            <>
+            <div>
               <div>
                 <Text strong>Selecionar Equipes:</Text>
                 <Select
@@ -330,7 +330,7 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
               <Text type="secondary" style={{ fontSize: "12px" }}>
                 Os usuários serão adicionados com função &quot;usuário&quot; por padrão. Todos os usuários serão adicionados a cada equipe selecionada.
               </Text>
-            </>
+            </div>
           )}
         </Space>
       </Card>
