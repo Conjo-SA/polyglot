@@ -14,14 +14,14 @@ const ToolsCard: React.FC<ToolsCardProps> = ({ tools, onAddTool, onEditTool, onR
   return (
     <Card className="p-3">
       <div className="flex items-center justify-between mb-2">
-        <Text className="text-sm font-medium">Tools</Text>
+        <Text className="text-sm font-medium">Ferramentas</Text>
         <button onClick={onAddTool} className="text-xs text-blue-600 hover:text-blue-700 flex items-center">
           <PlusIcon size={14} className="mr-1" />
-          Add
+          Adicionar
         </button>
       </div>
       {tools.length === 0 ? (
-        <Text className="text-gray-500 text-xs">No tools added</Text>
+        <Text className="text-gray-500 text-xs">Nenhuma ferramenta adicionada</Text>
       ) : (
         <div className="space-y-2">
           {tools.map((tool, index) => (
@@ -35,7 +35,7 @@ const ToolsCard: React.FC<ToolsCardProps> = ({ tools, onAddTool, onEditTool, onR
               </div>
               <div className="flex items-center space-x-1 ml-2">
                 <button onClick={() => onEditTool(index)} className="text-xs text-blue-600 hover:text-blue-700">
-                  Edit
+                  Editar
                 </button>
                 <button onClick={() => onRemoveTool(index)} className="text-gray-400 hover:text-red-500">
                   <TrashIcon size={14} />

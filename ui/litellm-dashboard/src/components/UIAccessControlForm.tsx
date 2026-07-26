@@ -91,15 +91,15 @@ const UIAccessControlForm: React.FC<UIAccessControlFormProps> = ({ accessToken, 
     <div style={{ padding: "16px" }}>
       <div style={{ marginBottom: "16px" }}>
         <Text style={{ fontSize: "14px", color: "#6b7280" }}>
-          Configure who can access the UI interface and how group information is extracted from JWT tokens.
+          Configure quem pode acessar a interface da UI e como as informações de grupo são extraídas dos tokens JWT.
         </Text>
       </div>
 
       <Form form={form} onFinish={handleUIAccessSubmit} layout="vertical">
-        <Form.Item label="UI Access Mode" name="ui_access_mode_type" tooltip="Controls who can access the UI interface">
-          <Select placeholder="Select access mode">
-            <Select.Option value="all_authenticated_users">All Authenticated Users</Select.Option>
-            <Select.Option value="restricted_sso_group">Restricted SSO Group</Select.Option>
+        <Form.Item label="Modo de Acesso à Interface" name="ui_access_mode_type" tooltip="Controla quem pode acessar a interface da UI">
+          <Select placeholder="Selecionar modo de acesso">
+            <Select.Option value="all_authenticated_users">Todos os Usuários Autenticados</Select.Option>
+            <Select.Option value="restricted_sso_group">Grupo SSO Restrito</Select.Option>
           </Select>
         </Form.Item>
 
@@ -115,7 +115,7 @@ const UIAccessControlForm: React.FC<UIAccessControlFormProps> = ({ accessToken, 
               <Form.Item
                 label="Restricted SSO Group"
                 name="restricted_sso_group"
-                rules={[{ required: true, message: "Please enter the restricted SSO group" }]}
+                rules={[{ required: true, message: "Por favor, informe o grupo SSO restrito" }]}
               >
                 <TextInput placeholder="ui-access-group" />
               </Form.Item>
@@ -124,9 +124,9 @@ const UIAccessControlForm: React.FC<UIAccessControlFormProps> = ({ accessToken, 
         </Form.Item>
 
         <Form.Item
-          label="SSO Group JWT Field"
+          label="Campo JWT do Grupo SSO"
           name="sso_group_jwt_field"
-          tooltip="JWT field name that contains team/group information. Use dot notation to access nested fields."
+          tooltip="Nome do campo JWT que contém informações de equipe/grupo. Use notação de ponto para acessar campos aninhados."
         >
           <TextInput placeholder="groups" />
         </Form.Item>
@@ -141,7 +141,7 @@ const UIAccessControlForm: React.FC<UIAccessControlFormProps> = ({ accessToken, 
               borderColor: "#6366f1",
             }}
           >
-            Update UI Access Control
+            Atualizar Controle de Acesso à Interface
           </Button2>
         </div>
       </Form>

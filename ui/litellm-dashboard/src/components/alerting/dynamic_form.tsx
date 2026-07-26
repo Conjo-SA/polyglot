@@ -119,12 +119,12 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
           <TableCell>
             {value.stored_in_db == true ? (
               <Badge icon={CheckCircleIcon} className="text-white">
-                In DB
+                No BD
               </Badge>
             ) : value.stored_in_db == false ? (
-              <Badge className="text-gray bg-white outline-solid">In Config</Badge>
+              <Badge className="text-gray bg-white outline-solid">Na Config</Badge>
             ) : (
-              <Badge className="text-gray bg-white outline-solid">Not Set</Badge>
+              <Badge className="text-gray bg-white outline-solid">Não Definido</Badge>
             )}
           </TableCell>
           <TableCell>
@@ -135,7 +135,7 @@ const DynamicForm: React.FC<DynamicFormProps> = ({
         </TableRow>
       ))}
       <div>
-        <Button2 htmlType="submit">Update Settings</Button2>
+        <Button2 htmlType="submit">Atualizar Configurações</Button2>
       </div>
     </Form>
   );

@@ -42,7 +42,7 @@ const EmailSettings: React.FC<EmailSettingsProps> = ({ accessToken, premiumUser,
     };
     try {
       await setCallbacksCall(accessToken, payload);
-      NotificationManager.success("Email settings updated successfully");
+      NotificationManager.success("Configurações de e-mail atualizadas com sucesso");
     } catch (error) {
       NotificationManager.fromBackend(error);
     }
@@ -54,11 +54,11 @@ const EmailSettings: React.FC<EmailSettingsProps> = ({ accessToken, premiumUser,
         <EmailEventSettings accessToken={accessToken} />
       </div>
       <Card>
-        <Title level={4}>Email Server Settings</Title>
+        <Title level={4}>Configurações do Servidor de E-mail</Title>
         <Text>
           <a href="https://docs.litellm.ai/docs/proxy/email" target="_blank" style={{ color: "blue" }}>
             {" "}
-            Polyglot Docs: email alerts
+            Documentação Polyglot: alertas por e-mail
           </a>{" "}
           <br />
         </Text>
@@ -156,21 +156,21 @@ const EmailSettings: React.FC<EmailSettingsProps> = ({ accessToken, premiumUser,
         </div>
 
         <Button className="mt-2" onClick={() => handleSaveEmailSettings()}>
-          Save Changes
+          Salvar Alterações
         </Button>
         <Button
           onClick={async () => {
             if (!accessToken) return;
             try {
               await serviceHealthCheck(accessToken, "email");
-              NotificationManager.success("Email test triggered. Check your configured email inbox/logs.");
+              NotificationManager.success("Teste de e-mail acionado. Verifique sua caixa de entrada/registros configurados.");
             } catch (error) {
               NotificationManager.fromBackend(error);
             }
           }}
           className="mx-2"
         >
-          Test Email Alerts
+          Testar Alertas por E-mail
         </Button>
       </Card>
     </>

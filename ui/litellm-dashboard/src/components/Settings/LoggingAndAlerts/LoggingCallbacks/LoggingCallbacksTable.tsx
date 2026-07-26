@@ -30,9 +30,9 @@ function EmptyState() {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Inbox className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">No callbacks configured</div>
+      <div className="text-sm font-medium text-foreground">Nenhum callback configurado</div>
       <div className="text-sm text-muted-foreground">
-        Add your first callback to start logging data to external services.
+        Adicione seu primeiro callback para começar a registrar dados em serviços externos.
       </div>
     </div>
   );
@@ -54,11 +54,11 @@ export const LoggingCallbacksTable: React.FC<LoggingCallbacksProps> = ({
 
   return (
     <div className="mt-4 flex w-full flex-col gap-4">
-      <h3 className="text-lg font-semibold tracking-tight text-foreground">Active Logging Callbacks</h3>
+      <h3 className="text-lg font-semibold tracking-tight text-foreground">Callbacks de Registro Ativos</h3>
       <div>
         <Button onClick={onAdd}>
           <Plus />
-          Add Callback
+          Adicionar Callback
         </Button>
       </div>
       <DataTable

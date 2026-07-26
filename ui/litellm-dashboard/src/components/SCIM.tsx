@@ -71,11 +71,11 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
     <Grid numItems={1}>
       <Card>
         <div className="flex items-center mb-4">
-          <Title>SCIM Configuration</Title>
+          <Title>Configuração SCIM</Title>
         </div>
         <Text className="text-gray-600">
-          System for Cross-domain Identity Management (SCIM) allows you to automatically provision and manage users and
-          groups in Polyglot.
+          Sistema para Gerenciamento de Identidade entre Domínios (SCIM) permite que você provisione e gerencie
+          automaticamente usuários e grupos no Polyglot.
         </Text>
 
         <Divider />
@@ -93,7 +93,7 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
               </Title>
             </div>
             <Text className="text-gray-600 mb-3">
-              Use this URL in your identity provider SCIM integration settings.
+              Use esta URL nas configurações de integração SCIM do seu provedor de identidade.
             </Text>
             <div className="flex items-center">
               <TextInput value={scimBaseUrl} disabled={true} className="grow" />
@@ -121,9 +121,9 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
               </Title>
             </div>
 
-            <Callout title="Using SCIM" color="blue" className="mb-4">
-              You need a SCIM token to authenticate with the SCIM API. Create one below and use it in your SCIM provider
-              configuration.
+            <Callout title="Utilizando SCIM" color="blue" className="mb-4">
+              Você precisa de um token SCIM para se autenticar com a API SCIM. Crie um abaixo e use-o na configuração do seu
+              provedor SCIM.
             </Callout>
 
             {!tokenData ? (
@@ -131,10 +131,10 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
                 <Form form={form} onFinish={handleCreateSCIMToken} layout="vertical">
                   <Form.Item
                     name="key_alias"
-                    label="Token Name"
-                    rules={[{ required: true, message: "Please enter a name for your token" }]}
+                    label="Nome do Token"
+                    rules={[{ required: true, message: "Por favor, informe um nome para seu token" }]}
                   >
-                    <TextInput placeholder="SCIM Access Token" />
+                    <TextInput placeholder="Token de Acesso SCIM" />
                   </Form.Item>
                   <Form.Item>
                     <TremorButton
@@ -144,7 +144,7 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
                       className="flex items-center"
                     >
                       <KeyOutlined className="h-4 w-4 mr-1" />
-                      Create SCIM Token
+                      Criar Token SCIM
                     </TremorButton>
                   </Form.Item>
                 </Form>
@@ -156,7 +156,7 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
                   <Title className="text-lg text-yellow-800">Your SCIM Token</Title>
                 </div>
                 <Text className="text-yellow-800 mb-4 font-medium">
-                  Make sure to copy this token now. You will not be able to see it again.
+                  Certifique-se de copiar este token agora. Você não conseguirá vê-lo novamente.
                 </Text>
                 <div className="flex items-center">
                   <TextInput value={tokenData.key} className="grow mr-2 bg-white" type="password" disabled={true} />
@@ -172,7 +172,7 @@ const SCIMConfig: React.FC<SCIMConfigProps> = ({ accessToken, userID, proxySetti
                 </div>
                 <TremorButton className="mt-4 flex items-center" variant="secondary" onClick={() => setTokenData(null)}>
                   <PlusCircleOutlined className="h-4 w-4 mr-1" />
-                  Create Another Token
+                  Criar Outro Token
                 </TremorButton>
               </Card>
             )}

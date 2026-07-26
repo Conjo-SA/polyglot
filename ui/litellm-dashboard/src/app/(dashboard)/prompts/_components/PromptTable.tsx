@@ -27,8 +27,8 @@ function EmptyState() {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Inbox className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">No prompts yet</div>
-      <div className="text-sm text-muted-foreground">Add a prompt to start managing reusable templates.</div>
+      <div className="text-sm font-medium text-foreground">Nenhum prompt ainda</div>
+      <div className="text-sm text-muted-foreground">Adicione um prompt para começar a gerenciar modelos reutilizáveis.</div>
     </div>
   );
 }

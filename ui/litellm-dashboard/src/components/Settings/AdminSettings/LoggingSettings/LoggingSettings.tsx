@@ -75,10 +75,10 @@ const LoggingSettings: React.FC = () => {
   };
 
   return (
-    <Card title="Logging Settings">
+    <Card title="Configurações de Registro">
       <Space direction="vertical" size="large" style={{ width: "100%" }}>
         <Typography.Paragraph style={{ marginBottom: 0 }} type="secondary">
-          Proxy-wide settings that control how request and response data are written to spend logs.
+          Configurações globais que controlam como os dados de requisições e respostas são gravados nos registros de gastos.
         </Typography.Paragraph>
 
         {isLoadingConfig ? (
@@ -86,11 +86,11 @@ const LoggingSettings: React.FC = () => {
         ) : (
           <Form form={form} layout="vertical" onFinish={handleFormSubmit} initialValues={initialValues}>
             <Form.Item
-              label="Store Prompts in Spend Logs"
+              label="Armazenar Prompt nos Registros de Gastos"
               name="store_prompts_in_spend_logs"
               tooltip={
                 proxyConfigData?.find((f) => f.field_name === "store_prompts_in_spend_logs")?.field_description ||
-                "When enabled, prompts will be stored in spend logs for tracking and analysis purposes."
+                "Quando ativado, os prompts serão armazenados nos registros de gastos para fins de rastreamento e análise."
               }
               valuePropName="checked"
             >
@@ -98,20 +98,20 @@ const LoggingSettings: React.FC = () => {
             </Form.Item>
 
             <Form.Item
-              label="Maximum Spend Logs Retention Period (Optional)"
+              label="Período Máximo de Retenção dos Registros de Gastos (Opcional)"
               name="maximum_spend_logs_retention_period"
               tooltip={
                 proxyConfigData?.find((f) => f.field_name === "maximum_spend_logs_retention_period")
                   ?.field_description ||
-                "Set the maximum retention period for spend logs (e.g., '7d' for 7 days, '30d' for 30 days). Leave empty for no limit."
+                "Defina o período máximo de retenção para os registros de gastos (ex., '7d' para 7 dias, '30d' para 30 dias). Deixe vazio para não aplicar limite."
               }
             >
-              <Input placeholder="e.g., 7d, 30d" prefix={<ClockCircleOutlined />} />
+              <Input placeholder="ex., 7d, 30d" prefix={<ClockCircleOutlined />} />
             </Form.Item>
 
             <Form.Item>
               <Button type="primary" htmlType="submit" loading={isPending || isDeletingField}>
-                {isPending || isDeletingField ? "Saving..." : "Save Settings"}
+                {isPending || isDeletingField ? "Salvando..." : "Salvar Configurações"}
               </Button>
             </Form.Item>
           </Form>

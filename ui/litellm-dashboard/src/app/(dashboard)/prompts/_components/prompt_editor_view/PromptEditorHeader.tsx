@@ -44,7 +44,7 @@ const PromptEditorHeader: React.FC<PromptEditorHeaderProps> = ({
     <div className="bg-white border-b border-gray-200 px-6 py-3 flex items-center justify-between">
       <div className="flex items-center space-x-3">
         <TremorButton icon={ArrowLeftIcon} variant="light" onClick={onBack} size="xs">
-          Back
+          Voltar
         </TremorButton>
         <Input
           value={promptName}

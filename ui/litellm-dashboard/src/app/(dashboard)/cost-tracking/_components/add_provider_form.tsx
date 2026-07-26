@@ -29,13 +29,13 @@ const AddProviderForm: React.FC<AddProviderFormProps> = ({
       <Form.Item
         label={
           <span className="text-sm font-medium text-gray-700 flex items-center">
-            Provider
-            <Tooltip title="Select the LLM provider you want to configure a discount for">
+            Provedor
+            <Tooltip title="Selecione o provedor LLM para o qual deseja configurar um desconto">
               <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
             </Tooltip>
           </span>
         }
-        rules={[{ required: true, message: "Please select a provider" }]}
+        rules={[{ required: true, message: "Por favor selecione um provedor" }]}
       >
         <AntdSelect
           showSearch
@@ -77,13 +77,13 @@ const AddProviderForm: React.FC<AddProviderFormProps> = ({
       <Form.Item
         label={
           <span className="text-sm font-medium text-gray-700 flex items-center">
-            Discount Percentage
-            <Tooltip title="Enter a percentage value (e.g., 5 for 5% discount)">
+            Porcentagem do Desconto
+            <Tooltip title="Informe um valor percentual (ex: 5 para 5% de desconto)">
               <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
             </Tooltip>
           </span>
         }
-        rules={[{ required: true, message: "Please enter a discount percentage" }]}
+        rules={[{ required: true, message: "Por favor informe uma porcentagem de desconto" }]}
       >
         <div className="flex items-center gap-2">
           <TextInput
@@ -98,7 +98,7 @@ const AddProviderForm: React.FC<AddProviderFormProps> = ({
 
       <div className="flex items-center justify-end space-x-3 pt-6 border-t border-gray-100">
         <Button variant="primary" onClick={onAddProvider} disabled={!selectedProvider || !newDiscount}>
-          Add Provider Discount
+          Adicionar Desconto por Provedor
         </Button>
       </div>
     </div>

@@ -141,10 +141,10 @@ const PromptsPanel: React.FC<PromptsProps> = ({ accessToken, userRole }) => {
               {canModify && (
                 <>
                   <Button onClick={handleAddPrompt} disabled={!accessToken}>
-                    + Add New Prompt
+                    + Adicionar Novo Prompt
                   </Button>
                   <Button onClick={handleAddPromptFromFile} disabled={!accessToken} variant="secondary">
-                    Upload .prompt File
+                    Carregar Arquivo .prompt
                   </Button>
                 </>
               )}
@@ -183,16 +183,16 @@ const PromptsPanel: React.FC<PromptsProps> = ({ accessToken, userRole }) => {
 
       {promptToDelete && (
         <Modal
-          title="Delete Prompt"
+          title="Excluir Prompt"
           open={promptToDelete !== null}
           onOk={handleDeleteConfirm}
           onCancel={handleDeleteCancel}
           confirmLoading={isDeleting}
-          okText="Delete"
+          okText="Excluir"
           okButtonProps={{ danger: true }}
         >
-          <p>Are you sure you want to delete prompt: {promptToDelete.name} ?</p>
-          <p>This action cannot be undone.</p>
+          <p>Tem certeza de que deseja excluir o prompt: {promptToDelete.name} ?</p>
+          <p>Esta ação não pode ser desfeita.</p>
         </Modal>
       )}
     </div>
