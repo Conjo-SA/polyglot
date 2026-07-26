@@ -489,14 +489,15 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
 
             <DeleteResourceModal
               isOpen={isDeleteModalOpen}
-        title="Excluir Política"
-        message={`Tem certeza que deseja excluir a política: ${policyToDelete?.policy_name}? Esta ação não pode ser desfeita.`}
-        resourceInformationTitle="Informações da Política"
-        resourceInformation={[
-          { label: "Nome", value: policyToDelete?.policy_name },
-          { label: "ID", value: policyToDelete?.policy_id, code: true },
-          { label: "Descrição", value: policyToDelete?.description || "-" },
-          { label: "Herdado De", value: policyToDelete?.inherit || "-" },
+              title="Excluir Política"
+              message={`Tem certeza que deseja excluir a política: ${policyToDelete?.policy_name}? Esta ação não pode ser desfeita.`}
+              resourceInformationTitle="Informações da Política"
+              resourceInformation={[
+                { label: "Nome", value: policyToDelete?.policy_name },
+                { label: "ID", value: policyToDelete?.policy_id, code: true },
+                { label: "Descrição", value: policyToDelete?.description || "-" },
+                { label: "Herdado De", value: policyToDelete?.inherit || "-" },
+              ]}
               onOk={handleDeleteConfirm}
               confirmLoading={isDeleting}
             />
