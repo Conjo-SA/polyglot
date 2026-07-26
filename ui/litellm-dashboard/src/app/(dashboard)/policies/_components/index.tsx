@@ -499,6 +499,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
                 { label: "Herdado De", value: policyToDelete?.inherit || "-" },
               ]}
               onOk={handleDeleteConfirm}
+              onCancel={() => setIsDeleteModalOpen(false)}
               confirmLoading={isDeleting}
             />
 
