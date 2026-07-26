@@ -144,16 +144,16 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({
 
   const handleResetPassword = async (userId: string) => {
     if (!accessToken) {
-      NotificationsManager.fromBackend("Access token not found");
+      NotificationsManager.fromBackend("Token de acesso não encontrado");
       return;
     }
     try {
-      NotificationsManager.success("Generating password reset link...");
+      NotificationsManager.success("Gerando link de redefinição de senha...");
       const data = await invitationCreateCall(accessToken, userId);
       setInvitationLinkData(data);
       setIsInvitationLinkModalVisible(true);
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to generate password reset link");
+      NotificationsManager.fromBackend("Falha ao gerar link de redefinição de senha");
     }
   };
 
@@ -170,10 +170,10 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({
           return { ...previousData, users: updatedUsers };
         });
 
-        NotificationsManager.success("User deleted successfully");
+        NotificationsManager.success("Usuário excluído com sucesso");
       } catch (error) {
         console.error("Error deleting user:", error);
-        NotificationsManager.fromBackend("Failed to delete user");
+        NotificationsManager.fromBackend("Falha ao excluir usuário");
       } finally {
         setIsDeleteModalOpen(false);
         setUserToDelete(null);
@@ -211,7 +211,7 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({
         return { ...previousData, users: updatedUsers };
       });
 
-      NotificationsManager.success(`User ${editedUser.user_id} updated successfully`);
+      NotificationsManager.success(`Usuário ${editedUser.user_id} atualizado com sucesso`);
     } catch (error) {
       console.error("There was an error updating the user", error);
     }
@@ -235,7 +235,7 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({
 
   const handleBulkEdit = () => {
     if (selectedUsers.length === 0) {
-      NotificationsManager.fromBackend("Please select users to edit");
+      NotificationsManager.fromBackend("Por favor, selecione usuários para editar");
       return;
     }
 
@@ -322,7 +322,7 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({
                   type={selectionMode ? "primary" : "default"}
                   className="flex items-center"
                 >
-                  {selectionMode ? "Cancel Selection" : "Select Users"}
+                  {selectionMode ? "Cancelar Seleção" : "Selecionar Usuários"}
                 </Button>
               )}
 
@@ -333,7 +333,7 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({
                   disabled={selectedUsers.length === 0}
                   className="flex items-center"
                 >
-                  Bulk Edit ({selectedUsers.length} selected)
+                  Edição em Massa ({selectedUsers.length} selecionados)
                 </Button>
               )}
             </>
@@ -344,8 +344,8 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({
       {isProxyAdmin ? (
         <TabGroup defaultIndex={0} onIndexChange={(index) => setActiveTab(index === 0 ? "users" : "settings")}>
           <TabList className="mb-4">
-            <Tab>Users</Tab>
-            <Tab>Default User Settings</Tab>
+            <Tab>Usuários</Tab>
+            <Tab>Configurações Padrão do Usuário</Tab>
           </TabList>
 
           <TabPanels>
@@ -440,18 +440,18 @@ const ViewUserDashboard: React.FC<ViewUserDashboardProps> = ({
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete User?"
-        message="Are you sure you want to delete this user? This action cannot be undone."
-        resourceInformationTitle="User Information"
+        title="Excluir Usuário?"
+        message="Tem certeza que deseja excluir este usuário? Esta ação não pode ser desfeita."
+        resourceInformationTitle="Informações do Usuário"
         resourceInformation={[
           { label: "Email", value: userToDelete?.user_email },
-          { label: "User ID", value: userToDelete?.user_id, code: true },
+          { label: "ID do Usuário", value: userToDelete?.user_id, code: true },
           {
-            label: "Global Proxy Role",
+            label: "Função Global do Proxy",
             value:
               (userToDelete && possibleUIRoles?.[userToDelete.user_role]?.ui_label) || userToDelete?.user_role || "-",
           },
-          { label: "Total Spend (USD)", value: userToDelete?.spend?.toFixed(2) },
+          { label: "Gasto Total (USD)", value: userToDelete?.spend?.toFixed(2) },
         ]}
         onCancel={cancelDelete}
         onOk={confirmDelete}

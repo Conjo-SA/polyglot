@@ -31,7 +31,7 @@ export function AccessGroupCreateModal({ visible, onCancel, onSuccess }: AccessG
 
         createMutation.mutate(params, {
           onSuccess: () => {
-            MessageManager.success("Access group created successfully");
+            MessageManager.success("Grupo de acesso criado com sucesso");
             form.resetFields();
             onSuccess?.();
             onCancel();
@@ -43,13 +43,13 @@ export function AccessGroupCreateModal({ visible, onCancel, onSuccess }: AccessG
 
   return (
     <Modal
-      title="Create Access Group"
+      title="Criar Grupo de Acesso"
       open={visible}
       onOk={handleOk}
       onCancel={onCancel}
       width={700}
-      okText="Create Group"
-      cancelText="Cancel"
+      okText="Criar Grupo"
+      cancelText="Cancelar"
       confirmLoading={createMutation.isPending}
       destroyOnClose
     >

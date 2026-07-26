@@ -39,7 +39,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ visible, possibleUIRoles,
   }
 
   return (
-    <Modal open={visible} onCancel={handleCancel} footer={null} title={"Edit User " + user.user_id} width={1000}>
+    <Modal open={visible} onCancel={handleCancel} footer={null} title={"Editar Usuário " + user.user_id} width={1000}>
       <Form
         form={form}
         onFinish={handleEditSubmit}
@@ -49,15 +49,15 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ visible, possibleUIRoles,
         labelAlign="left"
       >
         <>
-          <Form.Item className="mt-8" label="User Email" tooltip="Email of the User" name="user_email">
+          <Form.Item className="mt-8" label="Email do Usuário" tooltip="Email do Usuário" name="user_email">
             <TextInput />
           </Form.Item>
 
-          <Form.Item label="user_id" name="user_id" hidden={true}>
+          <Form.Item label="ID do Usuário" name="user_id" hidden={true}>
             <TextInput />
           </Form.Item>
 
-          <Form.Item label="User Role" name="user_role">
+          <Form.Item label="Função do Usuário" name="user_role">
             <Select2>
               {possibleUIRoles &&
                 Object.entries(possibleUIRoles).map(([role, { ui_label, description }]) => (
@@ -74,24 +74,24 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ visible, possibleUIRoles,
           </Form.Item>
 
           <Form.Item
-            label="Spend (USD)"
+            label="Gasto (USD)"
             name="spend"
-            tooltip="(float) - Spend of all LLM calls completed by this user"
-            help="Across all keys (including keys with team_id)."
+            tooltip="(float) - Gasto de todas as chamadas LLM concluídas por este usuário"
+            help="Em todas as chaves (incluindo chaves com team_id)."
           >
             <InputNumber min={0} step={0.01} />
           </Form.Item>
 
           <Form.Item
-            label="User Budget (USD)"
+            label="Orçamento do Usuário (USD)"
             name="max_budget"
-            tooltip="(float) - Maximum budget of this user"
-            help="Maximum budget of this user."
+            tooltip="(float) - Orçamento máximo deste usuário"
+            help="Orçamento máximo deste usuário."
           >
             <NumericalInput min={0} step={0.01} />
           </Form.Item>
 
-          <Form.Item label="Reset Budget" name="budget_duration">
+          <Form.Item label="Reiniciar Orçamento" name="budget_duration">
             <BudgetDurationDropdown />
           </Form.Item>
 
@@ -100,7 +100,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ visible, possibleUIRoles,
           </div>
 
           <div style={{ textAlign: "right", marginTop: "10px" }}>
-            <Button2 htmlType="submit">Save</Button2>
+            <Button2 htmlType="submit">Salvar</Button2>
           </div>
         </>
       </Form>

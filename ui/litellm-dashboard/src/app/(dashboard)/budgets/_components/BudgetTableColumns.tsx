@@ -41,7 +41,7 @@ function BudgetRowActions({ budget, onEditClick, onDeleteClick }: BudgetRowActio
       <DropdownMenuContent align="end" className="w-52">
         <DropdownMenuItem data-testid="budget-action-edit" onClick={() => onEditClick(budget)}>
           <Pencil />
-          Edit budget
+          Editar orçamento
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -50,7 +50,7 @@ function BudgetRowActions({ budget, onEditClick, onDeleteClick }: BudgetRowActio
           onClick={() => onDeleteClick(budget)}
         >
           <Trash2 />
-          Delete budget
+          Excluir orçamento
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

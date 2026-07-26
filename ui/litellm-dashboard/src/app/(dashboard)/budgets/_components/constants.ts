@@ -1,42 +1,42 @@
 export const CREATE_END_USER_CURL_COMMAND = `
-curl -X POST --location '<your_proxy_base_url>/end_user/new' \\
+curl -X POST --location '<url_da_sua_proxy>/end_user/new' \\
 
--H 'Authorization: Bearer <your-master-key>' \\
+-H 'Authorization: Bearer <sua_chave-mestre>' \\
 
 -H 'Content-Type: application/json' \\
 
--d '{"user_id": "my-customer-id', "budget_id": "<BUDGET_ID>"}' # 👈 KEY CHANGE
+-d '{"user_id": "meu-id-de-cliente", "budget_id": "<ID_DO_ORÇAMENTO>"}' # 👈 MUDANÇA NA CHAVE
 
 `;
 
 export const CHAT_COMPLETIONS_CURL_COMMAND = `
-curl -X POST --location '<your_proxy_base_url>/chat/completions' \\
+curl -X POST --location '<url_da_sua_proxy>/chat/completions' \\
 
--H 'Authorization: Bearer <your-master-key>' \\
+-H 'Authorization: Bearer <sua_chave-mestre>' \\
 
 -H 'Content-Type: application/json' \\
 
 -d '{
   "model": "gpt-3.5-turbo',
-  "messages":[{"role": "user", "content": "Hey, how's it going?"}],
-  "user": "my-customer-id"
-}' # 👈 KEY CHANGE
+  "messages":[{"role": "user", "content": "E aí, como você está?"}],
+  "user": "meu-id-de-cliente"
+}' # 👈 MUDANÇA NA CHAVE
 
 `;
 
 export const OPENAI_SDK_PYTHON_CODE = `from openai import OpenAI
 client = OpenAI(
-  base_url="<your_proxy_base_url>",
-  api_key="<your_proxy_key>"
+  base_url="<url_da_sua_proxy>",
+  api_key="<sua_chave_da_proxy>"
 )
 
 completion = client.chat.completions.create(
   model="gpt-3.5-turbo",
   messages=[
-    {"role": "system", "content": "You are a helpful assistant."},
-    {"role": "user", "content": "Hello!"}
+    {"role": "system", "content": "Você é um assistente útil."},
+    {"role": "user", "content": "Olá!"}
   ],
-  user="my-customer-id"
+  user="meu-id-de-cliente"
 )
 
 print(completion.choices[0].message)`;

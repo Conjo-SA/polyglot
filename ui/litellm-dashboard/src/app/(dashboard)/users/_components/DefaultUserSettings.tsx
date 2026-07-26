@@ -64,7 +64,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
         }
       } catch (error) {
         console.error("Error fetching SSO settings:", error);
-        NotificationManager.fromBackend("Failed to fetch SSO settings");
+        NotificationManager.fromBackend("Falha ao buscar configurações SSO");
       } finally {
         setLoading(false);
       }
@@ -92,7 +92,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating SSO settings:", error);
-      NotificationManager.fromBackend("Failed to update settings: " + error);
+      NotificationManager.fromBackend("Falha ao atualizar configurações: " + error);
     } finally {
       setSaving(false);
     }
@@ -316,10 +316,10 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
   };
 
   const renderValue = (key: string, value: any): JSX.Element => {
-    if (value === null || value === undefined) return <span className="text-gray-400">Not set</span>;
+    if (value === null || value === undefined) return <span className="text-gray-400">Não definido</span>;
 
     if (key === "teams" && Array.isArray(value)) {
-      if (value.length === 0) return <span className="text-gray-400">No teams assigned</span>;
+      if (value.length === 0) return <span className="text-gray-400">Nenhuma equipe atribuída</span>;
 
       const normalizedTeams = normalizeTeams(value);
 
@@ -329,19 +329,19 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
             <div key={index} className="border rounded-lg p-3 bg-white">
               <div className="grid grid-cols-1 md:grid-cols-3 gap-2 text-sm">
                 <div>
-                  <span className="font-medium text-gray-600">Team ID:</span>
-                  <p className="text-gray-900">{team.team_id || "Not specified"}</p>
+                  <span className="font-medium text-gray-600">ID da Equipe:</span>
+                  <p className="text-gray-900">{team.team_id || "Não especificado"}</p>
                 </div>
                 <div>
-                  <span className="font-medium text-gray-600">Max Budget:</span>
+                  <span className="font-medium text-gray-600">Orçamento Máximo:</span>
                   <p className="text-gray-900">
                     {team.max_budget_in_team !== undefined
                       ? `$${formatNumberWithCommas(team.max_budget_in_team, 4)}`
-                      : "No limit"}
+                      : "Sem limite"}
                   </p>
                 </div>
                 <div>
-                  <span className="font-medium text-gray-600">Role:</span>
+                  <span className="font-medium text-gray-600">Função:</span>
                   <p className="text-gray-900 capitalize">{team.user_role}</p>
                 </div>
               </div>
@@ -417,7 +417,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
   if (!settings) {
     return (
       <Card>
-        <Text>No settings available or you do not have permission to view them.</Text>
+        <Text>Nenhuma configuração disponível ou você não tem permissão para visualizá-las.</Text>
       </Card>
     );
   }
@@ -427,7 +427,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
     const { values, field_schema } = settings;
 
     if (!field_schema || !field_schema.properties) {
-      return <Text>No schema information available</Text>;
+      return <Text>Nenhuma informação de esquema disponível</Text>;
     }
 
     return Object.entries(field_schema.properties).map(([key, property]: [string, any]) => {
@@ -438,7 +438,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
         <div key={key} className="mb-6 pb-6 border-b border-gray-200 last:border-0">
           <Text className="font-medium text-lg">{displayName}</Text>
           <Paragraph className="text-sm text-gray-500 mt-1">
-            {property.description || "No description available"}
+            {property.description || "Nenhuma descrição disponível"}
           </Paragraph>
 
           {isEditing ? (
@@ -466,15 +466,15 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
                 }}
                 disabled={saving}
               >
-                Cancel
+                Cancelar
               </Button>
               <Button type="primary" onClick={handleSaveSettings} loading={saving}>
-                Save Changes
+                Salvar Alterações
               </Button>
             </div>
           ) : (
             <Button type="primary" onClick={() => setIsEditing(true)}>
-              Edit Settings
+              Editar Configurações
             </Button>
           ))}
       </div>

@@ -80,7 +80,7 @@ const SettingValueEditor: React.FC<{
       <AntdSelect
         allowClear
         style={{ minWidth: "8rem" }}
-        placeholder="Default"
+        placeholder="Padrão"
         value={setting.field_value || undefined}
         options={(setting.field_options ?? []).map((option) => ({ label: option, value: option }))}
         onChange={(newValue) => onChange(setting.field_name, newValue ?? "")}
@@ -244,10 +244,10 @@ const GeneralSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, user
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell>Setting</TableHeaderCell>
-                    <TableHeaderCell>Value</TableHeaderCell>
+                    <TableHeaderCell>Configuração</TableHeaderCell>
+                    <TableHeaderCell>Valor</TableHeaderCell>
                     <TableHeaderCell>Status</TableHeaderCell>
-                    <TableHeaderCell>Action</TableHeaderCell>
+                    <TableHeaderCell>Ação</TableHeaderCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -273,17 +273,17 @@ const GeneralSettings: React.FC<GeneralSettingsPageProps> = ({ accessToken, user
                         </TableCell>
                         <TableCell>
                           {value.stored_in_db == true ? (
-                            <StatusBadge tone="success" label="In DB" />
+                            <StatusBadge tone="success" label="No BD" />
                           ) : value.stored_in_db == false ? (
-                            <StatusBadge tone="neutral" label="In Config" />
+                            <StatusBadge tone="neutral" label="Na Config" />
                           ) : (
-                            <StatusBadge tone="neutral" label="Not Set" />
+                            <StatusBadge tone="neutral" label="Não Definido" />
                           )}
                         </TableCell>
                         <TableCell>
-                          <Button onClick={() => handleUpdateField(value.field_name, index)}>Update</Button>
+                          <Button onClick={() => handleUpdateField(value.field_name, index)}>Atualizar</Button>
                           <Icon icon={TrashIcon} color="red" onClick={() => handleResetField(value.field_name, index)}>
-                            Reset
+                            Restaurar
                           </Icon>
                         </TableCell>
                       </TableRow>

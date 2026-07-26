@@ -149,13 +149,13 @@ export function AccessGroupsPage() {
       {
         id: "name",
         accessorKey: "name",
-        header: () => <span>Name</span>,
+        header: () => <span>Nome</span>,
         enableSorting: true,
         cell: ({ getValue }) => getValue() as string,
       },
       {
         id: "resources",
-        header: () => <span>Resources</span>,
+        header: () => <span>Recursos</span>,
         enableSorting: false,
         cell: ({ row }) => {
           const record = row.original;
@@ -164,7 +164,7 @@ export function AccessGroupsPage() {
           const agentIds = record.agentIds ?? [];
           return (
             <Flex gap={12} align="center">
-              <Tooltip title={`${modelIds?.length} Models`}>
+              <Tooltip title={`${modelIds?.length} Modelos`}>
                 <Tag color="blue" style={{ fontSize: 14, padding: "2px 8px", margin: 0 }}>
                   <Flex align="center" gap={6}>
                     <LayersIcon size={14} />
@@ -172,7 +172,7 @@ export function AccessGroupsPage() {
                   </Flex>
                 </Tag>
               </Tooltip>
-              <Tooltip title={`${mcpServerIds?.length} MCP Servers`}>
+              <Tooltip title={`${mcpServerIds?.length} Servidores MCP`}>
                 <Tag color="cyan" style={{ fontSize: 14, padding: "2px 8px", margin: 0 }}>
                   <Flex align="center" gap={6}>
                     <ServerIcon size={14} />
@@ -180,7 +180,7 @@ export function AccessGroupsPage() {
                   </Flex>
                 </Tag>
               </Tooltip>
-              <Tooltip title={`${agentIds?.length} Agents`}>
+              <Tooltip title={`${agentIds?.length} Agentes`}>
                 <Tag color="purple" style={{ fontSize: 14, padding: "2px 8px", margin: 0 }}>
                   <Flex align="center" gap={6}>
                     <BotIcon size={14} />
@@ -195,7 +195,7 @@ export function AccessGroupsPage() {
       {
         id: "createdAt",
         accessorKey: "createdAt",
-        header: () => <span>Created</span>,
+        header: () => <span>Criado</span>,
         enableSorting: true,
         sortingFn: "datetime",
         cell: ({ getValue }) => <DateCell value={getValue() as string} precision="date" />,
@@ -204,7 +204,7 @@ export function AccessGroupsPage() {
       {
         id: "updatedAt",
         accessorKey: "updatedAt",
-        header: () => <span>Updated</span>,
+        header: () => <span>Atualizado</span>,
         enableSorting: false,
         cell: ({ getValue }) => <DateCell value={getValue() as string} precision="date" />,
         meta: { responsive: ["xl"] },
@@ -213,13 +213,13 @@ export function AccessGroupsPage() {
         ? [
             {
               id: "actions",
-              header: () => <span>Actions</span>,
+              header: () => <span>Ações</span>,
               enableSorting: false,
               cell: ({ row }: { row: Row<AccessGroup> }) => (
                 <Space>
                   <TableIconActionButton
                     variant="Delete"
-                    tooltipText="Delete access group"
+                    tooltipText="Excluir grupo de acesso"
                     onClick={() => setGroupToDelete(row.original)}
                   />
                 </Space>
@@ -268,13 +268,13 @@ export function AccessGroupsPage() {
       <Flex justify="space-between" align="center" style={{ marginBottom: 16 }}>
         <Space direction="vertical" size={0}>
           <Title level={2} style={{ margin: 0 }}>
-            Access Groups
+            Grupos de Acesso
           </Title>
-          <Text type="secondary">Manage resource permissions for your organization</Text>
+          <Text type="secondary">Gerenciar permissões de recursos para sua organização</Text>
         </Space>
         {canModify && (
           <Button type="primary" icon={<PlusOutlined />} onClick={() => setIsCreateModalVisible(true)}>
-            Create Access Group
+            Criar Grupo de Acesso
           </Button>
         )}
       </Flex>
@@ -289,7 +289,7 @@ export function AccessGroupsPage() {
         >
           <Input
             prefix={<SearchIcon size={16} />}
-            placeholder="Search groups by name, ID, or description..."
+            placeholder="Buscar grupos por nome, ID ou descrição..."
             style={{ maxWidth: 400 }}
             value={searchText}
             onChange={(e) => setSearchText(e.target.value)}
@@ -312,13 +312,13 @@ export function AccessGroupsPage() {
 
       <DeleteResourceModal
         isOpen={!!groupToDelete}
-        title="Delete Access Group"
-        message="Are you sure you want to delete this access group? This action cannot be undone."
-        resourceInformationTitle="Access Group Information"
+        title="Excluir Grupo de Acesso"
+        message="Tem certeza que deseja excluir este grupo de acesso? Esta ação não pode ser desfeita."
+        resourceInformationTitle="Informações do Grupo de Acesso"
         resourceInformation={[
           { label: "ID", value: groupToDelete?.id, code: true },
-          { label: "Name", value: groupToDelete?.name },
-          { label: "Description", value: groupToDelete?.description || "—" },
+          { label: "Nome", value: groupToDelete?.name },
+          { label: "Descrição", value: groupToDelete?.description || "—" },
         ]}
         onCancel={() => setGroupToDelete(null)}
         onOk={() => {

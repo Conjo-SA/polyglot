@@ -22,9 +22,9 @@ function EmptyState() {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Inbox className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">No budgets yet</div>
+      <div className="text-sm font-medium text-foreground">Nenhum orçamento ainda</div>
       <div className="text-sm text-muted-foreground">
-        Create a budget to set spend, TPM and RPM limits for customers.
+        Crie um orçamento para definir limites de gasto, TPM e RPM para os clientes.
       </div>
     </div>
   );

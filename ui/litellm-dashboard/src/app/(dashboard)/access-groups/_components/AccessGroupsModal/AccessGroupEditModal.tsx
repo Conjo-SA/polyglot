@@ -45,7 +45,7 @@ export function AccessGroupEditModal({ visible, accessGroup, onCancel, onSuccess
           { accessGroupId: accessGroup.access_group_id, params },
           {
             onSuccess: () => {
-              MessageManager.success("Access group updated successfully");
+              MessageManager.success("Grupo de acesso atualizado com sucesso");
               onSuccess?.();
               onCancel();
             },
@@ -57,13 +57,13 @@ export function AccessGroupEditModal({ visible, accessGroup, onCancel, onSuccess
 
   return (
     <Modal
-      title="Edit Access Group"
+      title="Editar Grupo de Acesso"
       open={visible}
       onOk={handleOk}
       onCancel={onCancel}
       width={700}
-      okText="Save Changes"
-      cancelText="Cancel"
+      okText="Salvar Alterações"
+      cancelText="Cancelar"
       confirmLoading={editMutation.isPending}
       destroyOnHidden
     >

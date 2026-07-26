@@ -13,8 +13,8 @@ const ReliabilityRetriesSection: React.FC<ReliabilityRetriesSectionProps> = ({
   return (
     <div className="space-y-6">
       <div className="max-w-3xl">
-        <h3 className="text-sm font-medium text-gray-900">Reliability & Retries</h3>
-        <p className="text-xs text-gray-500 mt-1">Configure retry logic and failure handling</p>
+        <h3 className="text-sm font-medium text-gray-900">Confiabilidade e Tentativas</h3>
+        <p className="text-xs text-gray-500 mt-1">Configure a lógica de tentativas e tratamento de falhas</p>
       </div>
 
       <div className="grid grid-cols-1 gap-6 lg:grid-cols-2 xl:grid-cols-3">

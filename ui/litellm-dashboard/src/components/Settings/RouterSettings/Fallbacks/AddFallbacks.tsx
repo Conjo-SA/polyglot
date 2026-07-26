@@ -124,7 +124,7 @@ export default function AddFallbacks({ accessToken, value = [], onChange }: AddF
         onClick={() => setIsModalVisible(true)}
         icon={() => <span className="mr-1">+</span>}
       >
-        Add Fallbacks
+        Adicionar Fallbacks
       </TremorButton>
       <AddFallbacksModal open={isModalVisible} onCancel={handleCancel}>
         <FallbackSelectionForm
@@ -147,7 +147,7 @@ export default function AddFallbacks({ accessToken, value = [], onChange }: AddF
               disabled={groups.length === 0 || isSaving}
               loading={isSaving}
             >
-              {isSaving ? "Saving Configuration..." : "Save All Configurations"}
+              {isSaving ? "Salvando Configuração..." : "Salvar Todas Configurações"}
             </Button>
           </div>
         )}
