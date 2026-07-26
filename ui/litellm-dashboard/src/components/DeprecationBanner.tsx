@@ -13,12 +13,12 @@ interface DeprecationBannerProps {
 
 export const DeprecationBanner: React.FC<DeprecationBannerProps> = ({ featureName }) => (
   <Alert
-    message={`${featureName} is on a draft deprecation list`}
+    message={`${featureName} está em uma lista de depreciação provisória`}
     description={
       <>
-        {`${featureName} is one of several experimental features we're considering removing, potentially as early as ${DEPRECATION_TARGET_DATE}. This list is a draft and is not final. If you rely on this feature, please share feedback on the `}
+        {`${featureName} é uma das várias funcionalidades experimentais que estamos considerando remover, potencialmente tão cedo quanto ${DEPRECATION_TARGET_DATE}. Esta lista é uma versão provisória e não é definitiva. Se você depende desta funcionalidade, por favor compartilhe seu feedback na `}
         <Link href={DEPRECATION_DISCUSSION_URL} target="_blank" rel="noopener noreferrer">
-          deprecation discussion
+          discussão sobre depreciação
         </Link>
         .
       </>

@@ -74,10 +74,10 @@ const ModePicker: React.FC<ModePicker> = ({ selected, onSelect }) => (
         </svg>
       </div>
       <Text strong style={{ fontSize: 15, display: "block", marginBottom: 4 }}>
-        Simple Mode
+        Modo Simples
       </Text>
       <Text type="secondary" style={{ fontSize: 13 }}>
-        Pick guardrails from a list. All run in parallel.
+        Escolha guardrails de uma lista. Todos são executados em paralelo.
       </Text>
     </div>
 
@@ -106,7 +106,7 @@ const ModePicker: React.FC<ModePicker> = ({ selected, onSelect }) => (
           margin: 0,
         }}
       >
-        NEW
+        NOVO
       </Tag>
       <div
         style={{
@@ -134,10 +134,10 @@ const ModePicker: React.FC<ModePicker> = ({ selected, onSelect }) => (
         </svg>
       </div>
       <Text strong style={{ fontSize: 15, display: "block", marginBottom: 4 }}>
-        Flow Builder
+        Construtor de Fluxo
       </Text>
       <Text type="secondary" style={{ fontSize: 13 }}>
-        Define steps, conditions, and error responses.
+        Defina etapas, condições e respostas de erro.
       </Text>
     </div>
   </div>
@@ -361,12 +361,12 @@ const AddPolicyForm: React.FC<AddPolicyFormProps> = ({
   // ── Mode Picker Step ──────────────────────────────────────────────────────
   if (step === "pick_mode") {
     return (
-      <Modal title="Create New Policy" open={visible} onCancel={handleClose} footer={null} width={620}>
+      <Modal title="Criar Nova Política" open={visible} onCancel={handleClose} footer={null} width={620}>
         <ModePicker selected={selectedMode} onSelect={setSelectedMode} />
 
         {selectedMode === "flow_builder" && (
           <Alert
-            message="You'll be redirected to the full-screen Flow Builder to design your policy logic visually."
+            message="Você será redirecionado para o Construtor de Fluxo em tela cheia para criar a lógica da sua política visualmente."
             type="info"
             style={{
               marginTop: 16,
@@ -378,7 +378,7 @@ const AddPolicyForm: React.FC<AddPolicyFormProps> = ({
 
         <div className="flex justify-end gap-2" style={{ marginTop: 24 }}>
           <Button variant="secondary" onClick={handleClose}>
-            Cancel
+            Cancelar
           </Button>
           <Button
             onClick={handleModeConfirm}
@@ -388,7 +388,7 @@ const AddPolicyForm: React.FC<AddPolicyFormProps> = ({
               border: "none",
             }}
           >
-            {selectedMode === "flow_builder" ? "Continue to Builder" : "Create Policy"}
+            {selectedMode === "flow_builder" ? "Continuar para o Construtor" : "Criar Política"}
           </Button>
         </div>
       </Modal>

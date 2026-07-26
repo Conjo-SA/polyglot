@@ -49,7 +49,7 @@ export function GuardrailConfig({ guardrailName, guardrailType, provider }: Guar
       <div className="bg-white border border-gray-200 rounded-lg p-4">
         <div className="flex items-center justify-between">
           <div className="flex items-center gap-3">
-            <span className="text-sm font-medium text-gray-700">Version:</span>
+            <span className="text-sm font-medium text-gray-700">Versão:</span>
             <Select
               value={version}
               onChange={setVersion}
@@ -57,13 +57,13 @@ export function GuardrailConfig({ guardrailName, guardrailType, provider }: Guar
               style={{ width: 140 }}
             />
             <Button type="link" size="small" onClick={() => setShowVersionHistory(!showVersionHistory)}>
-              {showVersionHistory ? "Hide history" : "View history"}
+              {showVersionHistory ? "Ocultar histórico" : "Ver histórico"}
             </Button>
           </div>
           <div className="flex items-center gap-2">
-            <Button icon={<RollbackOutlined />}>Revert</Button>
+            <Button icon={<RollbackOutlined />}>Reverter</Button>
             <Button type="primary" icon={<SaveOutlined />}>
-              Save as v{parseInt(version.replace("v", ""), 10) + 1}
+              Salvar como v{parseInt(version.replace("v", ""), 10) + 1}
             </Button>
           </div>
         </div>
@@ -97,7 +97,7 @@ export function GuardrailConfig({ guardrailName, guardrailType, provider }: Guar
 
       {/* Parameters */}
       <div className="bg-white border border-gray-200 rounded-lg p-6">
-        <h3 className="text-base font-semibold text-gray-900 mb-1">Parameters</h3>
+        <h3 className="text-base font-semibold text-gray-900 mb-1">Parâmetros</h3>
         <p className="text-xs text-gray-500 mb-5">Configure {guardrailName} behavior</p>
 
         <div className="grid grid-cols-1 md:grid-cols-2 gap-6">

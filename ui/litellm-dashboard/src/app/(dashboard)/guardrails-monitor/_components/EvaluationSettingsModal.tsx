@@ -80,7 +80,7 @@ export function EvaluationSettingsModal({
 
   return (
     <Modal
-      title="Evaluation Settings"
+      title="Configurações de Avaliação"
       open={open}
       onCancel={onClose}
       width={640}
@@ -90,16 +90,16 @@ export function EvaluationSettingsModal({
     >
       <p className="text-sm text-gray-500 mb-4">
         {guardrailName
-          ? `Configure AI evaluation for ${guardrailName}`
-          : "Configure AI evaluation for re-running on logs"}
+          ? `Configure a avaliação de IA para ${guardrailName}`
+          : "Configure a avaliação de IA para reexecução em logs"}
       </p>
 
       <div className="space-y-4">
         <div>
           <div className="flex items-center justify-between mb-1.5">
-            <label className="text-sm font-medium text-gray-700">Evaluation Prompt</label>
+            <label className="text-sm font-medium text-gray-700">Prompt de Avaliação</label>
             <button type="button" onClick={handleResetPrompt} className="text-xs text-indigo-600 hover:text-indigo-700">
-              Reset to default
+              Restaurar padrão
             </button>
           </div>
           <Input.TextArea
@@ -114,7 +114,7 @@ export function EvaluationSettingsModal({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Response Schema</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">Esquema de Resposta</label>
           <p className="text-xs text-gray-400 mb-1">response_format: json_schema</p>
           <Input.TextArea
             value={schema}
@@ -125,9 +125,9 @@ export function EvaluationSettingsModal({
         </div>
 
         <div>
-          <label className="block text-sm font-medium text-gray-700 mb-1.5">Model</label>
+          <label className="block text-sm font-medium text-gray-700 mb-1.5">Modelo</label>
           <Select
-            placeholder={loadingModels ? "Loading models…" : "Select a model"}
+            placeholder={loadingModels ? "Carregando modelos…" : "Selecionar um modelo"}
             value={model ?? undefined}
             onChange={setModel}
             options={modelSelectOptions}
@@ -135,15 +135,15 @@ export function EvaluationSettingsModal({
             showSearch
             optionFilterProp="label"
             loading={loadingModels}
-            notFoundContent={!accessToken ? "Sign in to see models" : "No models available"}
+            notFoundContent={!accessToken ? "Faça login para ver os modelos" : "Nenhum modelo disponível"}
           />
         </div>
       </div>
 
       <div className="flex items-center justify-end gap-2 mt-6 pt-4 border-t border-gray-100">
-        <Button onClick={onClose}>Cancel</Button>
+        <Button onClick={onClose}>Cancelar</Button>
         <Button type="primary" icon={<PlayCircleOutlined />} onClick={handleRun} disabled={!model}>
-          Run Evaluation
+          Executar Avaliação
         </Button>
       </div>
     </Modal>

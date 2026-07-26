@@ -212,11 +212,11 @@ const MCPServerCard: FC<MCPServerCardProps> = ({
         <Tag className="m-0">{displayTransport.toUpperCase()}</Tag>
         <Tag className="m-0">{authType}</Tag>
         {oauthFlowUnset && (
-          <Tooltip title="This OAuth server has no flow set (Machine-to-Machine vs Interactive). Open it and choose an OAuth Flow Type so Polyglot authenticates it as you intend.">
+          <Tooltip title="Este servidor OAuth não tem fluxo definido (Máquina a Máquina vs Interativo). Abra-o e escolha um Tipo de Fluxo OAuth para que o Polyglot autentique conforme pretendido.">
             <Tag color="warning" className="m-0">
               <span className="inline-flex items-center gap-1">
                 <ExclamationCircleFilled />
-                OAuth flow not set
+                Fluxo OAuth não definido
               </span>
             </Tag>
           </Tooltip>
@@ -247,7 +247,7 @@ const MCPServerCard: FC<MCPServerCardProps> = ({
               <Tooltip
                 title={
                   <div>
-                    <div className="font-semibold mb-1">Missing user fields:</div>
+                    <div className="font-semibold mb-1">Campos de usuário faltando:</div>
                     <ul className="ml-3">
                       {missing.map((m) => (
                         <li key={m}>• {m}</li>
@@ -258,8 +258,8 @@ const MCPServerCard: FC<MCPServerCardProps> = ({
               >
                 <span className="inline-flex items-center gap-1 font-semibold text-red-700">
                   <ExclamationCircleFilled />
-                  {missing.length} user field
-                  {missing.length === 1 ? "" : "s"} missing
+                  {missing.length} campo de usuário
+                  {missing.length === 1 ? "" : "s"} faltando
                 </span>
               </Tooltip>
               {onOpenFillFields && (
@@ -271,7 +271,7 @@ const MCPServerCard: FC<MCPServerCardProps> = ({
                   }}
                   className="rounded-md bg-red-600 px-3 py-1 text-xs font-medium text-white shadow-xs transition-colors hover:bg-red-700"
                 >
-                  Set
+                  Definir
                 </button>
               )}
             </div>
@@ -356,10 +356,10 @@ const ByokRow: FC<ByokRowProps> = ({ connected, onConnect }) => {
   if (connected) {
     return (
       <div className="flex items-center justify-between gap-2 text-xs">
-        <span className="text-gray-500">BYOK credential</span>
+        <span className="text-gray-500">Credencial BYOK</span>
         <div className="flex items-center gap-2">
           <span className="inline-flex items-center gap-1 rounded-full border border-green-200 bg-green-50 px-2 py-0.5 font-medium text-green-700">
-            <CheckOutlined style={{ fontSize: 10 }} /> Connected
+            <CheckOutlined style={{ fontSize: 10 }} /> Conectado
           </span>
           {onConnect && (
             <button
@@ -370,7 +370,7 @@ const ByokRow: FC<ByokRowProps> = ({ connected, onConnect }) => {
               }}
               className="text-xs text-gray-400 transition-colors hover:text-blue-600"
             >
-              Update
+              Atualizar
             </button>
           )}
         </div>
@@ -379,7 +379,7 @@ const ByokRow: FC<ByokRowProps> = ({ connected, onConnect }) => {
   }
   return (
     <div className="flex items-center justify-between gap-2 text-xs">
-      <span className="text-gray-500">BYOK credential</span>
+      <span className="text-gray-500">Credencial BYOK</span>
       {onConnect ? (
         <button
           type="button"
@@ -389,7 +389,7 @@ const ByokRow: FC<ByokRowProps> = ({ connected, onConnect }) => {
           }}
           className="rounded-md bg-blue-600 px-3 py-1 text-xs font-medium text-white shadow-xs transition-colors hover:bg-blue-700"
         >
-          Connect
+          Conectar
         </button>
       ) : (
         <span className="text-gray-400">—</span>

@@ -86,12 +86,12 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
             <h3 className="text-lg font-semibold mb-0">{template?.title}</h3>
             {progressInfo && (
               <span className="px-2 py-0.5 rounded-full text-xs font-medium bg-blue-50 text-blue-600 border border-blue-100">
-                Template {progressInfo.current} of {progressInfo.total}
+                Modelo {progressInfo.current} de {progressInfo.total}
               </span>
             )}
           </div>
           <p className="text-sm text-gray-500 font-normal mt-1">
-            Review and select guardrails to create for this template
+            Revise e selecione guardrails para criar para este modelo
           </p>
         </div>
       }
@@ -121,13 +121,13 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
           <InfoCircleOutlined className="text-blue-600 text-lg" />
           <div className="flex-1">
             <div className="text-sm">
-              <span className="font-medium text-gray-900">{guardrailsInfo.length} total guardrails</span>
+              <span className="font-medium text-gray-900">{guardrailsInfo.length} guardrails no total</span>
               <span className="text-gray-600 mx-2">•</span>
-              <span className="text-green-600 font-medium">{newGuardrailsCount} new</span>
+              <span className="text-green-600 font-medium">{newGuardrailsCount} novos</span>
               {existingCount > 0 && (
                 <>
                   <span className="text-gray-600 mx-2">•</span>
-                  <span className="text-gray-600">{existingCount} already exist</span>
+                  <span className="text-gray-600">{existingCount} já existem</span>
                 </>
               )}
             </div>
@@ -135,10 +135,10 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
           {newGuardrailsCount > 0 && (
             <div className="flex gap-2">
               <Button size="small" onClick={handleSelectAll}>
-                Select All New
+                Selecionar Todos Novos
               </Button>
               <Button size="small" onClick={handleDeselectAll}>
-                Deselect All
+                Remover Todas Seleções
               </Button>
             </div>
           )}
@@ -202,8 +202,8 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
 
         {guardrailsInfo.length === 0 && (
           <div className="text-center py-8 text-gray-500">
-            <p>No guardrails defined for this template.</p>
-            <p className="text-sm mt-2">This template will use existing guardrails in your system.</p>
+            <p>Nenhum guardrail definido para este modelo.</p>
+            <p className="text-sm mt-2">Este modelo utilizará guardrails existentes em seu sistema.</p>
           </div>
         )}
 
@@ -215,7 +215,7 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
               <div className="flex items-center gap-2 mb-2">
                 <span className="text-lg">✨</span>
                 <span className="font-medium text-purple-900 text-sm">
-                  AI-Discovered Competitors ({template.discoveredCompetitors.length})
+                  Competidores Descobertos por IA ({template.discoveredCompetitors.length})
                 </span>
               </div>
               <div className="flex flex-wrap gap-1.5">
@@ -226,7 +226,7 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
                 ))}
               </div>
               <p className="text-xs text-purple-600 mt-2">
-                These competitor names will be automatically blocked by the competitor-name-blocker guardrail.
+                Estes nomes de competidores serão bloqueados automaticamente pelo guardrail de bloqueio de nomes de competidores.
               </p>
             </div>
           </>
@@ -239,14 +239,13 @@ const GuardrailSelectionModal: React.FC<GuardrailSelectionModalProps> = ({
           {selectedCount > 0 ? (
             <p>
               <span className="font-medium text-gray-900">{selectedCount}</span> guardrail{selectedCount > 1 ? "s" : ""}{" "}
-              will be created
+              serão criados
             </p>
           ) : existingCount > 0 ? (
-            <p className="text-green-600">All guardrails already exist. You can proceed to use this template.</p>
+            <p className="text-green-600">Todos os guardrails já existem. Você pode prosseguir para usar este modelo.</p>
           ) : (
             <p className="text-orange-600">
-              Select at least one guardrail to create, or click &quot;Use Template&quot; to proceed without creating new
-              guardrails.
+              Selecione pelo menos um guardrail para criar ou clique em &quot;Usar Modelo&quot; para prosseguir sem criar novos guardrails.
             </p>
           )}
         </div>

@@ -45,46 +45,46 @@ export const MemoryEditModal: React.FC<MemoryEditModalProps> = ({ open, mode, in
   return (
     <Modal
       open={open}
-      title={mode === "create" ? "Create memory" : `Edit ${initialRow?.key ?? ""}`}
+      title={mode === "create" ? "Criar memória" : `Editar ${initialRow?.key ?? ""}`}
       onCancel={() => {
         form.resetFields();
         onClose();
       }}
       onOk={handleOk}
-      okText={mode === "create" ? "Create" : "Save"}
+      okText={mode === "create" ? "Criar" : "Salvar"}
       confirmLoading={submitting}
       width={640}
       destroyOnClose
     >
       <Form form={form} layout="vertical">
         <Form.Item
-          label="Key"
+          label="Chave"
           name="key"
-          rules={[{ required: true, message: "Key is required" }]}
-          tooltip="Globally unique — two memories cannot share a key. Namespace your own keys if you need per-user isolation (e.g. user:123:notes)."
+          rules={[{ required: true, message: "A chave é obrigatória" }]}
+          tooltip="Globalmente única — duas memórias não podem compartilhar uma chave. Nomesie suas próprias chaves se precisar de isolamento por usuário (ex. user:123:notes)."
         >
-          <Input placeholder="e.g. user_role" disabled={mode === "edit"} />
+          <Input placeholder="ex. user_role" disabled={mode === "edit"} />
         </Form.Item>
         <Form.Item
-          label="Value"
+          label="Valor"
           name="value"
-          rules={[{ required: true, message: "Value is required" }]}
-          tooltip="Markdown/text injected into LLM context. Plain strings are fine."
+          rules={[{ required: true, message: "O valor é obrigatório" }]}
+          tooltip="Markdown/text injetado no contexto do LLM. Strings simples são aceitas."
         >
-          <Input.TextArea rows={8} placeholder="What the agent should remember…" />
+          <Input.TextArea rows={8} placeholder="O que o agente deve lembrar…" />
         </Form.Item>
         <Form.Item
           label={
             <span>
-              Metadata <Text type="secondary">(optional JSON)</Text>
+              Metadados <Text type="secondary">(JSON opcional)</Text>
             </span>
           }
           name="metadata"
-          tooltip="Optional structured metadata — must be valid JSON if provided."
+          tooltip="Metadados estruturados opcionais — deve ser um JSON válido se fornecido."
         >
           <Input.TextArea
             rows={4}
-            placeholder='{"tags": ["example"]}'
+            placeholder='{"tags": ["exemplo"]}'
             style={{ fontFamily: "ui-monospace, SFMono-Regular, Menlo, monospace" }}
           />
         </Form.Item>

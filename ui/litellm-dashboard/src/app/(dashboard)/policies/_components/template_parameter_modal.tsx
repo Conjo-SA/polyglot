@@ -190,7 +190,7 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
       title={
         <div>
           <h3 className="text-lg font-semibold mb-1">{template?.title}</h3>
-          <p className="text-sm text-gray-500 font-normal">Configure competitor blocking for your brand</p>
+          <p className="text-sm text-gray-500 font-normal">Configure bloqueio de concorrentes para sua marca</p>
         </div>
       }
       open={visible}
@@ -198,10 +198,10 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
       width={700}
       footer={[
         <Button key="cancel" variant="secondary" onClick={onCancel} disabled={isLoading}>
-          Cancel
+          Cancelar
         </Button>,
         <Button key="confirm" onClick={handleConfirm} loading={isLoading} disabled={!canContinue || isLoading}>
-          {isLoading ? "Creating guardrails..." : "Continue"}
+          {isLoading ? "Criando guardrails..." : "Continuar"}
         </Button>,
       ]}
     >
@@ -228,7 +228,7 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
         {hasEnrichment && (
           <>
             <div>
-              <label className="block text-sm font-medium text-gray-700 mb-2">Competitor Discovery</label>
+              <label className="block text-sm font-medium text-gray-700 mb-2">Descoberta de Concorrentes</label>
               <Radio.Group
                 value={competitorMode}
                 onChange={(e) => setCompetitorMode(e.target.value)}
@@ -236,10 +236,10 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
               >
                 <div className="flex gap-3">
                   <Radio.Button value="ai" className="flex-1 text-center">
-                    ✨ Use AI
+                    ✨ Usar IA
                   </Radio.Button>
                   <Radio.Button value="manual" className="flex-1 text-center">
-                    Enter Manually
+                    Digitar Manualmente
                   </Radio.Button>
                 </div>
               </Radio.Group>
@@ -248,11 +248,11 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
             {/* Brand Name */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Your Brand Name
+                Nome da Sua Marca
                 <span className="text-red-500 ml-1">*</span>
               </label>
               <TextInput
-                placeholder="e.g. Acme Airlines"
+                placeholder="ex: Acme Airlines"
                 value={parameterValues[enrichmentParam || "brand_name"] || ""}
                 onChange={(e) =>
                   setParameterValues((prev) => ({
@@ -267,11 +267,11 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
               <>
                 <div>
                   <label className="block text-sm font-medium text-gray-700 mb-1">
-                    Select Model
+                    Selecionar Modelo
                     <span className="text-red-500 ml-1">*</span>
                   </label>
                   <Select
-                    placeholder="Select a model to generate names"
+                    placeholder="Selecione um modelo para gerar nomes"
                     value={selectedModel}
                     onChange={(value) => setSelectedModel(value)}
                     loading={isLoadingModels}
@@ -288,7 +288,7 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
                   disabled={!selectedModel || !brandNameFilled || isGenerating}
                   className="w-full"
                 >
-                  {isGenerating ? "✨ Generating names..." : "✨ Generate Competitor Names"}
+                  {isGenerating ? "✨ Gerando nomes..." : "✨ Gerar Nomes de Concorrentes"}
                 </Button>
               </>
             )}
@@ -296,7 +296,7 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
             {/* Competitor Tags */}
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                Competitor Names
+                Nomes dos Concorrentes
                 {competitorTags.length > 0 && (
                   <span className="text-gray-400 font-normal ml-2">({competitorTags.length})</span>
                 )}
@@ -304,14 +304,14 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
               <Select
                 mode="tags"
                 style={{ width: "100%" }}
-                placeholder="Type a name and press Enter to add"
+                placeholder="Digite um nome e pressione Enter para adicionar"
                 value={competitorTags}
                 onChange={(values) => setCompetitorTags(values)}
                 tokenSeparators={[","]}
                 open={false}
                 suffixIcon={null}
               />
-              <p className="text-xs text-gray-500 mt-1">Type a name and press Enter to add. Click ✕ to remove.</p>
+              <p className="text-xs text-gray-500 mt-1">Digite um nome e pressione Enter para adicionar. Clique no ✕ para remover.</p>
               {statusMessage && (
                 <div className="flex items-center gap-2 mt-2 p-2 bg-blue-50 rounded-sm border border-blue-100">
                   <Spin size="small" />
@@ -320,8 +320,7 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
               )}
               {Object.keys(variationsMap).length > 0 && !statusMessage && (
                 <p className="text-xs text-green-600 mt-1">
-                  ✓ {Object.values(variationsMap).flat().length} alternate spellings & variations auto-generated for
-                  guardrail matching
+                  ✓ {Object.values(variationsMap).flat().length} ortografias alternativas e variações geradas automaticamente para correspondência de guardrail
                 </p>
               )}
             </div>
@@ -329,10 +328,10 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
             {/* Refinement input — shown after initial generation in AI mode */}
             {competitorMode === "ai" && hasGenerated && competitorTags.length > 0 && (
               <div>
-                <label className="block text-sm font-medium text-gray-700 mb-1">Refine List</label>
+                <label className="block text-sm font-medium text-gray-700 mb-1">Refinar Lista</label>
                 <div className="flex gap-2">
                   <TextInput
-                    placeholder="e.g. add 10 more from Asia, increase to 50 total..."
+                    placeholder="ex: adicione 10 mais da Ásia, aumente para 50 no total..."
                     value={refinementInput}
                     onChange={(e) => setRefinementInput(e.target.value)}
                     onKeyDown={(e) => {
@@ -352,7 +351,7 @@ const TemplateParameterModal: React.FC<TemplateParameterModalProps> = ({
                   </Button>
                 </div>
                 <p className="text-xs text-gray-400 mt-1">
-                  Give instructions to add, remove, or change competitors. Press Enter to send.
+                  Dê instruções para adicionar, remover ou alterar concorrentes. Pressione Enter para enviar.
                 </p>
               </div>
             )}
