@@ -62,7 +62,7 @@ export function FallbackGroupConfig({ group, onChange, availableModels, maxFallb
       {/* Primary Model Section */}
       <div className="relative">
         <label className="block text-sm font-semibold text-gray-700 mb-2">
-          Primary Model <span className="text-red-500">*</span>
+          Modelo Principal <span className="text-red-500">*</span>
         </label>
         <Select
           className="w-full h-12"
@@ -96,8 +96,8 @@ export function FallbackGroupConfig({ group, onChange, availableModels, maxFallb
         className={`transition-opacity duration-300 ${!group.primaryModel ? "opacity-50 pointer-events-none" : "opacity-100"}`}
       >
         <label className="block text-sm font-semibold text-gray-700 mb-2">
-          Fallback Chain <span className="text-red-500">*</span>
-          <span className="text-xs text-gray-500 font-normal ml-2">(Max {maxFallbacks} fallbacks at a time)</span>
+          Sequência de Fallback <span className="text-red-500">*</span>
+          <span className="text-xs text-gray-500 font-normal ml-2">(Máximo {maxFallbacks} fallbacks de cada vez)</span>
         </label>
 
         <div className="bg-gray-50 rounded-xl p-4 border border-gray-200">
@@ -108,7 +108,7 @@ export function FallbackGroupConfig({ group, onChange, availableModels, maxFallb
               className="w-full"
               size="large"
               placeholder={
-                canAddMoreFallbacks ? "Select fallback models to add..." : `Maximum ${maxFallbacks} fallbacks reached`
+                canAddMoreFallbacks ? "Selecionar modelos de fallback para adicionar..." : `Máximo ${maxFallbacks} fallbacks atingido`
               }
               value={group.fallbackModels}
               onChange={handleFallbackSelect}
@@ -146,8 +146,8 @@ export function FallbackGroupConfig({ group, onChange, availableModels, maxFallb
             />
             <p className="text-xs text-gray-500 mt-1 ml-1">
               {canAddMoreFallbacks
-                ? `Search and select multiple models. Selected models will appear below in order. (${group.fallbackModels.length}/${maxFallbacks} used)`
-                : `Maximum ${maxFallbacks} fallbacks reached. Remove some to add more.`}
+                ? `Procure e selecione múltiplos modelos. Os modelos selecionados aparecerão abaixo em ordem. (${group.fallbackModels.length}/${maxFallbacks} utilizados)`
+                : `Máximo ${maxFallbacks} fallbacks atingido. Remova alguns para adicionar mais.`}
             </p>
           </div>
 
@@ -155,8 +155,8 @@ export function FallbackGroupConfig({ group, onChange, availableModels, maxFallb
           <div className="space-y-2 min-h-[100px]">
             {group.fallbackModels.length === 0 ? (
               <div className="h-32 border-2 border-dashed border-gray-300 rounded-lg flex flex-col items-center justify-center text-gray-400">
-                <span className="text-sm">No fallback models selected</span>
-                <span className="text-xs mt-1">Add models from the dropdown above</span>
+                <span className="text-sm">Nenhum modelo de fallback selecionado</span>
+                <span className="text-xs mt-1">Adicione modelos a partir do dropdown acima</span>
               </div>
             ) : (
               group.fallbackModels.map((modelValue, index) => {

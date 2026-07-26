@@ -104,8 +104,8 @@ const RoutingGroupSnippet: React.FC<RoutingGroupSnippetProps> = ({ group, baseUr
 
   const items = [
     { key: "curl", label: "cURL" },
-    { key: "python", label: "Python (OpenAI SDK)" },
-    { key: "javascript", label: "JavaScript (OpenAI SDK)" },
+    { key: "python", label: "Python (SDK OpenAI)" },
+    { key: "javascript", label: "JavaScript (SDK OpenAI)" },
   ].map(({ key, label }) => ({
     key,
     label,
@@ -123,7 +123,7 @@ const RoutingGroupSnippet: React.FC<RoutingGroupSnippetProps> = ({ group, baseUr
       onChange={(k) => setActiveKey(k as SnippetKey)}
       items={items}
       tabBarExtraContent={
-        <Paragraph copyable={{ text: snippets[activeKey], tooltips: ["Copy", "Copied"] }} className="mb-0!" />
+        <Paragraph copyable={{ text: snippets[activeKey], tooltips: ["Copiar", "Copiado"] }} className="mb-0!" />
       }
     />
   );
@@ -135,7 +135,7 @@ const RoutingGroupsTable: React.FC<RoutingGroupsTableProps> = ({ groups, loading
 
   const columns: ColumnsType<RoutingGroup> = [
     {
-      title: "GROUP NAME",
+      title: "NOME DO GRUPO",
       dataIndex: "group_name",
       key: "group_name",
       render: (name: string) => (
@@ -145,7 +145,7 @@ const RoutingGroupsTable: React.FC<RoutingGroupsTableProps> = ({ groups, loading
       ),
     },
     {
-      title: "MODELS",
+      title: "MODELOS",
       dataIndex: "models",
       key: "models",
       render: (models: string[]) => (
@@ -157,7 +157,7 @@ const RoutingGroupsTable: React.FC<RoutingGroupsTableProps> = ({ groups, loading
       ),
     },
     {
-      title: "STRATEGY",
+      title: "ESTRATÉGIA",
       dataIndex: "routing_strategy",
       key: "routing_strategy",
       render: (strategy: string) => (
@@ -168,13 +168,13 @@ const RoutingGroupsTable: React.FC<RoutingGroupsTableProps> = ({ groups, loading
       ),
     },
     {
-      title: "ACTIONS",
+      title: "AÇÕES",
       key: "actions",
       width: 120,
       align: "right",
       render: (_, group) => (
         <Flex justify="flex-end" align="center" gap={8}>
-          <Tooltip title="Edit">
+          <Tooltip title="Editar">
             <Button
               type="text"
               icon={<EditOutlined />}
@@ -184,7 +184,7 @@ const RoutingGroupsTable: React.FC<RoutingGroupsTableProps> = ({ groups, loading
               }}
             />
           </Tooltip>
-          <Tooltip title="Delete">
+          <Tooltip title="Excluir">
             <Button
               type="text"
               danger

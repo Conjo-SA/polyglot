@@ -88,12 +88,12 @@ const RoutingGroupModal: React.FC<RoutingGroupModalProps> = ({
 
   return (
     <Modal
-      title={mode === "create" ? "Create Routing Group" : `Edit ${initialValue?.group_name ?? ""}`}
+      title={mode === "create" ? "Criar Grupo de Roteamento" : `Editar ${initialValue?.group_name ?? ""}`}
       open={open}
       onCancel={onClose}
       onOk={handleSubmit}
-      okText={mode === "create" ? "Create Group" : "Save Changes"}
-      cancelText="Cancel"
+      okText={mode === "create" ? "Criar Grupo" : "Salvar Alterações"}
+      cancelText="Cancelar"
       confirmLoading={saving}
       destroyOnClose
       width={560}
@@ -106,51 +106,51 @@ const RoutingGroupModal: React.FC<RoutingGroupModalProps> = ({
         initialValues={initialValues}
       >
         <Form.Item
-          label="Group Name"
+          label="Nome do Grupo"
           name="group_name"
           rules={[
-            { required: true, message: "Group name is required" },
-            { max: GROUP_NAME_MAX_LENGTH, message: `Must be ${GROUP_NAME_MAX_LENGTH} characters or fewer` },
+            { required: true, message: "Nome do grupo é obrigatório" },
+            { max: GROUP_NAME_MAX_LENGTH, message: `Deve ter ${GROUP_NAME_MAX_LENGTH} caracteres ou menos` },
             {
               pattern: GROUP_NAME_PATTERN,
-              message: "Only letters, numbers, dot, underscore, and dash are allowed",
+              message: "Apenas letras, números, ponto, sublinhado e traço são permitidos",
             },
             {
               validator: (_, value: string) => {
                 if (!value) return Promise.resolve();
                 if (reservedNames.has(value.trim().toLowerCase())) {
-                  return Promise.reject(new Error("A group with this name already exists"));
+                  return Promise.reject(new Error("Já existe um grupo com este nome"));
                 }
                 return Promise.resolve();
               },
             },
           ]}
-          extra="Use this name as the model in API calls — Polyglot routes the request to one of the group's models."
+          extra="Use este nome como modelo nas chamadas da API — Polyglot redireciona a requisição para um dos modelos do grupo."
         >
-          <Input placeholder="fast-chat" disabled={mode === "edit"} />
+          <Input placeholder="chat-rapido" disabled={mode === "edit"} />
         </Form.Item>
 
         <Form.Item
-          label="Models"
+          label="Modelos"
           name="models"
-          rules={[{ required: true, message: "Select at least one model" }]}
-          extra="Models from your model list that this group routes between."
+          rules={[{ required: true, message: "Selecione pelo menos um modelo" }]}
+          extra="Modelos da sua lista que este grupo irá rotear entre si."
         >
           <Select
             mode="multiple"
             allowClear
-            placeholder="Select models"
+            placeholder="Selecionar modelos"
             options={modelOptions.map((m) => ({ label: m, value: m }))}
             optionFilterProp="label"
           />
         </Form.Item>
 
         <Form.Item
-          label="Routing Strategy"
+          label="Estratégia de Roteamento"
           name="routing_strategy"
-          rules={[{ required: true, message: "Strategy is required" }]}
+          rules={[{ required: true, message: "Estratégia é obrigatória" }]}
         >
-          <Select options={availableStrategies.map((s) => ({ label: s, value: s }))} placeholder="Select strategy" />
+          <Select options={availableStrategies.map((s) => ({ label: s, value: s }))} placeholder="Selecionar estratégia" />
         </Form.Item>
 
         {selectedStrategy && strategyDescriptions[selectedStrategy] && (
@@ -159,12 +159,12 @@ const RoutingGroupModal: React.FC<RoutingGroupModalProps> = ({
 
         {STRATEGIES_WITH_ARGS.has(String(selectedStrategy)) && (
           <Form.Item
-            label="Strategy Arguments (JSON)"
+            label="Argumentos da Estratégia (JSON)"
             name="routing_strategy_args"
             extra={
               selectedStrategy === "latency-based-routing"
-                ? 'Example: { "ttl": 3600, "lowest_latency_buffer": 0 }'
-                : 'Example: { "ttl": 60 }'
+                ? 'Exemplo: { "ttl": 3600, "lowest_latency_buffer": 0 }'
+                : 'Exemplo: { "ttl": 60 }'
             }
           >
             <Input.TextArea rows={4} placeholder='{ "ttl": 3600 }' className="font-mono text-xs" />
@@ -173,7 +173,7 @@ const RoutingGroupModal: React.FC<RoutingGroupModalProps> = ({
 
         <Space direction="vertical" className="w-full mt-2">
           <Text type="secondary" className="text-xs">
-            Models not claimed by an explicit group fall through to the proxy&apos;s top-level routing strategy.
+            Modelos não atribuídos a um grupo explícito seguem para a estratégia de roteamento de nível superior do proxy.
           </Text>
         </Space>
       </Form>

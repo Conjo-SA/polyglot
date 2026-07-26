@@ -42,7 +42,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({ isModalVisible, setIs
   };
 
   return (
-    <Modal title="Edit Budget" open={isModalVisible} width={800} footer={null} onOk={handleOk} onCancel={handleCancel}>
+    <Modal title="Editar Orçamento" open={isModalVisible} width={800} footer={null} onOk={handleOk} onCancel={handleCancel}>
       <Form
         form={form}
         onFinish={handleUpdate}
@@ -52,29 +52,29 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({ isModalVisible, setIs
         initialValues={existingBudget}
       >
         <>
-          <Form.Item label="Budget ID" name="budget_id" help="Budget ID cannot be changed after creation">
+          <Form.Item label="ID do Orçamento" name="budget_id" help="O ID do orçamento não pode ser alterado após a criação">
             <TextInput placeholder="" disabled={true} />
           </Form.Item>
-          <Form.Item label="Max Tokens per minute" name="tpm_limit" help="Default is model limit.">
+          <Form.Item label="Tokens máximos por minuto" name="tpm_limit" help="Padrão é o limite do modelo.">
             <InputNumber step={1} precision={2} width={200} />
           </Form.Item>
-          <Form.Item label="Max Requests per minute" name="rpm_limit" help="Default is model limit.">
+          <Form.Item label="Requisições máximas por minuto" name="rpm_limit" help="Padrão é o limite do modelo.">
             <InputNumber step={1} precision={2} width={200} />
           </Form.Item>
 
           <Accordion className="mt-20 mb-8">
             <AccordionHeader>
-              <b>Optional Settings</b>
+              <b>Configurações Opcionais</b>
             </AccordionHeader>
             <AccordionBody>
-              <Form.Item label="Max Budget (USD)" name="max_budget">
+              <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
                 <InputNumber step={0.01} precision={2} width={200} />
               </Form.Item>
-              <Form.Item className="mt-8" label="Reset Budget" name="budget_duration">
+              <Form.Item className="mt-8" label="Reiniciar Orçamento" name="budget_duration">
                 <Select defaultValue={null} placeholder="n/a">
-                  <Select.Option value="24h">daily</Select.Option>
-                  <Select.Option value="7d">weekly</Select.Option>
-                  <Select.Option value="30d">monthly</Select.Option>
+                  <Select.Option value="24h">diário</Select.Option>
+                  <Select.Option value="7d">semanal</Select.Option>
+                  <Select.Option value="30d">mensal</Select.Option>
                 </Select>
               </Form.Item>
             </AccordionBody>
@@ -82,7 +82,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({ isModalVisible, setIs
         </>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button2 htmlType="submit">Save</Button2>
+          <Button2 htmlType="submit">Salvar</Button2>
         </div>
       </Form>
     </Modal>

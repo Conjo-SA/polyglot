@@ -61,7 +61,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
         }}
       >
         <Button icon={<ArrowLeftIcon size={16} />} onClick={onBack} type="text" style={{ marginBottom: 16 }} />
-        <Empty description="Access group not found" />
+        <Empty description="Grupo de acesso não encontrado" />
       </Content>
     );
   }
@@ -85,7 +85,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
       label: (
         <Flex align="center" gap={8}>
           <LayersIcon size={16} />
-          Models
+          Modelos
           <Tag style={{ marginInlineEnd: 0 }}>{modelIds?.length}</Tag>
         </Flex>
       ),
@@ -103,7 +103,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
             )}
           />
         ) : (
-          <Empty description="No models assigned to this group" />
+          <Empty description="Nenhum modelo atribuído a este grupo" />
         ),
     },
     {
@@ -111,7 +111,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
       label: (
         <Flex align="center" gap={8}>
           <ServerIcon size={16} />
-          MCP Servers
+          Servidores MCP
           <Tag>{mcpServerIds?.length}</Tag>
         </Flex>
       ),
@@ -129,7 +129,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
             )}
           />
         ) : (
-          <Empty description="No MCP servers assigned to this group" />
+          <Empty description="Nenhum servidor MCP atribuído a este grupo" />
         ),
     },
     {
@@ -137,7 +137,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
       label: (
         <Flex align="center" gap={8}>
           <BotIcon size={16} />
-          Agents
+          Agentes
           <Tag>{agentIds?.length}</Tag>
         </Flex>
       ),
@@ -155,7 +155,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
             )}
           />
         ) : (
-          <Empty description="No agents assigned to this group" />
+          <Empty description="Nenhum agente atribuído a este grupo" />
         ),
     },
   ];
@@ -183,29 +183,29 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
           </div>
         </div>
         <Button type="primary" icon={<EditIcon size={16} />} onClick={handleEdit}>
-          Edit Access Group
+          Editar Grupo de Acesso
         </Button>
       </div>
 
       {/* Group Details */}
       <Row style={{ marginBottom: 24 }}>
         <Card>
-          <Descriptions title="Group Details" column={1}>
-            <Descriptions.Item label="Description">{accessGroup.description || "—"}</Descriptions.Item>
-            <Descriptions.Item label="Created">
+          <Descriptions title="Detalhes do Grupo" column={1}>
+            <Descriptions.Item label="Descrição">{accessGroup.description || "—"}</Descriptions.Item>
+            <Descriptions.Item label="Criado">
               {new Date(accessGroup.created_at).toLocaleString()}
               {accessGroup.created_by && (
                 <Text>
-                  &nbsp;{"by"}&nbsp;
+                  &nbsp;{"por"}&nbsp;
                   <DefaultProxyAdminTag userId={accessGroup.created_by} />
                 </Text>
               )}
             </Descriptions.Item>
-            <Descriptions.Item label="Last Updated">
+            <Descriptions.Item label="Última Atualização">
               {new Date(accessGroup.updated_at).toLocaleString()}
               {accessGroup.updated_by && (
                 <Text>
-                  &nbsp;{"by"}&nbsp;
+                  &nbsp;{"por"}&nbsp;
                   <DefaultProxyAdminTag userId={accessGroup.updated_by} />
                 </Text>
               )}
@@ -221,14 +221,14 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
             title={
               <Flex align="center" gap={8}>
                 <KeyIcon size={16} />
-                Attached Keys
+                Chaves Anexadas
                 <Tag>{keyIds?.length}</Tag>
               </Flex>
             }
             extra={
               keyIds?.length > MAX_PREVIEW ? (
                 <Button type="link" onClick={() => setShowAllKeys(!showAllKeys)}>
-                  {showAllKeys ? "Show Less" : `View All (${keyIds?.length})`}
+                  {showAllKeys ? "Mostrar Menos" : `Ver Todas (${keyIds?.length})`}
                 </Button>
               ) : null
             }
@@ -244,7 +244,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
                 ))}
               </Flex>
             ) : (
-              <Empty description="No keys attached" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              <Empty description="Nenhuma chave anexada" image={Empty.PRESENTED_IMAGE_SIMPLE} />
             )}
           </Card>
         </Col>
@@ -253,14 +253,14 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
             title={
               <Flex align="center" gap={8}>
                 <UsersIcon size={16} />
-                Attached Teams
+                Times Anexados
                 <Tag>{teamIds?.length}</Tag>
               </Flex>
             }
             extra={
               teamIds?.length > MAX_PREVIEW ? (
                 <Button type="link" onClick={() => setShowAllTeams(!showAllTeams)}>
-                  {showAllTeams ? "Show Less" : `View All (${teamIds?.length})`}
+                  {showAllTeams ? "Mostrar Menos" : `Ver Todos (${teamIds?.length})`}
                 </Button>
               ) : null
             }
@@ -276,7 +276,7 @@ export function AccessGroupDetail({ accessGroupId, onBack }: AccessGroupDetailPr
                 ))}
               </Flex>
             ) : (
-              <Empty description="No teams attached" image={Empty.PRESENTED_IMAGE_SIMPLE} />
+              <Empty description="Nenhum time anexado" image={Empty.PRESENTED_IMAGE_SIMPLE} />
             )}
           </Card>
         </Col>

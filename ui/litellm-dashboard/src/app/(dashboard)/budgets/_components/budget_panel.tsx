@@ -52,13 +52,13 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
     }
     try {
       await deleteBudget.mutateAsync(selectedBudget.budget_id);
-      NotificationsManager.success("Budget deleted.");
+      NotificationsManager.success("Orçamento excluído.");
     } catch (error) {
       console.error("Error deleting budget:", error);
       if (typeof NotificationsManager.fromBackend === "function") {
-        NotificationsManager.fromBackend("Failed to delete budget");
+        NotificationsManager.fromBackend("Falha ao excluir orçamento");
       } else {
-        NotificationsManager.info("Failed to delete budget");
+        NotificationsManager.info("Falha ao excluir orçamento");
       }
     } finally {
       setIsDeleteModalVisible(false);
@@ -74,13 +74,13 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
     <div className="w-full mx-auto flex-auto overflow-y-auto m-8 p-2">
       {canModify && (
         <Button size="sm" variant="primary" className="mb-2" onClick={() => setIsCreateModelVisible(true)}>
-          + Create Budget
+          + Criar Orçamento
         </Button>
       )}
       <TabGroup>
         <TabList>
-          <Tab>Budgets</Tab>
-          <Tab>Examples</Tab>
+          <Tab>Orçamentos</Tab>
+          <Tab>Exemplos</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -93,7 +93,7 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
                   existingBudget={selectedBudget}
                 />
               )}
-              <Text className="mb-4">Create a budget to assign to customers.</Text>
+              <Text className="mb-4">Crie um orçamento para atribuir aos clientes.</Text>
               <BudgetTable
                 budgets={budgetList}
                 isLoading={isLoading}
@@ -103,12 +103,12 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
               />
               <DeleteResourceModal
                 isOpen={isDeleteModalVisible}
-                title="Delete Budget?"
-                message="Are you sure you want to delete this budget? This action cannot be undone."
-                resourceInformationTitle="Budget Information"
+                title="Excluir Orçamento?"
+                message="Tem certeza que deseja excluir este orçamento? Esta ação não pode ser desfeita."
+                resourceInformationTitle="Informações do Orçamento"
                 resourceInformation={[
-                  { label: "Budget ID", value: selectedBudget?.budget_id, code: true },
-                  { label: "Max Budget", value: selectedBudget?.max_budget },
+                  { label: "ID do Orçamento", value: selectedBudget?.budget_id, code: true },
+                  { label: "Orçamento Máximo", value: selectedBudget?.max_budget },
                   { label: "TPM", value: selectedBudget?.tpm_limit },
                   { label: "RPM", value: selectedBudget?.rpm_limit },
                 ]}
@@ -120,12 +120,12 @@ const BudgetPanel: React.FC<BudgetSettingsPageProps> = ({ accessToken }) => {
           </TabPanel>
           <TabPanel>
             <div className="mt-6">
-              <Text className="text-base">How to use budget id</Text>
+              <Text className="text-base">Como usar o ID do orçamento</Text>
               <TabGroup>
                 <TabList>
-                  <Tab>Assign Budget to Customer</Tab>
-                  <Tab>Test it (Curl)</Tab>
-                  <Tab>Test it (OpenAI SDK)</Tab>
+                  <Tab>Atribuir Orçamento ao Cliente</Tab>
+                  <Tab>Testar (Curl)</Tab>
+                  <Tab>Testar (OpenAI SDK)</Tab>
                 </TabList>
                 <TabPanels>
                   <TabPanel>
