@@ -77,7 +77,7 @@ export default function OnboardingModal({
 
   return (
     <Modal
-      title={modalType === "invitation" ? "Invitation Link" : "Reset Password Link"}
+      title={modalType === "invitation" ? "Link de Convite" : "Link de Redefinição de Senha"}
       open={isInvitationLinkModalVisible}
       width={800}
       footer={null}
@@ -86,15 +86,15 @@ export default function OnboardingModal({
     >
       <Paragraph>
         {modalType === "invitation"
-          ? "Copy and send the generated link to onboard this user to the proxy."
-          : "Copy and send the generated link to the user to reset their password."}
+          ? "Copie e envie o link gerado para integrar este usuário ao proxy."
+          : "Copie e envie o link gerado para o usuário redefinir sua senha."}
       </Paragraph>
       <div className="flex justify-between pt-5 pb-2">
-        <Text className="text-base">User ID</Text>
+        <Text className="text-base">ID do Usuário</Text>
         <Text>{invitationLinkData?.user_id}</Text>
       </div>
       <div className="flex justify-between pt-5 pb-2">
-        <Text>{modalType === "invitation" ? "Invitation Link" : "Reset Password Link"}</Text>
+        <Text>{modalType === "invitation" ? "Link de Convite" : "Link de Redefinição de Senha"}</Text>
         <Text>
           <Text>{getInvitationUrl()}</Text>
         </Text>
@@ -102,7 +102,7 @@ export default function OnboardingModal({
       <div className="flex justify-end mt-5">
         <CopyToClipboard text={getInvitationUrl()} onCopy={() => NotificationsManager.success("Copied!")}>
           <Button type="primary">
-            {modalType === "invitation" ? "Copy invitation link" : "Copy password reset link"}
+            {modalType === "invitation" ? "Copiar link de convite" : "Copiar link de redefinição de senha"}
           </Button>
         </CopyToClipboard>
       </div>

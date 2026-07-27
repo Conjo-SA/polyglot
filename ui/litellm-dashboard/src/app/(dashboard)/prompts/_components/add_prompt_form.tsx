@@ -120,7 +120,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
       onCancel={handleCancel}
       footer={[
         <Button key="cancel" onClick={handleCancel}>
-          Cancel
+          Cancelar
         </Button>,
         <Button key="submit" loading={loading} onClick={handleSubmit}>
           Criar Prompt
@@ -156,7 +156,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
               <Upload {...uploadProps}>
                 <Button icon={<UploadOutlined />}>Selecionar Arquivo .prompt</Button>
               </Upload>
-              {fileList.length > 0 && <div className="mt-2 text-sm text-gray-600">Selected: {fileList[0].name}</div>}
+              {fileList.length > 0 && <div className="mt-2 text-sm text-gray-600">Selecionado: {fileList[0].name}</div>}
             </Form.Item>
           </>
         )}

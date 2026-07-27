@@ -18,15 +18,15 @@ const StdioConfiguration: React.FC<StdioConfigurationProps> = ({ isVisible, requ
     <Form.Item
       label={
         <span className="text-sm font-medium text-gray-700 flex items-center">
-          Stdio Configuration (JSON)
-          <Tooltip title="Paste your stdio MCP server configuration in JSON format. You can use the full mcpServers structure from config.yaml or just the inner server configuration.">
+          Configuração Stdio (JSON)
+          <Tooltip title="Cole sua configuração do servidor MCP stdio no formato JSON. Você pode usar toda a estrutura mcpServers do config.yaml ou apenas a configuração interna do servidor.">
             <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
           </Tooltip>
         </span>
       }
       name="stdio_config"
       rules={[
-        ...(required ? [{ required: true, message: "Please enter stdio configuration" }] : []),
+        ...(required ? [{ required: true, message: "Por favor, informe a configuração stdio" }] : []),
         {
           validator: (_, value) => {
             if (!value) return Promise.resolve();
@@ -34,7 +34,7 @@ const StdioConfiguration: React.FC<StdioConfigurationProps> = ({ isVisible, requ
               JSON.parse(value);
               return Promise.resolve();
             } catch {
-              return Promise.reject("Please enter valid JSON");
+              return Promise.reject("Por favor, informe JSON válido");
             }
           },
         },
@@ -47,7 +47,7 @@ const StdioConfiguration: React.FC<StdioConfigurationProps> = ({ isVisible, requ
       "command": "npx",
       "args": ["-y", "@circleci/mcp-server-circleci"],
       "env": {
-        "CIRCLECI_TOKEN": "your-circleci-token",
+        "CIRCLECI_TOKEN": "sua-token-circleci"
         "CIRCLECI_BASE_URL": "https://circleci.com"
       }
     }

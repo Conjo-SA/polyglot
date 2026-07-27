@@ -792,7 +792,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
           )}
           <img
             src={resolveLogoSrc(mcpLogoImg)}
-            alt="MCP Logo"
+            alt="Logotipo MCP"
             className="w-8 h-8 object-contain"
             style={{
               height: "20px",
@@ -801,7 +801,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             }}
           />
           <h2 className="text-xl font-semibold text-gray-900">
-            {isAdmin ? "Add New MCP Server" : "Submit MCP Server for Review"}
+            {isAdmin ? "Adicionar Novo Servidor MCP" : "Enviar Servidor MCP para Revisão"}
           </h2>
         </div>
       }
@@ -834,20 +834,20 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  MCP Server Name
-                  <Tooltip title="Best practice: Use a descriptive name that indicates the server's purpose (e.g., 'GitHub_MCP', 'Email_Service'). Cannot contain spaces or hyphens; use underscores instead. Names must comply with SEP-986 and will be rejected if invalid (https://modelcontextprotocol.io/specification/2025-11-25/server/tools#tool-names).">
+                  Nome do Servidor MCP
+                  <Tooltip title="Melhor prática: Use um nome descritivo que indique a finalidade do servidor (por exemplo, 'GitHub_MCP', 'Email_Service'). Não pode conter espaços ou hífens; use underlines em vez disso. Os nomes devem seguir o SEP-986 e serão rejeitados se forem inválidos (https://modelcontextprotocol.io/specification/2025-11-25/server/tools#tool-names).">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
               }
               name="server_name"
               rules={[
-                { required: false, message: "Please enter a server name" },
+                { required: false, message: "Por favor, informe um nome para o servidor" },
                 { validator: (_, value) => validateMCPServerName(value) },
               ]}
             >
               <TextInput
-                placeholder="e.g., GitHub_MCP, Zapier_MCP, etc."
+                placeholder="ex.: GitHub_MCP, Zapier_MCP, etc."
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
@@ -872,17 +872,17 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Description</span>}
+              label={<span className="text-sm font-medium text-gray-700">Descrição</span>}
               name="description"
               rules={[
                 {
                   required: false,
-                  message: "Please enter a server description",
+                  message: "Por favor, informe uma descrição para o servidor",
                 },
               ]}
             >
               <TextInput
-                placeholder="Brief description of what this server does"
+                placeholder="Breve descrição do que este servidor faz"
                 className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
               />
             </Form.Item>
@@ -890,7 +890,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <MCPLogoSelector value={logoUrl} onChange={setLogoUrl} />
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">GitHub / Source URL</span>}
+              label={<span className="text-sm font-medium text-gray-700">URL Fonte & GitHub</span>}
               name="source_url"
             >
               <TextInput
@@ -900,36 +900,36 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Transport Type</span>}
+              label={<span className="text-sm font-medium text-gray-700">Tipo de Transporte</span>}
               name="transport"
-              rules={[{ required: true, message: "Please select a transport type" }]}
+              rules={[{ required: true, message: "Por favor, selecione um tipo de transporte" }]}
             >
               <Select
-                placeholder="Select transport"
+                placeholder="Selecionar transporte"
                 className="rounded-lg"
                 size="large"
                 onChange={handleTransportChange}
                 value={transportType}
               >
-                <Select.Option value="http">Streamable HTTP (Recommended)</Select.Option>
-                <Select.Option value="sse">Server-Sent Events (SSE)</Select.Option>
-                <Select.Option value="stdio">Standard Input/Output (stdio)</Select.Option>
-                <Select.Option value={TRANSPORT.OPENAPI}>OpenAPI Spec</Select.Option>
+                <Select.Option value="http">HTTP Streamable (Recomendado)</Select.Option>
+                <Select.Option value="sse">Eventos do Servidor (SSE)</Select.Option>
+                <Select.Option value="stdio">Entrada/Saída Padrão (stdio)</Select.Option>
+                <Select.Option value={TRANSPORT.OPENAPI}>Especificação OpenAPI</Select.Option>
               </Select>
             </Form.Item>
 
             {/* URL field - only show for HTTP and SSE */}
             {(transportType === "http" || transportType === "sse") && (
               <Form.Item
-                label={<span className="text-sm font-medium text-gray-700">MCP Server URL</span>}
+                label={<span className="text-sm font-medium text-gray-700">URL do Servidor MCP</span>}
                 name="url"
                 rules={[
-                  { required: true, message: "Please enter a server URL" },
+                  { required: true, message: "Por favor, informe uma URL do servidor" },
                   { validator: (_, value) => validateMCPServerUrl(value) },
                 ]}
               >
                 <Input
-                  placeholder="https://your-mcp-server.com"
+                  placeholder="https://seu-servidor-mcp.com"
                   className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                 />
               </Form.Item>
@@ -1003,8 +1003,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                         <Form.Item
                           label={
                             <span className="text-sm font-medium text-gray-700">
-                              Access Description
-                              <Tooltip title="List of permissions shown to users in the connection modal (e.g. 'Create and manage Jira issues')">
+                              Descrição de Acesso
+                              <Tooltip title="Lista de permissões mostradas aos usuários no modal de conexão (ex: 'Criar e gerenciar issues do Jira')">
                                 <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                               </Tooltip>
                             </span>
@@ -1013,7 +1013,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                         >
                           <Select
                             mode="tags"
-                            placeholder="Add access description items (press Enter after each)"
+                            placeholder="Adicione itens de descrição de acesso (pressione Enter após cada um)"
                             className="w-full"
                             tokenSeparators={[","]}
                           />
@@ -1022,15 +1022,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                         <Form.Item
                           label={
                             <span className="text-sm font-medium text-gray-700">
-                              API Key Help URL
-                              <Tooltip title="Optional link shown to users to help them find their API key">
+                              URL de Ajuda da Chave API
+                              <Tooltip title="Link opcional mostrado aos usuários para ajudá-los a encontrar sua chave API">
                                 <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                               </Tooltip>
                             </span>
                           }
                           name="byok_api_key_help_url"
                         >
-                          <Input placeholder="https://docs.example.com/api-keys" />
+                          <Input placeholder="https://docs.exemplo.com/chaves-api" />
                         </Form.Item>
                       </>
                     ) : null
@@ -1042,8 +1042,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  Max Concurrent Requests (optional)
-                  <Tooltip title="Maximum number of tool calls Polyglot will run against this server at the same time. Additional calls wait for a free slot. Leave blank for no limit.">
+                  Máximo de Requisições Concurrentes (opcional)
+                  <Tooltip title="Número máximo de chamadas de ferramentas que o Polyglot executará contra este servidor ao mesmo tempo. Chamadas adicionais aguardam por um slot livre. Deixe em branco para sem limite.">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
@@ -1053,7 +1053,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
               <InputNumber
                 min={1}
                 precision={0}
-                placeholder="e.g. 10"
+                placeholder="ex: 10"
                 style={{ width: "100%" }}
                 className="rounded-lg"
               />
@@ -1070,19 +1070,19 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                     label: <span className="text-sm font-semibold text-gray-700">Authentication</span>,
                     children: (
                       <>
-                        <Form.Item name="auth_type" rules={[{ required: true, message: "Please select an auth type" }]}>
-                          <Select placeholder="Select auth type" className="rounded-lg" size="large">
-                            <Select.Option value="none">None</Select.Option>
-                            <Select.Option value="api_key">API Key</Select.Option>
-                            <Select.Option value="bearer_token">Bearer Token</Select.Option>
+                        <Form.Item name="auth_type" rules={[{ required: true, message: "Por favor, selecione um tipo de autenticação" }]}>
+                          <Select placeholder="Selecionar tipo de autenticação" className="rounded-lg" size="large">
+                            <Select.Option value="none">Nenhuma</Select.Option>
+                            <Select.Option value="api_key">Chave API</Select.Option>
+                            <Select.Option value="bearer_token">Token de Portador</Select.Option>
                             <Select.Option value="token">Token</Select.Option>
-                            <Select.Option value="basic">Basic Auth</Select.Option>
+                            <Select.Option value="basic">Autenticação Básica</Select.Option>
                             <Select.Option value="oauth2">OAuth</Select.Option>
-                            <Select.Option value="oauth2_token_exchange">OAuth Token Exchange (OBO)</Select.Option>
-                            <Select.Option value="aws_sigv4">AWS SigV4 (Bedrock AgentCore MCPs)</Select.Option>
-                            <Select.Option value="true_passthrough">True Passthrough (no Polyglot auth)</Select.Option>
+                            <Select.Option value="oauth2_token_exchange">Troca de Token OAuth (OBO)</Select.Option>
+                            <Select.Option value="aws_sigv4">AWS SigV4 (MCPs do Bedrock AgentCore)</Select.Option>
+                            <Select.Option value="true_passthrough">Passthrough Verdadeiro (sem autenticação do Polyglot)</Select.Option>
                             <Select.Option value="oauth_delegate">
-                              OAuth Delegate (client-supplied upstream token)
+                              Delegate OAuth (token upstream fornecido pelo cliente)
                             </Select.Option>
                           </Select>
                         </Form.Item>
@@ -1105,8 +1105,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                           <Form.Item
                             label={
                               <span className="text-sm font-medium text-gray-700 flex items-center">
-                                Authentication Value
-                                <Tooltip title="Token, password, or header value to send with each request for the selected auth type.">
+                                Valor de Autenticação
+                                <Tooltip title="Token, senha ou valor de cabeçalho a enviar com cada requisição para o tipo de autenticação selecionado.">
                                   <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                                 </Tooltip>
                               </span>
@@ -1116,14 +1116,14 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                               {
                                 validator: (_, value) =>
                                   value && typeof value === "string" && value.trim() === ""
-                                    ? Promise.reject(new Error("Authentication value cannot be empty whitespace"))
+                                    ? Promise.reject(new Error("Valor de autenticação não pode ser somente espaço em branco"))
                                     : Promise.resolve(),
                               },
                             ]}
                           >
                             <TextInput
                               type="password"
-                              placeholder="Enter token or secret"
+                              placeholder="Digite o token ou segredo"
                               className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                             />
                           </Form.Item>
@@ -1167,14 +1167,14 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Region
-                      <Tooltip title="AWS region for SigV4 signing (e.g., us-east-1)">
+                      Região AWS
+                      <Tooltip title="Região AWS para assinatura SigV4 (ex: us-east-1)">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
                   }
                   name={["credentials", "aws_region_name"]}
-                  rules={[{ required: true, message: "AWS region is required for SigV4 auth" }]}
+                  rules={[{ required: true, message: "Região AWS é necessária para autenticação SigV4" }]}
                 >
                   <Input
                     placeholder="us-east-1"
@@ -1184,8 +1184,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Service Name
-                      <Tooltip title="AWS service name for SigV4 signing. Defaults to 'bedrock-agentcore'.">
+                      Nome do Serviço AWS
+                      <Tooltip title="Nome do serviço AWS para assinatura SigV4. Padrão é 'bedrock-agentcore'.">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1200,8 +1200,8 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Access Key ID
-                      <Tooltip title="Optional. If not provided, falls back to the boto3 credential chain (IAM role, env vars, etc.).">
+                      ID da Chave de Acesso AWS
+                      <Tooltip title="Opcional. Se não fornecido, volta para a cadeia de credenciais boto3 (função IAM, variáveis de ambiente, etc.).">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1214,7 +1214,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                         const secretKey = getFieldValue(["credentials", "aws_secret_access_key"]);
                         if (secretKey && !value) {
                           return Promise.reject(
-                            new Error("Access Key ID is required when Secret Access Key is provided"),
+                            new Error("ID da Chave de Acesso é necessária quando a Chave de Acesso Secreta é fornecida"),
                           );
                         }
                         return Promise.resolve();
@@ -1223,15 +1223,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   ]}
                 >
                   <Input.Password
-                    placeholder="AKIA... (optional — uses IAM role if blank)"
+                    placeholder="AKIA... (opcional — usa função IAM se vazio)"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Secret Access Key
-                      <Tooltip title="Optional. Required if AWS Access Key ID is provided.">
+                      Chave de Acesso Secreta AWS
+                      <Tooltip title="Opcional. Necessária se o ID da Chave de Acesso for fornecido.">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1244,7 +1244,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                         const accessKeyId = getFieldValue(["credentials", "aws_access_key_id"]);
                         if (accessKeyId && !value) {
                           return Promise.reject(
-                            new Error("Secret Access Key is required when Access Key ID is provided"),
+                            new Error("Chave de Acesso Secreta é necessária quando o ID da Chave de Acesso é fornecido"),
                           );
                         }
                         return Promise.resolve();
@@ -1253,15 +1253,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   ]}
                 >
                   <Input.Password
-                    placeholder="Enter secret key (optional — uses IAM role if blank)"
+                    placeholder="Digite a chave secreta (opcional — usa função IAM se vazio)"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Session Token
-                      <Tooltip title="Optional. Only needed for temporary STS credentials.">
+                      Token de Sessão AWS
+                      <Tooltip title="Opcional. Necessário apenas para credenciais STS temporárias.">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1269,15 +1269,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   name={["credentials", "aws_session_token"]}
                 >
                   <Input.Password
-                    placeholder="Enter session token (optional)"
+                    placeholder="Digite o token de sessão (opcional)"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Role ARN
-                      <Tooltip title="Optional. IAM role ARN to assume via STS before signing. If set, Polyglot calls sts:AssumeRole to get temporary credentials. Uses ambient credentials (IAM role, env vars) as the source identity unless explicit keys are also provided.">
+                      ARN da Função AWS
+                      <Tooltip title="Opcional. ARN da função IAM a assumir via STS antes de assinar. Se definido, o Polyglot chama sts:AssumeRole para obter credenciais temporárias. Usa credenciais ambientais (função IAM, variáveis de ambiente) como identidade de origem a menos que chaves explícitas também sejam fornecidas.">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1285,15 +1285,15 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   name={["credentials", "aws_role_name"]}
                 >
                   <Input
-                    placeholder="arn:aws:iam::123456789012:role/MyRole (optional)"
+                    placeholder="arn:aws:iam::123456789012:role/MinhaFuncao (opcional)"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      AWS Session Name
-                      <Tooltip title="Optional. Session name for the AssumeRole call — appears in CloudTrail logs. Auto-generated if omitted.">
+                      Nome da Sessão AWS
+                      <Tooltip title="Opcional. Nome da sessão para a chamada AssumeRole — aparece nos logs do CloudTrail. Gerado automaticamente se omitido.">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -1301,7 +1301,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
                   name={["credentials", "aws_session_name"]}
                 >
                   <Input
-                    placeholder="litellm-prod (optional, auto-generated if blank)"
+                    placeholder="litellm-prod (opcional, gerado automaticamente se vazio)"
                     className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500"
                   />
                 </Form.Item>
@@ -1312,7 +1312,7 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
             <StdioConfiguration isVisible={transportType === "stdio"} />
           </div>
 
-          {/* Environment Variables Section */}
+          {/* Seção de Variáveis de Ambiente */}
           <div className="mt-8">
             <EnvVarsSection />
           </div>
@@ -1377,10 +1377,10 @@ const CreateMCPServer: React.FC<CreateMCPServerProps> = ({
 
           <div className="flex items-center justify-end space-x-3 pt-6 border-t border-gray-100">
             <Button variant="secondary" onClick={handleCancel}>
-              Cancel
+              Cancelar
             </Button>
             <Button variant="primary" loading={isLoading}>
-              {isLoading ? "Creating..." : "Add MCP Server"}
+              {isLoading ? "Criando..." : "Adicionar Servidor MCP"}
             </Button>
           </div>
         </Form>
