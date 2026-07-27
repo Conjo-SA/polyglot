@@ -32,7 +32,7 @@ _DEFAULT_FREE_TRIAL_MODEL = "qwen3"
 _DEFAULT_FREE_TRIAL_MAX_BUDGET = 5000.0
 _FREE_TRIAL_CURRENCY = "BRL"
 _NON_DIGITS = re.compile(r"\D")
-_DEFAULT_EMAIL_LOGO_URL = "https://litellm-listing.s3.amazonaws.com/litellm_logo.png"
+_DEFAULT_EMAIL_LOGO_URL = "https://polyglot.hub.conjochat.conjosa.com.br/get_image"
 
 
 @dataclass(frozen=True, slots=True)
