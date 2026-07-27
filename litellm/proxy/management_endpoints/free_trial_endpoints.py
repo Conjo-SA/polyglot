@@ -3,12 +3,12 @@ Free trial registration endpoint.
 
 An external system calls this endpoint (authenticated with a shared secret from
 the FREE_TRIAL_API_KEY env var) to provision a budget-capped virtual key for
-Polyglot testing and to trigger a welcome email.
+Jarbas AI testing and to trigger a welcome email.
 
 The endpoint is intentionally public (no LiteLLM virtual-key auth); its only gate
 is the shared secret. Uniqueness of email, phone and name is enforced by DB
 unique constraints, not by a read-then-write check, so concurrent registrations
-cannot create duplicates. The model backing Polyglot is never exposed to the
+cannot create duplicates. The model backing Jarbas AI is never exposed to the
 caller.
 """
 
@@ -169,7 +169,8 @@ def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_
             ]
         )
 
-    header_style = "background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);padding:32px;text-align:center;"
+    accent_style = "height:4px;font-size:0;line-height:0;background:linear-gradient(90deg,#4f46e5 0%,#7c3aed 100%);"
+    header_style = "background:#ffffff;padding:28px 32px;text-align:center;border-bottom:1px solid #eef0f4;"
     card_style = (
         "max-width:600px;width:100%;background:#ffffff;border-radius:16px;"
         "overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);"
@@ -182,13 +183,14 @@ def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_
             'style="background:#f3f4f6;padding:32px 12px;"><tr><td align="center">',
             '<table role="presentation" width="600" cellpadding="0" cellspacing="0" '
             f'style="{card_style}">',
+            f'<tr><td style="{accent_style}">&nbsp;</td></tr>',
             f'<tr><td style="{header_style}">',
-            f'<img src="{logo_url}" alt="Polyglot" height="40" style="height:40px;max-height:40px;" />',
+            f'<img src="{logo_url}" alt="Jarbas AI" height="44" style="height:44px;max-height:44px;" />',
             "</td></tr>",
             '<tr><td style="padding:36px 36px 12px;">',
             f'<h1 style="margin:0 0 12px;{font}font-size:22px;color:#111827;">Olá {safe_name},</h1>',
             f'<p style="margin:0 0 24px;{font}font-size:15px;line-height:1.6;color:#374151;">'
-            "Seu acesso de teste ao <strong>Polyglot</strong> está pronto. "
+            "Seu acesso de teste ao <strong>Jarbas AI</strong> está pronto. "
             "Use a chave abaixo para começar a testar.</p>",
             key_block,
             f'<p style="margin:0 0 6px;{font}font-size:14px;color:#374151;">'
@@ -196,7 +198,7 @@ def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_
             "</td></tr>",
             '<tr><td style="padding:24px 36px 36px;border-top:1px solid #f0f0f0;">',
             f'<p style="margin:16px 0 0;{font}font-size:13px;color:#9ca3af;">'
-            "Enviado automaticamente pela equipe Polyglot. "
+            "Enviado automaticamente pela equipe Jarbas AI. "
             "Se você não solicitou este acesso, ignore este email.</p>",
             "</td></tr></table></td></tr></table></body></html>",
         ]
@@ -271,7 +273,7 @@ async def _send_welcome_email(
     try:
         sent = await send_email(
             receiver_email=email,
-            subject="Seu acesso de teste ao Polyglot",
+            subject="Seu acesso de teste ao Jarbas AI",
             html=_welcome_email_html(name=name, instagram=instagram, api_key=api_key, logo_src=logo_src),
             inline_images=inline_images,
         )
