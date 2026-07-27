@@ -123,24 +123,45 @@ class FreeTrialRegistrationResponse(BaseModel):
     currency: str
 
 
-_LOGO_CID = "polyglot_logo"
+_LOGO_CID = "jarbas_logo"
+_BUNDLED_LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "jarbas_ai_logo.png")
+
+
+def _read_logo_bytes(path: str) -> Optional[bytes]:
+    try:
+        with open(path, "rb") as f:
+            return f.read()
+    except OSError:
+        return None
 
 
 def _resolve_logo() -> tuple[str, dict[str, bytes]]:
     """
-    Resolve the email logo. If EMAIL_LOGO_FILE points to a readable file, embed it
-    as an inline (cid) image straight from disk so no external link is needed;
-    otherwise fall back to a hosted URL (EMAIL_LOGO_URL, default LiteLLM logo).
+    Resolve the email logo, in priority order:
+
+    1. EMAIL_LOGO_FILE  -> embed that file inline (cid), no external link
+    2. EMAIL_LOGO_URL   -> use that hosted URL
+    3. bundled Jarbas AI logo (litellm/proxy/assets/jarbas_ai_logo.png) -> inline (cid)
+    4. hardcoded hosted URL fallback
+
     Returns (img_src, inline_images).
     """
-    logo_file = os.getenv("EMAIL_LOGO_FILE")
-    if logo_file:
-        try:
-            with open(logo_file, "rb") as f:
-                return f"cid:{_LOGO_CID}", {_LOGO_CID: f.read()}
-        except OSError as e:
-            verbose_proxy_logger.warning("EMAIL_LOGO_FILE not readable (%s): %s", logo_file, e)
-    return os.getenv("EMAIL_LOGO_URL", _DEFAULT_EMAIL_LOGO_URL), {}
+    env_file = os.getenv("EMAIL_LOGO_FILE")
+    if env_file:
+        data = _read_logo_bytes(env_file)
+        if data is not None:
+            return f"cid:{_LOGO_CID}", {_LOGO_CID: data}
+        verbose_proxy_logger.warning("EMAIL_LOGO_FILE not readable: %s", env_file)
+
+    env_url = os.getenv("EMAIL_LOGO_URL")
+    if env_url:
+        return env_url, {}
+
+    bundled = _read_logo_bytes(_BUNDLED_LOGO_PATH)
+    if bundled is not None:
+        return f"cid:{_LOGO_CID}", {_LOGO_CID: bundled}
+
+    return _DEFAULT_EMAIL_LOGO_URL, {}
 
 
 def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_src: str) -> str:

@@ -134,8 +134,8 @@ def test_logo_embedded_from_repo_file_as_cid(client, monkeypatch, mock_repo, tmp
     assert resp.status_code == 200
     _, mail_kwargs = mail.call_args
     # image referenced by cid and shipped inline from the file, no external link
-    assert 'src="cid:polyglot_logo"' in mail_kwargs["html"]
-    assert mail_kwargs["inline_images"] == {"polyglot_logo": b"\x89PNG\r\n\x1a\nFAKELOGO"}
+    assert 'src="cid:jarbas_logo"' in mail_kwargs["html"]
+    assert mail_kwargs["inline_images"] == {"jarbas_logo": b"\x89PNG\r\n\x1a\nFAKELOGO"}
 
 
 def test_duplicate_returns_409_and_rolls_back_key(client, monkeypatch, mock_repo):
