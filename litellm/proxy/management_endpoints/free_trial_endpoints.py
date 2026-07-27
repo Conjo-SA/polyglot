@@ -19,7 +19,6 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Optional
 
-import phonenumbers
 from fastapi import APIRouter, HTTPException, Request
 from pydantic import BaseModel, EmailStr, field_validator
 
@@ -31,7 +30,7 @@ FREE_TRIAL_API_KEY_HEADER = "x-litellm-free-trial-key"
 _DEFAULT_FREE_TRIAL_MODEL = "qwen3"
 _DEFAULT_FREE_TRIAL_MAX_BUDGET = 5000.0
 _FREE_TRIAL_CURRENCY = "BRL"
-_DEFAULT_PHONE_REGION = "BR"
+_NON_DIGITS = re.compile(r"\D")
 
 
 @dataclass(frozen=True, slots=True)
@@ -74,6 +73,22 @@ def _normalize_instagram(handle: str) -> str:
     return f"@{stripped}"
 
 
+def _normalize_phone(raw: str) -> str:
+    """
+    Normalize to an E.164-ish canonical form (+<digits>) so duplicates match
+    regardless of formatting. Numbers without a country code are assumed to be
+    Brazilian (10-11 local digits) and get a 55 prefix. Rejects anything that
+    can't be a real number.
+    """
+    has_country_code = raw.strip().startswith("+")
+    digits = _NON_DIGITS.sub("", raw)
+    if not has_country_code and len(digits) in (10, 11):
+        digits = f"55{digits}"
+    if not 11 <= len(digits) <= 15:
+        raise ValueError("Invalid phone number")
+    return f"+{digits}"
+
+
 class FreeTrialRegistrationRequest(BaseModel):
     name: str
     email: EmailStr
@@ -90,13 +105,7 @@ class FreeTrialRegistrationRequest(BaseModel):
     @field_validator("phone")
     @classmethod
     def _validate_phone(cls, v: str) -> str:
-        try:
-            parsed = phonenumbers.parse(v, _DEFAULT_PHONE_REGION)
-        except phonenumbers.NumberParseException:
-            raise ValueError("Invalid phone number")
-        if not phonenumbers.is_valid_number(parsed):
-            raise ValueError("Invalid phone number")
-        return phonenumbers.format_number(parsed, phonenumbers.PhoneNumberFormat.E164)
+        return _normalize_phone(v)
 
     @field_validator("instagram")
     @classmethod
