@@ -44,7 +44,7 @@ const EndpointUsageTable: React.FC<EndpointUsageTableProps> = ({ endpointData })
       render: (text: string) => <span className="font-medium">{text}</span>,
     },
     {
-      title: "Successful / Failed",
+      title: "Sucesso / Falha",
       key: "requests",
       render: (_: any, record: EndpointRow) => {
         const successPercentage =
@@ -76,13 +76,13 @@ const EndpointUsageTable: React.FC<EndpointUsageTableProps> = ({ endpointData })
       },
     },
     {
-      title: "Total Request",
+      title: "Requisições Totais",
       dataIndex: "api_requests",
       key: "api_requests",
       render: (value: number) => value.toLocaleString(),
     },
     {
-      title: "Success Rate",
+      title: "Taxa de Sucesso",
       dataIndex: "successRate",
       key: "successRate",
       render: (value: number) => {
@@ -103,13 +103,13 @@ const EndpointUsageTable: React.FC<EndpointUsageTableProps> = ({ endpointData })
       },
     },
     {
-      title: "Total Tokens",
+      title: "Tokens Totais",
       dataIndex: "total_tokens",
       key: "total_tokens",
       render: (value: number) => value.toLocaleString(),
     },
     {
-      title: "Spend",
+      title: "Gasto",
       dataIndex: "spend",
       key: "spend",
       render: (value: number) => <MoneyCell value={value} decimals={2} />,

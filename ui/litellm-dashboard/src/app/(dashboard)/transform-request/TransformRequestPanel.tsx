@@ -72,7 +72,7 @@ ${formattedBody}
       try {
         requestBody = JSON.parse(originalRequestJSON);
       } catch (e) {
-        NotificationsManager.fromBackend("Invalid JSON in request body");
+        NotificationsManager.fromBackend("JSON inválido no corpo da requisição");
         setIsLoading(false);
         return;
       }
@@ -85,7 +85,7 @@ ${formattedBody}
 
       // Make the API call using fetch
       if (!accessToken) {
-        NotificationsManager.fromBackend("No access token found");
+        NotificationsManager.fromBackend("Nenhum token de acesso encontrado");
         setIsLoading(false);
         return;
       }
@@ -103,17 +103,17 @@ ${formattedBody}
 
         // Update state with the formatted curl command
         setTransformedResponse(formattedCurl);
-        NotificationsManager.success("Request transformed successfully");
+        NotificationsManager.success("Requisição transformada com sucesso");
       } else {
         // Handle the case where the API returns a different format
         // Try to extract the parts from a string response if needed
         const rawText = typeof data === "string" ? data : JSON.stringify(data);
         setTransformedResponse(rawText);
-        NotificationsManager.info("Transformed request received in unexpected format");
+        NotificationsManager.info("Requisição transformada recebida em formato inesperado");
       }
     } catch (err) {
       console.error("Error transforming request:", err);
-      NotificationsManager.fromBackend("Failed to transform request");
+      NotificationsManager.fromBackend("Falha ao transformar requisição");
     } finally {
       setIsLoading(false);
     }
@@ -130,7 +130,7 @@ ${formattedBody}
   return (
     <div className="w-full m-2" style={{ overflow: "hidden" }}>
       <Title>Playground</Title>
-      <p className="text-sm text-gray-500">See how Polyglot transforms your request for the specified provider.</p>
+      <p className="text-sm text-gray-500">Veja como o Polyglot transforma sua requisição para o provedor especificado.</p>
       <div
         style={{
           display: "flex",
@@ -156,9 +156,9 @@ ${formattedBody}
           }}
         >
           <div style={{ marginBottom: "24px" }}>
-            <h2 style={{ fontSize: "24px", fontWeight: "bold", margin: "0 0 4px 0" }}>Original Request</h2>
+            <h2 style={{ fontSize: "24px", fontWeight: "bold", margin: "0 0 4px 0" }}>Requisição Original</h2>
             <p style={{ color: "#666", margin: 0 }}>
-              The request you would send to Polyglot /chat/completions endpoint.
+              A requisição que você enviaria ao endpoint /chat/completions do Polyglot.
             </p>
           </div>
 
@@ -179,7 +179,7 @@ ${formattedBody}
             value={originalRequestJSON}
             onChange={(e) => setOriginalRequestJSON(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Press Cmd/Ctrl + Enter to transform"
+            placeholder="Pressione Cmd/Ctrl + Enter para transformar"
           />
 
           <div
@@ -200,7 +200,7 @@ ${formattedBody}
               onClick={handleTransform}
               loading={isLoading}
             >
-              <span>Transform</span>
+              <span>Transformar</span>
               <span>→</span>
             </Button>
           </div>
@@ -221,11 +221,11 @@ ${formattedBody}
           }}
         >
           <div style={{ marginBottom: "24px" }}>
-            <h2 style={{ fontSize: "24px", fontWeight: "bold", margin: "0 0 4px 0" }}>Transformed Request</h2>
-            <p style={{ color: "#666", margin: 0 }}>How Polyglot transforms your request for the specified provider.</p>
+            <h2 style={{ fontSize: "24px", fontWeight: "bold", margin: "0 0 4px 0" }}>Requisição Transformada</h2>
+            <p style={{ color: "#666", margin: 0 }}>Como o Polyglot transforma sua requisição para o provedor especificado.</p>
             <br />
             <p style={{ color: "#666", margin: 0 }} className="text-xs">
-              Note: Sensitive headers are not shown.
+              Nota: Cabeçalhos sensíveis não são exibidos.
             </p>
           </div>
 
@@ -278,7 +278,7 @@ ${formattedBody}
               size="small"
               onClick={() => {
                 navigator.clipboard.writeText(transformedResponse || "");
-                NotificationsManager.success("Copied to clipboard");
+                NotificationsManager.success("Copiado para área de transferência");
               }}
             />
           </div>
@@ -286,9 +286,9 @@ ${formattedBody}
       </div>
       <div className="mt-4 text-right w-full">
         <p className="text-sm text-gray-500">
-          Found an error? File an issue{" "}
+          Encontrou um erro? Reporte aqui{" "}
           <a href="https://github.com/BerriAI/litellm/issues" target="_blank" rel="noopener noreferrer">
-            here
+            aqui
           </a>
           .
         </p>

@@ -17,7 +17,7 @@ import {
 import { cn } from "@/lib/cva.config";
 
 export const DYNAMIC_SPEND_TAG_DESCRIPTION =
-  "This is just a spend tag that was passed dynamically in a request. It does not control any LLM models.";
+  "Esta é apenas uma etiqueta de gastos que foi passada dinamicamente em uma solicitação. Ela não controla nenhum modelo LLM.";
 
 const isDynamicSpendTag = (tag: Tag) => tag.description === DYNAMIC_SPEND_TAG_DESCRIPTION;
 
@@ -25,7 +25,7 @@ function TagNameCell({ tag, onSelectTag }: { tag: Tag; onSelectTag: (tagName: st
   if (isDynamicSpendTag(tag)) {
     return (
       <CellTooltip
-        content="You cannot view the information of a dynamically generated spend tag"
+        content="Você não pode visualizar as informações de uma etiqueta de gastos gerada dynamicamente"
         trigger={<span className="block max-w-60 truncate font-mono text-xs text-muted-foreground">{tag.name}</span>}
       />
     );
@@ -74,7 +74,7 @@ function TagRowActions({ tag, onEdit, onDelete }: TagRowActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Open tag actions"
+        aria-label="Abrir ações da etiqueta"
         data-testid={`tag-actions-${tag.name}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -84,21 +84,21 @@ function TagRowActions({ tag, onEdit, onDelete }: TagRowActionsProps) {
         <DropdownMenuItem
           disabled={isDynamic}
           data-testid="tag-action-edit"
-          title={isDynamic ? "Dynamically generated spend tags cannot be edited" : undefined}
+          title={isDynamic ? "Etiquetas de gastos geradas dinamicamente não podem ser editadas" : undefined}
           onClick={() => onEdit(tag)}
         >
           <Pencil />
-          Edit
+          Editar
         </DropdownMenuItem>
         <DropdownMenuItem
           variant="destructive"
           disabled={isDynamic}
           data-testid="tag-action-delete"
-          title={isDynamic ? "Dynamically generated spend tags cannot be deleted" : undefined}
+          title={isDynamic ? "Etiquetas de gastos geradas dinamicamente não podem ser excluídas" : undefined}
           onClick={() => onDelete(tag.name)}
         >
           <Trash2 />
-          Delete
+          Excluir
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -115,8 +115,8 @@ export const getTagTableColumns = ({ onSelectTag, onEdit, onDelete }: TagTableCo
   {
     id: "name",
     accessorKey: "name",
-    meta: { title: "Tag Name" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Tag Name" />,
+    meta: { title: "Nome da Etiqueta" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Nome da Etiqueta" />,
     size: 260,
     enableSorting: true,
     cell: ({ row }) => <TagNameCell tag={row.original} onSelectTag={onSelectTag} />,
@@ -125,7 +125,7 @@ export const getTagTableColumns = ({ onSelectTag, onEdit, onDelete }: TagTableCo
     id: "description",
     accessorKey: "description",
     meta: { title: "Description" },
-    header: "Description",
+    header: "Descrição",
     size: 300,
     enableSorting: false,
     cell: ({ row }) => {
@@ -139,8 +139,8 @@ export const getTagTableColumns = ({ onSelectTag, onEdit, onDelete }: TagTableCo
   },
   {
     id: "models",
-    meta: { title: "Allowed Models", skeleton: "chips" },
-    header: "Allowed Models",
+    meta: { title: "Modelos Permitidos", skeleton: "chips" },
+    header: "Modelos Permitidos",
     size: 240,
     enableSorting: false,
     cell: ({ row }) => <TagModelsCell tag={row.original} />,
@@ -149,8 +149,8 @@ export const getTagTableColumns = ({ onSelectTag, onEdit, onDelete }: TagTableCo
     id: "created_at",
     accessorKey: "created_at",
     sortingFn: "datetime",
-    meta: { title: "Created" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Created" />,
+    meta: { title: "Criado" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Criado" />,
     size: 150,
     enableSorting: true,
     cell: ({ row }) => <DateCell value={row.original.created_at} precision="date" />,

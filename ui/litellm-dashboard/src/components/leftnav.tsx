@@ -117,9 +117,9 @@ interface MenuGroup {
 // icons changed to lucide as part of the sidebar redesign.
 const menuGroups: MenuGroup[] = [
   {
-    groupLabel: "AI GATEWAY",
+    groupLabel: "GATEWAY DE IA",
     items: [
-      { key: "api-keys", page: "api-keys", label: "Virtual Keys", icon: <KeyRound {...ICON} /> },
+      { key: "api-keys", page: "api-keys", label: "Chaves Virtuais", icon: <KeyRound {...ICON} /> },
       {
         key: "llm-playground",
         page: "llm-playground",
@@ -130,119 +130,119 @@ const menuGroups: MenuGroup[] = [
       {
         key: "models",
         page: "models",
-        label: "Models + Endpoints",
+        label: "Modelos + Endpoints",
         icon: <Network {...ICON} />,
         roles: rolesAllowedToViewWriteScopedPages,
       },
       {
         key: "agentic",
         page: "agentic",
-        label: "Agentic",
+        label: "Agêntico",
         icon: <Bot {...ICON} />,
         children: [
           {
             key: "agents",
             page: "agents",
-            label: "Agents",
+            label: "Agentes",
             icon: <Bot {...ICON} />,
             roles: rolesAllowedToViewWriteScopedPages,
           },
-          { key: "workflows", page: "workflows", label: "Workflow Runs", icon: <Workflow {...ICON} /> },
-          { key: "memory", page: "memory", label: "Memory", icon: <Database {...ICON} /> },
+          { key: "workflows", page: "workflows", label: "Execuções de Workflow", icon: <Workflow {...ICON} /> },
+          { key: "memory", page: "memory", label: "Memória", icon: <Database {...ICON} /> },
         ],
       },
-      { key: "mcp-servers", page: "mcp-servers", label: "MCP Servers", icon: <Server {...ICON} /> },
+      { key: "mcp-servers", page: "mcp-servers", label: "Servidores MCP", icon: <Server {...ICON} /> },
       { key: "skills", page: "skills", label: "Skills", icon: <Blocks {...ICON} />, roles: all_admin_roles },
       { key: "guardrails", page: "guardrails", label: "Guardrails", icon: <Shield {...ICON} /> },
       {
         key: "policies",
         page: "policies",
-        label: "Policies",
+        label: "Políticas",
         icon: <ScrollText {...ICON} />,
         roles: all_admin_roles,
       },
       {
         key: "tools",
         page: "tools",
-        label: "Tools",
+        label: "Ferramentas",
         icon: <Wrench {...ICON} />,
         children: [
-          { key: "search-tools", page: "search-tools", label: "Search Tools", icon: <Search {...ICON} /> },
+          { key: "search-tools", page: "search-tools", label: "Ferramentas de Busca", icon: <Search {...ICON} /> },
           { key: "vector-stores", page: "vector-stores", label: "Vector Stores", icon: <Database {...ICON} /> },
-          { key: "tool-policies", page: "tool-policies", label: "Tool Policies", icon: <ShieldCheck {...ICON} /> },
+          { key: "tool-policies", page: "tool-policies", label: "Políticas de Ferramentas", icon: <ShieldCheck {...ICON} /> },
         ],
       },
     ],
   },
   {
-    groupLabel: "OBSERVABILITY",
+    groupLabel: "OBSERVABILIDADE",
     items: [
       {
         key: "new_usage",
         page: "new_usage",
         icon: <BarChart3 {...ICON} />,
         roles: [...all_admin_roles, ...internalUserRoles],
-        label: "Usage",
+        label: "Uso",
       },
       {
         key: "cost-optimization",
         page: "cost-optimization",
         icon: <PiggyBank {...ICON} />,
         roles: [...all_admin_roles, ...internalUserRoles],
-        label: "Cost Optimization",
+        label: "Otimização de Custos",
       },
       { key: "logs", page: "logs", label: "Logs", icon: <Activity {...ICON} /> },
       {
         key: "guardrails-monitor",
         page: "guardrails-monitor",
-        label: "Guardrails Monitor",
+        label: "Monitor de Guardrails",
         icon: <HeartPulse {...ICON} />,
         roles: [...all_admin_roles, ...internalUserRoles],
       },
     ],
   },
   {
-    groupLabel: "ACCESS CONTROL",
+    groupLabel: "CONTROLE DE ACESSO",
     items: [
-      { key: "teams", page: "teams", label: "Teams", icon: <Users {...ICON} /> },
+      { key: "teams", page: "teams", label: "Equipes", icon: <Users {...ICON} /> },
       {
         key: "projects",
         page: "projects",
         label: (
           <span className="flex items-center gap-2">
-            Projects <BetaBadge />
+            Projetos <BetaBadge />
           </span>
         ),
         icon: <Folder {...ICON} />,
         roles: all_admin_roles,
       },
-      { key: "users", page: "users", label: "Internal Users", icon: <User {...ICON} />, roles: all_admin_roles },
+      { key: "users", page: "users", label: "Usuários Internos", icon: <User {...ICON} />, roles: all_admin_roles },
       {
         key: "organizations",
         page: "organizations",
-        label: "Organizations",
+        label: "Organizações",
         icon: <Building2 {...ICON} />,
         roles: all_admin_roles,
       },
       {
         key: "access-groups",
         page: "access-groups",
-        label: "Access Groups",
+        label: "Grupos de Acesso",
         icon: <Boxes {...ICON} />,
         roles: all_admin_roles,
       },
-      { key: "budgets", page: "budgets", label: "Budgets", icon: <Wallet {...ICON} />, roles: all_admin_roles },
+      { key: "budgets", page: "budgets", label: "Orçamentos", icon: <Wallet {...ICON} />, roles: all_admin_roles },
     ],
   },
   {
-    groupLabel: "DEVELOPER TOOLS",
+    groupLabel: "FERRAMENTAS DE DESENVOLVEDOR",
     items: [
-      { key: "api_ref", page: "api_ref", label: "API Reference", icon: <Code2 {...ICON} /> },
-      { key: "model-hub-table", page: "model-hub-table", label: "AI Hub", icon: <LayoutGrid {...ICON} /> },
+      { key: "api_ref", page: "api_ref", label: "Referência da API", icon: <Code2 {...ICON} /> },
+      { key: "model-hub-table", page: "model-hub-table", label: "Hub de IA", icon: <LayoutGrid {...ICON} /> },
       {
         key: "learning-resources",
         page: "learning-resources",
-        label: "Learning Resources",
+        label: "Recursos de Aprendizado",
         icon: <BookOpen {...ICON} />,
         external_url: "https://models.litellm.ai/cookbook",
       },
@@ -257,24 +257,24 @@ const menuGroups: MenuGroup[] = [
           {
             key: "transform-request",
             page: "transform-request",
-            label: "API Playground",
+            label: "Playground de API",
             icon: <Terminal {...ICON} />,
             roles: [...all_admin_roles, ...internalUserRoles],
           },
           {
             key: "tag-management",
             page: "tag-management",
-            label: "Tag Management",
+            label: "Gerenciamento de Tags",
             icon: <Tags {...ICON} />,
             roles: all_admin_roles,
           },
-          { key: "4", page: "usage", label: "Old Usage", icon: <BarChart3 {...ICON} /> },
+          { key: "4", page: "usage", label: "Uso Antigo", icon: <BarChart3 {...ICON} /> },
         ],
       },
     ],
   },
   {
-    groupLabel: "SETTINGS",
+    groupLabel: "CONFIGURAÇÕES",
     roles: all_admin_roles,
     items: [
       {
@@ -282,7 +282,7 @@ const menuGroups: MenuGroup[] = [
         page: "settings",
         label: (
           <span className="flex items-center gap-2">
-            Settings <NewBadge />
+            Configurações <NewBadge />
           </span>
         ),
         icon: <SettingsIcon {...ICON} />,
@@ -291,14 +291,14 @@ const menuGroups: MenuGroup[] = [
           {
             key: "router-settings",
             page: "router-settings",
-            label: "Router Settings",
+            label: "Configurações do Roteador",
             icon: <Route {...ICON} />,
             roles: all_admin_roles,
           },
           {
             key: "logging-and-alerts",
             page: "logging-and-alerts",
-            label: "Logging & Alerts",
+            label: "Logs e Alertas",
             icon: <Bell {...ICON} />,
             roles: all_admin_roles,
           },
@@ -307,7 +307,7 @@ const menuGroups: MenuGroup[] = [
             page: "admin-panel",
             label: (
               <span className="flex items-center gap-2">
-                Admin Settings{" "}
+                Configurações de Admin{" "}
                 <NewBadge dot>
                   <span />
                 </NewBadge>
@@ -319,11 +319,11 @@ const menuGroups: MenuGroup[] = [
           {
             key: "cost-tracking",
             page: "cost-tracking",
-            label: "Cost Tracking",
+            label: "Rastreamento de Custos",
             icon: <BarChart3 {...ICON} />,
             roles: all_admin_roles,
           },
-          { key: "ui-theme", page: "ui-theme", label: "UI Theme", icon: <Palette {...ICON} />, roles: all_admin_roles },
+          { key: "ui-theme", page: "ui-theme", label: "Tema da UI", icon: <Palette {...ICON} />, roles: all_admin_roles },
         ],
       },
     ],
@@ -333,11 +333,11 @@ const menuGroups: MenuGroup[] = [
 // Maps the raw (English) groupLabel/item.key values above to i18n keys, so the
 // menuGroups data structure itself (used for matching/filtering) never needs to change.
 const GROUP_I18N_KEYS: Record<string, string> = {
-  "AI GATEWAY": "nav.groups.aiGateway",
-  OBSERVABILITY: "nav.groups.observability",
-  "ACCESS CONTROL": "nav.groups.accessControl",
-  "DEVELOPER TOOLS": "nav.groups.developerTools",
-  SETTINGS: "nav.groups.settings",
+  "GATEWAY DE IA": "nav.groups.aiGateway",
+  OBSERVABILIDADE: "nav.groups.observability",
+  "CONTROLE DE ACESSO": "nav.groups.accessControl",
+  "FERRAMENTAS DE DESENVOLVEDOR": "nav.groups.developerTools",
+  CONFIGURAÇÕES: "nav.groups.settings",
 };
 
 const ITEM_I18N_KEYS: Record<string, string> = {
@@ -453,11 +453,11 @@ const findMenuItemKey = (page: string): string => {
 const labelText = (item: MenuItem): string => (typeof item.label === "string" ? item.label : item.key);
 
 const SECTION_DISPLAY: Record<string, string> = {
-  "AI GATEWAY": "AI Gateway",
-  OBSERVABILITY: "Observability",
-  "ACCESS CONTROL": "Access Control",
-  "DEVELOPER TOOLS": "Developer Tools",
-  SETTINGS: "Settings",
+  "GATEWAY DE IA": "Gateway de IA",
+  OBSERVABILIDADE: "Observabilidade",
+  "CONTROLE DE ACESSO": "Controle de Acesso",
+  "FERRAMENTAS DE DESENVOLVEDOR": "Ferramentas de Desenvolvedor",
+  CONFIGURAÇÕES: "Configurações",
 };
 
 const prettify = (key: string): string =>
@@ -685,7 +685,7 @@ const Sidebar_: React.FC<SidebarProps> = ({
       <SidebarHeader className="h-14 border-b border-border group-data-[collapsed=true]/sidebar:h-auto">
         <div className="flex items-center justify-between gap-2 group-data-[collapsed=true]/sidebar:flex-col">
           <div className="flex min-w-0 items-center gap-2">
-            <Link href={baseUrl || "/"} className="flex min-w-0 items-center" aria-label="Polyglot home">
+            <Link href={baseUrl || "/"} className="flex min-w-0 items-center" aria-label="Início da Polyglot">
               <img
                 src={logoSrc}
                 alt="Polyglot"
@@ -707,7 +707,7 @@ const Sidebar_: React.FC<SidebarProps> = ({
               variant="ghost"
               size="icon-sm"
               onClick={onToggleCollapsed}
-              aria-label={collapsed ? "Expand sidebar" : "Collapse sidebar"}
+              aria-label={collapsed ? "Expandir barra lateral" : "Recolher barra lateral"}
               className="flex-none text-muted-foreground"
             >
               {collapsed ? <PanelLeftOpen /> : <PanelLeftClose />}
