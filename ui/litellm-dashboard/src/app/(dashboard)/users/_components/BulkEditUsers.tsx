@@ -286,7 +286,6 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
             <strong>Instruções:</strong> Preencha os campos abaixo com os valores que deseja aplicar a todos os usuários selecionados. Você pode editar em massa: função, orçamento, modelos e metadados. Você também pode adicionar usuários às equipes.
         </Text>
       </div>
-
       {/* Team Management Section */}
       <Card title="Gerenciamento de Equipes" size="small" className="mb-4" style={{ backgroundColor: "#fafafa" }}>
         <Space direction="vertical" style={{ width: "100%" }}>
@@ -357,6 +356,6 @@ const BulkEditUserModal: React.FC<BulkEditUserModalProps> = ({
       )}
     </Modal>
   );
-};
+}
 
 export default BulkEditUserModal;

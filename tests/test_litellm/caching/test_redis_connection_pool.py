@@ -88,6 +88,41 @@ def test_max_connections_url_config_none_value():
     assert pool.max_connections == 50
 
 
+def test_ssl_disabled_strips_ssl_only_kwargs():
+    """ssl_check_hostname (and other ssl_* kwargs) are only valid on
+    SSLConnection. When ssl is disabled they must be dropped, otherwise
+    BlockingConnectionPool's plain Connection raises a TypeError for the
+    unexpected keyword argument on every command."""
+    with patch("litellm._redis._get_redis_client_logic") as mock_logic:
+        mock_logic.return_value = {
+            "host": "localhost",
+            "port": 6379,
+            "ssl": False,
+            "ssl_check_hostname": False,
+        }
+
+        pool = get_redis_connection_pool()
+
+    assert "ssl_check_hostname" not in pool.connection_kwargs
+    assert pool.connection_class is not async_redis.SSLConnection
+
+
+def test_ssl_enabled_keeps_ssl_only_kwargs():
+    """When ssl is enabled, ssl_* kwargs must still reach SSLConnection."""
+    with patch("litellm._redis._get_redis_client_logic") as mock_logic:
+        mock_logic.return_value = {
+            "host": "localhost",
+            "port": 6379,
+            "ssl": True,
+            "ssl_check_hostname": True,
+        }
+
+        pool = get_redis_connection_pool()
+
+    assert pool.connection_kwargs["ssl_check_hostname"] is True
+    assert pool.connection_class is async_redis.SSLConnection
+
+
 def _make_redis_cache():
     """Create a RedisCache with all external I/O mocked out."""
     mock_sync_client = MagicMock()

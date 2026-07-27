@@ -498,8 +498,8 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
                 { label: "Descrição", value: policyToDelete?.description || "-" },
                 { label: "Herdado De", value: policyToDelete?.inherit || "-" },
               ]}
-              onCancel={handleDeleteCancel}
               onOk={handleDeleteConfirm}
+              onCancel={() => setIsDeleteModalOpen(false)}
               confirmLoading={isDeleting}
             />
 
