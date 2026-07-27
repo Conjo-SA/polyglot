@@ -21,31 +21,31 @@ const PublishModal: React.FC<PublishModalProps> = ({
 }) => {
   return (
     <Modal
-      title="Publish Prompt"
+      title="Publicar Prompt"
       open={visible}
       onCancel={onCancel}
       footer={[
         <div key="footer" className="flex justify-end gap-2">
           <TremorButton variant="secondary" onClick={onCancel}>
-            Cancel
+            Cancelar
           </TremorButton>
           <TremorButton onClick={onPublish} loading={isSaving}>
-            Publish
+            Publicar
           </TremorButton>
         </div>,
       ]}
     >
       <div className="py-4">
-        <Text className="mb-2">Name</Text>
+        <Text className="mb-2">Nome</Text>
         <Input
           value={promptName}
           onChange={(e) => onNameChange(e.target.value)}
-          placeholder="Enter prompt name"
+          placeholder="Digite o nome do prompt"
           onPressEnter={onPublish}
           autoFocus
         />
         <Text className="text-gray-500 text-xs mt-2">
-          Published prompts can be used in API calls and are versioned for easy tracking.
+          Prompts publicados podem ser usados em chamadas de API e são versionados para fácil rastreamento.
         </Text>
       </div>
     </Modal>

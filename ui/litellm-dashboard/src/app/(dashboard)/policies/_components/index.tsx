@@ -503,7 +503,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
               confirmLoading={isDeleting}
             />
 
-            <GuardrailSelectionModal
+        <GuardrailSelectionModal
               visible={isGuardrailSelectionModalOpen}
               template={selectedTemplate}
               existingGuardrails={existingGuardrailNames}

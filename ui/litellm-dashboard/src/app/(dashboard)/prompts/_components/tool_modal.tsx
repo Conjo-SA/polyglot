@@ -40,7 +40,7 @@ const ToolModal: React.FC<ToolModalProps> = ({ visible, initialJson, onSave, onC
       setError(null);
       onSave(json);
     } catch (e) {
-      setError("Invalid JSON format. Please check your syntax.");
+      setError("Formato JSON inválido. Por favor, verifique sua sintaxe.");
     }
   };
 

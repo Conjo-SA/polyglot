@@ -262,14 +262,14 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
     <TabGroup className="gap-2 p-8 h-full w-full mt-2 mb-8">
       <TabList className="flex justify-between mt-2 w-full items-center">
         <div className="flex">
-          <Tab>Cache Analytics</Tab>
-          <Tab>Cache Health</Tab>
-          <Tab>Cache Settings</Tab>
-          <Tab>Coordination Redis</Tab>
+          <Tab>Análise do Cache</Tab>
+          <Tab>Saúde do Cache</Tab>
+          <Tab>Configurações do Cache</Tab>
+          <Tab>Redis de Coordenação</Tab>
         </div>
 
         <div className="flex items-center space-x-2">
-          {lastRefreshed && <Text>Last Refreshed: {lastRefreshed}</Text>}
+          {lastRefreshed && <Text>Última Atualização: {lastRefreshed}</Text>}
           <Icon
             icon={RefreshIcon} // Modify as necessary for correct icon name
             variant="shadow"
@@ -285,7 +285,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
             <Grid numItems={3} className="gap-4 mt-4">
               <Col>
                 <MultiSelect
-                  placeholder="Select Virtual Keys"
+                  placeholder="Selecionar Chaves Virtuais"
                   value={selectedApiKeys}
                   onValueChange={setSelectedApiKeys}
                 >
@@ -297,7 +297,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
                 </MultiSelect>
               </Col>
               <Col>
-                <MultiSelect placeholder="Select Models" value={selectedModels} onValueChange={setSelectedModels}>
+                <MultiSelect placeholder="Selecionar Modelos" value={selectedModels} onValueChange={setSelectedModels}>
                   {uniqueModels.map((model) => (
                     <MultiSelectItem key={model} value={model}>
                       {model}
@@ -319,7 +319,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-4">
               <Card>
                 <p className="text-tremor-default font-medium text-tremor-content dark:text-dark-tremor-content">
-                  Cache Hit Ratio
+                  Proporção de Acertos no Cacheertos no Cache
                 </p>
                 <div className="mt-2 flex items-baseline space-x-2.5">
                   <p className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
@@ -340,7 +340,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
 
               <Card>
                 <p className="text-tremor-default font-medium text-tremor-content dark:text-dark-tremor-content">
-                  Cached Tokens
+                  Tokens Armazenadoenados
                 </p>
                 <div className="mt-2 flex items-baseline space-x-2.5">
                   <p className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
@@ -352,7 +352,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
 
             <ChartCard className="mt-4">
               <CardHeader>
-                <CardTitle className="text-base font-semibold">Cache Hits vs API Requests</CardTitle>
+                <CardTitle className="text-base font-semibold">Acertos no Cache vs Solicitações à APItações à API</CardTitle>
               </CardHeader>
               <CardContent>
                 <BarChart
@@ -370,7 +370,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
             <ChartCard className="mt-6">
               <CardHeader>
                 <CardTitle className="text-base font-semibold">
-                  Cached Completion Tokens vs Generated Completion Tokens
+                  Tokens de Completão Armazenados vs Gerado
                 </CardTitle>
               </CardHeader>
               <CardContent>

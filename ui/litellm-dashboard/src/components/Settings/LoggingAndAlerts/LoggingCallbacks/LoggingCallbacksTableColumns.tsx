@@ -31,9 +31,9 @@ export type AvailableCallbacks = Record<string, AvailableCallbackMeta>;
 export const callbackRowMode = (record: CallbackRow): string => record.type || record.mode || "success";
 
 const CALLBACK_MODE_LABELS: Record<string, string> = {
-  success: "Success",
-  failure: "Failure",
-  success_and_failure: "Success & Failure",
+  success: "Sucesso",
+  failure: "Falha",
+  success_and_failure: "Sucesso e Falha",
 };
 
 function callbackModeTone(mode: string): StatusTone {
@@ -62,16 +62,16 @@ function CallbackRowActions({ callback, onTest, onEdit, onDelete }: CallbackRowA
       <DropdownMenuContent align="end" className="w-52">
         <DropdownMenuItem data-testid="callback-action-test" onClick={() => void onTest(callback)}>
           <Play />
-          Test
+          Testar
         </DropdownMenuItem>
         <DropdownMenuItem data-testid="callback-action-edit" onClick={() => onEdit(callback)}>
           <Pencil />
-          Edit
+          Editar
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem variant="destructive" data-testid="callback-action-delete" onClick={() => onDelete(callback)}>
           <Trash2 />
-          Delete
+          Excluir
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

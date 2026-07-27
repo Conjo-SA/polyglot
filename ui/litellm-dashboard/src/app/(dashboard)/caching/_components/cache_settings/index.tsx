@@ -128,8 +128,8 @@ const CacheSettings: React.FC<CacheSettingsProps> = ({ accessToken }) => {
     <div className="w-full space-y-8 py-2">
       <Form form={form} layout="vertical" requiredMark={false} className="space-y-6">
         <div className="max-w-3xl">
-          <h3 className="text-sm font-medium text-gray-900">Cache Settings</h3>
-          <p className="text-xs text-gray-500 mt-1">Configure Redis cache for Polyglot</p>
+          <h3 className="text-sm font-medium text-gray-900">Configurações do Cache</h3>
+          <p className="text-xs text-gray-500 mt-1">Configurar cache Redis para Polyglot</p>
         </div>
 
         <RedisTypeSelector

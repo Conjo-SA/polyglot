@@ -181,10 +181,10 @@ const HealthCheckDetails: React.FC<{ response: any }> = ({ response }) => {
                     <>
                       <tr>
                         <td colSpan={2} className="pt-4 pb-2 font-semibold text-red-600">
-                          Error Details
+                          Detalhes do Erro
                         </td>
                       </tr>
-                      <TableClickableErrorField label="Error Message" value={errorDetails.message} />
+                      <TableClickableErrorField label="Mensagem do Erro" value={errorDetails.message} />
                       <TableClickableErrorField label="Traceback" value={errorDetails.traceback} />
                     </>
                   )}
@@ -192,12 +192,12 @@ const HealthCheckDetails: React.FC<{ response: any }> = ({ response }) => {
                   {/* Always show cache details, regardless of error state */}
                   <tr>
                     <td colSpan={2} className="pt-4 pb-2 font-semibold">
-                      Cache Details
+                      Detalhes do Cache
                     </td>
                   </tr>
-                  <TableClickableErrorField label="Cache Configuration" value={String(parsedLitellmParams?.type)} />
-                  <TableClickableErrorField label="Ping Response" value={String(response.ping_response)} />
-                  <TableClickableErrorField label="Set Cache Response" value={response.set_cache_response || "N/A"} />
+                  <TableClickableErrorField label="Configuração do Cache" value={String(parsedLitellmParams?.type)} />
+                  <TableClickableErrorField label="Resposta do Ping" value={String(response.ping_response)} />
+                  <TableClickableErrorField label="Resposta do Cache" value={response.set_cache_response || "N/A"} />
                   <TableClickableErrorField
                     label="litellm_settings.cache_params"
                     value={JSON.stringify(parsedLitellmParams, null, 2)}
@@ -208,13 +208,13 @@ const HealthCheckDetails: React.FC<{ response: any }> = ({ response }) => {
                     <>
                       <tr>
                         <td colSpan={2} className="pt-4 pb-2 font-semibold">
-                          Redis Details
+                          Detalhes do Redis
                         </td>
                       </tr>
-                      <TableClickableErrorField label="Redis Host" value={redisDetails.redis_host || "N/A"} />
-                      <TableClickableErrorField label="Redis Port" value={redisDetails.redis_port || "N/A"} />
-                      <TableClickableErrorField label="Redis Version" value={redisDetails.redis_version || "N/A"} />
-                      <TableClickableErrorField label="Startup Nodes" value={redisDetails.startup_nodes || "N/A"} />
+                      <TableClickableErrorField label="Host do Redis" value={redisDetails.redis_host || "N/A"} />
+                      <TableClickableErrorField label="Porta do Redis" value={redisDetails.redis_port || "N/A"} />
+                      <TableClickableErrorField label="Versão do Redis" value={redisDetails.redis_version || "N/A"} />
+                      <TableClickableErrorField label="Nós de Inicialização" value={redisDetails.startup_nodes || "N/A"} />
                       <TableClickableErrorField label="Namespace" value={redisDetails.namespace || "N/A"} />
                     </>
                   )}

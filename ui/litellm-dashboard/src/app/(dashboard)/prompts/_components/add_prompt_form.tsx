@@ -39,12 +39,12 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
       const values = await form.validateFields();
 
       if (!accessToken) {
-        NotificationsManager.fromBackend("Access token is required");
+        NotificationsManager.fromBackend("Token de acesso é obrigatório");
         return;
       }
 
       if (promptIntegration === "dotprompt" && fileList.length === 0) {
-        NotificationsManager.fromBackend("Please upload a .prompt file");
+        NotificationsManager.fromBackend("Por favor, faça upload de um arquivo .prompt");
         return;
       }
 
@@ -73,7 +73,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
           };
         } catch (conversionError) {
           console.error("Error converting prompt file:", conversionError);
-          NotificationsManager.fromBackend("Failed to convert prompt file to JSON");
+          NotificationsManager.fromBackend("Falha ao converter arquivo de prompt para JSON");
           setLoading(false);
           return;
         }
@@ -87,7 +87,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
         onSuccess();
       } catch (createError) {
         console.error("Error creating prompt:", createError);
-        NotificationsManager.fromBackend("Failed to create prompt");
+        NotificationsManager.fromBackend("Falha ao criar prompt");
       }
     } catch (error) {
       console.error("Form validation error:", error);
@@ -99,7 +99,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
   const uploadProps: UploadProps = {
     beforeUpload: (file) => {
       if (!file.name.endsWith(".prompt")) {
-        NotificationsManager.fromBackend("Please upload a .prompt file");
+        NotificationsManager.fromBackend("Por favor, faça upload de um arquivo .prompt");
         return false;
       }
       return false; // Prevent automatic upload
@@ -115,7 +115,7 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
 
   return (
     <Modal
-      title="Add New Prompt"
+      title="Adicionar Novo Prompt"
       open={visible}
       onCancel={handleCancel}
       footer={[
@@ -123,27 +123,27 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
           Cancel
         </Button>,
         <Button key="submit" loading={loading} onClick={handleSubmit}>
-          Create Prompt
+          Criar Prompt
         </Button>,
       ]}
       width={600}
     >
       <Form form={form} layout="vertical" requiredMark={false}>
         <Form.Item
-          label="Prompt ID"
+          label="ID do Prompt"
           name="prompt_id"
           rules={[
-            { required: true, message: "Please enter a prompt ID" },
+            { required: true, message: "Por favor, insira um ID de prompt" },
             {
               pattern: /^[a-zA-Z0-9_-]+$/,
-              message: "Prompt ID can only contain letters, numbers, underscores, and hyphens",
+              message: "O ID do prompt pode conter apenas letras, números, sublinhados e hífens",
             },
           ]}
         >
-          <TextInput placeholder="Enter unique prompt ID (e.g., my_prompt_id)" />
+          <TextInput placeholder="Insira um ID único de prompt (ex: meu_prompt_id)" />
         </Form.Item>
 
-        <Form.Item label="Prompt Integration" name="prompt_integration" initialValue="dotprompt">
+        <Form.Item label="Integração de Prompt" name="prompt_integration" initialValue="dotprompt">
           <Select value={promptIntegration} onChange={setPromptIntegration}>
             <Option value="dotprompt">dotprompt</Option>
           </Select>
@@ -152,9 +152,9 @@ const AddPromptForm: React.FC<AddPromptFormProps> = ({ visible, onClose, accessT
         {promptIntegration === "dotprompt" && (
           <>
             <Divider />
-            <Form.Item label="Prompt File" extra="Upload a .prompt file that follows the Dotprompt specification">
+            <Form.Item label="Arquivo de Prompt" extra="Faça upload de um arquivo .prompt que siga a especificação do Dotprompt">
               <Upload {...uploadProps}>
-                <Button icon={<UploadOutlined />}>Select .prompt File</Button>
+                <Button icon={<UploadOutlined />}>Selecionar Arquivo .prompt</Button>
               </Upload>
               {fileList.length > 0 && <div className="mt-2 text-sm text-gray-600">Selected: {fileList[0].name}</div>}
             </Form.Item>

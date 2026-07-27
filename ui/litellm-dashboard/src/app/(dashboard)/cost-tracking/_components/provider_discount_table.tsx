@@ -84,7 +84,7 @@ const ProviderDiscountTable: React.FC<ProviderDiscountTableProps> = ({
           },
         },
         {
-          header: "Discount Percentage",
+          header: "Porcentagem do Desconto",
           cell: (row) => (
             <div className="flex items-center gap-2">
               {editingProvider === row.provider ? (

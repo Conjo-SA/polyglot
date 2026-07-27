@@ -1,6 +1,6 @@
 /**
- * Allow proxy admin to add other people to view global spend
- * Use this to avoid sharing master key with others
+ * Permitir que o administrador do proxy adicione outras pessoas para visualizar o gasto global
+ * Use isso para evitar compartilhar a chave mestra com outros
  */
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import {
@@ -196,10 +196,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
       children: (
         <>
           <Card>
-            <Title level={4}> ✨ Security Settings</Title>
+            <Title level={4}> ✨ Configurações de Segurança</Title>
             <Alert
-              message="SSO Configuration Deprecated"
-              description="Editing SSO Settings on this page is deprecated and will be removed in a future version. Please use the SSO Settings tab for SSO configuration."
+              message="Configuração de SSO Obsoleta"
+              description="Editar as Configurações de SSO nesta página está obsoleto e será removido em uma versão futura. Por favor, utilize a aba Configurações de SSO para configurar o SSO."
               type="warning"
               showIcon
             />
@@ -214,12 +214,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
             >
               <div>
                 <Button style={{ width: "150px" }} onClick={() => setIsAddSSOModalVisible(true)}>
-                  {ssoConfigured ? "Edit SSO Settings" : "Add SSO"}
+                  {ssoConfigured ? "Editar Configurações de SSO" : "Adicionar SSO"}
                 </Button>
               </div>
               <div>
                 <Button style={{ width: "150px" }} onClick={handleShowAllowedIPs}>
-                  Allowed IPs
+                  IPs Permitidos
                 </Button>
               </div>
               <div>
@@ -228,10 +228,10 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
                   onClick={() =>
                     premiumUser === true
                       ? setIsUIAccessControlModalVisible(true)
-                      : NotificationsManager.fromBackend("Only premium users can configure UI access control")
+                      : NotificationsManager.fromBackend("Apenas usuários premium podem configurar o controle de acesso à UI")
                   }
                 >
-                  UI Access Control
+                  Controle de Acesso à Interface
                 </Button>
               </div>
             </div>
@@ -251,16 +251,16 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
               ssoConfigured={ssoConfigured}
             />
             <Modal
-              title="Manage Allowed IP Addresses"
+              title="Gerenciar Endereços IP Permitidos"
               width={800}
               open={isAllowedIPModalVisible}
               onCancel={() => setIsAllowedIPModalVisible(false)}
               footer={[
                 <Button className="mx-1" key="add" onClick={() => setIsAddIPModalVisible(true)}>
-                  Add IP Address
+                  Adicionar Endereço IP
                 </Button>,
                 <Button key="close" onClick={() => setIsAllowedIPModalVisible(false)}>
-                  Close
+                  Fechar
                 </Button>,
               ]}
             >
@@ -289,41 +289,41 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
             </Modal>
 
             <Modal
-              title="Add Allowed IP Address"
+              title="Adicionar Endereço IP Permitido"
               open={isAddIPModalVisible}
               onCancel={() => setIsAddIPModalVisible(false)}
               footer={null}
             >
               <Form onFinish={handleAddIP}>
-                <Form.Item name="ip" rules={[{ required: true, message: "Please enter an IP address" }]}>
-                  <Input placeholder="Enter IP address" />
+                <Form.Item name="ip" rules={[{ required: true, message: "Por favor, informe um endereço IP" }]}>
+                  <Input placeholder="Informe o endereço IP" />
                 </Form.Item>
                 <Form.Item>
-                  <Button2 htmlType="submit">Add IP Address</Button2>
+                  <Button2 htmlType="submit">Adicionar Endereço IP</Button2>
                 </Form.Item>
               </Form>
             </Modal>
 
             <Modal
-              title="Confirm Delete"
+              title="Confirmar Exclusão"
               open={isDeleteIPModalVisible}
               onCancel={() => setIsDeleteIPModalVisible(false)}
               onOk={confirmDeleteIP}
               footer={[
                 <Button className="mx-1" key="delete" onClick={() => confirmDeleteIP()}>
-                  Yes
+                  Sim
                 </Button>,
                 <Button key="close" onClick={() => setIsDeleteIPModalVisible(false)}>
-                  Close
+                  Fechar
                 </Button>,
               ]}
             >
-              <Text>Are you sure you want to delete the IP address: {ipToDelete}?</Text>
+              <Text>Você tem certeza que deseja excluir o endereço IP: {ipToDelete}?</Text>
             </Modal>
 
             {/* UI Access Control Modal */}
             <Modal
-              title="UI Access Control Settings"
+              title="Configurações de Controle de Acesso à Interface"
               open={isUIAccessControlModalVisible}
               width={600}
               footer={null}
@@ -334,13 +334,13 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
                 accessToken={accessToken}
                 onSuccess={() => {
                   handleUIAccessControlOk();
-                  NotificationsManager.success("UI Access Control settings updated successfully");
+                  NotificationsManager.success("Configurações de controle de acesso à interface atualizadas com sucesso");
                 }}
               />
             </Modal>
           </div>
-          <Callout title="Login without SSO" color="teal">
-            If you need to login without sso, you can access{" "}
+          <Callout title="Login sem SSO" color="teal">
+            Se você precisar fazer login sem SSO, pode acessar{" "}
             <a href={nonSssoUrl} target="_blank" rel="noopener noreferrer">
               <b>{nonSssoUrl}</b>{" "}
             </a>
