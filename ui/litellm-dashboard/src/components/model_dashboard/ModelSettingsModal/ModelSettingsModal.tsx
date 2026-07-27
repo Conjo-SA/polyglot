@@ -49,11 +49,11 @@ const ModelSettingsModal: React.FC<ModelSettingsModalProps> = ({ isVisible, onCa
           onSuccess?.();
         },
         onError: (error) => {
-          NotificationsManager.fromBackend("Failed to save model storage settings: " + parseErrorMessage(error));
+          NotificationsManager.fromBackend("Falha ao salvar as configura��es de armazenamento do modelo: " + parseErrorMessage(error));
         },
       });
     } catch (error) {
-      NotificationsManager.fromBackend("Failed to save model storage settings: " + parseErrorMessage(error));
+      NotificationsManager.fromBackend("Falha ao salvar as configura��es de armazenamento do modelo: " + parseErrorMessage(error));
     }
   };
 
@@ -64,15 +64,15 @@ const ModelSettingsModal: React.FC<ModelSettingsModalProps> = ({ isVisible, onCa
 
   return (
     <Modal
-      title={<Typography.Title level={5}>Model Settings</Typography.Title>}
+      title={<Typography.Title level={5}>Configurações do Modelo</Typography.Title>}
       open={isVisible}
       footer={
         <Space>
           <Button onClick={handleCancel} disabled={isPending || isLoadingConfig}>
-            Cancel
+            Cancelar
           </Button>
           <Button type="primary" loading={isPending} disabled={isLoadingConfig} onClick={() => form.submit()}>
-            {isPending ? "Saving..." : "Save Settings"}
+            {isPending ? "Salvando..." : "Salvar Configurações"}
           </Button>
         </Space>
       }
@@ -86,11 +86,11 @@ const ModelSettingsModal: React.FC<ModelSettingsModalProps> = ({ isVisible, onCa
         initialValues={initialValues}
       >
         <Form.Item
-          label="Store Model in DB"
+          label="Armazenar Modelo no Banco de Dados"
           name="store_model_in_db"
           tooltip={
             proxyConfigData?.find((f) => f.field_name === "store_model_in_db")?.field_description ||
-            "If enabled, models and config are stored in and loaded from the database."
+            "Se ativado, modelos e configurações são armazenados e carregados do banco de dados."
           }
           valuePropName="checked"
         >

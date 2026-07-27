@@ -247,7 +247,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
       // Continue with the original flow (show instructions)
       handleShowInstructions(formValues);
     } catch (error: unknown) {
-      NotificationsManager.fromBackend("Failed to save SSO settings: " + parseErrorMessage(error));
+      NotificationsManager.fromBackend("Falha ao salvar as configurações SSO: " + parseErrorMessage(error));
     }
   };
 
@@ -288,10 +288,10 @@ const SSOModals: React.FC<SSOModalsProps> = ({
       // Close the main SSO modal and trigger refresh
       handleAddSSOOk();
 
-      NotificationsManager.success("SSO settings cleared successfully");
+      NotificationsManager.success("Configurações SSO limpas com sucesso");
     } catch (error) {
       console.error("Failed to clear SSO settings:", error);
-      NotificationsManager.fromBackend("Failed to clear SSO settings");
+      NotificationsManager.fromBackend("Falha ao limpar as configurações SSO");
     }
   };
 
@@ -315,7 +315,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
   return (
     <>
       <Modal
-        title={ssoConfigured ? "Edit SSO Settings" : "Add SSO"}
+        title={ssoConfigured ? "Editar Configurações SSO" : "Adicionar SSO"}
         open={isAddSSOModalVisible}
         width={800}
         footer={null}
@@ -331,9 +331,9 @@ const SSOModals: React.FC<SSOModalsProps> = ({
         >
           <>
             <Form.Item
-              label="SSO Provider"
+              label="Provedor SSO"
               name="sso_provider"
-              rules={[{ required: true, message: "Please select an SSO provider" }]}
+              rules={[{ required: true, message: "Por favor selecione um provedor SSO" }]}
             >
               <Select>
                 {Object.entries(ssoProviderLogoMap).map(([value, logo]) => (
@@ -369,27 +369,27 @@ const SSOModals: React.FC<SSOModalsProps> = ({
             </Form.Item>
 
             <Form.Item
-              label="Proxy Admin Email"
+              label="Email do Administrador do Proxy"
               name="user_email"
-              rules={[{ required: true, message: "Please enter the email of the proxy admin" }]}
+              rules={[{ required: true, message: "Por favor informe o e-mail do administrador do proxy" }]}
             >
               <TextInput />
             </Form.Item>
             <Form.Item
-              label="Proxy Base URL"
+              label="URL Base do Proxy"
               name="proxy_base_url"
               normalize={(value) => value?.trim()}
               rules={[
-                { required: true, message: "Please enter the proxy base url" },
+                { required: true, message: "Por favor informe a URL base do proxy" },
                 {
                   pattern: /^https?:\/\/.+/,
-                  message: "URL must start with http:// or https://",
+                  message: "A URL deve iniciar com http:// ou https://",
                 },
                 {
                   validator: (_, value) => {
                     // Only check for trailing slash if the URL starts with http:// or https://
                     if (value && /^https?:\/\/.+/.test(value) && value.endsWith("/")) {
-                      return Promise.reject("URL must not end with a trailing slash");
+                      return Promise.reject("A URL não deve terminar com barra");
                     }
                     return Promise.resolve();
                   },
@@ -406,7 +406,7 @@ const SSOModals: React.FC<SSOModalsProps> = ({
               {({ getFieldValue }) => {
                 const provider = getFieldValue("sso_provider");
                 return provider === "okta" || provider === "generic" ? (
-                  <Form.Item label="Use Role Mappings" name="use_role_mappings" valuePropName="checked">
+                  <Form.Item label="Usar Mapeamento de Funções" name="use_role_mappings" valuePropName="checked">
                     <Checkbox />
                   </Form.Item>
                 ) : null;
@@ -423,9 +423,9 @@ const SSOModals: React.FC<SSOModalsProps> = ({
                 const useRoleMappings = getFieldValue("use_role_mappings");
                 return useRoleMappings ? (
                   <Form.Item
-                    label="Group Claim"
+                    label="Grupo de Reivindicação"
                     name="group_claim"
-                    rules={[{ required: true, message: "Please enter the group claim" }]}
+                    rules={[{ required: true, message: "Por favor informe o grupo de reivindicação" }]}
                   >
                     <TextInput />
                   </Form.Item>
@@ -445,10 +445,10 @@ const SSOModals: React.FC<SSOModalsProps> = ({
                   <>
                     <Form.Item label="Default Role" name="default_role" initialValue="Internal User">
                       <Select>
-                        <Select.Option value="internal_user_viewer">Internal Viewer</Select.Option>
-                        <Select.Option value="internal_user">Internal User</Select.Option>
-                        <Select.Option value="proxy_admin_viewer">Admin Viewer</Select.Option>
-                        <Select.Option value="proxy_admin">Proxy Admin</Select.Option>
+                        <Select.Option value="internal_user_viewer">Visualizador Interno</Select.Option>
+                        <Select.Option value="internal_user">Usuário Interno</Select.Option>
+                        <Select.Option value="proxy_admin_viewer">Visualizador de Admin</Select.Option>
+                        <Select.Option value="proxy_admin">Administrador do Proxy</Select.Option>
                       </Select>
                     </Form.Item>
 
@@ -509,12 +509,12 @@ const SSOModals: React.FC<SSOModalsProps> = ({
 
       {/* Clear Confirmation Modal */}
       <Modal
-        title="Confirm Clear SSO Settings"
+        title="Confirmar Limpeza das Configurações SSO"
         open={isClearConfirmModalVisible}
         onOk={handleClearSSO}
         onCancel={() => setIsClearConfirmModalVisible(false)}
-        okText="Yes, Clear"
-        cancelText="Cancel"
+        okText="Sim, Limpar"
+        cancelText="Cancelar"
         okButtonProps={{
           danger: true,
           style: {
@@ -523,25 +523,25 @@ const SSOModals: React.FC<SSOModalsProps> = ({
           },
         }}
       >
-        <p>Are you sure you want to clear all SSO settings? This action cannot be undone.</p>
-        <p>Users will no longer be able to login using SSO after this change.</p>
+        <p>Tem certeza que deseja limpar todas as configurações SSO? Esta ação não pode ser desfeita.</p>
+        <p>Os usuários não poderão mais fazer login usando SSO após esta mudança.</p>
       </Modal>
 
       <Modal
-        title="SSO Setup Instructions"
+        title="Instruções de Configuração SSO"
         open={isInstructionsModalVisible}
         width={800}
         footer={null}
         onOk={handleInstructionsOk}
         onCancel={handleInstructionsCancel}
       >
-        <p>Follow these steps to complete the SSO setup:</p>
-        <Text className="mt-2">1. DO NOT Exit this TAB</Text>
-        <Text className="mt-2">2. Open a new tab, visit your proxy base url</Text>
-        <Text className="mt-2">3. Confirm your SSO is configured correctly and you can login on the new Tab</Text>
-        <Text className="mt-2">4. If Step 3 is successful, you can close this tab</Text>
+        <p>Siga estes passos para concluir a configuração SSO:</p>
+        <Text className="mt-2">1. NÃO SAIA DESTA ABA</Text>
+        <Text className="mt-2">2. Abra uma nova aba e visite a URL base do seu proxy</Text>
+        <Text className="mt-2">3. Confirme que o SSO está configurado corretamente e que você pode fazer login na nova aba</Text>
+        <Text className="mt-2">4. Se o Passo 3 for bem-sucedido, você pode fechar esta aba</Text>
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button2 onClick={handleInstructionsOk}>Done</Button2>
+          <Button2 onClick={handleInstructionsOk}>Concluído</Button2>
         </div>
       </Modal>
     </>

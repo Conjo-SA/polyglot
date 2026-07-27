@@ -68,11 +68,11 @@ const STATUS_DOT: Record<RunStatus, string> = {
 
 const RUN_STATUS_OPTIONS: RunStatus[] = ["pending", "running", "paused", "completed", "failed"];
 const STATUS_LABELS: Record<RunStatus, string> = {
-  pending: "Pending",
-  running: "Running",
-  paused: "Paused",
-  completed: "Completed",
-  failed: "Failed",
+  pending: "Pendente",
+  running: "Executando",
+  paused: "Pausado",
+  completed: "Completo",
+  failed: "Falhou",
 };
 
 const EVENT_COLOR: Record<string, { bar: string; border: string; text: string }> = {
@@ -631,9 +631,9 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
     >
       {/* page header */}
       <div style={{ marginBottom: 20 }}>
-        <div style={{ fontSize: 18, fontWeight: 600, color: "#18181b" }}>Workflow Runs</div>
+        <div style={{ fontSize: 18, fontWeight: 600, color: "#18181b" }}>Execuções de Fluxo de Trabalho</div>
         <div style={{ fontSize: 13, color: "#71717a", marginTop: 2 }}>
-          Durable state tracking for agents and automated workflows
+          Rastreamento de estado durável para agentes e fluxos de trabalho automatizados
         </div>
       </div>
 
@@ -642,10 +642,10 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
         columns={columns}
         getRowId={(run) => run.run_id}
         isLoading={loadingRuns}
-        loadingMessage="Loading workflow runs…"
+        loadingMessage="Carregando execuções de fluxo de trabalho…"
         noDataMessage={
           <Empty
-            description={<span style={{ color: "#a1a1aa", fontSize: 13 }}>No workflow runs yet</span>}
+            description={<span style={{ color: "#a1a1aa", fontSize: 13 }}>Nenhuma execução de fluxo de trabalho ainda</span>}
             image={Empty.PRESENTED_IMAGE_SIMPLE}
           />
         }
@@ -664,7 +664,7 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
               table={table}
               searchValue={globalFilter}
               onSearchChange={setGlobalFilter}
-              searchPlaceholder="Search runs…"
+              searchPlaceholder="Buscar execuções…"
               onRefresh={fetchRuns}
               isRefreshing={loadingRuns}
               onOpenFilters={() => setFiltersOpen(true)}
@@ -673,8 +673,8 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
               table={table}
               open={filtersOpen}
               onOpenChange={setFiltersOpen}
-              title="Filters"
-              description="Narrow down workflow runs"
+              title="Filtros"
+              description="Reduzir o número de execuções de fluxo de trabalho"
             >
               {({ get, set }) => (
                 <>
@@ -685,10 +685,10 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
                       onValueChange={(value: string | null) => set("status", value ?? "")}
                     >
                       <SelectTrigger className="w-full">
-                        <SelectValue placeholder="All statuses" />
+                        <SelectValue placeholder="Todos os status" />
                       </SelectTrigger>
                       <SelectContent>
-                        <SelectItem value={null}>All statuses</SelectItem>
+                        <SelectItem value={null}>Todos os status</SelectItem>
                         {RUN_STATUS_OPTIONS.map((status) => (
                           <SelectItem key={status} value={status}>
                             {STATUS_LABELS[status]}
@@ -697,11 +697,11 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
                       </SelectContent>
                     </Select>
                   </DataTableFilterField>
-                  <DataTableFilterField label="Type">
+                  <DataTableFilterField label="Tipo">
                     <Input
                       value={(get("workflow_type") as string) ?? ""}
                       onChange={(event) => set("workflow_type", event.target.value)}
-                      placeholder="Filter by type…"
+                      placeholder="Filtrar por tipo…"
                     />
                   </DataTableFilterField>
                 </>
@@ -755,7 +755,7 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
                   gap: 4,
                 }}
               >
-                ← close
+                ← fechar
               </button>
               <Button
                 size="small"
@@ -764,7 +764,7 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
                 loading={loadingDetail}
                 style={{ color: "#71717a", borderColor: "#e4e4e7" }}
               >
-                Refresh
+                Atualizar
               </Button>
             </div>
 
@@ -783,7 +783,7 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
                     <span style={{ fontSize: 12, fontWeight: 500, color: "#3f3f46" }}>
                       Timeline
                       <span style={{ marginLeft: 6, fontSize: 11, color: "#a1a1aa", fontWeight: 400 }}>
-                        {events.length} {events.length === 1 ? "event" : "events"}
+                        {events.length} {events.length === 1 ? "evento" : "eventos"}
                       </span>
                     </span>
                   ),
@@ -806,7 +806,7 @@ const WorkflowRuns: React.FC<WorkflowRunsProps> = ({ accessToken }) => {
                   children:
                     messages.length === 0 ? (
                       <div style={{ padding: "12px 4px", color: "#a1a1aa", fontSize: 12, fontFamily: "monospace" }}>
-                        No messages
+                        Sem mensagens
                       </div>
                     ) : (
                       <div style={{ paddingBottom: 4 }}>

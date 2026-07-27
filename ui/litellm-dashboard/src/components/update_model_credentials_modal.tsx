@@ -31,7 +31,7 @@ export default function UpdateModelCredentialsModal({
   const handleSubmit = async (values: { api_key?: string }) => {
     const apiKey = values.api_key?.trim();
     if (!apiKey) {
-      NotificationsManager.fromBackend("Enter a new API key");
+      NotificationsManager.fromBackend("Digite uma nova chave de API");
       return;
     }
     setIsSaving(true);
@@ -41,40 +41,39 @@ export default function UpdateModelCredentialsModal({
         { litellm_params: { api_key: apiKey }, model_info: { id: modelId } },
         modelId,
       );
-      NotificationsManager.success("API key updated");
+      NotificationsManager.success("Chave de API atualizada");
       form.resetFields();
       onUpdated();
       onCancel();
     } catch (error) {
       console.error("Error updating API key:", error);
-      NotificationsManager.fromBackend("Failed to update API key");
+      NotificationsManager.fromBackend("Falha ao atualizar a chave de API");
     } finally {
       setIsSaving(false);
     }
   };
 
   return (
-    <Modal title="Update API Key" open={open} onCancel={close} footer={null} width={520} destroyOnHidden={true}>
+    <Modal title="Atualizar Chave de API" open={open} onCancel={close} footer={null} width={520} destroyOnHidden={true}>
       <Text className="block mb-4 text-gray-500">
-        Update this model&apos;s API key. Only the new key is sent; the rest of the deployment configuration is left
-        untouched.
+        Atualize a chave de API deste modelo. Apenas a nova chave é enviada; o resto da configuração de implantação permanece intacto.
       </Text>
       <Alert
         type="warning"
         showIcon
         className="mb-4"
-        message="Only the API key is rotated here. Models that authenticate with an Azure AD token, AWS credentials, or a Vertex service-account JSON aren't supported yet; update those from the model's Polyglot Params for now."
+        message="Apenas a chave de API é atualizada aqui. Modelos que autenticam com um token do Azure AD, credenciais da AWS ou um JSON de conta de serviço do Vertex ainda não são compatíveis; atualize esses dados nos Parâmetros do Polyglot do modelo por enquanto."
       />
       <Form form={form} onFinish={handleSubmit} layout="vertical">
-        <Form.Item label="New API Key" name="api_key" rules={[{ required: true, message: "Enter a new API key" }]}>
-          <Input.Password placeholder="Enter the new API key" autoComplete="new-password" />
+        <Form.Item label="Nova Chave de API" name="api_key" rules={[{ required: true, message: "Digite uma nova chave de API" }]}>
+          <Input.Password placeholder="Digite a nova chave de API" autoComplete="new-password" />
         </Form.Item>
         <div className="flex justify-end items-center mt-4">
           <Button onClick={close} style={{ marginRight: 10 }}>
-            Cancel
+            Cancelar
           </Button>
           <Button type="primary" htmlType="submit" loading={isSaving}>
-            Update API Key
+            Atualizar Chave de API
           </Button>
         </div>
       </Form>

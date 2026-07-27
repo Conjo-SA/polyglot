@@ -127,8 +127,8 @@ export const prepareModelAddRequest = async (formValues: Record<string, any>, ac
                 delete litellmExtraParams.litellm_credential_name;
               }
             } catch (error) {
-              NotificationManager.fromBackend("Failed to parse Polyglot Extra Params: " + error);
-              throw new Error("Failed to parse litellm_extra_params: " + error);
+              NotificationManager.fromBackend("Falha ao analisar Parâmetros Adicionais do Polyglot: " + error);
+              throw new Error("Falha ao analisar litellm_extra_params: " + error);
             }
             for (const [key, value] of Object.entries(litellmExtraParams)) {
               litellmParamsObj[key] = value;
@@ -140,8 +140,8 @@ export const prepareModelAddRequest = async (formValues: Record<string, any>, ac
             try {
               modelInfoParams = JSON.parse(value);
             } catch (error) {
-              NotificationManager.fromBackend("Failed to parse Polyglot Extra Params: " + error);
-              throw new Error("Failed to parse litellm_extra_params: " + error);
+              NotificationManager.fromBackend("Falha ao analisar Parâmetros Adicionais do Polyglot: " + error);
+              throw new Error("Falha ao analisar litellm_extra_params: " + error);
             }
             for (const [key, value] of Object.entries(modelInfoParams)) {
               modelInfoObj[key] = value;
@@ -175,7 +175,7 @@ export const prepareModelAddRequest = async (formValues: Record<string, any>, ac
 
     return deployments;
   } catch (error) {
-    NotificationManager.fromBackend("Failed to create model: " + error);
+    NotificationManager.fromBackend("Falha ao criar modelo: " + error);
   }
 };
 
@@ -203,6 +203,6 @@ export const handleAddModelSubmit = async (values: any, accessToken: string, for
     callback && callback();
     form.resetFields();
   } catch (error) {
-    NotificationManager.fromBackend("Failed to add model: " + error);
+    NotificationManager.fromBackend("Falha ao adicionar modelo: " + error);
   }
 };

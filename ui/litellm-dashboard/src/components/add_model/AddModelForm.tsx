@@ -265,7 +265,7 @@ const AddModelForm: React.FC<AddModelFormProps> = ({
                         <>
                           <div className="flex items-center my-4">
                             <div className="grow border-t border-gray-200"></div>
-                            <span className="px-4 text-gray-500 text-sm">{t("addModel.or")}</span>
+                            <span className="px-4 text-gray-500 text-sm">Ou</span>
                             <div className="grow border-t border-gray-200"></div>
                           </div>
                           <ProviderSpecificFields selectedProvider={selectedProvider} uploadProps={uploadProps} />
@@ -277,7 +277,7 @@ const AddModelForm: React.FC<AddModelFormProps> = ({
                 </Form.Item>
                 <div className="flex items-center my-4">
                   <div className="grow border-t border-gray-200"></div>
-                  <span className="px-4 text-gray-500 text-sm">{t("addModel.additionalModelInfoSettings")}</span>
+                  <span className="px-4 text-gray-500 text-sm">Configurações Adicionais do Modelo</span>
                   <div className="grow border-t border-gray-200"></div>
                 </div>
                 {/* Team-only Model Switch - Only show for proxy admins, not team admins */}
