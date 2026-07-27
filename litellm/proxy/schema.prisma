@@ -1438,3 +1438,24 @@ model LiteLLM_WorkflowMessage {
   @@unique([run_id, sequence_number])
   @@index([run_id])
 }
+
+// Free trial registrations. Uniqueness on email, phone and name is enforced at
+// the DB level so concurrent registrations cannot create duplicates. Each row
+// tracks the delivery state of its welcome email for background retry.
+model LiteLLM_FreeTrialRegistration {
+  id                    String    @id @default(uuid())
+  email                 String    @unique
+  phone_normalized      String    @unique
+  name_normalized       String    @unique
+  name                  String
+  instagram             String
+  key_token             String
+  email_sent            Boolean   @default(false)
+  email_attempts        Int       @default(0)
+  email_last_error      String?
+  email_last_attempt_at DateTime?
+  created_at            DateTime  @default(now())
+  updated_at            DateTime  @updatedAt
+
+  @@index([email_sent])
+}

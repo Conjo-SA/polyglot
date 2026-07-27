@@ -3203,6 +3203,91 @@ export const getGeneralSettingsCall = async (accessToken: string) => {
   }
 };
 
+export interface EmailSettings {
+  smtp_host: string | null;
+  smtp_port: number;
+  smtp_username: string | null;
+  smtp_sender_email: string | null;
+  smtp_tls: boolean;
+  email_provider: string;
+  smtp_password_set: boolean;
+}
+
+export const getEmailSettingsCall = async (accessToken: string): Promise<EmailSettings> => {
+  try {
+    const url = proxyBaseUrl ? `${proxyBaseUrl}/email/settings` : `/email/settings`;
+    const response = await fetch(url, {
+      method: "GET",
+      headers: {
+        [globalLitellmHeaderName]: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      const errorMessage = deriveErrorMessage(errorData);
+      handleError(errorMessage);
+      throw new Error(errorMessage);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to get email settings:", error);
+    throw error;
+  }
+};
+
+export const updateEmailSettingsCall = async (
+  accessToken: string,
+  settings: {
+    smtp_host: string;
+    smtp_port: number;
+    smtp_username: string;
+    smtp_password?: string;
+    smtp_sender_email: string;
+    smtp_tls: boolean;
+    email_provider: string;
+  },
+): Promise<EmailSettings> => {
+  try {
+    const url = proxyBaseUrl ? `${proxyBaseUrl}/email/settings` : `/email/settings`;
+    const response = await fetch(url, {
+      method: "POST",
+      headers: {
+        [globalLitellmHeaderName]: `Bearer ${accessToken}`,
+        "Content-Type": "application/json",
+      },
+      body: JSON.stringify(settings),
+    });
+    if (!response.ok) {
+      const errorData = await response.json();
+      const errorMessage = deriveErrorMessage(errorData);
+      handleError(errorMessage);
+      throw new Error(errorMessage);
+    }
+    return await response.json();
+  } catch (error) {
+    console.error("Failed to update email settings:", error);
+    throw error;
+  }
+};
+
+export const testEmailSettingsCall = async (accessToken: string, testEmail: string): Promise<void> => {
+  const url = proxyBaseUrl ? `${proxyBaseUrl}/email/settings/test` : `/email/settings/test`;
+  const response = await fetch(url, {
+    method: "POST",
+    headers: {
+      [globalLitellmHeaderName]: `Bearer ${accessToken}`,
+      "Content-Type": "application/json",
+    },
+    body: JSON.stringify({ test_email: testEmail }),
+  });
+  if (!response.ok) {
+    const errorData = await response.json();
+    const errorMessage = deriveErrorMessage(errorData);
+    throw new Error(errorMessage);
+  }
+};
+
 export const getRouterSettingsCall = async (accessToken: string) => {
   try {
     const data = await apiClient.get(`/router/settings`, { accessToken });

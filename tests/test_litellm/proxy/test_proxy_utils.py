@@ -914,3 +914,63 @@ class TestSendEmailStartTls:
         assert isinstance(context, ssl.SSLContext)
         assert context.verify_mode == ssl.CERT_REQUIRED
         assert context.check_hostname is True
+
+
+class TestDocsUrlResolution:
+    """
+    Regression tests for API docs being disabled by default (Swagger/ReDoc/OpenAPI).
+    Docs must stay off unless ENABLE_DOCS is opted in, while explicit URL and
+    NO_* overrides keep working.
+    """
+
+    def _clear(self, monkeypatch):
+        for var in (
+            "ENABLE_DOCS",
+            "DOCS_URL",
+            "REDOC_URL",
+            "OPENAPI_URL",
+            "NO_DOCS",
+            "NO_REDOC",
+            "NO_OPENAPI",
+        ):
+            monkeypatch.delenv(var, raising=False)
+
+    def test_docs_disabled_by_default(self, monkeypatch):
+        from litellm.proxy.utils import _get_docs_url, _get_openapi_url, _get_redoc_url
+
+        self._clear(monkeypatch)
+        assert _get_docs_url() is None
+        assert _get_redoc_url() is None
+        assert _get_openapi_url() is None
+
+    def test_enable_docs_opts_all_in(self, monkeypatch):
+        from litellm.proxy.utils import _get_docs_url, _get_openapi_url, _get_redoc_url
+
+        self._clear(monkeypatch)
+        monkeypatch.setenv("ENABLE_DOCS", "true")
+        assert _get_docs_url() == "/"
+        assert _get_redoc_url() == "/redoc"
+        assert _get_openapi_url() == "/openapi.json"
+
+    def test_no_docs_forces_off_even_when_enabled(self, monkeypatch):
+        from litellm.proxy.utils import _get_docs_url, _get_openapi_url, _get_redoc_url
+
+        self._clear(monkeypatch)
+        monkeypatch.setenv("ENABLE_DOCS", "true")
+        monkeypatch.setenv("NO_DOCS", "true")
+        monkeypatch.setenv("NO_REDOC", "true")
+        monkeypatch.setenv("NO_OPENAPI", "true")
+        assert _get_docs_url() is None
+        assert _get_redoc_url() is None
+        assert _get_openapi_url() is None
+
+    def test_explicit_url_wins_without_enable_docs(self, monkeypatch):
+        from litellm.proxy.utils import _get_docs_url, _get_openapi_url, _get_redoc_url
+
+        self._clear(monkeypatch)
+        monkeypatch.setenv("DOCS_URL", "/custom-docs")
+        monkeypatch.setenv("REDOC_URL", "/custom-redoc")
+        monkeypatch.setenv("OPENAPI_URL", "/custom-openapi.json")
+        assert _get_docs_url() == "/custom-docs"
+        assert _get_redoc_url() == "/custom-redoc"
+        assert _get_openapi_url() == "/custom-openapi.json"

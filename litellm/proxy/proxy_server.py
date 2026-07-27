@@ -495,6 +495,8 @@ from litellm.proxy.pass_through_endpoints.pass_through_endpoints import (
 from litellm.proxy.pass_through_endpoints.pass_through_endpoints import (
     router as pass_through_router,
 )
+from litellm.proxy.management_endpoints.email_settings_endpoints import router as email_settings_router
+from litellm.proxy.management_endpoints.free_trial_endpoints import router as free_trial_router
 from litellm.proxy.public_endpoints import router as public_endpoints_router
 from litellm.proxy.rag_endpoints.endpoints import router as rag_router
 from litellm.proxy.rerank_endpoints.endpoints import router as rerank_router
@@ -1842,6 +1844,9 @@ app.add_middleware(SecurityHeadersMiddleware)
 
 
 def mount_swagger_ui():
+    if _get_docs_url() is None:
+        return
+
     swagger_directory = os.path.join(current_dir, "swagger")
     swagger_path = "/" if server_root_path is None else server_root_path
     if not swagger_path.endswith("/"):
@@ -1929,6 +1934,7 @@ mount_swagger_ui()
 
 docs_url = _get_docs_url()
 root_redirect_url: Optional[str] = os.getenv("ROOT_REDIRECT_URL")
+# Set up the root redirect whenever docs are not served at "/" (disabled or mounted elsewhere)
 if docs_url != "/" and root_redirect_url is not None:
 
     @app.get("/", include_in_schema=False)
@@ -8210,6 +8216,27 @@ class ProxyStartupEvent:
                 verbose_proxy_logger.warning(f"Failed to setup key rotation job: {e}")
         else:
             verbose_proxy_logger.debug("Key rotation disabled (set LITELLM_KEY_ROTATION_ENABLED=true to enable)")
+
+        if os.getenv("FREE_TRIAL_API_KEY") and prisma_client is not None:
+            try:
+                from litellm.proxy.common_utils.free_trial_email_retry_manager import (
+                    FreeTrialEmailRetryManager,
+                )
+
+                free_trial_email_retry_manager = FreeTrialEmailRetryManager(
+                    prisma_client,
+                    pod_lock_manager=proxy_logging_obj.db_spend_update_writer.pod_lock_manager,
+                )
+                scheduler.add_job(
+                    free_trial_email_retry_manager.process_pending,
+                    "interval",
+                    seconds=60,
+                    id="free_trial_email_retry_job",
+                    replace_existing=True,
+                    misfire_grace_time=APSCHEDULER_MISFIRE_GRACE_TIME,
+                )
+            except Exception as e:
+                verbose_proxy_logger.warning(f"Failed to setup free trial email retry job: {e}")
 
         await cls._initialize_expired_ui_session_key_cleanup_background_job(scheduler=scheduler)
 
@@ -16169,6 +16196,8 @@ async def get_routes():
 
 app.include_router(router)
 app.include_router(response_router)
+app.include_router(free_trial_router)
+app.include_router(email_settings_router)
 app.include_router(public_endpoints_router)
 app.include_router(rerank_router)
 app.include_router(ocr_router)

@@ -28,6 +28,7 @@ import HashicorpVault from "@/components/Settings/AdminSettings/HashicorpVault/H
 import PluginSettings from "@/components/Settings/AdminSettings/PluginSettings/PluginSettings";
 import SSOModals from "@/components/SSOModals";
 import UIAccessControlForm from "@/components/UIAccessControlForm";
+import EmailSettings from "@/components/Settings/AdminSettings/EmailSettings/EmailSettings";
 
 const { Title, Paragraph, Text } = Typography;
 
@@ -378,6 +379,11 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
       key: "plugins",
       label: "Plugins",
       children: <PluginSettings />,
+    },
+    {
+      key: "email-settings",
+      label: "Email Settings",
+      children: <EmailSettings accessToken={accessToken} />,
     },
   ];
 
