@@ -46,6 +46,7 @@ def mock_repo() -> MagicMock:
 def _patch_deps(monkeypatch, repo_instance, *, generate_key=None, send_email=None, prisma_client="db"):
     monkeypatch.setenv("FREE_TRIAL_API_KEY", "secret-123")
     monkeypatch.setenv("FREE_TRIAL_MODEL", "qwen3")
+    monkeypatch.setenv("LITELLM_SALT_KEY", "sk-salt-key-for-tests-0123456789")
 
     fake_proxy_server = MagicMock()
     fake_proxy_server.prisma_client = MagicMock() if prisma_client == "db" else None
@@ -104,19 +105,21 @@ def test_happy_path_creates_capped_key_and_hides_model(client, monkeypatch, mock
     assert kwargs["models"] == ["qwen3"]
     assert kwargs.get("team_id") is None
 
-    # registration persisted with normalized values
+    # registration persisted with normalized values and the key stored encrypted (not plaintext)
     _, create_kwargs = mock_repo.table.create.call_args
     data = create_kwargs["data"]
     assert data["email"] == "fulano@example.com"
     assert data["name_normalized"] == "fulano de tal"
     assert data["phone_normalized"] == "+5585999998888"
     assert data["instagram"] == "@fulano"
+    assert data["key_encrypted"] and data["key_encrypted"] != "sk-created-key"
 
-    # welcome email delivered to the provided address, containing name + instagram
+    # welcome email delivered to the provided address, containing name, instagram AND the key
     _, mail_kwargs = mail.call_args
     assert mail_kwargs["receiver_email"] == "fulano@example.com"
     assert "Fulano De Tal" in mail_kwargs["html"]
     assert "@fulano" in mail_kwargs["html"]
+    assert "sk-created-key" in mail_kwargs["html"]
     mock_repo.table.update.assert_awaited()  # marked email_sent
 
 

@@ -48,6 +48,7 @@ def _row(**kwargs):
         email="user@example.com",
         name="Fulano",
         instagram="@fulano",
+        key_encrypted=None,
         email_attempts=0,
         email_last_attempt_at=None,
     )
@@ -57,6 +58,7 @@ def _row(**kwargs):
 
 @pytest.fixture
 def repo_and_patches(monkeypatch):
+    monkeypatch.setenv("LITELLM_SALT_KEY", "sk-salt-key-for-tests-0123456789")
     repo = MagicMock()
     repo.table.update = AsyncMock()
     repo_factory = MagicMock(return_value=repo)
@@ -68,9 +70,12 @@ def repo_and_patches(monkeypatch):
 
 
 @pytest.mark.asyncio
-async def test_due_row_resent_and_marked_sent(monkeypatch, repo_and_patches):
+async def test_due_row_resent_with_decrypted_key_and_marked_sent(monkeypatch, repo_and_patches):
+    from litellm.proxy.common_utils.encrypt_decrypt_utils import encrypt_value_helper
+
     repo = repo_and_patches
-    repo.table.find_many = AsyncMock(return_value=[_row()])
+    encrypted = encrypt_value_helper("sk-retry-key")
+    repo.table.find_many = AsyncMock(return_value=[_row(key_encrypted=encrypted)])
     mail = AsyncMock()
     monkeypatch.setattr("litellm.proxy.utils.send_email", mail)
 
@@ -80,6 +85,7 @@ async def test_due_row_resent_and_marked_sent(monkeypatch, repo_and_patches):
     assert mail_kwargs["receiver_email"] == "user@example.com"
     assert "Fulano" in mail_kwargs["html"]
     assert "@fulano" in mail_kwargs["html"]
+    assert "sk-retry-key" in mail_kwargs["html"]  # the key is re-sent on retry
     _, update_kwargs = repo.table.update.call_args
     assert update_kwargs["data"] == {"email_sent": True}
 

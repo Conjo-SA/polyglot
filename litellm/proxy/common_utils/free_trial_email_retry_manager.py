@@ -74,14 +74,15 @@ class FreeTrialEmailRetryManager:
             await self._retry_row(repo, row)
 
     async def _retry_row(self, repo: Any, row: Any) -> None:
-        from litellm.proxy.management_endpoints.free_trial_endpoints import _welcome_email_html
+        from litellm.proxy.management_endpoints.free_trial_endpoints import _decrypt_key, _welcome_email_html
         from litellm.proxy.utils import send_email
 
+        api_key = _decrypt_key(getattr(row, "key_encrypted", None))
         try:
             sent = await send_email(
                 receiver_email=row.email,
                 subject="Seu acesso de teste ao Polyglot",
-                html=_welcome_email_html(name=row.name, instagram=row.instagram),
+                html=_welcome_email_html(name=row.name, instagram=row.instagram, api_key=api_key),
             )
             error = None if sent else "email delivery failed"
         except Exception as e:

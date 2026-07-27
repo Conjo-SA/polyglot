@@ -13,6 +13,7 @@ caller.
 """
 
 import hmac
+import html as html_lib
 import os
 import re
 from dataclasses import dataclass
@@ -31,6 +32,7 @@ _DEFAULT_FREE_TRIAL_MODEL = "qwen3"
 _DEFAULT_FREE_TRIAL_MAX_BUDGET = 5000.0
 _FREE_TRIAL_CURRENCY = "BRL"
 _NON_DIGITS = re.compile(r"\D")
+_DEFAULT_EMAIL_LOGO_URL = "https://litellm-listing.s3.amazonaws.com/litellm_logo.png"
 
 
 @dataclass(frozen=True, slots=True)
@@ -121,12 +123,63 @@ class FreeTrialRegistrationResponse(BaseModel):
     currency: str
 
 
-def _welcome_email_html(name: str, instagram: str) -> str:
-    return (
-        f"<p>Olá {name},</p>"
-        "<p>Seu acesso de teste ao Polyglot foi criado.</p>"
-        f"<p>Instagram: {instagram}</p>"
-        "<p>Atenciosamente,<br/>Equipe Polyglot</p>"
+def _welcome_email_html(name: str, instagram: str, api_key: Optional[str]) -> str:
+    """
+    Branded HTML welcome email. Uses a table-based layout with inline styles for
+    broad email-client compatibility. The logo is overridable via EMAIL_LOGO_URL.
+    User-supplied values are HTML-escaped.
+    """
+    logo_url = html_lib.escape(os.getenv("EMAIL_LOGO_URL", _DEFAULT_EMAIL_LOGO_URL))
+    safe_name = html_lib.escape(name)
+    safe_instagram = html_lib.escape(instagram)
+    font = "font-family:Arial,Helvetica,sans-serif;"
+
+    key_block = ""
+    if api_key:
+        safe_key = html_lib.escape(api_key)
+        key_block = "".join(
+            [
+                '<p style="margin:0 0 8px;font-size:13px;color:#6b7280;'
+                'text-transform:uppercase;letter-spacing:.05em;">Sua chave de acesso</p>',
+                '<div style="background:#0f172a;border-radius:10px;padding:16px 18px;margin:0 0 8px;">',
+                '<code style="font-family:Consolas,Menlo,monospace;font-size:15px;'
+                f'color:#a5b4fc;word-break:break-all;">{safe_key}</code></div>',
+                '<p style="margin:0 0 24px;font-size:13px;color:#9ca3af;">Guarde esta chave com '
+                "segurança. Ela é o seu acesso ao free trial e não será exibida novamente.</p>",
+            ]
+        )
+
+    header_style = "background:linear-gradient(135deg,#4f46e5 0%,#7c3aed 100%);padding:32px;text-align:center;"
+    card_style = (
+        "max-width:600px;width:100%;background:#ffffff;border-radius:16px;"
+        "overflow:hidden;box-shadow:0 1px 3px rgba(0,0,0,.08);"
+    )
+    return "".join(
+        [
+            '<!DOCTYPE html><html lang="pt-BR">',
+            '<body style="margin:0;padding:0;background:#f3f4f6;">',
+            '<table role="presentation" width="100%" cellpadding="0" cellspacing="0" '
+            'style="background:#f3f4f6;padding:32px 12px;"><tr><td align="center">',
+            '<table role="presentation" width="600" cellpadding="0" cellspacing="0" '
+            f'style="{card_style}">',
+            f'<tr><td style="{header_style}">',
+            f'<img src="{logo_url}" alt="Polyglot" height="40" style="height:40px;max-height:40px;" />',
+            "</td></tr>",
+            '<tr><td style="padding:36px 36px 12px;">',
+            f'<h1 style="margin:0 0 12px;{font}font-size:22px;color:#111827;">Olá {safe_name},</h1>',
+            f'<p style="margin:0 0 24px;{font}font-size:15px;line-height:1.6;color:#374151;">'
+            "Seu acesso de teste ao <strong>Polyglot</strong> está pronto. "
+            "Use a chave abaixo para começar a testar.</p>",
+            key_block,
+            f'<p style="margin:0 0 6px;{font}font-size:14px;color:#374151;">'
+            f"Instagram: <strong>{safe_instagram}</strong></p>",
+            "</td></tr>",
+            '<tr><td style="padding:24px 36px 36px;border-top:1px solid #f0f0f0;">',
+            f'<p style="margin:16px 0 0;{font}font-size:13px;color:#9ca3af;">'
+            "Enviado automaticamente pela equipe Polyglot. "
+            "Se você não solicitou este acesso, ignore este email.</p>",
+            "</td></tr></table></td></tr></table></body></html>",
+        ]
     )
 
 
@@ -170,8 +223,24 @@ async def _create_free_trial_key(config: FreeTrialConfig, name: str, email: str,
     return key_response.key
 
 
+def _encrypt_key(plaintext_key: str) -> str:
+    from litellm.proxy.common_utils.encrypt_decrypt_utils import encrypt_value_helper
+
+    return encrypt_value_helper(plaintext_key)
+
+
+def _decrypt_key(encrypted_key: Optional[str]) -> Optional[str]:
+    if not encrypted_key:
+        return None
+    from litellm.proxy.common_utils.encrypt_decrypt_utils import decrypt_value_helper
+
+    return decrypt_value_helper(
+        encrypted_key, key="free_trial_key", exception_type="debug", return_original_value=False
+    )
+
+
 async def _send_welcome_email(
-    prisma_client: object, registration_id: str, name: str, email: str, instagram: str
+    prisma_client: object, registration_id: str, name: str, email: str, instagram: str, api_key: Optional[str]
 ) -> None:
     """Best-effort welcome email. Records delivery state for background retry."""
     from litellm.proxy.utils import send_email
@@ -182,7 +251,7 @@ async def _send_welcome_email(
         sent = await send_email(
             receiver_email=email,
             subject="Seu acesso de teste ao Polyglot",
-            html=_welcome_email_html(name=name, instagram=instagram),
+            html=_welcome_email_html(name=name, instagram=instagram, api_key=api_key),
         )
         error: Optional[str] = None if sent else "email delivery failed"
     except Exception as email_error:
@@ -248,6 +317,7 @@ async def register_free_trial(
                 "name": request_data.name,
                 "instagram": request_data.instagram,
                 "key_token": _hash_key(plaintext_key),
+                "key_encrypted": _encrypt_key(plaintext_key),
             }
         )
     except Exception as create_error:
@@ -263,6 +333,7 @@ async def register_free_trial(
         name=request_data.name,
         email=normalized_email,
         instagram=request_data.instagram,
+        api_key=plaintext_key,
     )
 
     return FreeTrialRegistrationResponse(

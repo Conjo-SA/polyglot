@@ -1450,6 +1450,7 @@ model LiteLLM_FreeTrialRegistration {
   name                  String
   instagram             String
   key_token             String
+  key_encrypted         String?
   email_sent            Boolean   @default(false)
   email_attempts        Int       @default(0)
   email_last_error      String?
