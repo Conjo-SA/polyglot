@@ -123,13 +123,33 @@ class FreeTrialRegistrationResponse(BaseModel):
     currency: str
 
 
-def _welcome_email_html(name: str, instagram: str, api_key: Optional[str]) -> str:
+_LOGO_CID = "polyglot_logo"
+
+
+def _resolve_logo() -> tuple[str, dict[str, bytes]]:
+    """
+    Resolve the email logo. If EMAIL_LOGO_FILE points to a readable file, embed it
+    as an inline (cid) image straight from disk so no external link is needed;
+    otherwise fall back to a hosted URL (EMAIL_LOGO_URL, default LiteLLM logo).
+    Returns (img_src, inline_images).
+    """
+    logo_file = os.getenv("EMAIL_LOGO_FILE")
+    if logo_file:
+        try:
+            with open(logo_file, "rb") as f:
+                return f"cid:{_LOGO_CID}", {_LOGO_CID: f.read()}
+        except OSError as e:
+            verbose_proxy_logger.warning("EMAIL_LOGO_FILE not readable (%s): %s", logo_file, e)
+    return os.getenv("EMAIL_LOGO_URL", _DEFAULT_EMAIL_LOGO_URL), {}
+
+
+def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_src: str) -> str:
     """
     Branded HTML welcome email. Uses a table-based layout with inline styles for
-    broad email-client compatibility. The logo is overridable via EMAIL_LOGO_URL.
-    User-supplied values are HTML-escaped.
+    broad email-client compatibility. `logo_src` is either a hosted URL or a
+    cid: reference to an inline image. User-supplied values are HTML-escaped.
     """
-    logo_url = html_lib.escape(os.getenv("EMAIL_LOGO_URL", _DEFAULT_EMAIL_LOGO_URL))
+    logo_url = html_lib.escape(logo_src)
     safe_name = html_lib.escape(name)
     safe_instagram = html_lib.escape(instagram)
     font = "font-family:Arial,Helvetica,sans-serif;"
@@ -246,12 +266,14 @@ async def _send_welcome_email(
     from litellm.proxy.utils import send_email
     from litellm.repositories.table_repositories import FreeTrialRegistrationRepository
 
+    logo_src, inline_images = _resolve_logo()
     repo = FreeTrialRegistrationRepository(prisma_client)
     try:
         sent = await send_email(
             receiver_email=email,
             subject="Seu acesso de teste ao Polyglot",
-            html=_welcome_email_html(name=name, instagram=instagram, api_key=api_key),
+            html=_welcome_email_html(name=name, instagram=instagram, api_key=api_key, logo_src=logo_src),
+            inline_images=inline_images,
         )
         error: Optional[str] = None if sent else "email delivery failed"
     except Exception as email_error:

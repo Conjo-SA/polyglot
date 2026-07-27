@@ -12,6 +12,7 @@ import time
 import traceback
 from dataclasses import dataclass, field
 from datetime import date, datetime, timedelta, timezone
+from email.mime.image import MIMEImage
 from email.mime.multipart import MIMEMultipart
 from email.mime.text import MIMEText
 from typing import (
@@ -5012,6 +5013,7 @@ async def send_email(
     receiver_email: Optional[str] = None,
     subject: Optional[str] = None,
     html: Optional[str] = None,
+    inline_images: Optional[Dict[str, bytes]] = None,
 ) -> bool:
     """
     smtp_host,
@@ -5047,7 +5049,8 @@ async def send_email(
         raise ValueError(f"No HTML body provided for SMTP email. {html}")
 
     ## EMAIL SETUP ##
-    email_message = MIMEMultipart()
+    # "related" so inline (cid-referenced) images live alongside the HTML body
+    email_message = MIMEMultipart("related" if inline_images else "mixed")
     email_message["From"] = sender_email
     email_message["To"] = receiver_email
     email_message["Subject"] = subject
@@ -5059,6 +5062,12 @@ async def send_email(
 
     # Attach the body to the email
     email_message.attach(MIMEText(html, "html"))
+
+    for content_id, image_bytes in (inline_images or {}).items():
+        image_part = MIMEImage(image_bytes)
+        image_part.add_header("Content-ID", f"<{content_id}>")
+        image_part.add_header("Content-Disposition", "inline", filename=content_id)
+        email_message.attach(image_part)
 
     try:
         using_ssl = _should_use_smtp_ssl(smtp_port=smtp_port)

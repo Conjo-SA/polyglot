@@ -123,6 +123,21 @@ def test_happy_path_creates_capped_key_and_hides_model(client, monkeypatch, mock
     mock_repo.table.update.assert_awaited()  # marked email_sent
 
 
+def test_logo_embedded_from_repo_file_as_cid(client, monkeypatch, mock_repo, tmp_path):
+    logo = tmp_path / "polyglot.png"
+    logo.write_bytes(b"\x89PNG\r\n\x1a\nFAKELOGO")
+    monkeypatch.setenv("EMAIL_LOGO_FILE", str(logo))
+
+    _, mail = _patch_deps(monkeypatch, mock_repo)
+    resp = client.post("/free-trial/register", json=VALID_BODY, headers=VALID_HEADER)
+
+    assert resp.status_code == 200
+    _, mail_kwargs = mail.call_args
+    # image referenced by cid and shipped inline from the file, no external link
+    assert 'src="cid:polyglot_logo"' in mail_kwargs["html"]
+    assert mail_kwargs["inline_images"] == {"polyglot_logo": b"\x89PNG\r\n\x1a\nFAKELOGO"}
+
+
 def test_duplicate_returns_409_and_rolls_back_key(client, monkeypatch, mock_repo):
     mock_repo.table.create = AsyncMock(side_effect=Exception("Unique constraint failed on the fields: (`email`)"))
     delete_mock = AsyncMock()
