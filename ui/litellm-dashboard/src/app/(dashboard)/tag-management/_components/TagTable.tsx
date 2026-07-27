@@ -25,8 +25,8 @@ function EmptyState() {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Inbox className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">No tags yet</div>
-      <div className="text-sm text-muted-foreground">Create a tag to start routing and restricting model usage.</div>
+      <div className="text-sm font-medium text-foreground">Nenhuma tag ainda</div>
+      <div className="text-sm text-muted-foreground">Crie uma tag para começar a rotear e restringir o uso de modelos.</div>
     </div>
   );
 }

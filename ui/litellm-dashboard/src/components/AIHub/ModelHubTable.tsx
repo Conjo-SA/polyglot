@@ -396,10 +396,10 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
               <Title className="text-center">AI Hub</Title>
               {isAdminRole(userRole || "") ? (
                 <p className="text-sm text-gray-600">
-                  Make models, agents, and MCP servers public for developers to know what&apos;s available.
+                  Torne modelos, agentes e servidores MCP públicos para que desenvolvedores saibam o que está disponível.
                 </p>
               ) : (
-                <p className="text-sm text-gray-600">A list of all public model names personally available to you.</p>
+                <p className="text-sm text-gray-600">Uma lista de todos os nomes de modelos públicos disponíveis para você.</p>
               )}
             </div>
             <div className="flex items-center space-x-4">
@@ -427,10 +427,10 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
           {/* Tab System for Model Hub, Agent Hub, MCP Hub, and Plugin Marketplace */}
           <TabGroup>
             <TabList className="mb-4">
-              <Tab>Model Hub</Tab>
-              <Tab>Agent Hub</Tab>
-              <Tab>MCP Hub</Tab>
-              <Tab>Skill Hub</Tab>
+              <Tab>Hub de Modelos</Tab>
+              <Tab>Hub de Agentes</Tab>
+              <Tab>Hub MCP</Tab>
+              <Tab>Hub de Habilidades</Tab>
             </TabList>
 
             <TabPanels>
@@ -441,7 +441,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   {/* Header with Make Public Button */}
                   {publicPage == false && canModify && (
                     <div className="flex justify-end mb-4">
-                      <Button onClick={() => handleMakePublicPage()}>Select Models to Make Public</Button>
+                      <Button onClick={() => handleMakePublicPage()}>Selecionar Modelos para Tornar Públicos</Button>
                     </div>
                   )}
 
@@ -460,11 +460,11 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                     loadingMessage="Loading models…"
                     noDataMessage={
                       <HubEmptyState
-                        title={modelHubData?.length ? "No matching models" : "No models yet"}
+                        title={modelHubData?.length ? "Nenhum modelo correspondente" : "Ainda não há modelos"}
                         body={
                           modelHubData?.length
-                            ? "Adjust the filters to see more models."
-                            : "Models added to this proxy will appear here."
+                            ? "Ajuste os filtros para ver mais modelos."
+                            : "Modelos adicionados a este proxy aparecerão aqui."
                         }
                       />
                     }
@@ -474,7 +474,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
 
                 <div className="mt-4 text-center space-y-2">
                   <Text className="text-sm text-gray-600">
-                    Showing {filteredData.length} of {modelHubData?.length || 0} models
+                    Mostrando {filteredData.length} de {modelHubData?.length || 0} modelos
                   </Text>
                 </div>
               </TabPanel>
@@ -485,7 +485,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   {/* Header with Make Public Button */}
                   {publicPage == false && canModify && (
                     <div className="flex justify-end mb-4">
-                      <Button onClick={() => handleMakeAgentPublicPage()}>Select Agents to Make Public</Button>
+                      <Button onClick={() => handleMakeAgentPublicPage()}>Selecionar Agentes para Tornar Públicos</Button>
                     </div>
                   )}
 
@@ -500,7 +500,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                     isLoading={agentLoading}
                     loadingMessage="Loading agents…"
                     noDataMessage={
-                      <HubEmptyState title="No agents yet" body="Agents added to this proxy will appear here." />
+                      <HubEmptyState title="Ainda não há agentes" body="Agentes adicionados a este proxy aparecerão aqui." />
                     }
                     size="compact"
                   />
@@ -508,7 +508,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
 
                 <div className="mt-4 text-center space-y-2">
                   <Text className="text-sm text-gray-600">
-                    Showing {agentHubData?.length || 0} agent{agentHubData?.length !== 1 ? "s" : ""}
+                    Mostrando {agentHubData?.length || 0} agente{agentHubData?.length !== 1 ? "ns" : ""}
                   </Text>
                 </div>
               </TabPanel>
@@ -519,7 +519,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   {/* Header with Make Public Button */}
                   {publicPage == false && canModify && (
                     <div className="flex justify-end mb-4">
-                      <Button onClick={() => handleMakeMcpPublicPage()}>Select MCP Servers to Make Public</Button>
+                      <Button onClick={() => handleMakeMcpPublicPage()}>Selecionar Servidores MCP para Tornar Públicos</Button>
                     </div>
                   )}
 
@@ -535,8 +535,8 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                     loadingMessage="Loading MCP servers…"
                     noDataMessage={
                       <HubEmptyState
-                        title="No MCP servers yet"
-                        body="MCP servers added to this proxy will appear here."
+                        title="Ainda não há servidores MCP"
+                        body="Servidores MCP adicionados a este proxy aparecerão aqui."
                       />
                     }
                     size="compact"
@@ -545,7 +545,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
 
                 <div className="mt-4 text-center space-y-2">
                   <Text className="text-sm text-gray-600">
-                    Showing {mcpHubData?.length || 0} MCP server{mcpHubData?.length !== 1 ? "s" : ""}
+                    Mostrando {mcpHubData?.length || 0} servidor{mcpHubData?.length !== 1 ? "es" : ""}
                   </Text>
                 </div>
               </TabPanel>
@@ -554,7 +554,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
               <TabPanel>
                 {publicPage == false && canModify && (
                   <div className="flex justify-end mb-4">
-                    <Button onClick={() => setIsMakeSkillPublicModalVisible(true)}>Select Skills to Make Public</Button>
+                    <Button onClick={() => setIsMakeSkillPublicModalVisible(true)}>Selecionar Habilidades para Tornar Públicas</Button>
                   </div>
                 )}
                 <SkillHubDashboard
@@ -574,14 +574,14 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
         </div>
       ) : (
         <Card className="mx-auto max-w-xl mt-10">
-          <Text className="text-xl text-center mb-2 text-black">Public Model Hub not enabled.</Text>
-          <p className="text-base text-center text-slate-800">Ask your proxy admin to enable this on their Admin UI.</p>
+          <Text className="text-xl text-center mb-2 text-black">Hub de Modelos Público não habilitado.</Text>
+          <p className="text-base text-center text-slate-800">Peça ao administrador do proxy para habilitar isso na Interface Administrativa.</p>
         </Card>
       )}
 
       {/* Public Page Modal */}
       <Modal
-        title="Public Model Hub"
+        title="Hub de Modelos Público"
         width={600}
         open={isPublicPageModalVisible}
         footer={null}
@@ -590,13 +590,13 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
       >
         <div className="pt-5 pb-5">
           <div className="flex justify-between mb-4">
-            <Text className="text-base mr-2">Shareable Link:</Text>
+            <Text className="text-base mr-2">Link Compartilhável:</Text>
             <Text className="max-w-sm ml-2 bg-gray-200 pr-2 pl-2 pt-1 pb-1 text-center rounded-sm">
               {`${getProxyBaseUrl()}/ui/model_hub_table`}
             </Text>
           </div>
           <div className="flex justify-end">
-            <Button onClick={goToPublicModelPage}>See Page</Button>
+            <Button onClick={goToPublicModelPage}>Ver Página</Button>
           </div>
         </div>
       </Modal>
@@ -614,18 +614,18 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
           <div className="space-y-6">
             {/* Model Overview */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Model Overview</Text>
+              <Text className="text-lg font-semibold mb-4">Visão Geral do Modelo</Text>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                  <Text className="font-medium">Model Group:</Text>
+                  <Text className="font-medium">Grupo do Modelo:</Text>
                   <Text>{selectedModel.model_group}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Mode:</Text>
+                  <Text className="font-medium">Modo:</Text>
                   <Text>{selectedModel.mode || "Not specified"}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Providers:</Text>
+                  <Text className="font-medium">Provedores:</Text>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {selectedModel.providers.map((provider) => (
                       <Badge key={provider} color="blue">
@@ -639,18 +639,18 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
 
             {/* Token and Cost Information */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Token & Cost Information</Text>
+              <Text className="text-lg font-semibold mb-4">Informações de Tokens e Custos</Text>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Text className="font-medium">Max Input Tokens:</Text>
+                  <Text className="font-medium">Tokens Máximos de Entrada:</Text>
                   <Text>{selectedModel.max_input_tokens?.toLocaleString() || "Not specified"}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Max Output Tokens:</Text>
+                  <Text className="font-medium">Tokens Máximos de Saída:</Text>
                   <Text>{selectedModel.max_output_tokens?.toLocaleString() || "Not specified"}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Input Cost per 1M Tokens:</Text>
+                  <Text className="font-medium">Custo de Entrada por 1M Tokens:</Text>
                   <Text>
                     {selectedModel.input_cost_per_token
                       ? formatCost(selectedModel.input_cost_per_token)
@@ -658,7 +658,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   </Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Output Cost per 1M Tokens:</Text>
+                  <Text className="font-medium">Custo de Saída por 1M Tokens:</Text>
                   <Text>
                     {selectedModel.output_cost_per_token
                       ? formatCost(selectedModel.output_cost_per_token)
@@ -670,14 +670,14 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
 
             {/* Capabilities */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Capabilities</Text>
+              <Text className="text-lg font-semibold mb-4">Recursos</Text>
               <div className="flex flex-wrap gap-2">
                 {(() => {
                   const capabilities = getModelCapabilities(selectedModel);
                   const colors = ["green", "blue", "purple", "orange", "red", "yellow"];
 
                   if (capabilities.length === 0) {
-                    return <Text className="text-gray-500">No special capabilities listed</Text>;
+                    return <Text className="text-gray-500">Nenhum recurso especial listado</Text>;
                   }
 
                   return capabilities.map((capability, index) => (
@@ -692,17 +692,17 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
             {/* Rate Limits */}
             {(selectedModel.tpm || selectedModel.rpm) && (
               <div>
-                <Text className="text-lg font-semibold mb-4">Rate Limits</Text>
+                <Text className="text-lg font-semibold mb-4">Limites de Taxa</Text>
                 <div className="grid grid-cols-2 gap-4">
                   {selectedModel.tpm && (
                     <div>
-                      <Text className="font-medium">Tokens per Minute:</Text>
+                      <Text className="font-medium">Tokens por Minuto:</Text>
                       <Text>{selectedModel.tpm.toLocaleString()}</Text>
                     </div>
                   )}
                   {selectedModel.rpm && (
                     <div>
-                      <Text className="font-medium">Requests per Minute:</Text>
+                      <Text className="font-medium">Requisições por Minuto:</Text>
                       <Text>{selectedModel.rpm.toLocaleString()}</Text>
                     </div>
                   )}
@@ -713,7 +713,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
             {/* Supported OpenAI Parameters */}
             {selectedModel.supported_openai_params && (
               <div>
-                <Text className="text-lg font-semibold mb-4">Supported OpenAI Parameters</Text>
+                <Text className="text-lg font-semibold mb-4">Parâmetros Suportados do OpenAI</Text>
                 <div className="flex flex-wrap gap-2">
                   {selectedModel.supported_openai_params.map((param) => (
                     <Badge key={param} color="green">
@@ -726,13 +726,13 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
 
             {/* Usage Example */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Usage Example</Text>
+              <Text className="text-lg font-semibold mb-4">Exemplo de Uso</Text>
               <SyntaxHighlighter language="python" className="text-sm">
                 {`import openai
 
 client = openai.OpenAI(
-    api_key="your_api_key",
-    base_url="${getProxyBaseUrl()}"  # Your Polyglot Proxy URL
+    api_key="sua_chave_de_api",
+    base_url="${getProxyBaseUrl()}"  # Sua URL do Proxy Polyglot
 )
 
 response = client.chat.completions.create(
@@ -740,7 +740,7 @@ response = client.chat.completions.create(
     messages=[
         {
             "role": "user",
-            "content": "Hello, how are you?"
+            "content": "Olá, como você está?"
         }
     ]
 )
@@ -765,18 +765,18 @@ print(response.choices[0].message.content)`}
           <div className="space-y-6">
             {/* Agent Overview */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Agent Overview</Text>
+              <Text className="text-lg font-semibold mb-4">Visão Geral do Agente</Text>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                  <Text className="font-medium">Name:</Text>
+                  <Text className="font-medium">Nome:</Text>
                   <Text>{selectedAgent.name}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Version:</Text>
+                  <Text className="font-medium">Versão:</Text>
                   <Badge color="blue">v{selectedAgent.version}</Badge>
                 </div>
                 <div>
-                  <Text className="font-medium">Protocol Version:</Text>
+                  <Text className="font-medium">Versão do Protocolo:</Text>
                   <Text>{selectedAgent.protocolVersion}</Text>
                 </div>
                 <div>
@@ -814,10 +814,10 @@ print(response.choices[0].message.content)`}
 
             {/* Input/Output Modes */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Input/Output Modes</Text>
+              <Text className="text-lg font-semibold mb-4">Modos de Entrada/Saída</Text>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Text className="font-medium">Input Modes:</Text>
+                  <Text className="font-medium">Modos de Entrada:</Text>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {selectedAgent.defaultInputModes?.map((mode) => (
                       <Badge key={mode} color="blue">
@@ -827,7 +827,7 @@ print(response.choices[0].message.content)`}
                   </div>
                 </div>
                 <div>
-                  <Text className="font-medium">Output Modes:</Text>
+                  <Text className="font-medium">Modos de Saída:</Text>
                   <div className="flex flex-wrap gap-1 mt-1">
                     {selectedAgent.defaultOutputModes?.map((mode) => (
                       <Badge key={mode} color="purple">
@@ -842,7 +842,7 @@ print(response.choices[0].message.content)`}
             {/* Skills */}
             {selectedAgent.skills && selectedAgent.skills.length > 0 && (
               <div>
-                <Text className="text-lg font-semibold mb-4">Skills</Text>
+                <Text className="text-lg font-semibold mb-4">Habilidades</Text>
                 <div className="space-y-4">
                   {selectedAgent.skills.map((skill) => (
                     <div key={skill.id} className="border border-gray-200 rounded-sm p-4">
@@ -864,7 +864,7 @@ print(response.choices[0].message.content)`}
                       <Text className="text-sm mb-2">{skill.description}</Text>
                       {skill.examples && skill.examples.length > 0 && (
                         <div>
-                          <Text className="text-xs font-medium text-gray-700">Examples:</Text>
+                          <Text className="font-medium">Exemplos:</Text>
                           <div className="flex flex-wrap gap-1 mt-1">
                             {skill.examples.map((example, idx) => (
                               <Badge key={idx} color="gray" size="xs">
@@ -883,7 +883,7 @@ print(response.choices[0].message.content)`}
             {/* Additional Properties */}
             {selectedAgent.supportsAuthenticatedExtendedCard && (
               <div>
-                <Text className="text-lg font-semibold mb-4">Additional Features</Text>
+                <Text className="text-lg font-semibold mb-4">Recursos Adicionais</Text>
                 <Badge color="green">Supports Authenticated Extended Card</Badge>
               </div>
             )}
@@ -904,14 +904,14 @@ print(response.choices[0].message.content)`}
           <div className="space-y-6">
             {/* Server Overview */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Server Overview</Text>
+              <Text className="text-lg font-semibold mb-4">Visão Geral do Servidor</Text>
               <div className="grid grid-cols-2 gap-4 mb-4">
                 <div>
-                  <Text className="font-medium">Server Name:</Text>
+                  <Text className="font-medium">Nome do Servidor:</Text>
                   <Text>{selectedMcpServer.server_name}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Server ID:</Text>
+                  <Text className="font-medium">ID do Servidor:</Text>
                   <div className="flex items-center space-x-2">
                     <Text className="text-xs truncate">{selectedMcpServer.server_id}</Text>
                     <CopyOutlined
@@ -927,11 +927,11 @@ print(response.choices[0].message.content)`}
                   </div>
                 )}
                 <div>
-                  <Text className="font-medium">Transport:</Text>
+                  <Text className="font-medium">Transporte:</Text>
                   <Badge color="blue">{selectedMcpServer.transport}</Badge>
                 </div>
                 <div>
-                  <Text className="font-medium">Auth Type:</Text>
+                  <Text className="font-medium">Tipo de Autenticação:</Text>
                   <Badge color={selectedMcpServer.auth_type === "none" ? "gray" : "green"}>
                     {selectedMcpServer.auth_type}
                   </Badge>
@@ -961,11 +961,11 @@ print(response.choices[0].message.content)`}
 
             {/* Connection Details */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Connection Details</Text>
+              <Text className="text-lg font-semibold mb-4">Detalhes da Conexão</Text>
               <div className="space-y-2">
                 {selectedMcpServer.command && (
                   <div>
-                    <Text className="font-medium">Command:</Text>
+                    <Text className="font-medium">Comando:</Text>
                     <Text className="text-sm bg-gray-100 p-2 rounded-sm mt-1 font-mono">
                       {selectedMcpServer.command}
                     </Text>
@@ -977,7 +977,7 @@ print(response.choices[0].message.content)`}
             {/* Tools */}
             {selectedMcpServer.allowed_tools && selectedMcpServer.allowed_tools.length > 0 && (
               <div>
-                <Text className="text-lg font-semibold mb-4">Allowed Tools</Text>
+                <Text className="text-lg font-semibold mb-4">Ferramentas Permitidas</Text>
                 <div className="flex flex-wrap gap-2">
                   {selectedMcpServer.allowed_tools.map((tool, idx) => (
                     <Badge key={idx} color="purple">
@@ -991,7 +991,7 @@ print(response.choices[0].message.content)`}
             {/* Teams */}
             {selectedMcpServer.teams && selectedMcpServer.teams.length > 0 && (
               <div>
-                <Text className="text-lg font-semibold mb-4">Teams</Text>
+                <Text className="text-lg font-semibold mb-4">Equipes</Text>
                 <div className="flex flex-wrap gap-2">
                   {selectedMcpServer.teams.map((team, idx) => (
                     <Badge key={idx} color="blue">
@@ -1005,7 +1005,7 @@ print(response.choices[0].message.content)`}
             {/* Access Groups */}
             {selectedMcpServer.mcp_access_groups && selectedMcpServer.mcp_access_groups.length > 0 && (
               <div>
-                <Text className="text-lg font-semibold mb-4">Access Groups</Text>
+                <Text className="text-lg font-semibold mb-4">Grupos de Acesso</Text>
                 <div className="flex flex-wrap gap-2">
                   {selectedMcpServer.mcp_access_groups.map((group, idx) => (
                     <Badge key={idx} color="green">
@@ -1018,27 +1018,27 @@ print(response.choices[0].message.content)`}
 
             {/* Metadata */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Metadata</Text>
+              <Text className="text-lg font-semibold mb-4">Metadados</Text>
               <div className="grid grid-cols-2 gap-4">
                 <div>
-                  <Text className="font-medium">Created By:</Text>
+                  <Text className="font-medium">Criado Por:</Text>
                   <Text>{selectedMcpServer.created_by}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Updated By:</Text>
+                  <Text className="font-medium">Atualizado Por:</Text>
                   <Text>{selectedMcpServer.updated_by}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Created At:</Text>
+                  <Text className="font-medium">Criado Em:</Text>
                   <Text className="text-sm">{new Date(selectedMcpServer.created_at).toLocaleString()}</Text>
                 </div>
                 <div>
-                  <Text className="font-medium">Updated At:</Text>
+                  <Text className="font-medium">Atualizado Em:</Text>
                   <Text className="text-sm">{new Date(selectedMcpServer.updated_at).toLocaleString()}</Text>
                 </div>
                 {selectedMcpServer.last_health_check && (
                   <div>
-                    <Text className="font-medium">Last Health Check:</Text>
+                    <Text className="font-medium">Última Verificação de Saúde:</Text>
                     <Text className="text-sm">{new Date(selectedMcpServer.last_health_check).toLocaleString()}</Text>
                   </div>
                 )}
@@ -1053,12 +1053,12 @@ print(response.choices[0].message.content)`}
 
             {/* Usage Example */}
             <div>
-              <Text className="text-lg font-semibold mb-4">Usage Example</Text>
+              <Text className="text-lg font-semibold mb-4">Exemplo de Uso</Text>
               <SyntaxHighlighter language="python" className="text-sm">
                 {`from fastmcp import Client
 import asyncio
 
-# Standard MCP configuration
+# Configuração padrão do MCP
 config = {
     "mcpServers": {
         "${selectedMcpServer.server_name}": {
@@ -1070,21 +1070,21 @@ config = {
     }
 }
 
-# Create a client that connects to the server
+# Cria um cliente que se conecta ao servidor
 client = Client(config)
 
 async def main():
     async with client:
-        # List available tools
+        # Lista as ferramentas disponíveis
         tools = await client.list_tools()
-        print(f"Available tools: {[tool.name for tool in tools]}")
+        print(f"Ferramentas disponíveis: {[tool.name for tool in tools]}")
 
-        # Call a tool
+        # Chama uma ferramenta
         response = await client.call_tool(
-            name="tool_name",
-            arguments={"arg": "value"}
+            name="nome_da_ferramenta",
+            arguments={"arg": "valor"}
         )
-        print(f"Response: {response}")
+        print(f"Resposta: {response}")
 
 if __name__ == "__main__":
     asyncio.run(main())`}

@@ -63,7 +63,7 @@ function ModelHubRowActions({ model, onModelClick }: ModelHubRowActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Open model actions"
+        aria-label="Abrir ações do modelo"
         data-testid={`model-hub-actions-${model.model_group}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -72,14 +72,14 @@ function ModelHubRowActions({ model, onModelClick }: ModelHubRowActionsProps) {
       <DropdownMenuContent align="end" className="w-52">
         <DropdownMenuItem data-testid="model-hub-action-details" onClick={() => onModelClick(model)}>
           <Info />
-          View details
+          Ver detalhes
         </DropdownMenuItem>
         <DropdownMenuItem
           data-testid="model-hub-action-copy"
-          onClick={() => void copyToClipboard(model.model_group, "Model name copied")}
+          onClick={() => void copyToClipboard(model.model_group, "Nome do modelo copiado")}
         >
           <Copy />
-          Copy model name
+          Copiar nome do modelo
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -94,8 +94,8 @@ export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDe
   {
     id: "model_group",
     accessorKey: "model_group",
-    meta: { title: "Public Model Name" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Public Model Name" />,
+    meta: { title: "Nome do Modelo Público" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Nome do Modelo Público" />,
     size: 220,
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -106,8 +106,8 @@ export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDe
   {
     id: "providers",
     accessorKey: "providers",
-    meta: { title: "Provider", skeleton: "chips", className: "hidden md:table-cell" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Provider" />,
+    meta: { title: "Provedor", skeleton: "chips", className: "hidden md:table-cell" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Provedor" />,
     size: 150,
     enableSorting: true,
     sortingFn: (rowA, rowB) => rowA.original.providers.join(", ").localeCompare(rowB.original.providers.join(", ")),
@@ -128,8 +128,8 @@ export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDe
   {
     id: "mode",
     accessorKey: "mode",
-    meta: { title: "Mode", className: "hidden lg:table-cell" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Mode" />,
+    meta: { title: "Modo", className: "hidden lg:table-cell" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Modo" />,
     size: 110,
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -165,8 +165,8 @@ export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDe
   {
     id: "input_cost_per_token",
     accessorKey: "input_cost_per_token",
-    meta: { title: "Cost/1M", skeleton: "twoLine" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Cost/1M" />,
+    meta: { title: "Custo/1M", skeleton: "twoLine" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Custo/1M" />,
     size: 110,
     enableSorting: true,
     sortingFn: (rowA, rowB) => {
@@ -188,8 +188,8 @@ export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDe
   },
   {
     id: "capabilities",
-    meta: { title: "Features", skeleton: "chips" },
-    header: "Features",
+    meta: { title: "Recursos", skeleton: "chips" },
+    header: "Recursos",
     size: 220,
     enableSorting: false,
     cell: ({ row }) => {
@@ -211,8 +211,8 @@ export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDe
   {
     id: "is_public_model_group",
     accessorKey: "is_public_model_group",
-    meta: { title: "Public", skeleton: "badge", className: "hidden md:table-cell" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Public" />,
+    meta: { title: "Público", skeleton: "badge", className: "hidden md:table-cell" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Público" />,
     size: 100,
     enableSorting: true,
     sortingFn: (rowA, rowB) => {
@@ -222,9 +222,9 @@ export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDe
     },
     cell: ({ row }) =>
       row.original.is_public_model_group === true ? (
-        <StatusBadge tone="success" label="Yes" />
+        <StatusBadge tone="success" label="Sim" />
       ) : (
-        <StatusBadge tone="neutral" label="No" />
+        <StatusBadge tone="neutral" label="Não" />
       ),
   },
   {

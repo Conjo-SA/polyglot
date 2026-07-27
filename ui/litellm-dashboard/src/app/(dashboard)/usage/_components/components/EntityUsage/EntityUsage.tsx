@@ -397,11 +397,11 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
   };
 
   const getFilterLabel = (entityType: string) => {
-    return `Filter by ${entityType}`;
+    return `Filtrar por ${entityType}`;
   };
 
   const getFilterPlaceholder = (entityType: string) => {
-    return `Select ${entityType} to filter...`;
+    return `Selecionar ${entityType} para filtrar...`;
   };
 
   const capitalizedEntityLabel = entityType.charAt(0).toUpperCase() + entityType.slice(1);
@@ -424,7 +424,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                 .
               </span>
               <Button type="primary" danger onClick={cancel}>
-                Stop
+                Parar
               </Button>
             </div>
           }
@@ -451,16 +451,16 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
             <div className="flex items-center justify-between">
               <span>
                 <LoadingOutlined spin className="mr-2" />
-                Currently fetching agent data: fetched {agentProgress.currentPage} / {agentProgress.totalPages} pages.
-                Charts will update periodically as data loads. Moving off of this page will stop and reset this. To
-                continue using the UI in the meantime,{" "}
+                Buscando dados dos agentes: {agentProgress.currentPage} / {agentProgress.totalPages} páginas carregadas.
+                Os gráficos serão atualizados periodicamente conforme os dados carregam. Sair desta página irá parar e 
+                reiniciar este processo. Para continuar utilizando a interface meanwhile,{" "}
                 <a href={window.location.href} target="_blank" rel="noopener noreferrer">
-                  open a new tab <ExportOutlined />
+                  abra uma nova aba <ExportOutlined />
                 </a>
                 .
               </span>
               <Button type="primary" danger onClick={agentCancel}>
-                Stop
+                Parar
               </Button>
             </div>
           }
@@ -572,17 +572,17 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           <div className="bg-white p-4 shadow-lg rounded-lg border">
                             <p className="font-bold">{data.date}</p>
                             <p className="text-cyan-500">
-                              Total Spend: ${formatNumberWithCommas(data.metrics.spend, 2)}
+                              Gasto Total: ${formatNumberWithCommas(data.metrics.spend, 2)}
                             </p>
-                            <p className="text-gray-600">Total Requests: {data.metrics.api_requests}</p>
-                            <p className="text-gray-600">Successful: {data.metrics.successful_requests}</p>
-                            <p className="text-gray-600">Failed: {data.metrics.failed_requests}</p>
-                            <p className="text-gray-600">Total Tokens: {data.metrics.total_tokens}</p>
+                            <p className="text-gray-600">Total de Requisições: {data.metrics.api_requests}</p>
+                            <p className="text-gray-600">Bem-sucedidas: {data.metrics.successful_requests}</p>
+                            <p className="text-gray-600">Falhas: {data.metrics.failed_requests}</p>
+                            <p className="text-gray-600">Tokens Totais: {data.metrics.total_tokens}</p>
                             <p className="text-gray-600">
-                              Total {capitalizedEntityLabel}s: {entityCount}
+                              Total de {capitalizedEntityLabel}s: {entityCount}
                             </p>
                             <div className="mt-2 border-t pt-2">
-                              <p className="font-semibold">Spend by {capitalizedEntityLabel}:</p>
+                              <p className="font-semibold">Gasto por {capitalizedEntityLabel}:</p>
                               {Object.entries(data.breakdown.entities || {})
                                 .sort(([, a], [, b]) => {
                                   const spendA = (a as EntityMetrics).metrics.spend;
@@ -600,7 +600,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                                   );
                                 })}
                               {entityCount > 5 && (
-                                <p className="text-sm text-gray-500 italic">...and {entityCount - 5} more</p>
+                                <p className="text-sm text-gray-500 italic">...e mais {entityCount - 5}</p>
                               )}
                             </div>
                           </div>
@@ -646,12 +646,12 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                             return (
                               <div className="bg-white p-4 shadow-lg rounded-lg border">
                                 <p className="font-bold">{data.metadata.alias}</p>
-                                <p className="text-cyan-500">Spend: ${formatNumberWithCommas(data.metrics.spend, 4)}</p>
-                                <p className="text-gray-600">Requests: {data.metrics.api_requests.toLocaleString()}</p>
+                                <p className="text-cyan-500">Gasto: ${formatNumberWithCommas(data.metrics.spend, 4)}</p>
+                                <p className="text-gray-600">Requisições: {data.metrics.api_requests.toLocaleString()}</p>
                                 <p className="text-green-600">
-                                  Successful: {data.metrics.successful_requests.toLocaleString()}
+                                  Bem-sucedidas: {data.metrics.successful_requests.toLocaleString()}
                                 </p>
-                                <p className="text-red-600">Failed: {data.metrics.failed_requests.toLocaleString()}</p>
+                                <p className="text-red-600">Falhas: {data.metrics.failed_requests.toLocaleString()}</p>
                                 <p className="text-gray-600">Tokens: {data.metrics.total_tokens.toLocaleString()}</p>
                               </div>
                             );
@@ -664,9 +664,9 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                             <TableHead>
                               <TableRow>
                                 <TableHeaderCell>{capitalizedEntityLabel}</TableHeaderCell>
-                                <TableHeaderCell>Spend</TableHeaderCell>
-                                <TableHeaderCell className="text-green-600">Successful</TableHeaderCell>
-                                <TableHeaderCell className="text-red-600">Failed</TableHeaderCell>
+                                <TableHeaderCell>Gasto</TableHeaderCell>
+                                <TableHeaderCell className="text-green-600">Bem-sucedidas</TableHeaderCell>
+                                <TableHeaderCell className="text-red-600">Falhas</TableHeaderCell>
                                 <TableHeaderCell>Tokens</TableHeaderCell>
                               </TableRow>
                             </TableHead>
@@ -760,10 +760,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                         <Table>
                           <TableHead>
                             <TableRow>
-                              <TableHeaderCell>Provider</TableHeaderCell>
-                              <TableHeaderCell>Spend</TableHeaderCell>
-                              <TableHeaderCell className="text-green-600">Successful</TableHeaderCell>
-                              <TableHeaderCell className="text-red-600">Failed</TableHeaderCell>
+                              <TableHeaderCell>Provedor</TableHeaderCell>
+                              <TableHeaderCell>Gasto</TableHeaderCell>
+                              <TableHeaderCell className="text-green-600">Bem-sucedidas</TableHeaderCell>
+                              <TableHeaderCell className="text-red-600">Falhas</TableHeaderCell>
                               <TableHeaderCell>Tokens</TableHeaderCell>
                             </TableRow>
                           </TableHead>
