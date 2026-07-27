@@ -5012,7 +5012,7 @@ async def send_email(
     receiver_email: Optional[str] = None,
     subject: Optional[str] = None,
     html: Optional[str] = None,
-):
+) -> bool:
     """
     smtp_host,
     smtp_port,
@@ -5022,14 +5022,23 @@ async def send_email(
     sender_email,
     """
     ## SERVER SETUP ##
+    from litellm.proxy.common_utils.email_settings import resolve_email_config
 
-    smtp_host = os.getenv("SMTP_HOST")
-    smtp_port = int(os.getenv("SMTP_PORT", "587"))  # default to port 587
-    smtp_username = os.getenv("SMTP_USERNAME")
-    smtp_password = os.getenv("SMTP_PASSWORD")
-    sender_email = os.getenv("SMTP_SENDER_EMAIL", None)
+    try:
+        from litellm.proxy.proxy_server import prisma_client
+    except Exception:
+        prisma_client = None
+
+    config = await resolve_email_config(prisma_client)
+    smtp_host = config.smtp_host
+    smtp_port = config.smtp_port
+    smtp_username = config.smtp_username
+    smtp_password = config.smtp_password
+    sender_email = config.sender_email
+    use_tls = config.use_tls
     if sender_email is None:
-        raise ValueError("Trying to use SMTP, but SMTP_SENDER_EMAIL is not set")
+        verbose_proxy_logger.warning("Cannot send email: SMTP sender email is not configured")
+        return False
     if receiver_email is None:
         raise ValueError(f"No receiver email provided for SMTP email. {receiver_email}")
     if subject is None:
@@ -5045,7 +5054,8 @@ async def send_email(
     verbose_proxy_logger.debug("sending email from %s to %s", sender_email, receiver_email)
 
     if smtp_host is None:
-        raise ValueError("Trying to use SMTP, but SMTP_HOST is not set")
+        verbose_proxy_logger.warning("Cannot send email: SMTP host is not configured")
+        return False
 
     # Attach the body to the email
     email_message.attach(MIMEText(html, "html"))
@@ -5056,7 +5066,7 @@ async def send_email(
             smtp_host=smtp_host,
             smtp_port=smtp_port,
         ) as server:
-            if not using_ssl and os.getenv("SMTP_TLS", "True") != "False":
+            if not using_ssl and use_tls:
                 server.starttls(context=ssl.create_default_context())
 
             # Login to your email account only if smtp_username and smtp_password are provided
@@ -5073,8 +5083,10 @@ async def send_email(
                 to_addrs=receiver_email,
             )
 
+        return True
     except Exception as e:
         verbose_proxy_logger.exception("An error occurred while sending the email:" + str(e))
+        return False
 
 
 def hash_token(token: str):
@@ -5762,55 +5774,41 @@ def get_error_message_str(e: Exception) -> str:
     return error_message
 
 
-def _get_redoc_url() -> Optional[str]:
+def _docs_enabled() -> bool:
     """
-    Get the Redoc URL from the environment variables.
-
-    - If REDOC_URL is set, return it.
-    - If NO_REDOC is True, return None.
-    - Otherwise, default to "/redoc".
+    API docs (Swagger UI, ReDoc, OpenAPI JSON) are disabled by default.
+    Opt in by setting ENABLE_DOCS to a truthy value.
     """
-    if redoc_url := os.getenv("REDOC_URL"):
-        return redoc_url
+    return str_to_bool(os.getenv("ENABLE_DOCS")) is True
 
-    if str_to_bool(os.getenv("NO_REDOC")) is True:
+
+def _resolve_docs_url(explicit_env: str, disable_env: str, default_path: str) -> Optional[str]:
+    """
+    Resolve a docs-related URL with this precedence:
+
+    1. An explicit URL env var (e.g. DOCS_URL) always wins.
+    2. A disable env var (e.g. NO_DOCS) forces it off.
+    3. Otherwise expose the default path only when docs are opted in via ENABLE_DOCS.
+    """
+    if explicit_url := os.getenv(explicit_env):
+        return explicit_url
+
+    if str_to_bool(os.getenv(disable_env)) is True:
         return None
 
-    return "/redoc"
+    return default_path if _docs_enabled() else None
+
+
+def _get_redoc_url() -> Optional[str]:
+    return _resolve_docs_url("REDOC_URL", "NO_REDOC", "/redoc")
 
 
 def _get_docs_url() -> Optional[str]:
-    """
-    Get the docs (Swagger UI) URL from the environment variables.
-
-    - If DOCS_URL is set, return it.
-    - If NO_DOCS is True, return None.
-    - Otherwise, default to "/".
-    """
-    if docs_url := os.getenv("DOCS_URL"):
-        return docs_url
-
-    if str_to_bool(os.getenv("NO_DOCS")) is True:
-        return None
-
-    return "/"
+    return _resolve_docs_url("DOCS_URL", "NO_DOCS", "/")
 
 
 def _get_openapi_url() -> Optional[str]:
-    """
-    Get the OpenAPI JSON URL from the environment variables.
-
-    - If OPENAPI_URL is set, return it.
-    - If NO_OPENAPI is True, return None.
-    - Otherwise, default to "/openapi.json".
-    """
-    if openapi_url := os.getenv("OPENAPI_URL"):
-        return openapi_url
-
-    if str_to_bool(os.getenv("NO_OPENAPI")) is True:
-        return None
-
-    return "/openapi.json"
+    return _resolve_docs_url("OPENAPI_URL", "NO_OPENAPI", "/openapi.json")
 
 
 def handle_exception_on_proxy(e: Exception) -> ProxyException:

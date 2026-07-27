@@ -215,3 +215,7 @@ class AuditLogRepository(PrismaTableRepository):
 
 class AdaptiveRouterSessionRepository(PrismaTableRepository):
     table_name = "litellm_adaptiveroutersession"
+
+
+class FreeTrialRegistrationRepository(PrismaTableRepository):
+    table_name = "litellm_freetrialregistration"
