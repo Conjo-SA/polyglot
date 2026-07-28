@@ -3466,6 +3466,15 @@ async def _build_ui_spend_logs_response(
         # serializers, etc.).
         response_data = data  # type: ignore[assignment]
 
+    # Adiciona conversão de moeda para todos os registros
+    for item in response_data:
+        if isinstance(item, dict): 
+            spend = item.get("spend", 0)
+            if spend is not None:
+                # Adiciona campos de conversão de moeda
+                item["spend_display"] = convert_usd(spend, DEFAULT_CURRENCY)
+                item["currency"] = DEFAULT_CURRENCY
+
     return {
         "data": response_data,
         "total": total_records,

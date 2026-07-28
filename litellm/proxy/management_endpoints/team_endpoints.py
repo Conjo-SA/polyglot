@@ -3627,6 +3627,29 @@ async def team_info(
         # Resolve resources inherited from access groups
         await _resolve_team_access_group_resources(_team_info)
 
+        # Adiciona conversão de moeda para informações do time
+        from litellm.litellm_core_utils.currency_conversion import convert_usd, DEFAULT_CURRENCY
+        
+        # Converte o gasto total do time
+        if hasattr(_team_info, 'spend') and _team_info.spend is not None:
+            _team_info.spend_display = convert_usd(_team_info.spend, DEFAULT_CURRENCY)
+            _team_info.currency = DEFAULT_CURRENCY
+        elif isinstance(_team_info, dict) and _team_info.get('spend') is not None:
+            _team_info['spend_display'] = convert_usd(_team_info['spend'], DEFAULT_CURRENCY)
+            _team_info['currency'] = DEFAULT_CURRENCY
+            
+        # Converte gastos das chaves do time, se houver
+        if keys is not None:
+            for key in keys:
+                if hasattr(key, "spend") and key.spend is not None:
+                    # Converte gastos das chaves
+                    if isinstance(key, dict):
+                        key["spend_display"] = convert_usd(key["spend"], DEFAULT_CURRENCY)
+                        key["currency"] = DEFAULT_CURRENCY
+                    else:
+                        key.spend_display = convert_usd(key.spend, DEFAULT_CURRENCY)
+                        key.currency = DEFAULT_CURRENCY
+
         response_object = TeamInfoResponseObject(
             team_id=team_id,
             team_info=_team_info,

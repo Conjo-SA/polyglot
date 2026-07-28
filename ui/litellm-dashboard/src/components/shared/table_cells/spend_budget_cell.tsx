@@ -1,7 +1,7 @@
 "use client";
 
 import { Meter, MeterIndicator, MeterTrack } from "@/components/ui/meter";
-import { formatNumberWithCommas, getSpendString } from "@/utils/dataUtils";
+import { formatNumberWithCommas, useSpendString } from "@/utils/dataUtils";
 
 interface SpendBudgetCellProps {
   spend: number | null | undefined;
@@ -22,9 +22,8 @@ export function SpendBudgetCell({ spend, maxBudget, teamMaxBudget }: SpendBudget
   const hasBudget = typeof budget === "number" && budget > 0;
   const pct = hasBudget ? (spendValue / budget) * 100 : 0;
 
-  const spendText = spendValue > 0 ? getSpendString(spendValue, 4) : "$0.00";
-  const budgetLabel =
-    budget === null ? "· Unlimited" : `of $${formatNumberWithCommas(budget)}${isTeamBudget ? " (Team)" : ""}`;
+  const spendText = useSpendString(spendValue, 4);
+  const budgetLabel = budget === null ? "· Unlimited" : `of ${spendText}`; // Atualizado para usar a moeda correta
 
   return (
     <div className="flex min-w-[130px] flex-col gap-1">
@@ -33,7 +32,7 @@ export function SpendBudgetCell({ spend, maxBudget, teamMaxBudget }: SpendBudget
         <span className="text-muted-foreground">{budgetLabel}</span>
       </div>
       {hasBudget && (
-        <Meter value={spendValue} max={budget} aria-valuetext={`${spendText} of $${formatNumberWithCommas(budget)}`}>
+        <Meter value={spendValue} max={budget} aria-valuetext={`${spendText} of budget`}>
           <MeterTrack>
             <MeterIndicator tone={meterTone(pct)} />
           </MeterTrack>

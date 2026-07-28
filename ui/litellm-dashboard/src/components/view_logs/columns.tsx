@@ -1,5 +1,5 @@
 import { DateCell, IdCell, MoneyCell, StatusBadge } from "@/components/shared/table_cells";
-import { getSpendString } from "@/utils/dataUtils";
+import { useSpendString } from "@/utils/dataUtils";
 import type { ColumnDef } from "@tanstack/react-table";
 import { Tooltip } from "antd";
 import React from "react";
@@ -220,7 +220,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
           {isMultiCallSession && <span className="text-[10px] text-gray-400">session total</span>}
           {mcpCount > 0 && mcpSpend > 0 && (
             <span className="text-[10px] text-amber-600">
-              incl. {getSpendString(mcpSpend)} from {mcpCount} MCP
+              incl. {useSpendString(mcpSpend)} from {mcpCount} MCP
             </span>
           )}
         </div>

@@ -10,7 +10,7 @@ import { useKeyboardNavigation } from "./useKeyboardNavigation";
 import { LogDetailContent, GuardrailJumpLink } from "./LogDetailContent";
 import { sessionSpendLogsCall } from "../../networking";
 import { useQuery } from "@tanstack/react-query";
-import { getSpendString } from "@/utils/dataUtils";
+import { useSpendString } from "@/utils/dataUtils";
 import { normalizeGuardrailEntries, sortSessionLogs, SessionLogSortMode } from "./utils";
 import { DRAWER_WIDTH } from "./constants";
 import { useLogDetails } from "@/app/(dashboard)/hooks/logDetails/useLogDetails";
@@ -81,7 +81,7 @@ function TraceEventRow({ row, isSelected, onClick }: TraceEventRowProps) {
         {row.spend ? (
           <>
             <span>·</span>
-            <span>{getSpendString(row.spend)}</span>
+            <span>{useSpendString(row.spend)}</span>
           </>
         ) : null}
         {row.total_tokens ? (
@@ -374,7 +374,7 @@ export function LogDetailsDrawer({
                   ) : null;
                 })}
                 <span className="mx-1.5">·</span>
-                {isSessionMode ? getSpendString(totalSessionCost) : getSpendString(currentLog.spend || 0)}
+                {isSessionMode ? useSpendString(totalSessionCost) : useSpendString(currentLog.spend || 0)}
                 {isSessionMode && (
                   <>
                     <span className="mx-1.5">·</span>

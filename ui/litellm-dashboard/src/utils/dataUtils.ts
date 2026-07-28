@@ -47,21 +47,46 @@ export const formatNumberWithCommas = (
   return `${sign}${scaled.toLocaleString("en-US", opts)}${suffix}`;
 };
 
-export const getSpendString = (value: number | null | undefined, decimals: number = 6): string => {
+// Função auxiliar para formatar números
+export const formatSpend = (
+  value: number | null | undefined, 
+  decimals: number = 6, 
+  currency: string = "USD", 
+  rate: number = 1
+): string => {
   if (value === null || value === undefined || !Number.isFinite(value) || value === 0) {
     return "-";
   }
 
-  // For now, return USD formatted string for backward compatibility, but in the future this should use context
-  const formatted = formatNumberWithCommas(value, decimals, false, false);
+  // Converter valor para moeda configurada
+  const convertedValue = currency === "BRL" ? value * rate : value;
+  
+  const formatted = formatNumberWithCommas(convertedValue, decimals, false, false);
   const numericFormatted = Number(formatted.replace(/,/g, ""));
 
   if (numericFormatted === 0) {
     const threshold = (1 / 10 ** decimals).toFixed(decimals);
-    return `< $ ${threshold}`;
+    return `< ${currency === "BRL" ? "R$" : "$"} ${threshold}`;
   }
 
-  return `$ ${formatted}`;
+  return `${currency === "BRL" ? "R$" : "$"} ${formatted}`;
+};
+
+/**
+ * Hook para formatar valores de gasto usando a moeda configurada via contexto
+ */
+export const useSpendString = (value: number | null | undefined, decimals: number = 6): string => {
+  const { currency, rate } = useCurrency(); // Usa o contexto
+  return formatSpend(value, decimals, currency, rate);
+};
+
+/**
+ * @deprecated - Use useSpendString hook em vez deste método purinho
+ */
+export const getSpendString = (value: number | null | undefined, decimals: number = 6): string => {
+  // Retornando o padrão anterior para compatibilidade
+  // Mas deveria estar usando o contexto de moeda configurado
+  return formatSpend(value, decimals, "USD", 1);
 };
 
 export const copyToClipboard = async (
