@@ -19,15 +19,15 @@ interface RelativeTimeOption {
 
 const relativeTimeOptions: RelativeTimeOption[] = [
   {
-    label: "Today",
-    shortLabel: "today",
+    label: "Hoje",
+    shortLabel: "hoje",
     getValue: () => ({
       from: moment().startOf("day").toDate(),
       to: moment().endOf("day").toDate(),
     }),
   },
   {
-    label: "Last 7 days",
+    label: "Últimos 7 dias",
     shortLabel: "7d",
     getValue: () => ({
       from: moment().subtract(7, "days").startOf("day").toDate(),
@@ -35,7 +35,7 @@ const relativeTimeOptions: RelativeTimeOption[] = [
     }),
   },
   {
-    label: "Last 30 days",
+    label: "Últimos 30 dias",
     shortLabel: "30d",
     getValue: () => ({
       from: moment().subtract(30, "days").startOf("day").toDate(),
@@ -43,7 +43,7 @@ const relativeTimeOptions: RelativeTimeOption[] = [
     }),
   },
   {
-    label: "Month to date",
+    label: "Mês até a data",
     shortLabel: "MTD",
     getValue: () => ({
       from: moment().startOf("month").toDate(),
@@ -51,7 +51,7 @@ const relativeTimeOptions: RelativeTimeOption[] = [
     }),
   },
   {
-    label: "Year to date",
+    label: "Ano até a data",
     shortLabel: "YTD",
     getValue: () => ({
       from: moment().startOf("year").toDate(),
@@ -66,7 +66,7 @@ const relativeTimeOptions: RelativeTimeOption[] = [
 const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
   value,
   onValueChange,
-  label = "Select Time Range",
+  label = "Selecionar Período",
   showTimeRange = true,
 }) => {
   const [isOpen, setIsOpen] = useState(false);
@@ -114,11 +114,11 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
     const end = moment(endDate, "YYYY-MM-DD");
 
     if (!start.isValid() || !end.isValid()) {
-      return { isValid: false, error: "Invalid date format" };
+      return { isValid: false, error: "Formato de data inválido" };
     }
 
     if (end.isBefore(start)) {
-      return { isValid: false, error: "End date cannot be before start date" };
+      return { isValid: false, error: "A data final não pode ser anterior à data inicial" };
     }
 
     return { isValid: true, error: "" };
@@ -155,7 +155,7 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
   }, [isOpen]);
 
   const formatDisplayRange = useCallback((from: Date | undefined, to: Date | undefined) => {
-    if (!from || !to) return "Select date range";
+    if (!from || !to) return "Selecionar período";
 
     const formatDateTime = (date: Date) => {
       return moment(date).format("D MMM, HH:mm");
@@ -304,7 +304,7 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
               {/* Left side - Relative time options */}
               <div className="w-1/2 border-r border-gray-200">
                 <div className="p-3 border-b border-gray-200">
-                  <span className="text-sm font-semibold text-gray-900">Relative time</span>
+                  <span className="text-sm font-semibold text-gray-900">Período relativo</span>
                 </div>
                 <div className="h-[350px] overflow-y-auto">
                   {relativeTimeOptions.map((option) => {
@@ -338,14 +338,14 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
                 <div className="p-3.5 border-b border-gray-200">
                   <div className="flex items-center gap-2">
                     <CalendarOutlined className="text-gray-600" />
-                    <span className="text-sm font-semibold text-gray-900">Start and end dates</span>
+                    <span className="text-sm font-semibold text-gray-900">Datas de início e fim</span>
                   </div>
                 </div>
 
                 <div className="p-6 space-y-6 pb-20">
                   {/* Start date */}
                   <div>
-                    <label className="text-sm text-gray-700 mb-1 block">Start date</label>
+                    <label className="text-sm text-gray-700 mb-1 block">Data de início</label>
                     <input
                       type="date"
                       value={startDate}
@@ -360,7 +360,7 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
 
                   {/* End date */}
                   <div>
-                    <label className="text-sm text-gray-700 mb-1 block">End date</label>
+                    <label className="text-sm text-gray-700 mb-1 block">Data de fim</label>
                     <input
                       type="date"
                       value={endDate}
@@ -408,10 +408,10 @@ const AdvancedDatePicker: React.FC<AdvancedDatePickerProps> = ({
                 <div className="absolute bottom-4 right-4">
                   <div className="flex gap-2">
                     <Button variant="secondary" onClick={handleCancel}>
-                      Cancel
+                      Cancelar
                     </Button>
                     <Button onClick={handleApply} disabled={!tempValue.from || !tempValue.to || !validation.isValid}>
-                      Apply
+                      Aplicar
                     </Button>
                   </div>
                 </div>

@@ -270,19 +270,19 @@ const CloudZeroExportModal: React.FC<CloudZeroExportModalProps> = ({ isOpen, onC
                 {!existingSettings && (
                   <Form form={form} layout="vertical">
                     <Form.Item
-                      label="CloudZero API Key"
+                      label="Chave de API do CloudZero"
                       name="api_key"
-                      rules={[{ required: true, message: "Please enter your CloudZero API key" }]}
+                      rules={[{ required: true, message: "Informe sua chave de API do CloudZero" }]}
                     >
-                      <TextInput type="password" placeholder="Enter your CloudZero API key" />
+                      <TextInput type="password" placeholder="Digite sua chave de API do CloudZero" />
                     </Form.Item>
 
                     <Form.Item
-                      label="Connection ID"
+                      label="ID da Conexão"
                       name="connection_id"
-                      rules={[{ required: true, message: "Please enter the CloudZero connection ID" }]}
+                      rules={[{ required: true, message: "Informe o ID de conexão do CloudZero" }]}
                     >
-                      <TextInput placeholder="Enter CloudZero connection ID" />
+                      <TextInput placeholder="Digite o ID de conexão do CloudZero" />
                     </Form.Item>
                   </Form>
                 )}

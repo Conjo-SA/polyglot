@@ -198,8 +198,8 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({ open, onClose, acce
       if (error?.name === "AbortError" || abortController.signal.aborted) {
         return;
       }
-      const errorMsg = error?.message || "Failed to get response. Please try again.";
-      setMessages((prev) => [...prev, { role: "assistant", content: `Error: ${errorMsg}` }]);
+      const errorMsg = error?.message || "Falha ao obter resposta. Tente novamente.";
+      setMessages((prev) => [...prev, { role: "assistant", content: `Erro: ${errorMsg}` }]);
       setStreamingContent("");
     } finally {
       setIsLoading(false);
@@ -254,13 +254,13 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({ open, onClose, acce
             </svg>
           </button>
         </div>
-        <p className="text-xs text-gray-500">Pergunte sobre seu gasto, modelos, chaves e tendências</p>
+        <p className="text-xs text-gray-500">Pergunte sobre seu uso, modelos, chaves e tendências</p>
       </div>
 
       {/* Model selector */}
       <div className="px-5 py-3 border-b border-gray-100 shrink-0">
         <Select
-          placeholder="Select a model (optional, defaults to gpt-4o-mini)"
+          placeholder="Selecionar um modelo (opcional, padrão gpt-4o-mini)"
           value={selectedModel}
           onChange={(value) => setSelectedModel(value)}
           loading={isLoadingModels}
@@ -285,8 +285,8 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({ open, onClose, acce
                 d="M8 10h.01M12 10h.01M16 10h.01M9 16H5a2 2 0 01-2-2V6a2 2 0 012-2h14a2 2 0 012 2v8a2 2 0 01-2 2h-5l-5 5v-5z"
               />
             </svg>
-            <p className="text-sm font-medium">Ask a question about your usage</p>
-            <p className="text-xs mt-1">e.g. &quot;Which model costs me the most?&quot;</p>
+            <p className="text-sm font-medium">Faça uma pergunta sobre seu uso</p>
+            <p className="text-xs mt-1">Ex.: "Qual modelo custa mais para mim?"</p>
           </div>
         )}
 
@@ -330,7 +330,7 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({ open, onClose, acce
         {isLoading && !streamingContent && (
           <div className="flex items-center gap-2 px-3 py-2 text-xs text-gray-500">
             <Spin size="small" />
-            <span className="italic">{statusMessage || "Thinking..."}</span>
+            <span className="italic">{statusMessage || "Pensando..."}</span>
           </div>
         )}
 
@@ -351,13 +351,13 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({ open, onClose, acce
             value={inputText}
             onChange={(e) => setInputText(e.target.value)}
             onKeyDown={handleKeyDown}
-            placeholder="Ask about your usage..."
+            placeholder="Pergunte sobre seu uso..."
             autoSize={{ minRows: 1, maxRows: 3 }}
             className="flex-1"
             disabled={isLoading}
           />
           <Button type="primary" onClick={handleSend} disabled={!inputText.trim() || isLoading} loading={isLoading}>
-            Send
+            Enviar
           </Button>
         </div>
         <div className="flex justify-between items-center mt-2">
@@ -366,9 +366,9 @@ const UsageAIChatPanel: React.FC<UsageAIChatPanelProps> = ({ open, onClose, acce
             className="text-xs text-gray-400 hover:text-gray-600 transition-colors"
             disabled={messages.length === 0}
           >
-            Clear chat
+            Limpar conversa
           </button>
-          <span className="text-xs text-gray-400">Enter to send</span>
+          <span className="text-xs text-gray-400">Enter para enviar</span>
         </div>
       </div>
     </div>

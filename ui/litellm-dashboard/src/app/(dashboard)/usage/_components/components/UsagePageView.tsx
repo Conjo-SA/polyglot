@@ -468,16 +468,15 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                 <div className="flex items-center justify-between">
                   <span>
                     <LoadingOutlined spin className="mr-2" />
-                    Currently fetching spend data: fetched {paginatedResult.progress.currentPage} /{" "}
-                    {paginatedResult.progress.totalPages} pages. Charts will update periodically as data loads. Moving
-                    off of this page will stop and reset this. To continue using the UI in the meantime,{" "}
+                    Estamos buscando os dados de uso: {paginatedResult.progress.currentPage} /{" "}
+                    {paginatedResult.progress.totalPages} páginas carregadas. Os gráficos serão atualizados periodicamente à medida que os dados são carregados. Se você sair desta página, a operação será interrompida e reiniciada. Para continuar usando a interface enquanto isso,{' '}
                     <a href={window.location.href} target="_blank" rel="noopener noreferrer">
-                      open a new tab <ExportOutlined />
+                      abra uma nova aba <ExportOutlined />
                     </a>
                     .
                   </span>
                   <Button type="primary" danger onClick={paginatedResult.cancel}>
-                    Stop
+                    Parar
                   </Button>
                 </div>
               }
@@ -490,8 +489,8 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
               className="mb-2"
               message={
                 <span>
-                  Showing partial data ({paginatedResult.progress.currentPage}/{paginatedResult.progress.totalPages}{" "}
-                  pages loaded)
+                  Exibindo dados parciais ({paginatedResult.progress.currentPage}/{paginatedResult.progress.totalPages}{" "}
+                  páginas carregadas)
                 </span>
               }
             />
@@ -501,12 +500,12 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
             <>
               {isAdmin && usageView === "global" && (
                 <div className="mb-4">
-                  <Text className="mb-2">Filter by user</Text>
+                  <Text className="mb-2">Filtrar por usuário</Text>
                   <Select
                     showSearch
                     allowClear
                     style={{ width: "100%" }}
-                    placeholder="Select user to filter..."
+                    placeholder="Selecionar usuário para filtrar..."
                     value={selectedUserId}
                     onChange={(value) => setSelectedUserId(value ?? null)}
                     filterOption={false}
@@ -514,7 +513,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                     searchValue={userSearchInput}
                     onPopupScroll={handleUserPopupScroll}
                     loading={isLoadingUsers}
-                    notFoundContent={isLoadingUsers ? <LoadingOutlined spin /> : "No users found"}
+                    notFoundContent={isLoadingUsers ? <LoadingOutlined spin /> : "Nenhum usuário encontrado"}
                     options={userOptions}
                     popupRender={(menu) => (
                       <>
@@ -577,14 +576,14 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                             Gasto do Projeto{" "}
                             {dateValue.from && dateValue.to && (
                               <>
-                                {dateValue.from.toLocaleDateString("en-US", {
+                                {dateValue.from.toLocaleDateString("pt-BR", {
                                   month: "short",
                                   day: "numeric",
                                   year:
                                     dateValue.from.getFullYear() !== dateValue.to.getFullYear() ? "numeric" : undefined,
                                 })}
                                 {" - "}
-                                {dateValue.to.toLocaleDateString("en-US", {
+                                {dateValue.to.toLocaleDateString("pt-BR", {
                                   month: "short",
                                   day: "numeric",
                                   year: "numeric",
@@ -603,7 +602,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
 
                       <Col numColSpan={2}>
                         <Card>
-                          <Title>Usage Metrics</Title>
+                          <Title>Métricas de Uso</Title>
                           <Grid numItems={5} className="gap-4 mt-4">
                             <Card>
                               <Title>Total de Requisições</Title>
@@ -620,7 +619,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                             <Card>
                               <div className="flex items-center gap-2">
                                 <Title>Requisições com Falha</Title>
-                                <Tooltip title="Includes requests that failed to route to a provider, tool usage failures, and other request errors where the provider cannot be determined.">
+                                <Tooltip title="Inclui requisições que falharam ao rotear para um provedor, falhas no uso de ferramentas e outros erros de requisição onde o provedor não pode ser determinado.">
                                   <InfoCircleOutlined className="text-gray-400 hover:text-gray-600" />
                                 </Tooltip>
                               </div>
@@ -690,7 +689,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                       <Col numColSpan={2}>
                         <ShadcnCard>
                           <CardHeader>
-                            <CardTitle className="text-base font-semibold">Daily Spend</CardTitle>
+                            <CardTitle className="text-base font-semibold">Gasto Diário</CardTitle>
                           </CardHeader>
                           <CardContent>
                             {loading ? (
@@ -711,11 +710,11 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                     <div className="bg-white p-4 shadow-lg rounded-lg border">
                                       <p className="font-bold">{data.date}</p>
                                       <p className="text-cyan-500">
-                                        Spend: ${formatNumberWithCommas(data.metrics.spend, 2)}
+                                        Gasto: ${formatNumberWithCommas(data.metrics.spend, 2)}
                                       </p>
-                                      <p className="text-gray-600">Requests: {data.metrics.api_requests}</p>
-                                      <p className="text-gray-600">Successful: {data.metrics.successful_requests}</p>
-                                      <p className="text-gray-600">Failed: {data.metrics.failed_requests}</p>
+                                      <p className="text-gray-600">Requisições: {data.metrics.api_requests}</p>
+                                      <p className="text-gray-600">Bem-sucedidas: {data.metrics.successful_requests}</p>
+                                      <p className="text-gray-600">Falhas: {data.metrics.failed_requests}</p>
                                       <p className="text-gray-600">Tokens: {data.metrics.total_tokens}</p>
                                     </div>
                                   );
@@ -728,7 +727,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                       {/* Top API Keys */}
                       <Col numColSpan={1}>
                         <Card className="h-full">
-                          <Title>Top Virtual Keys</Title>
+                          <Title>Principais Chaves Virtuais</Title>
                           <TopKeyView
                             topKeys={topKeys}
                             teams={null}
@@ -801,16 +800,16 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                         <div className="bg-white p-4 shadow-lg rounded-lg border">
                                           <p className="font-bold">{data.key}</p>
                                           <p className="text-cyan-500">
-                                            Spend: ${formatNumberWithCommas(data.spend, 2)}
+                                            Gasto: ${formatNumberWithCommas(data.spend, 2)}
                                           </p>
                                           <p className="text-gray-600">
-                                            Total Requests: {data.requests.toLocaleString()}
+                                            Requisições Totais: {data.requests.toLocaleString()}
                                           </p>
                                           <p className="text-green-600">
-                                            Successful: {data.successful_requests.toLocaleString()}
+                                            Bem-sucedidas: {data.successful_requests.toLocaleString()}
                                           </p>
                                           <p className="text-red-600">
-                                            Failed: {data.failed_requests.toLocaleString()}
+                                            Falhas: {data.failed_requests.toLocaleString()}
                                           </p>
                                           <p className="text-gray-600">Tokens: {data.tokens.toLocaleString()}</p>
                                         </div>
@@ -915,12 +914,12 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                 <Alert
                   banner
                   type="info"
-                  message="Reusable credentials are automatically tracked as tags"
+                  message="Credenciais reutilizáveis são automaticamente rastreadas como tags"
                   description={
                     <Typography.Text>
-                      When a reusable credential is used, it will appear as a tag prefixed with{" "}
+                      Quando uma credencial reutilizável é utilizada, ela aparecerá como uma tag com prefixo{" "}
                       <Typography.Text code>Credential: </Typography.Text>
-                      in this view.
+                      nesta visualização.
                     </Typography.Text>
                   }
                   closable
@@ -989,7 +988,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
         }}
         dateRange={dateValue}
         selectedFilters={[]}
-        customTitle="Export Usage Data"
+        customTitle="Exportar Dados de Uso"
       />
 
       {/* AI Chat Panel */}
