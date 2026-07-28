@@ -80,7 +80,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
     try {
       if (premiumUser !== true) {
         NotificationsManager.fromBackend(
-          "This feature is only available for premium users. Please upgrade your account.",
+          "Este recurso só está disponível para usuários premium. Por favor, atualize sua conta.",
         );
         return;
       }
@@ -188,12 +188,12 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
   const tabItems = [
     {
       key: "sso-settings",
-      label: "SSO Settings",
+      label: "Configurações de SSO",
       children: <SSOSettings />,
     },
     {
       key: "security-settings",
-      label: "Security Settings",
+      label: "Configurações de Segurança",
       children: (
         <>
           <Card>
@@ -268,8 +268,8 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
               <Table>
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell>IP Address</TableHeaderCell>
-                    <TableHeaderCell className="text-right">Action</TableHeaderCell>
+                    <TableHeaderCell>Endereço IP</TableHeaderCell>
+                    <TableHeaderCell className="text-right">Ação</TableHeaderCell>
                   </TableRow>
                 </TableHead>
                 <TableBody>
@@ -279,7 +279,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
                       <TableCell className="text-right">
                         {ip !== all_ip_address_allowed && (
                           <Button onClick={() => handleDeleteIP(ip)} color="red" size="xs">
-                            Delete
+                            Excluir
                           </Button>
                         )}
                       </TableCell>
@@ -359,7 +359,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
       label: (
         <Space>
           <Text>
-            UI Settings <NewBadge />
+            Configurações da Interface <NewBadge />
           </Text>
         </Space>
       ),
@@ -367,7 +367,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
     },
     {
       key: "logging-settings",
-      label: "Logging Settings",
+      label: "Configurações de Registro",
       children: <LoggingSettings />,
     },
     {
@@ -390,7 +390,7 @@ const AdminPanel: React.FC<AdminPanelProps> = ({ proxySettings }) => {
   return (
     <div className="w-full m-2 mt-2 p-8">
       <Title level={4}>Admin Access </Title>
-      <Paragraph>Go to &apos;Internal Users&apos; page to add other admins.</Paragraph>
+      <Paragraph>Vá para a página de &apos;Usuários Internos&apos; para adicionar outros administradores.</Paragraph>
       <Tabs items={tabItems} />
     </div>
   );

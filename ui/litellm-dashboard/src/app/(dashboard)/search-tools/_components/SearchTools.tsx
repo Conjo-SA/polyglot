@@ -99,7 +99,7 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
       refetch();
     } catch (error) {
       console.error("Error deleting the search tool:", error);
-      NotificationsManager.error("Failed to delete search tool");
+      NotificationsManager.error("Falha ao excluir a ferramenta de busca");
     } finally {
       setIsDeleting(false);
     }
@@ -142,7 +142,7 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
       };
 
       await updateSearchTool(accessToken, selectedToolId, searchToolData);
-      NotificationsManager.success("Search tool updated successfully");
+      NotificationsManager.success("Ferramenta de busca atualizada com sucesso");
       setEditModalVisible(false);
       form.resetFields();
       setSelectedToolId(null);
@@ -188,7 +188,7 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
   );
 
   if (!accessToken || !userRole || !userID) {
-    return <div className="p-6 text-center text-gray-500">Missing required authentication parameters.</div>;
+    return <div className="p-6 text-center text-gray-500">Parâmetros de autenticação obrigatórios ausentes.</div>;
   }
 
   const ToolsTab = () =>
@@ -229,19 +229,19 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
     <div className="w-full h-full p-6">
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Search Tool"
-        message="Are you sure you want to delete this search tool? This action cannot be undone."
-        resourceInformationTitle="Search Tool Information"
+        title="Excluir Ferramenta de Busca"
+        message="Tem certeza de que deseja excluir esta ferramenta de busca? Esta ação não pode ser desfeita."
+        resourceInformationTitle="Informações da Ferramenta de Busca"
         resourceInformation={
           toolToDelete
             ? [
-                { label: "Name", value: toolToDelete.search_tool_name },
+                { label: "Nome", value: toolToDelete.search_tool_name },
                 { label: "ID", value: toolToDelete.search_tool_id, code: true },
                 {
-                  label: "Provider",
+                  label: "Provedor",
                   value: providerInfo?.ui_friendly_name || toolToDelete.litellm_params.search_provider,
                 },
-                { label: "Description", value: toolToDelete.search_tool_info?.description || "-" },
+                { label: "Descrição", value: toolToDelete.search_tool_info?.description || "-" },
               ]
             : []
         }
@@ -260,7 +260,7 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
 
       {/* Edit Modal */}
       <Modal
-        title="Edit Search Tool"
+        title="Editar Ferramenta de Busca"
         open={isEditModalVisible}
         onOk={handleEditSubmit}
         onCancel={() => {
@@ -273,11 +273,11 @@ const SearchTools: React.FC<SearchToolsProps> = ({ accessToken, userRole, userID
         {renderEditForm()}
       </Modal>
 
-      <Title>Search Tools</Title>
-      <Text className="text-tremor-content mt-2">Configure and manage your search providers</Text>
+      <Title>Ferramentas de Busca</Title>
+      <Text className="text-tremor-content mt-2">Configure e gerencie seus provedores de busca</Text>
       {isAdminRole(userRole) && (
         <Button className="mt-4 mb-4" onClick={() => setCreateModalVisible(true)}>
-          + Add New Search Tool
+          + Adicionar Nova Ferramenta de Busca
         </Button>
       )}
 

@@ -51,8 +51,8 @@ export default function DeleteResourceModal({
       onOk={onOk}
       onCancel={onCancel}
       confirmLoading={confirmLoading}
-      okText={confirmLoading ? t("common.deleting") : t("common.delete")}
-      cancelText={t("common.cancel")}
+      okText={confirmLoading ? "Excluindo..." : "Excluir"}
+      cancelText="Cancelar"
       okButtonProps={{
         danger: true,
         disabled: (!!requiredConfirmation && requiredConfirmationInput !== requiredConfirmation) || confirmLoading,
@@ -91,11 +91,11 @@ export default function DeleteResourceModal({
         {requiredConfirmation && (
           <div className="mb-6 mt-4 pt-4 border-t border-gray-200 dark:border-gray-700">
             <Text className="block text-base font-medium text-gray-700 dark:text-gray-300 mb-2">
-              <Text>{t("deleteResourceModal.typePrefix")} </Text>
+              <Text>Digite </Text>
               <Text strong type="danger">
                 {requiredConfirmation}
               </Text>
-              <Text> {t("deleteResourceModal.typeSuffix")}</Text>
+              <Text> para confirmar</Text>
             </Text>
             <Input
               value={requiredConfirmationInput}

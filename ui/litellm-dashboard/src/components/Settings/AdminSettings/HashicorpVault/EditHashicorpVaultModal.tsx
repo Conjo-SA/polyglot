@@ -16,22 +16,22 @@ interface FieldGroup {
 
 const FIELD_GROUPS: FieldGroup[] = [
   {
-    title: "Connection",
+    title: "Conexão",
     fields: ["vault_addr", "vault_namespace", "vault_mount_name", "vault_path_prefix"],
   },
   {
-    title: "Token Authentication",
-    subtitle: "Use a Vault token to authenticate. Only one auth method is required.",
+    title: "Autenticação por Token",
+    subtitle: "Use um token do Vault para autenticar. Apenas um método de autenticação é necessário.",
     fields: ["vault_token"],
   },
   {
-    title: "AppRole Authentication",
-    subtitle: "Use AppRole credentials to authenticate. Only one auth method is required.",
+    title: "Autenticação por AppRole",
+    subtitle: "Use credenciais do AppRole para autenticar. Apenas um método de autenticação é necessário.",
     fields: ["approle_role_id", "approle_secret_id", "approle_mount_path"],
   },
   {
     title: "TLS",
-    subtitle: "Optional client certificate for mTLS.",
+    subtitle: "Certificado cliente opcional para mTLS.",
     fields: ["client_cert", "client_key", "vault_cert_role"],
   },
 ];
@@ -81,7 +81,7 @@ const EditHashicorpVaultModal: React.FC<EditHashicorpVaultModalProps> = ({ isVis
 
     mutate(config, {
       onSuccess: () => {
-        NotificationManager.success("Hashicorp Vault configuration updated successfully");
+        NotificationManager.success("Configuração do Hashicorp Vault atualizada com sucesso");
         onSuccess();
       },
       onError: (err) => {
@@ -101,13 +101,13 @@ const EditHashicorpVaultModal: React.FC<EditHashicorpVaultModalProps> = ({ isVis
 
     const rules =
       fieldName === "vault_addr"
-        ? [{ pattern: /^https?:\/\/.+/, message: "Must start with http:// or https://" }]
+        ? [{ pattern: /^https?:\/\/.+/, message: "Deve começar com http:// ou https://" }]
         : undefined;
 
     const isSensitive = SENSITIVE_FIELDS.has(fieldName);
     const existingValue = rawValues[fieldName];
     const hasExistingValue = isSensitive && existingValue != null && existingValue !== "";
-    const placeholder = hasExistingValue ? `Leave blank to keep existing (${existingValue})` : fieldSchema?.description;
+    const placeholder = hasExistingValue ? `Deixe em branco para manter o existente (${existingValue})` : fieldSchema?.description;
 
     return (
       <Form.Item key={fieldName} name={fieldName} label={FIELD_LABELS[fieldName] ?? fieldName} rules={rules}>
@@ -118,16 +118,16 @@ const EditHashicorpVaultModal: React.FC<EditHashicorpVaultModalProps> = ({ isVis
 
   return (
     <Modal
-      title="Edit Hashicorp Vault Configuration"
+      title="Editar Configuração do Hashicorp Vault"
       open={isVisible}
       width={700}
       footer={
         <Space>
           <Button onClick={handleCancel} disabled={isPending}>
-            Cancel
+            Cancelar
           </Button>
           <Button type="primary" loading={isPending} onClick={() => form.submit()}>
-            {isPending ? "Saving..." : "Save"}
+            {isPending ? "Salvando..." : "Salvar"}
           </Button>
         </Space>
       }

@@ -151,12 +151,12 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
   const filterOptions: FilterOption[] = [
     {
       name: "Input Policy",
-      label: "Input Policy",
+      label: "Política de Entrada",
       options: INPUT_POLICY_OPTIONS.map((o) => ({ label: o.label, value: o.value })),
     },
     {
       name: "Output Policy",
-      label: "Output Policy",
+      label: "Política de Saída",
       options: OUTPUT_POLICY_OPTIONS.map((o) => ({ label: o.label, value: o.value })),
     },
     {
@@ -257,11 +257,11 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
 
   return (
     <div className="w-full">
-      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Tool Policies</h1>
+      <h1 className="text-2xl font-semibold text-gray-900 mb-6">Políticas das Ferramentas</h1>
 
       <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-6">
         <MetricCard
-          label="New Today"
+          label="Novo Hoje"
           value={newToday}
           valueColor="text-green-600"
           subtitle={trendSubtitle}
@@ -271,21 +271,20 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
             </svg>
           }
         />
-        <MetricCard label="Total Tools Discovered" value={totalTools} />
+        <MetricCard label="Total de Ferramentas Descobertas" value={totalTools} />
         <MetricCard
-          label="Blocked Tools"
+          label="Ferramentas Bloqueadas"
           value={blockedCount}
           valueColor={blockedCount > 0 ? "text-red-600" : undefined}
         />
-        <MetricCard label="Active Teams" value={activeTeamsCount > 0 ? activeTeamsCount : "—"} />
+        <MetricCard label="Equipes Ativas" value={activeTeamsCount > 0 ? activeTeamsCount : "—"} />
       </div>
 
       {needsReviewTools.length > 0 && (
         <div className="bg-amber-50 border border-amber-200 rounded-lg p-4 mb-6">
-          <h2 className="text-sm font-semibold text-amber-900 mb-1">Needs Review</h2>
+          <h2 className="text-sm font-semibold text-amber-900 mb-1">Necessita Revisão</h2>
           <p className="text-sm text-amber-800 mb-3">
-            {needsReviewTools.length} new tool{needsReviewTools.length !== 1 ? "s" : ""} discovered that require policy
-            decisions.
+            {needsReviewTools.length} nova ferramenta{needsReviewTools.length !== 1 ? "s" : ""} descoberta que requer decisões de política.
           </p>
           <div className="flex flex-wrap gap-2">
             {needsReviewTools.map((t) => (
@@ -316,7 +315,7 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
               <div className="relative w-64">
                 <input
                   type="text"
-                  placeholder="Search by Tool Name"
+                  placeholder="Buscar por Nome da Ferramenta"
                   className="w-full px-3 py-2 pl-8 border rounded-md text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                   value={searchTerm}
                   onChange={(e) => {
@@ -362,17 +361,17 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
                     d="M4 4v5h.582m15.356 2A8.001 8.001 0 004.582 9m0 0H9m11 11v-5h-.581m0 0a8.003 8.003 0 01-15.357-2m15.357 2H15"
                   />
                 </svg>
-                {isButtonLoading ? "Fetching" : "Fetch"}
+                {isButtonLoading ? "Carregando" : "Carregar"}
               </button>
             </div>
 
             <div className="flex items-center gap-4 text-sm text-gray-600 whitespace-nowrap">
               <span>
-                Showing {filtered.length === 0 ? 0 : (currentPage - 1) * pageSize + 1} -{" "}
-                {Math.min(currentPage * pageSize, filtered.length)} of {filtered.length} results
+                Mostrando {filtered.length === 0 ? 0 : (currentPage - 1) * pageSize + 1} -{" "}
+                {Math.min(currentPage * pageSize, filtered.length)} de {filtered.length} resultados
               </span>
               <span>
-                Page {currentPage} of {totalPages}
+                Página {currentPage} de {totalPages}
               </span>
               <div className="flex gap-1">
                 <button
@@ -380,14 +379,14 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
                   disabled={currentPage === 1}
                   className="px-3 py-1.5 border rounded-md text-sm hover:bg-gray-50 disabled:opacity-40"
                 >
-                  Previous
+                  Anterior
                 </button>
                 <button
                   onClick={() => setCurrentPage((p) => Math.min(totalPages, p + 1))}
                   disabled={currentPage === totalPages}
                   className="px-3 py-1.5 border rounded-md text-sm hover:bg-gray-50 disabled:opacity-40"
                 >
-                  Next
+                  Próxima
                 </button>
               </div>
             </div>
@@ -398,16 +397,16 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
               options={filterOptions}
               onApplyFilters={handleApplyFilters}
               onResetFilters={handleResetFilters}
-              buttonLabel="Filters"
+              buttonLabel="Filtros"
             />
           </div>
         </div>
 
         {isLiveTail && (
           <div className="bg-green-50 border-b border-green-100 px-6 py-2 flex items-center justify-between">
-            <span className="text-sm text-green-700">Auto-refreshing every 15 seconds</span>
+            <span className="text-sm text-green-700">Atualizando automaticamente a cada 15 segundos</span>
             <button onClick={() => setIsLiveTail(false)} className="text-xs text-green-600 underline">
-              Stop
+              Parar
             </button>
           </div>
         )}
@@ -420,28 +419,28 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
           <TableHead>
             <TableRow>
               <TableHeaderCell className="py-1 h-8">
-                <SortHeader label="Discovered" field="created_at" />
+                <SortHeader label="Descoberto" field="created_at" />
               </TableHeaderCell>
               <TableHeaderCell className="py-1 h-8">
-                <SortHeader label="Tool Name" field="tool_name" />
+                <SortHeader label="Nome da Ferramenta" field="tool_name" />
               </TableHeaderCell>
               <TableHeaderCell className="py-1 h-8">
-                <SortHeader label="Input Policy" field="input_policy" />
+                <SortHeader label="Política de Entrada" field="input_policy" />
               </TableHeaderCell>
               <TableHeaderCell className="py-1 h-8">
-                <SortHeader label="Output Policy" field="output_policy" />
+                <SortHeader label="Política de Saída" field="output_policy" />
               </TableHeaderCell>
               <TableHeaderCell className="py-1 h-8">
-                <SortHeader label="# Calls" field="call_count" />
+                <SortHeader label="# Chamadas" field="call_count" />
               </TableHeaderCell>
               <TableHeaderCell className="py-1 h-8">
-                <SortHeader label="Team Name" field="team_id" />
+                <SortHeader label="Nome da Equipe" field="team_id" />
               </TableHeaderCell>
-              <TableHeaderCell className="py-1 h-8">Key Hash</TableHeaderCell>
+              <TableHeaderCell className="py-1 h-8">Hash da Chave</TableHeaderCell>
               <TableHeaderCell className="py-1 h-8">
-                <SortHeader label="Key Name" field="key_alias" />
+                <SortHeader label="Nome da Chave" field="key_alias" />
               </TableHeaderCell>
-              <TableHeaderCell className="py-1 h-8">User Agent</TableHeaderCell>
+              <TableHeaderCell className="py-1 h-8">Agente do Usuário</TableHeaderCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -454,7 +453,7 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
             ) : paginated.length === 0 ? (
               <TableRow>
                 <TableCell colSpan={9} className="h-8 text-center text-gray-500">
-                  No tools discovered yet. Make a chat completion that returns tool_calls to start auto-discovery.
+                  Nenhuma ferramenta descoberta ainda. Faça uma conclusão de chat que retorne tool_calls para iniciar o reconhecimento automático.
                 </TableCell>
               </TableRow>
             ) : (
@@ -469,7 +468,7 @@ export const ToolPolicies: React.FC<ToolPoliciesProps> = ({ accessToken, onSelec
                       onClick={() => onSelectTool?.(tool.tool_name)}
                       className="text-left w-full font-mono text-xs max-w-[20ch] truncate block font-medium text-blue-600 hover:text-blue-800 hover:underline focus:outline-hidden focus:ring-0"
                     >
-                      <Tooltip title={onSelectTool ? "Click to view details and block for team/key" : tool.tool_name}>
+                      <Tooltip title={onSelectTool ? "Clique para ver detalhes e bloquear para equipe/chave" : tool.tool_name}>
                         <span>{tool.tool_name}</span>
                       </Tooltip>
                     </button>

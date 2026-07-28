@@ -113,7 +113,7 @@ export const getVectorStoreTableColumns = ({
   {
     id: "vector_store_id",
     accessorKey: "vector_store_id",
-    meta: { title: "Vector Store ID" },
+    meta: { title: "ID da Loja Vetorial" },
     header: ({ column }) => <DataTableSortHeader column={column} title="Vector Store ID" />,
     size: 220,
     enableSorting: true,
@@ -129,7 +129,7 @@ export const getVectorStoreTableColumns = ({
   {
     id: "vector_store_name",
     accessorKey: "vector_store_name",
-    meta: { title: "Name" },
+    meta: { title: "Nome" },
     header: ({ column }) => <DataTableSortHeader column={column} title="Name" />,
     size: 200,
     enableSorting: true,
@@ -145,7 +145,7 @@ export const getVectorStoreTableColumns = ({
   {
     id: "vector_store_description",
     accessorKey: "vector_store_description",
-    meta: { title: "Description" },
+    meta: { title: "Descrição" },
     header: "Description",
     size: 280,
     enableSorting: false,
@@ -160,7 +160,7 @@ export const getVectorStoreTableColumns = ({
   },
   {
     id: "files",
-    meta: { title: "Files" },
+    meta: { title: "Arquivos" },
     header: "Files",
     size: 160,
     enableSorting: false,
@@ -169,7 +169,7 @@ export const getVectorStoreTableColumns = ({
   {
     id: "provider",
     accessorKey: "custom_llm_provider",
-    meta: { title: "Provider" },
+    meta: { title: "Provedor" },
     header: "Provider",
     size: 160,
     enableSorting: false,
@@ -179,7 +179,7 @@ export const getVectorStoreTableColumns = ({
     id: "created_at",
     accessorKey: "created_at",
     sortingFn: "datetime",
-    meta: { title: "Created At" },
+    meta: { title: "Criado Em" },
     header: ({ column }) => <DataTableSortHeader column={column} title="Created At" />,
     size: 150,
     enableSorting: true,
@@ -189,7 +189,7 @@ export const getVectorStoreTableColumns = ({
     id: "updated_at",
     accessorKey: "updated_at",
     sortingFn: "datetime",
-    meta: { title: "Updated At" },
+    meta: { title: "Atualizado Em" },
     header: ({ column }) => <DataTableSortHeader column={column} title="Updated At" />,
     size: 150,
     enableSorting: true,

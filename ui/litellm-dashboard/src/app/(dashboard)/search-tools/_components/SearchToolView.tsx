@@ -44,7 +44,7 @@ export const SearchToolView: React.FC<SearchToolViewProps> = ({
       <div className="flex justify-between items-center mb-6">
         <div>
           <Button icon={ArrowLeftIcon} variant="light" className="mb-4" onClick={onBack}>
-            Back to All Search Tools
+            Voltar para Todas as Ferramentas de Busca
           </Button>
           <div className="flex items-center cursor-pointer">
             <Title>{searchTool.search_tool_name}</Title>
@@ -79,30 +79,30 @@ export const SearchToolView: React.FC<SearchToolViewProps> = ({
 
       <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6">
         <Card>
-          <Text>Provider</Text>
+          <Text>Provedor</Text>
           <div className="mt-2">
             <Title>{getProviderDisplayName(searchTool.litellm_params.search_provider)}</Title>
           </div>
         </Card>
 
         <Card>
-          <Text>API Key</Text>
+          <Text>Chave de API</Text>
           <div className="mt-2">
-            <Text>{searchTool.litellm_params.api_key ? "****" : "Not set"}</Text>
+            <Text>{searchTool.litellm_params.api_key ? "****" : "Não definida"}</Text>
           </div>
         </Card>
 
         <Card>
-          <Text>Created At</Text>
+          <Text>Criado Em</Text>
           <div className="mt-2">
-            <Text>{searchTool.created_at ? new Date(searchTool.created_at).toLocaleString() : "Unknown"}</Text>
+            <Text>{searchTool.created_at ? new Date(searchTool.created_at).toLocaleString() : "Desconhecido"}</Text>
           </div>
         </Card>
       </Grid>
 
       {searchTool.search_tool_info?.description && (
         <Card className="mt-6">
-          <Text>Description</Text>
+          <Text>Descrição</Text>
           <div className="mt-2">
             <Text>{searchTool.search_tool_info.description}</Text>
           </div>

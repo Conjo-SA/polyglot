@@ -37,11 +37,11 @@ export default function SSOSettings() {
   );
 
   const renderSimpleValue = (value?: string | null) =>
-    value ? value : <span className="text-gray-400 italic">Not configured</span>;
+    value ? value : <span className="text-gray-400 italic">Não configurado</span>;
 
   const renderTeamMappingsField = (values: SSOSettingsValues) => {
     if (!values.team_mappings?.team_ids_jwt_field) {
-      return <span className="text-gray-400 italic">Not configured</span>;
+      return <span className="text-gray-400 italic">Não configurado</span>;
     }
     return <Tag>{values.team_mappings.team_ids_jwt_field}</Tag>;
   };
@@ -62,29 +62,29 @@ export default function SSOSettings() {
       providerText: ssoProviderDisplayNames.google,
       fields: [
         {
-          label: "Client ID",
+          label: "ID do Cliente",
           render: (values: SSOSettingsValues) => <RedactableField value={values.google_client_id} />,
         },
         {
-          label: "Client Secret",
+          label: "Segredo do Cliente",
           render: (values: SSOSettingsValues) => <RedactableField value={values.google_client_secret} />,
         },
-        { label: "Proxy Base URL", render: (values: SSOSettingsValues) => renderSimpleValue(values.proxy_base_url) },
+        { label: "URL Base do Proxy", render: (values: SSOSettingsValues) => renderSimpleValue(values.proxy_base_url) },
       ],
     },
     microsoft: {
       providerText: ssoProviderDisplayNames.microsoft,
       fields: [
         {
-          label: "Client ID",
+          label: "ID do Cliente",
           render: (values: SSOSettingsValues) => <RedactableField value={values.microsoft_client_id} />,
         },
         {
-          label: "Client Secret",
+          label: "Segredo do Cliente",
           render: (values: SSOSettingsValues) => <RedactableField value={values.microsoft_client_secret} />,
         },
         { label: "Tenant", render: (values: any) => renderSimpleValue(values.microsoft_tenant) },
-        { label: "Proxy Base URL", render: (values: SSOSettingsValues) => renderSimpleValue(values.proxy_base_url) },
+        { label: "URL Base do Proxy", render: (values: SSOSettingsValues) => renderSimpleValue(values.proxy_base_url) },
       ],
     },
     okta: {
@@ -200,8 +200,8 @@ export default function SSOSettings() {
                 <div className="flex items-center gap-3">
                   <Shield className="w-6 h-6 text-gray-400" />
                   <div>
-                    <Title level={3}>SSO Configuration</Title>
-                    <Text type="secondary">Manage Single Sign-On authentication settings</Text>
+                    <Title level={3}>Configuração de SSO</Title>
+                    <Text type="secondary">Gerenciar configurações de autenticação SSO</Text>
                   </div>
                 </div>
 
@@ -209,14 +209,14 @@ export default function SSOSettings() {
                   {isSSOConfigured && (
                     <>
                       <Button icon={<Edit className="w-4 h-4" />} onClick={() => setIsEditModalVisible(true)}>
-                        Edit SSO Settings
+                        Editar Configurações SSO
                       </Button>
                       <Button
                         danger
                         icon={<Trash2 className="w-4 h-4" />}
                         onClick={() => setIsDeleteModalVisible(true)}
                       >
-                        Delete SSO Settings
+                        Excluir Configurações SSO
                       </Button>
                     </>
                   )}
