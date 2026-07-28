@@ -413,15 +413,15 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
                     </Tooltip>
                     <div className="mt-4 space-y-3">
                       <div>
-                        <Text className="text-sm text-gray-600">Success Requests</Text>
+                        <Text className="text-sm text-gray-600">Requisições Bem-sucedidas</Text>
                         <Metric className="text-lg">{formatAbbreviatedNumber(tag.successful_requests)}</Metric>
                       </div>
                       <div>
-                        <Text className="text-sm text-gray-600">Total Tokens</Text>
+                        <Text className="text-sm text-gray-600">Total de Tokens</Text>
                         <Metric className="text-lg">{formatAbbreviatedNumber(tag.total_tokens)}</Metric>
                       </div>
                       <div>
-                        <Text className="text-sm text-gray-600">Total Cost</Text>
+                        <Text className="text-sm text-gray-600">Custo Total</Text>
                         <Metric className="text-lg">${formatAbbreviatedNumber(tag.total_spend, 4)}</Metric>
                       </div>
                     </div>
@@ -431,7 +431,7 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
               {/* Fill remaining slots if less than 4 agents */}
               {Array.from({ length: Math.max(0, 4 - (summaryData.results || []).length) }).map((_, index) => (
                 <Card key={`empty-${index}`}>
-                  <Title>No Data</Title>
+                  <Title>Sem Dados</Title>
                   <div className="mt-4 space-y-3">
                     <div>
                       <Text className="text-sm text-gray-600">Success Requests</Text>
@@ -465,8 +465,8 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
             {/* DAU/WAU/MAU Tab Panel */}
             <TabPanel>
               <div className="mb-6">
-                <Title>DAU, WAU & MAU per Agent</Title>
-                <Subtitle>Active users across different time periods</Subtitle>
+                <Title>DAU, WAU & MAU por Agente</Title>
+                <Subtitle>Usuários ativos em diferentes períodos</Subtitle>
               </div>
 
               <TabGroup>
@@ -479,7 +479,7 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
                 <TabPanels>
                   <TabPanel>
                     <div className="mb-4">
-                      <Title className="text-lg">Daily Active Users - Last 7 Days</Title>
+                      <Title className="text-lg">Usuários Ativos Diários - Últimos 7 Dias</Title>
                     </div>
                     {dauLoading ? (
                       <ChartLoader isDateChanging={false} />
@@ -498,7 +498,7 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
 
                   <TabPanel>
                     <div className="mb-4">
-                      <Title className="text-lg">Weekly Active Users - Last 7 Weeks</Title>
+                      <Title className="text-lg">Usuários Ativos Semanais - Últimas 7 Semanas</Title>
                     </div>
                     {wauLoading ? (
                       <ChartLoader isDateChanging={false} />
@@ -517,7 +517,7 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
 
                   <TabPanel>
                     <div className="mb-4">
-                      <Title className="text-lg">Monthly Active Users - Last 7 Months</Title>
+                      <Title className="text-lg">Usuários Ativos Mensais - Últimos 7 Meses</Title>
                     </div>
                     {mauLoading ? (
                       <ChartLoader isDateChanging={false} />

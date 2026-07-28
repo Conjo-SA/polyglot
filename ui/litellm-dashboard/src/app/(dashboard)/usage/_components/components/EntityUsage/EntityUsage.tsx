@@ -417,7 +417,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
             <div className="flex items-center justify-between">
               <span>
                 <LoadingOutlined spin className="mr-2" />
-                Atualmente buscando dados de gastos: {progress.currentPage} / {progress.totalPages} páginas carregadas. Os gráficos serão atualizados periodicamente conforme os dados carregam. Sair desta página irá parar e reiniciar este processo. Para continuar utilizando a interface meanwhile,{" "}
+                Estamos buscando dados de gastos: {progress.currentPage} / {progress.totalPages} páginas carregadas. Os gráficos serão atualizados periodicamente conforme os dados carregam. Sair desta página irá parar e reiniciar este processo. Para continuar utilizando a interface enquanto isso,{" "}
                 <a href={window.location.href} target="_blank" rel="noopener noreferrer">
                   abra uma nova aba <ExportOutlined />
                 </a>
@@ -453,7 +453,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                 <LoadingOutlined spin className="mr-2" />
                 Buscando dados dos agentes: {agentProgress.currentPage} / {agentProgress.totalPages} páginas carregadas.
                 Os gráficos serão atualizados periodicamente conforme os dados carregam. Sair desta página irá parar e 
-                reiniciar este processo. Para continuar utilizando a interface meanwhile,{" "}
+                reiniciar este processo. Para continuar utilizando a interface enquanto isso,{" "}
                 <a href={window.location.href} target="_blank" rel="noopener noreferrer">
                   abra uma nova aba <ExportOutlined />
                 </a>
