@@ -109,7 +109,7 @@ const UsagePanel: React.FC<Props> = ({ accessToken, userId }) => {
 
   const statCards: Array<{ label: string; value: string; sub?: string; subVariant?: "error" }> = meta
     ? [
-        { label: "Total Spend", value: `$${meta.total_spend.toFixed(2)}` },
+        { label: "Total Spend", value: <MoneyCell value={meta.total_spend} decimals={2} /> },
         { label: "API Requests", value: formatNumber(meta.total_api_requests) },
         {
           label: "Tokens Used",

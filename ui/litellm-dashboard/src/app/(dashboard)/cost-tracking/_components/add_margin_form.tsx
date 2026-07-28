@@ -169,7 +169,7 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
           ]}
         >
           <div className="flex items-center gap-2">
-            <span className="text-gray-600">$</span>
+            <span className="text-gray-600">{useCurrency().symbol}</span>
             <TextInput
               placeholder="0.001"
               value={fixedAmountValue}

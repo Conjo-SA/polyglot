@@ -167,7 +167,7 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                   ${spend.toFixed(2)}
                 </Text>
                 <br />
-                <Text type="secondary">{hasLimit ? `of $${maxBudget.toFixed(2)} budget` : "No budget limit"}</Text>
+                <Text type="secondary">{hasLimit ? `of <MoneyCell value={maxBudget} decimals={2} />` : "No budget limit"}</Text>
               </div>
               {hasLimit && (
                 <div>
@@ -189,7 +189,7 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                 categories={["spend"]}
                 colors={["cyan"]}
                 layout="vertical"
-                valueFormatter={(value) => `$${value.toFixed(4)}`}
+                valueFormatter={(value) => <MoneyCell value={value} decimals={4} />}
                 yAxisWidth={140}
                 showLegend={false}
                 style={{ height: Math.max(modelSpendData.length * 40, 120) }}

@@ -421,10 +421,10 @@ export default function KeyInfoView({
 
   const budgetDisplay =
     currentKeyData.max_budget !== null
-      ? `$${formatNumberWithCommas(currentKeyData.max_budget, 2)}`
+      ? <MoneyCell value={currentKeyData.max_budget} decimals={2} />
       : parentTeam?.max_budget != null
         ? t("keyInfoView.budgetTeamSuffix", {
-            budget: `$${formatNumberWithCommas(parentTeam.max_budget, 2)}`,
+            budget: <MoneyCell value={parentTeam.max_budget} decimals={2} />,
             team: parentTeam.team_alias || parentTeam.team_id,
             duration: parentTeam.budget_duration ? ` / ${parentTeam.budget_duration}` : "",
           })
@@ -491,7 +491,7 @@ export default function KeyInfoView({
           },
           {
             label: t("virtualKeysTable.spend"),
-            value: currentKeyData?.spend ? `$${formatNumberWithCommas(currentKeyData.spend, 4)}` : "$0.0000",
+            value: currentKeyData?.spend ? <MoneyCell value={currentKeyData.spend} decimals={4} /> : <MoneyCell value={0} decimals={4} />,
           },
         ]}
         onCancel={() => {
@@ -751,7 +751,7 @@ export default function KeyInfoView({
                     <Text className="font-medium">{t("virtualKeysTable.budget")}</Text>
                     <Text>
                       {currentKeyData.max_budget !== null
-                        ? `$${formatNumberWithCommas(currentKeyData.max_budget, 2)}`
+                        ? <MoneyCell value={currentKeyData.max_budget} decimals={2} />
                         : t("virtualKeysTable.unlimited")}
                     </Text>
                   </div>

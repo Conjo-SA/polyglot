@@ -11,16 +11,16 @@ export function valueFormatter(number: number) {
   return number.toString();
 }
 
-export function valueFormatterSpend(number: number) {
-  if (number === 0) return "$0";
+export function valueFormatterSpend(number: number, symbol: string = "$", rate: number = 1) {
+  if (number === 0) return `${symbol}0`;
   if (number >= 1_000_000_000) {
-    return "$" + parseFloat((number / 1_000_000_000).toFixed(2)) + "B";
+    return symbol + parseFloat((number / 1_000_000_000).toFixed(2)) + "B";
   }
   if (number >= 1_000_000) {
-    return "$" + parseFloat((number / 1_000_000).toFixed(2)) + "M";
+    return symbol + parseFloat((number / 1_000_000).toFixed(2)) + "M";
   }
   if (number >= 1000) {
-    return "$" + number / 1000 + "k";
+    return symbol + number / 1000 + "k";
   }
-  return "$" + number;
+  return symbol + number;
 }

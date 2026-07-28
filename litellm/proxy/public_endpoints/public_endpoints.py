@@ -11,6 +11,7 @@ from litellm._logging import verbose_logger
 from litellm.litellm_core_utils.currency_conversion import (
     get_display_currency,
     get_usd_to_brl_rate,
+    get_exchange_rate_source,
 )
 from litellm.proxy._types import (
     CommonProxyErrors,
@@ -404,10 +405,8 @@ async def get_currency_config() -> Dict[str, Any]:
         rate = get_usd_to_brl_rate()
         currency = get_display_currency()
         
-        # Identify the source of the exchange rate
-        # We can't directly check the internal _EXCHANGE_RATE_SOURCE_VAR 
-        # So we'll determine it heuristically
-        source = "api" if rate != 5.30 else "fixed"
+        # Get the source of the exchange rate
+        source = get_exchange_rate_source()
         
         return {
             "currency": currency,

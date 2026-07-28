@@ -457,7 +457,8 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
   };
 
   const formatCost = (cost: number) => {
-    return `$${(cost * 1_000_000).toFixed(4)}`;
+    const { currency, rate } = useCurrency();
+    return formatCostPerMillion(cost * 1_000_000, currency, rate);
   };
 
   const [modelSorting, setModelSorting] = useState<SortingState>([{ id: "model_group", desc: false }]);

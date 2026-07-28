@@ -78,7 +78,10 @@ const formatCapabilityName = (key: string) =>
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
-const formatCost = (cost: number) => `$${(cost * 1_000_000).toFixed(4)}`;
+const formatCost = (cost: number) => {
+  const { currency, rate } = useCurrency();
+  return formatCostPerMillion(cost * 1_000_000, currency, rate);
+};
 
 const formatTokens = (tokens: number | undefined) => {
   if (!tokens) return "N/A";

@@ -2,6 +2,7 @@
 
 import * as React from "react";
 import type { TooltipContentProps, TooltipValueType } from "recharts";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export type ChartTooltipProps = Pick<
   TooltipContentProps<TooltipValueType, string | number>,
@@ -61,13 +62,17 @@ const rawMetricValue = (row: unknown, dataKey: string): number | undefined => {
   return typeof value === "number" ? value : undefined;
 };
 
-const formatMetricValue = (rawValue: number | undefined, isSpend: boolean): string => {
+const formatMetricValue = (rawValue: number | undefined, isSpend: boolean, symbol: string): string => {
   if (rawValue === undefined) return "N/A";
-  if (isSpend) return `$${rawValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  if (isSpend) {
+    return `${symbol}${rawValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+  }
   return rawValue.toLocaleString();
 };
 
 export const CustomTooltip = ({ active, payload, label }: ChartTooltipProps) => {
+  const { symbol } = useCurrency();
+  
   if (!active || !payload || payload.length === 0) return null;
 
   return (
@@ -77,7 +82,7 @@ export const CustomTooltip = ({ active, payload, label }: ChartTooltipProps) => 
         const dataKey = item.dataKey?.toString();
         if (!dataKey || !item.payload) return null;
 
-        const formattedValue = formatMetricValue(rawMetricValue(item.payload, dataKey), dataKey.includes("spend"));
+        const formattedValue = formatMetricValue(rawMetricValue(item.payload, dataKey), dataKey.includes("spend"), symbol);
 
         return (
           <div key={dataKey} className="flex items-center justify-between space-x-4">

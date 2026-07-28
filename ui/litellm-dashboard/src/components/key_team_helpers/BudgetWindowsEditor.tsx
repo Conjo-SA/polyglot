@@ -53,7 +53,7 @@ export function BudgetWindowsEditor({ value, onChange }: BudgetWindowsEditorProp
                 onChange={(v) => updateWindow(idx, "max_budget", v ?? null)}
                 placeholder="Max spend ($)"
                 style={{ width: 160 }}
-                prefix="$"
+                prefix={useCurrency().symbol}
               />
               <Button type="text" danger size="small" onClick={() => removeWindow(idx)} style={{ padding: "0 4px" }}>
                 ✕

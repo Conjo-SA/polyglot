@@ -12,12 +12,12 @@ interface MultiCostResultsProps {
   timePeriod: "day" | "month";
 }
 
-const formatCost = (value: number | null | undefined): string => {
+const formatCost = (value: number | null | undefined): React.ReactNode => {
   if (value === null || value === undefined) return "-";
-  if (value === 0) return "$0";
-  if (value < 0.0001) return `$${value.toExponential(2)}`;
-  if (value < 1) return `$${value.toFixed(4)}`;
-  return `$${formatNumberWithCommas(value, 2, true)}`;
+  if (value === 0) return <MoneyCell value={0} decimals={0} />;
+  if (value < 0.0001) return <MoneyCell value={value} decimals={6} />;
+  if (value < 1) return <MoneyCell value={value} decimals={4} />;
+  return <MoneyCell value={value} decimals={2} />;
 };
 
 const formatRequests = (value: number | null | undefined): string => {

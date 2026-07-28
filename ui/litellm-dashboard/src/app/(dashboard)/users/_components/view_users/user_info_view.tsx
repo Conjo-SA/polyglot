@@ -437,7 +437,7 @@ export default function UserInfoView({
                   <Title>${formatNumberWithCommas(userData.spend || 0, 4)}</Title>
                   <Text>
                     of{" "}
-                    {userData.max_budget !== null ? `$${formatNumberWithCommas(userData.max_budget, 4)}` : "Unlimited"}
+                    {userData.max_budget !== null ? <MoneyCell value={userData.max_budget} decimals={4} /> : "Unlimited"}
                   </Text>
                 </div>
               </Card>
@@ -596,7 +596,7 @@ export default function UserInfoView({
                     <Text className="font-medium">Max Budget</Text>
                     <Text>
                       {userData.max_budget !== null && userData.max_budget !== undefined
-                        ? `$${formatNumberWithCommas(userData.max_budget, 4)}`
+                        ? <MoneyCell value={userData.max_budget} decimals={4} />
                         : "Unlimited"}
                     </Text>
                   </div>

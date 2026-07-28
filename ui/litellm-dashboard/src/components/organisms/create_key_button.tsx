@@ -1063,7 +1063,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                         validator: async (_, value) => {
                           if (value && team && team.max_budget !== null && value > team.max_budget) {
                             throw new Error(
-                              `Orçamento não pode exceder o orçamento máximo da equipe: $${formatNumberWithCommas(team.max_budget, 4)}`,
+                              `Orçamento não pode exceder o orçamento máximo da equipe: <MoneyCell value={team.max_budget} decimals={4} />`,
                             );
                           }
                         },

@@ -99,10 +99,10 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
             )}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={3} style={{ margin: 0 }}>
-                ${formatNumber(spend, 4)}
+                <MoneyCell value={spend} decimals={4} />
               </Typography.Title>
               <Typography.Text type="secondary">
-                of {maxBudget === null ? "Unlimited" : `$${formatNumber(maxBudget, 4)}`}
+                of {maxBudget === null ? "Unlimited" : <MoneyCell value={maxBudget} decimals={4} />}
               </Typography.Text>
             </div>
             {budgetReset && (

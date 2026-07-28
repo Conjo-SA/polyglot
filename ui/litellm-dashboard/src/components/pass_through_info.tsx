@@ -350,7 +350,7 @@ const PassThroughInfoView: React.FC<PassThroughInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item label="Cost per Request" name="cost_per_request">
-                      <InputNumber min={0} step={0.01} precision={2} placeholder="0.00" addonBefore="$" />
+                      <InputNumber min={0} step={0.01} precision={2} placeholder="0.00" addonBefore={useCurrency().symbol} />
                     </Form.Item>
 
                     <Form.Item

@@ -85,7 +85,7 @@ const KeyModelUsageView: React.FC<KeyModelUsageViewProps> = ({ topModels }) => {
               index="key"
               categories={["spend"]}
               colors={["cyan"]}
-              valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+              valueFormatter={(value) => <MoneyCell value={value} decimals={2} />}
               layout="vertical"
               yAxisWidth={180}
               tickGap={5}

@@ -4,6 +4,7 @@ import { Form, Input, Modal, Select as Select2, Tooltip } from "antd";
 import React from "react";
 import BudgetDurationDropdown from "@/components/common_components/budget_duration_dropdown";
 import NumericalInput from "@/components/shared/numerical_input";
+import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
 
 interface ModelInfo {
   model_name: string;
@@ -78,15 +79,15 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
               className="mt-4"
               label={
                 <span>
-                  Max Budget (USD){" "}
-                  <Tooltip title="Maximum amount in USD this tag can spend. When reached, requests with this tag will be blocked">
+                  Max Budget
+                  <Tooltip title="Maximum amount this tag can spend. When reached, requests with this tag will be blocked">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
               }
               name="max_budget"
             >
-              <NumericalInput step={0.01} precision={2} width={200} />
+              <CurrencyMoneyInput step={0.01} precision={2} width={200} />
             </Form.Item>
             <Form.Item
               className="mt-4"

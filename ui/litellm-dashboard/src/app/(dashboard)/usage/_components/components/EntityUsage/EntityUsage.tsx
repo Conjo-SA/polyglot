@@ -29,6 +29,7 @@ import React, { useMemo, useState } from "react";
 import TeamMultiSelect from "@/components/common_components/team_multi_select";
 import { ActivityMetrics, processActivityData } from "@/components/activity_metrics";
 import { UsageExportHeader } from "@/components/EntityUsageExport";
+import { useCurrency } from "@/components/context/CurrencyContext";
 import type { EntityType } from "@/components/EntityUsageExport/types";
 import {
   agentDailyActivityCall,
@@ -109,6 +110,7 @@ const ENTITY_FETCH_FNS: Record<EntityType, (...args: any[]) => Promise<any>> = {
 
 const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, entityId, entityList, dateValue }) => {
   const { teams } = useTeams();
+  const { symbol, rate } = useCurrency();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [topKeysLimit, setTopKeysLimit] = useState<number>(5);
   const [topModelsLimit, setTopModelsLimit] = useState<number>(5);
@@ -561,7 +563,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                       index="date"
                       categories={["metrics.spend"]}
                       colors={["cyan"]}
-                      valueFormatter={valueFormatterSpend}
+                      valueFormatter={(value) => valueFormatterSpend(value, symbol, rate)}
                       yAxisWidth={100}
                       showLegend={false}
                       customTooltip={({ payload, active }) => {
@@ -636,7 +638,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           index="metadata.alias_display"
                           categories={["metrics.spend"]}
                           colors={["cyan"]}
-                          valueFormatter={valueFormatterSpend}
+                          valueFormatter={(value) => valueFormatterSpend(value, symbol, rate)}
                           layout="vertical"
                           showLegend={false}
                           yAxisWidth={150}
@@ -750,7 +752,6 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           index="provider"
                           category="spend"
                           valueFormatter={(value) => {
-                            const { symbol } = useCurrency();
                             return `${symbol}${formatNumberWithCommas(value, 2)}`;
                           }}
                           colors={["cyan", "blue", "indigo", "violet", "purple"]}

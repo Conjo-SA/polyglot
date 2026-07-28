@@ -15,6 +15,7 @@ import {
   modelAvailableCall,
   AgentCreateInfo,
 } from "@/components/networking";
+import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { getModelDisplayName } from "@/components/key_team_helpers/fetch_available_models_team_key";
 import { Team } from "@/components/key_team_helpers/key_list";
@@ -537,8 +538,8 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({ visible, onClose, accessTok
               <p className="text-xs text-gray-400 mt-1">Hard cap on LLM calls per session</p>
             </div>
             <div>
-              <label className="text-sm text-gray-600 block mb-1">Max Budget Per Session ($)</label>
-              <InputNumber
+              <label className="text-sm text-gray-600 block mb-1">Max Budget Per Session</label>
+              <CurrencyMoneyInput
                 className="w-full"
                 min={0.01}
                 step={0.5}

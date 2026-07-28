@@ -77,6 +77,10 @@ def get_display_currency() -> str:
     return _DEFAULT_CURRENCY_VAR
 
 
+def get_exchange_rate_source() -> str:
+    return _EXCHANGE_RATE_SOURCE_VAR
+
+
 def convert_usd(amount_usd: Optional[float], to: str = None) -> Optional[float]:
     # Se não for fornecido, usa a moeda configurada
     if to is None:

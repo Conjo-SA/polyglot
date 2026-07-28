@@ -46,7 +46,10 @@ const getModelCapabilities = (model: ModelHubData) =>
     .filter(([key, value]) => key.startsWith("supports_") && value === true)
     .map(([key]) => key);
 
-const formatCost = (cost: number) => `$${(cost * 1_000_000).toFixed(2)}`;
+const formatCost = (cost: number) => {
+  const { currency, rate } = useCurrency();
+  return formatCostPerMillion(cost * 1_000_000, currency, rate);
+};
 
 const formatTokens = (tokens: number) => {
   if (tokens >= 1_000_000) return `${(tokens / 1_000_000).toFixed(1)}M`;

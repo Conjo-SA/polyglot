@@ -20,6 +20,7 @@ interface TopModelViewProps {
 }
 
 export default function TopModelView({ topModels, topModelsLimit, setTopModelsLimit }: TopModelViewProps) {
+  const { symbol } = useCurrency();
   const [modelViewMode, setModelViewMode] = useState<"chart" | "table">("table");
 
   const columns = [
@@ -93,7 +94,6 @@ export default function TopModelView({ topModels, topModelsLimit, setTopModelsLi
             categories={["spend"]}
             colors={["cyan"]}
             valueFormatter={(value) => {
-                const { symbol } = useCurrency();
                 return `${symbol}${formatNumberWithCommas(value, 2)}`;
               }}
             layout="vertical"

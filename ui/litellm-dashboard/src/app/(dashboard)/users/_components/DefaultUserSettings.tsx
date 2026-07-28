@@ -336,7 +336,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
                   <span className="font-medium text-gray-600">Orçamento Máximo:</span>
                   <p className="text-gray-900">
                     {team.max_budget_in_team !== undefined
-                      ? `$${formatNumberWithCommas(team.max_budget_in_team, 4)}`
+                      ? <MoneyCell value={team.max_budget_in_team} decimals={4} />
                       : "Sem limite"}
                   </p>
                 </div>

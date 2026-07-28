@@ -210,7 +210,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
                   value={editedValues.max_budget}
                   onChange={(v) => update("max_budget", v)}
                   placeholder="Not set"
-                  prefix="$"
+                  prefix={useCurrency().symbol}
                   min={0}
                 />
               }

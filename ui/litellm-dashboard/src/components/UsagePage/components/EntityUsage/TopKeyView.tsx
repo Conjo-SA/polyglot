@@ -122,7 +122,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
                     </div>
                     <div>
                       <span className="text-gray-300">Spend:</span>{" "}
-                      {tag.usage > 0 && tag.usage < 0.01 ? "<$0.01" : `$${formatNumberWithCommas(tag.usage, 2)}`}
+                      {tag.usage > 0 && tag.usage < 0.01 ? "<$0.01" : <MoneyCell value={tag.usage} decimals={2} />}
                     </div>
                   </div>
                 }
@@ -205,7 +205,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
             tickGap={5}
             layout="vertical"
             showLegend={false}
-            valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+            valueFormatter={(value) => <MoneyCell value={value} decimals={2} />}
             onValueChange={(item) => handleKeyClick(item)}
             showTooltip={true}
             customTooltip={(props) => {

@@ -36,6 +36,7 @@ interface SpendByProviderProps {
 }
 
 const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChanging, providerSpend }) => {
+  const { symbol } = useCurrency();
   const [includeZeroSpend, setIncludeZeroSpend] = useState(false);
   const [includeUnknown, setIncludeUnknown] = useState(false);
 
@@ -87,7 +88,6 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
               index="provider"
               category="spend"
               valueFormatter={(value) => {
-                const { symbol } = useCurrency();
                 return `${symbol}${formatNumberWithCommas(value, 2)}`;
               }}
               colors={["cyan"]}

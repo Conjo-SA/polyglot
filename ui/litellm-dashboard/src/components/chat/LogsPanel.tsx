@@ -64,11 +64,11 @@ function formatTokens(n: number): string {
   return (n ?? 0).toLocaleString();
 }
 
-function formatCost(spend: number): string {
+function formatCost(spend: number): React.ReactNode {
   const value = spend ?? 0;
-  if (value === 0) return "$0";
-  if (value < 0.01) return `$${value.toFixed(6)}`;
-  return `$${value.toFixed(4)}`;
+  if (value === 0) return <MoneyCell value={0} decimals={0} />;
+  if (value < 0.01) return <MoneyCell value={value} decimals={6} />;
+  return <MoneyCell value={value} decimals={4} />;
 }
 
 function durationMs(row: LogRow): number | null {

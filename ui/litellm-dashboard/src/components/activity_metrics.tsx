@@ -87,7 +87,7 @@ const ModelSection = ({
           index="date"
           categories={["metrics.spend"]}
           colors={["green"]}
-          valueFormatter={(value: number) => `$${formatNumberWithCommas(value, 2, true)}`}
+          valueFormatter={(value: number) => <MoneyCell value={value} decimals={2} />}
           yAxisWidth={72}
         />
       </Card>

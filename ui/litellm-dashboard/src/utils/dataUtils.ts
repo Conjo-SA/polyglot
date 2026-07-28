@@ -81,6 +81,26 @@ export const useSpendString = (value: number | null | undefined, decimals: numbe
 };
 
 /**
+ * Formata um valor de custo para exibição em moeda configurada (com base em 1M de tokens)
+ * @param cost Valor do custo por token
+ * @returns Texto formatado com o símbolo da moeda configurada
+ */
+export const formatCostPerMillion = (cost: number | null | undefined, currency?: string, rate?: number): string => {
+  if (cost === null || cost === undefined || !Number.isFinite(cost)) {
+    return "-";
+  }
+  
+  const valuePerMillion = cost * 1_000_000;
+  const currencySymbol = currency === "BRL" ? "R$" : "$";
+  
+  if (valuePerMillion === 0) {
+    return `${currencySymbol} 0.0000`;
+  }
+  
+  return `${currencySymbol} ${valuePerMillion.toFixed(4)}`;
+};
+
+/**
  * @deprecated - Use useSpendString hook em vez deste método purinho
  */
 export const getSpendString = (value: number | null | undefined, decimals: number = 6): string => {

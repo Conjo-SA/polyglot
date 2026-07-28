@@ -266,7 +266,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       of{" "}
                       {orgData.litellm_budget_table.max_budget === null
                         ? "Unlimited"
-                        : `$${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4)}`}
+                        : <MoneyCell value={orgData.litellm_budget_table.max_budget} decimals={4} />}
                     </Text>
                     {orgData.litellm_budget_table.budget_duration && (
                       <Text className="text-gray-500">Reset: {orgData.litellm_budget_table.budget_duration}</Text>
@@ -487,7 +487,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       <div>
                         Max:{" "}
                         {orgData.litellm_budget_table.max_budget !== null
-                          ? `$${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4)}`
+                          ? <MoneyCell value={orgData.litellm_budget_table.max_budget} decimals={4} />
                           : "No Limit"}
                       </div>
                       <div>Reset: {orgData.litellm_budget_table.budget_duration || "Never"}</div>
