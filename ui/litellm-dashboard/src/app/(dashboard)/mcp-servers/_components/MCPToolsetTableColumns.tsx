@@ -53,24 +53,24 @@ function ToolsetRowActions({ toolset, isAdmin, onEditClick, onDeleteClick }: Too
       <DropdownMenuContent align="end" className="w-52">
         <DropdownMenuItem
           data-testid="toolset-action-copy-url"
-          onClick={() => void copyToClipboard(toolsetEndpointUrl(toolset.toolset_name), "Endpoint URL copied")}
+          onClick={() => void copyToClipboard(toolsetEndpointUrl(toolset.toolset_name), "URL do ponto de extremidade copiada")}
         >
           <Link2 />
-          Copy endpoint URL
+          Copiar URL do ponto de extremidade
         </DropdownMenuItem>
         <DropdownMenuItem
           data-testid="toolset-action-copy-id"
           onClick={() => void copyToClipboard(toolset.toolset_id, "Toolset ID copied")}
         >
           <Copy />
-          Copy toolset ID
+          Copiar ID do conjunto de ferramentas
         </DropdownMenuItem>
         {isAdmin && (
           <>
             <DropdownMenuSeparator />
             <DropdownMenuItem data-testid="toolset-action-edit" onClick={() => onEditClick(toolset)}>
               <Pencil />
-              Edit
+              Editar
             </DropdownMenuItem>
             <DropdownMenuItem
               variant="destructive"
@@ -78,7 +78,7 @@ function ToolsetRowActions({ toolset, isAdmin, onEditClick, onDeleteClick }: Too
               onClick={() => onDeleteClick(toolset.toolset_id)}
             >
               <Trash2 />
-              Delete
+              Excluir
             </DropdownMenuItem>
           </>
         )}
@@ -103,8 +103,8 @@ export const getMCPToolsetTableColumns = ({
   {
     id: "toolset_id",
     accessorKey: "toolset_id",
-    meta: { title: "Toolset ID" },
-    header: "Toolset ID",
+    meta: { title: "ID do Conjunto de Ferramentas" },
+    header: "ID do Conjunto de Ferramentas",
     size: 140,
     enableSorting: false,
     cell: ({ row }) => <IdCell value={row.original.toolset_id} />,
@@ -112,8 +112,8 @@ export const getMCPToolsetTableColumns = ({
   {
     id: "toolset_name",
     accessorKey: "toolset_name",
-    meta: { title: "Name" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Name" />,
+    meta: { title: "Nome" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Nome" />,
     size: 260,
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -129,8 +129,8 @@ export const getMCPToolsetTableColumns = ({
   {
     id: "description",
     accessorKey: "description",
-    meta: { title: "Description" },
-    header: "Description",
+    meta: { title: "Descrição" },
+    header: "Descrição",
     size: 200,
     enableSorting: false,
     cell: ({ row }) => (
@@ -141,8 +141,8 @@ export const getMCPToolsetTableColumns = ({
   },
   {
     id: "tools",
-    meta: { title: "Tools", skeleton: "chips" },
-    header: "Tools",
+    meta: { title: "Ferramentas", skeleton: "chips" },
+    header: "Ferramentas",
     size: 260,
     enableSorting: false,
     cell: ({ row }) => {
@@ -167,8 +167,8 @@ export const getMCPToolsetTableColumns = ({
   {
     id: "created_at",
     accessorKey: "created_at",
-    meta: { title: "Created" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Created" />,
+    meta: { title: "Criado" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Criado" />,
     size: 120,
     enableSorting: true,
     cell: ({ row }) => <DateCell value={row.original.created_at} precision="date" />,

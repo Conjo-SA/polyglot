@@ -38,7 +38,7 @@ export default function UISettings() {
       { disable_model_add_for_internal_users: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -52,7 +52,7 @@ export default function UISettings() {
       { disable_team_admin_delete_team_user: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -64,7 +64,7 @@ export default function UISettings() {
   const handleUpdatePageVisibility = (settings: { enabled_ui_pages_internal_users: string[] | null }) => {
     updateSettings(settings, {
       onSuccess: () => {
-        NotificationManager.success("Page visibility settings updated successfully");
+        NotificationManager.success("Configurações de visibilidade de página atualizadas com sucesso");
       },
       onError: (error) => {
         NotificationManager.fromBackend(error);
@@ -77,7 +77,7 @@ export default function UISettings() {
       { forward_client_headers_to_llm_api: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -91,7 +91,7 @@ export default function UISettings() {
       { forward_llm_provider_auth_headers: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -105,7 +105,7 @@ export default function UISettings() {
       { enable_projects_ui: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully. Refreshing page...");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso. Atualizando página...");
           setTimeout(() => window.location.reload(), 1000);
         },
         onError: (error) => {
@@ -120,7 +120,7 @@ export default function UISettings() {
       { enable_chat_ui: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully. Refreshing page...");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso. Atualizando página...");
           setTimeout(() => window.location.reload(), 1000);
         },
         onError: (error) => {
@@ -135,7 +135,7 @@ export default function UISettings() {
       { require_auth_for_public_ai_hub: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -149,7 +149,7 @@ export default function UISettings() {
       { disable_agents_for_internal_users: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -163,7 +163,7 @@ export default function UISettings() {
       { allow_agents_for_team_admins: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -177,7 +177,7 @@ export default function UISettings() {
       { disable_vector_stores_for_internal_users: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -191,7 +191,7 @@ export default function UISettings() {
       { allow_vector_stores_for_team_admins: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -205,7 +205,7 @@ export default function UISettings() {
       { scope_user_search_to_org: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -219,7 +219,7 @@ export default function UISettings() {
       { disable_custom_api_keys: checked },
       {
         onSuccess: () => {
-          NotificationManager.success("UI settings updated successfully");
+          NotificationManager.success("Configurações da interface atualizadas com sucesso");
         },
         onError: (error) => {
           NotificationManager.fromBackend(error);
@@ -229,13 +229,13 @@ export default function UISettings() {
   };
 
   return (
-    <Card title="UI Settings">
+    <Card title="Configurações da Interface">
       {isLoading ? (
         <Skeleton active />
       ) : isError ? (
         <Alert
           type="error"
-          message="Could not load UI settings"
+          message="Não foi possível carregar as configurações da interface"
           description={error instanceof Error ? error.message : undefined}
         />
       ) : (
@@ -247,7 +247,7 @@ export default function UISettings() {
           {updateError && (
             <Alert
               type="error"
-              message="Could not update UI settings"
+              message="Não foi possível atualizar as configurações da interface"
               description={updateError instanceof Error ? updateError.message : undefined}
             />
           )}
@@ -261,7 +261,7 @@ export default function UISettings() {
               aria-label={property?.description ?? "Disable model add for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable model add for internal users</Typography.Text>
+              <Typography.Text strong>Desativar adição de modelos para usuários internos</Typography.Text>
               {property?.description && <Typography.Text type="secondary">{property.description}</Typography.Text>}
             </Space>
           </Space>
@@ -275,7 +275,7 @@ export default function UISettings() {
               aria-label={disableTeamAdminDeleteProperty?.description ?? "Disable team admin delete team user"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable team admin delete team user</Typography.Text>
+              <Typography.Text strong>Desativar exclusão de usuários por administradores de equipe</Typography.Text>
               {disableTeamAdminDeleteProperty?.description && (
                 <Typography.Text type="secondary">{disableTeamAdminDeleteProperty.description}</Typography.Text>
               )}
@@ -291,7 +291,7 @@ export default function UISettings() {
               aria-label={requireAuthForPublicAIHubProperty?.description ?? "Require authentication for public AI Hub"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Require authentication for public AI Hub</Typography.Text>
+              <Typography.Text strong>Exigir autenticação para o Hub de IA público</Typography.Text>
               {requireAuthForPublicAIHubProperty?.description && (
                 <Typography.Text type="secondary">{requireAuthForPublicAIHubProperty.description}</Typography.Text>
               )}
@@ -310,7 +310,7 @@ export default function UISettings() {
               <Typography.Text strong>Forward client headers to LLM API</Typography.Text>
               <Typography.Text type="secondary">
                 {forwardClientHeadersProperty?.description ??
-                  "Forwards client headers (Authorization, anthropic-beta, and x-* custom headers) to the upstream LLM. Enable for Claude Code with a Max subscription (forwards the OAuth token) or to pass custom/tracing headers through to the provider. Independent of the BYOK toggle — enable only the one(s) you need."}
+                  "Encaminha cabeçalhos do cliente (Authorization, anthropic-beta e cabeçalhos personalizados x-*) para o LLM upstream. Ative para Claude Code com assinatura Max (encaminha o token OAuth) ou para passar cabeçalhos personalizados/rastreamento ao provedor. Independente do interruptor BYOK — ative apenas o(s) necessário(s)."}
               </Typography.Text>
             </Space>
           </Space>
@@ -327,7 +327,7 @@ export default function UISettings() {
               <Typography.Text strong>Forward LLM provider auth headers</Typography.Text>
               <Typography.Text type="secondary">
                 {forwardLLMProviderAuthHeadersProperty?.description ??
-                  "Forwards provider auth headers (x-api-key, x-goog-api-key, api-key, ocp-apim-subscription-key) to the upstream LLM, overriding any deployment-configured key for that request. Enable for Claude Code BYOK (clients bring their own API key). Independent of the client-headers toggle — enable only the one(s) you need."}
+                  "Encaminha cabeçalhos de autenticação do provedor (x-api-key, x-goog-api-key, api-key, ocp-apim-subscription-key) para o LLM upstream, substituindo qualquer chave configurada para aquela solicitação. Ative para Claude Code BYOK (clientes trazem sua própria chave API). Independente do interruptor de cabeçalhos do cliente — ative apenas o(s) necessário(s)."}
               </Typography.Text>
             </Space>
           </Space>
@@ -342,10 +342,10 @@ export default function UISettings() {
                 aria-label={enableProjectsUIProperty.description ?? "Enable Projects UI"}
               />
               <Space direction="vertical" size={4}>
-                <Typography.Text strong>[BETA] Enable Projects (page will refresh)</Typography.Text>
+                <Typography.Text strong>[BETA] Ativar Projetos (a página será atualizada)</Typography.Text>
                 <Typography.Text type="secondary">
                   {enableProjectsUIProperty.description ??
-                    "If enabled, shows the Projects feature in the UI sidebar and the project field in key management."}
+                    "Se ativado, mostra o recurso Projetos na barra lateral da interface e o campo projeto na gestão de chaves."}
                 </Typography.Text>
               </Space>
             </Space>
@@ -360,10 +360,10 @@ export default function UISettings() {
               aria-label={enableChatUIProperty?.description ?? "Enable Chat page"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>[BETA] Enable Chat page (page will refresh)</Typography.Text>
+              <Typography.Text strong>[BETA] Ativar página de Chat (a página será atualizada)</Typography.Text>
               <Typography.Text type="secondary">
                 {enableChatUIProperty?.description ??
-                  "If enabled, shows the Chat page in the UI sidebar, letting users chat with an LLM and connect their own MCP server credentials via OAuth."}
+                  "Se ativado, mostra a página de Chat na barra lateral da interface, permitindo que os usuários conversem com um LLM e conectem suas próprias credenciais de servidor MCP via OAuth."}
               </Typography.Text>
             </Space>
           </Space>
@@ -380,7 +380,7 @@ export default function UISettings() {
               aria-label={disableAgentsProperty?.description ?? "Disable agents for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable agents for internal users</Typography.Text>
+              <Typography.Text strong>Desativar agentes para usuários internos</Typography.Text>
               {disableAgentsProperty?.description && (
                 <Typography.Text type="secondary">{disableAgentsProperty.description}</Typography.Text>
               )}
@@ -417,7 +417,7 @@ export default function UISettings() {
               aria-label={disableVectorStoresProperty?.description ?? "Disable vector stores for internal users"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable vector stores for internal users</Typography.Text>
+              <Typography.Text strong>Desativar armazenamento vetorial para usuários internos</Typography.Text>
               {disableVectorStoresProperty?.description && (
                 <Typography.Text type="secondary">{disableVectorStoresProperty.description}</Typography.Text>
               )}
@@ -457,7 +457,7 @@ export default function UISettings() {
               <Typography.Text strong>Scope user search to organization</Typography.Text>
               <Typography.Text type="secondary">
                 {scopeUserSearchProperty?.description ??
-                  "If enabled, the user search endpoint restricts results by organization. When off, any authenticated user can search all users."}
+                  "Se ativado, o endpoint de busca de usuários restringe resultados por organização. Quando desativado, qualquer usuário autenticado pode buscar todos os usuários."}
               </Typography.Text>
             </Space>
           </Space>
@@ -477,14 +477,14 @@ export default function UISettings() {
               <Typography.Text strong>Disable custom Virtual key values</Typography.Text>
               <Typography.Text type="secondary">
                 {disableCustomApiKeysProperty?.description ??
-                  "If true, users cannot specify custom key values. All keys must be auto-generated."}
+                  "Se verdadeiro, os usuários não podem especificar valores de chave personalizados. Todas as chaves devem ser geradas automaticamente."}
               </Typography.Text>
             </Space>
           </Space>
 
           <Divider />
 
-          {/* Page Visibility for Internal Users */}
+          {/* Visibilidade de Páginas para Usuários Internos */}
           <PageVisibilitySettings
             enabledPagesInternalUsers={values.enabled_ui_pages_internal_users}
             enabledPagesPropertyDescription={enabledPagesProperty?.description}

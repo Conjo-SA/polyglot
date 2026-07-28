@@ -75,12 +75,12 @@ export default function PluginSettings() {
 
   const columns = [
     {
-      title: "Name",
+      title: "Nome",
       dataIndex: "name",
       key: "name",
       render: (v: string) => <Text code>{v}</Text>,
     },
-    { title: "Display Name", dataIndex: "display_name", key: "display_name" },
+    { title: "Nome de Exibição", dataIndex: "display_name", key: "display_name" },
     {
       title: "URL",
       dataIndex: "url",
@@ -92,13 +92,13 @@ export default function PluginSettings() {
       ),
     },
     {
-      title: "Plugin Key",
+      title: "Chave do Plugin",
       dataIndex: "plugin_key",
       key: "plugin_key",
       render: (v?: string) => (v ? <Text code>{"•".repeat(8)}</Text> : <Text type="secondary">—</Text>),
     },
     {
-      title: "Actions",
+      title: "Ações",
       key: "actions",
       render: (_: unknown, __: Plugin, idx: number) => (
         <Space>
@@ -113,57 +113,57 @@ export default function PluginSettings() {
     <Card>
       <Title level={4}>Plugins</Title>
       <Paragraph>
-        Register external services as plugins. Once added, users can toggle to the plugin from the mode switcher in the
-        top-left of the sidebar.
+        Registre serviços externos como plugins. Após adicionar, os usuários podem alternar para o plugin no seletor de modo
+        no canto superior esquerdo da barra lateral.
       </Paragraph>
       <Paragraph type="secondary" style={{ fontSize: 12 }}>
-        Each plugin must expose <Text code>GET /api/plugin-manifest</Text> returning nav items and capabilities.
+        Cada plugin deve expor <Text code>GET /api/plugin-manifest</Text> retornando itens de navegação e capacidades.
       </Paragraph>
 
       <Button type="primary" icon={<PlusOutlined />} onClick={openAdd} style={{ marginBottom: 16 }}>
-        Add Plugin
+        Adicionar Plugin
       </Button>
 
       <Table dataSource={plugins} columns={columns} rowKey="name" loading={loading} pagination={false} size="small" />
 
       <Modal
-        title={editingIndex !== null ? "Edit Plugin" : "Add Plugin"}
+        title={editingIndex !== null ? "Editar Plugin" : "Adicionar Plugin"}
         open={modalOpen}
         onOk={handleOk}
         onCancel={() => setModalOpen(false)}
         confirmLoading={saving}
-        okText="Save"
+        okText="Salvar"
       >
         <Form form={form} layout="vertical" style={{ marginTop: 16 }}>
           <Form.Item
             name="name"
-            label="Name (identifier)"
-            rules={[{ required: true, message: "Required" }]}
-            extra="Used in URLs and config. No spaces. E.g. litellm-platform-plugin"
+            label="Nome (identificador)"
+            rules={[{ required: true, message: "Obrigatório" }]}
+            extra="Usado em URLs e configurações. Sem espaços. Ex.: litellm-platform-plugin"
           >
             <Input placeholder="litellm-platform-plugin" />
           </Form.Item>
-          <Form.Item name="display_name" label="Display Name" rules={[{ required: true, message: "Required" }]}>
-            <Input placeholder="Agent Control Plane" />
+          <Form.Item name="display_name" label="Nome de Exibição" rules={[{ required: true, message: "Obrigatório" }]}>
+            <Input placeholder="Plataforma LiteLLM" />
           </Form.Item>
           <Form.Item
             name="url"
             label="URL"
             rules={[
-              { required: true, message: "Required" },
-              { type: "url", message: "Must be a valid URL" },
+              { required: true, message: "Obrigatório" },
+              { type: "url", message: "Deve ser uma URL válida" },
             ]}
-            extra="Base URL of the plugin service"
+            extra="URL base do serviço do plugin"
           >
-            <Input placeholder="https://your-plugin.example.com" />
+            <Input placeholder="https://seu-plugin.exemplo.com" />
           </Form.Item>
           <Form.Item
             name="plugin_key"
-            label="Plugin Key"
-            extra="Optional. The plugin's own credential, injected as Authorization: Bearer <key> only when litellm reverse-proxies API calls to the plugin's backend (/plugin-proxy/<name>/*). Leave blank for plugins that use the forwarded litellm user token (e.g. iframe plugins) — that path uses the user's token, not this key."
+            label="Chave do Plugin"
+            extra="Opcional. A credencial própria do plugin, injetada como Authorization: Bearer <key> apenas quando o litellm faz proxy reverso das chamadas de API para o backend do plugin (/plugin-proxy/<nome>/*). Deixe em branco para plugins que usam o token do usuário encaminhado pelo litellm (por exemplo, plugins iframe) — este caminho usa o token do usuário, não esta chave."
           >
             <Input.Password
-              placeholder={editingIndex !== null ? "Leave blank to keep current key" : "sk-... (optional)"}
+              placeholder={editingIndex !== null ? "Deixe em branco para manter a chave atual" : "sk-... (opcional)"}
             />
           </Form.Item>
         </Form>

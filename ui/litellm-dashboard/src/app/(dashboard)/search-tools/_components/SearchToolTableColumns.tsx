@@ -17,8 +17,8 @@ import { cn } from "@/lib/cva.config";
 
 import { AvailableSearchProvider, SearchTool } from "./types";
 
-const CONFIG_EDIT_HINT = "Config search tools cannot be edited on the dashboard. Please edit the config file.";
-const CONFIG_DELETE_HINT = "Config search tools cannot be deleted on the dashboard. Please edit the config file.";
+const CONFIG_EDIT_HINT = "Ferramentas de busca configuradas não podem ser editadas no painel. Por favor, edite o arquivo de configuração.";
+const CONFIG_DELETE_HINT = "Ferramentas de busca configuradas não podem ser excluídas no painel. Por favor, edite o arquivo de configuração.";
 
 export const searchToolKey = (tool: SearchTool): string => tool.search_tool_id || tool.search_tool_name;
 
@@ -49,7 +49,7 @@ function SearchToolRowActions({ tool, onEdit, onDelete }: SearchToolRowActionsPr
           onClick={() => toolId && onEdit(toolId)}
         >
           <Pencil />
-          Edit search tool
+          Editar ferramenta de busca
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -60,7 +60,7 @@ function SearchToolRowActions({ tool, onEdit, onDelete }: SearchToolRowActionsPr
           onClick={() => toolId && onDelete(toolId)}
         >
           <Trash2 />
-          Delete search tool
+          Excluir ferramenta de busca
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -83,8 +83,8 @@ export const getSearchToolTableColumns = ({
   {
     id: "search_tool_id",
     accessorKey: "search_tool_id",
-    meta: { title: "Search Tool ID" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Search Tool ID" />,
+    meta: { title: "ID da Ferramenta de Busca" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="ID da Ferramenta de Busca" />,
     size: 200,
     enableSorting: true,
     cell: ({ row }) => {
@@ -101,8 +101,8 @@ export const getSearchToolTableColumns = ({
   {
     id: "search_tool_name",
     accessorKey: "search_tool_name",
-    meta: { title: "Name" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Name" />,
+    meta: { title: "Nome" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Nome" />,
     size: 200,
     enableSorting: true,
     cell: ({ row }) => (
@@ -113,8 +113,8 @@ export const getSearchToolTableColumns = ({
   },
   {
     id: "provider",
-    meta: { title: "Provider" },
-    header: "Provider",
+    meta: { title: "Provedor" },
+    header: "Provedor",
     size: 160,
     enableSorting: false,
     cell: ({ row }) => {
@@ -126,8 +126,8 @@ export const getSearchToolTableColumns = ({
   {
     id: "created_at",
     accessorKey: "created_at",
-    meta: { title: "Created At" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Created At" />,
+    meta: { title: "Criado Em" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Criado Em" />,
     size: 130,
     enableSorting: true,
     cell: ({ row }) => <DateCell value={row.original.created_at} precision="date" />,
@@ -135,21 +135,21 @@ export const getSearchToolTableColumns = ({
   {
     id: "updated_at",
     accessorKey: "updated_at",
-    meta: { title: "Updated At" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Updated At" />,
+    meta: { title: "Atualizado Em" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Atualizado Em" />,
     size: 130,
     enableSorting: true,
     cell: ({ row }) => <DateCell value={row.original.updated_at} precision="date" />,
   },
   {
     id: "source",
-    meta: { title: "Source", skeleton: "badge" },
-    header: "Source",
+    meta: { title: "Origem", skeleton: "badge" },
+    header: "Origem",
     size: 100,
     enableSorting: false,
     cell: ({ row }) => {
       const isFromConfig = row.original.is_from_config ?? false;
-      return <StatusBadge tone={isFromConfig ? "neutral" : "info"} label={isFromConfig ? "Config" : "DB"} />;
+      return <StatusBadge tone={isFromConfig ? "neutral" : "info"} label={isFromConfig ? "Config" : "BD"} />;
     },
   },
   {

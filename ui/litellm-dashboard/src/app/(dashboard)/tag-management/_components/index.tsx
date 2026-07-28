@@ -47,8 +47,8 @@ const TagManagement: React.FC<TagProps> = ({ accessToken, userID, userRole }) =>
       const response = await tagListCall(accessToken);
       setTags(Object.values(response));
     } catch (error) {
-      console.error("Error fetching tags:", error);
-      NotificationsManager.fromBackend("Error fetching tags: " + error);
+      console.error("Erro ao buscar tags:", error);
+      NotificationsManager.fromBackend("Erro ao buscar tags: " + error);
     } finally {
       setIsLoadingTags(false);
     }
@@ -73,12 +73,12 @@ const TagManagement: React.FC<TagProps> = ({ accessToken, userID, userRole }) =>
         rpm_limit: formValues.rpm_limit,
         budget_duration: formValues.budget_duration,
       });
-      NotificationsManager.success("Tag created successfully");
+      NotificationsManager.success("Tag criada com sucesso");
       setIsCreateModalVisible(false);
       fetchTags();
     } catch (error) {
-      console.error("Error creating tag:", error);
-      NotificationsManager.fromBackend("Error creating tag: " + error);
+      console.error("Erro ao criar tag:", error);
+      NotificationsManager.fromBackend("Erro ao criar tag: " + error);
     }
   };
 
@@ -92,11 +92,11 @@ const TagManagement: React.FC<TagProps> = ({ accessToken, userID, userRole }) =>
     setIsDeleting(true);
     try {
       await tagDeleteCall(accessToken, tagToDelete);
-      NotificationsManager.success("Tag deleted successfully");
+      NotificationsManager.success("Tag excluída com sucesso");
       fetchTags();
     } catch (error) {
-      console.error("Error deleting tag:", error);
-      NotificationsManager.fromBackend("Error deleting tag: " + error);
+      console.error("Erro ao excluir tag:", error);
+      NotificationsManager.fromBackend("Erro ao excluir tag: " + error);
     } finally {
       setIsDeleting(false);
       setIsDeleteModalOpen(false);
@@ -113,8 +113,8 @@ const TagManagement: React.FC<TagProps> = ({ accessToken, userID, userRole }) =>
             setAvailableModels(response.data);
           }
         } catch (error) {
-          console.error("Error fetching models:", error);
-          NotificationsManager.fromBackend("Error fetching models: " + error);
+          console.error("Erro ao buscar modelos:", error);
+          NotificationsManager.fromBackend("Erro ao buscar modelos: " + error);
         }
       };
       fetchModels();
@@ -141,9 +141,9 @@ const TagManagement: React.FC<TagProps> = ({ accessToken, userID, userRole }) =>
       ) : (
         <div className="gap-2 p-8 h-[75vh] w-full mt-2">
           <div className="flex justify-between mt-2 w-full items-center mb-4">
-            <h1>Tag Management</h1>
+            <h1>Gerenciamento de Tags</h1>
             <div className="flex items-center space-x-2">
-              {lastRefreshed && <Text>Last Refreshed: {lastRefreshed}</Text>}
+              {lastRefreshed && <Text>Última Atualização: {lastRefreshed}</Text>}
               <Icon
                 icon={RefreshIcon}
                 variant="shadow"
@@ -155,19 +155,19 @@ const TagManagement: React.FC<TagProps> = ({ accessToken, userID, userRole }) =>
           </div>
 
           <Text className="mb-4">
-            Click on a tag name to view and edit its details.
+            Clique no nome de uma tag para visualizar e editar seus detalhes.
             <p>
-              You can use tags to restrict the usage of certain LLMs based on tags passed in the request. Read more
-              about tag routing{" "}
+              Você pode usar tags para restringir o uso de certos LLMs com base nas tags passadas na requisição. Leia mais
+              sobre roteamento por tags{" "}
               <a href="https://docs.litellm.ai/docs/proxy/tag_routing" target="_blank" rel="noopener noreferrer">
-                here
+                aqui
               </a>
               .
             </p>
           </Text>
 
           <Button className="mb-4" onClick={() => setIsCreateModalVisible(true)}>
-            + Create New Tag
+            + Criar Nova Tag
           </Button>
 
           <Grid numItems={1} className="gap-2 pt-2 pb-2 h-[75vh] w-full mt-2">
@@ -196,10 +196,10 @@ const TagManagement: React.FC<TagProps> = ({ accessToken, userID, userRole }) =>
           {/* Delete Confirmation Modal */}
           <DeleteResourceModal
             isOpen={isDeleteModalOpen}
-            title="Delete Tag"
-            message="Are you sure you want to delete this tag? This action cannot be undone."
-            resourceInformationTitle="Tag Information"
-            resourceInformation={[{ label: "Tag Name", value: tagToDelete, code: true }]}
+            title="Excluir Tag"
+            message="Tem certeza que deseja excluir esta tag? Esta ação não pode ser desfeita."
+            resourceInformationTitle="Informações da Tag"
+            resourceInformation={[{ label: "Nome da Tag", value: tagToDelete, code: true }]}
             onCancel={() => {
               setIsDeleteModalOpen(false);
               setTagToDelete(null);

@@ -21,7 +21,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({ onChange, value, className, a
         const response = await tagListCall(accessToken);
         setTags(Object.values(response));
       } catch (error) {
-        console.error("Error fetching tags:", error);
+        console.error("Erro ao buscar tags:", error);
       } finally {
         setLoading(false);
       }
@@ -34,7 +34,7 @@ const TagSelector: React.FC<TagSelectorProps> = ({ onChange, value, className, a
     <Select
       mode="tags"
       showSearch
-      placeholder="Select or create tags"
+      placeholder="Selecionar ou criar tags"
       onChange={onChange}
       value={value}
       loading={loading}

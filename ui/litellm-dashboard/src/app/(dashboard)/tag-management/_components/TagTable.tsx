@@ -45,7 +45,7 @@ const TagTable: React.FC<TagTableProps> = ({ data, onEdit, onDelete, onSelectTag
       sorting={sorting}
       onSortingChange={setSorting}
       isLoading={isLoading}
-      loadingMessage="Loading tags…"
+      loadingMessage="Carregando tags…"
       noDataMessage={<EmptyState />}
       size="compact"
     />

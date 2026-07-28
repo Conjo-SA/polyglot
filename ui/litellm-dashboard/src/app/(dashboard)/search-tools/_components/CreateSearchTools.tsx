@@ -103,14 +103,14 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
       if (accessToken != null) {
         const response = await createSearchTool(accessToken, payload);
 
-        NotificationsManager.success("Search tool created successfully");
+        NotificationsManager.success("Ferramenta de busca criada com sucesso");
         form.resetFields();
         setFormValues({});
         setModalVisible(false);
         onCreateSuccess(response);
       }
     } catch (error) {
-      NotificationsManager.error("Error creating search tool: " + error);
+      NotificationsManager.error("Erro ao criar a ferramenta de busca: " + error);
     } finally {
       setIsLoading(false);
     }
@@ -153,7 +153,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
       title={
         <div className="flex items-center space-x-3 pb-4 border-b border-gray-100">
           <span className="text-2xl">🔍</span>
-          <h2 className="text-xl font-semibold text-gray-900">Add New Search Tool</h2>
+          <h2 className="text-xl font-semibold text-gray-900">Adicionar Nova Ferramenta de Busca</h2>
         </div>
       }
       open={isModalVisible}
@@ -178,18 +178,18 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  Search Tool Name
-                  <Tooltip title="A unique name to identify this search tool configuration (e.g., 'perplexity-search', 'tavily-news-search').">
+                  Nome da Ferramenta de Busca
+                  <Tooltip title="Um nome único para identificar esta configuração de ferramenta de busca (ex: 'busca-perplexity', 'busca-tavily-noticias').">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
               }
               name="search_tool_name"
               rules={[
-                { required: true, message: "Please enter a search tool name" },
+                { required: true, message: "Por favor, informe um nome para a ferramenta de busca" },
                 {
                   pattern: /^[a-zA-Z0-9_-]+$/,
-                  message: "Name can only contain letters, numbers, hyphens, and underscores",
+                  message: "O nome só pode conter letras, números, hífens e underscores",
                 },
               ]}
             >
@@ -202,14 +202,14 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  Search Provider
-                  <Tooltip title="Select the search provider you want to use. Each provider has different capabilities and pricing.">
+                  Provedor de Busca
+                  <Tooltip title="Selecione o provedor de busca que você deseja usar. Cada provedor possui diferentes capacidades e preços.">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
               }
               name="search_provider"
-              rules={[{ required: true, message: "Please select a search provider" }]}
+              rules={[{ required: true, message: "Por favor, selecione um provedor de busca" }]}
             >
               <Select
                 placeholder="Select a search provider"
@@ -243,14 +243,14 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
             <Form.Item
               label={
                 <span className="text-sm font-medium text-gray-700 flex items-center">
-                  API Key
-                  <Tooltip title="The API key for authenticating with the search provider. This will be securely stored.">
+                  Chave de API
+                  <Tooltip title="A chave de API para autenticação com o provedor de busca. Esta será armazenada com segurança.">
                     <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                   </Tooltip>
                 </span>
               }
               name="api_key"
-              rules={[{ required: false, message: "Please enter an API key" }]}
+              rules={[{ required: false, message: "Por favor, informe uma chave de API" }]}
             >
               <TextInput
                 type="password"
@@ -260,7 +260,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
             </Form.Item>
 
             <Form.Item
-              label={<span className="text-sm font-medium text-gray-700">Description (Optional)</span>}
+              label={<span className="text-sm font-medium text-gray-700">Descrição (Opcional)</span>}
               name="description"
             >
               <TextArea
@@ -272,17 +272,17 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
           </div>
 
           <div className="flex justify-between items-center pt-6 border-t border-gray-100">
-            <Tooltip title="Get help on our github">
+            <Tooltip title="Obtenha ajuda no nosso github">
               <Typography.Link href="https://github.com/BerriAI/litellm/issues" target="_blank">
-                Need Help?
+                Precisa de Ajuda?
               </Typography.Link>
             </Tooltip>
             <div className="space-x-2">
               <Button onClick={handleTestConnection} loading={isTestingConnection}>
-                Test Connection
+                Testar Conexão
               </Button>
               <Button loading={isLoading} type="submit">
-                Add Search Tool
+                Adicionar Ferramenta de Busca
               </Button>
             </div>
           </div>
@@ -291,7 +291,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
 
       {/* Test Connection Results Modal */}
       <Modal
-        title="Connection Test Results"
+        title="Resultados do Teste de Conexão"
         open={isTestModalVisible}
         onCancel={() => {
           setIsTestModalVisible(false);
@@ -305,7 +305,7 @@ const CreateSearchTool: React.FC<CreateSearchToolProps> = ({
               setIsTestingConnection(false);
             }}
           >
-            Close
+            Fechar
           </Button>,
         ]}
         width={700}

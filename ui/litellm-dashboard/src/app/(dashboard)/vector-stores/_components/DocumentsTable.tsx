@@ -19,8 +19,8 @@ function EmptyState() {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Inbox className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">No documents uploaded yet</div>
-      <div className="text-sm text-muted-foreground">Upload documents above to get started.</div>
+      <div className="text-sm font-medium text-foreground">Nenhum documento ainda foi enviado</div>
+      <div className="text-sm text-muted-foreground">Envie documentos acima para começar.</div>
     </div>
   );
 }

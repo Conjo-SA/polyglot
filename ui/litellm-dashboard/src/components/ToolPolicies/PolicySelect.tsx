@@ -4,14 +4,14 @@ import React from "react";
 import { Select } from "antd";
 
 export const INPUT_POLICY_OPTIONS = [
-  { value: "untrusted", label: "untrusted", color: "#92400e", bg: "#fef3c7", border: "#fcd34d" },
-  { value: "trusted", label: "trusted", color: "#065f46", bg: "#d1fae5", border: "#6ee7b7" },
-  { value: "blocked", label: "blocked", color: "#991b1b", bg: "#fee2e2", border: "#fca5a5" },
+  { value: "untrusted", label: "não confiável", color: "#92400e", bg: "#fef3c7", border: "#fcd34d" },
+  { value: "trusted", label: "confiável", color: "#065f46", bg: "#d1fae5", border: "#6ee7b7" },
+  { value: "blocked", label: "bloqueado", color: "#991b1b", bg: "#fee2e2", border: "#fca5a5" },
 ] as const;
 
 export const OUTPUT_POLICY_OPTIONS = [
-  { value: "untrusted", label: "untrusted", color: "#92400e", bg: "#fef3c7", border: "#fcd34d" },
-  { value: "trusted", label: "trusted", color: "#065f46", bg: "#d1fae5", border: "#6ee7b7" },
+  { value: "untrusted", label: "não confiável", color: "#92400e", bg: "#fef3c7", border: "#fcd34d" },
+  { value: "trusted", label: "confiável", color: "#065f46", bg: "#d1fae5", border: "#6ee7b7" },
 ] as const;
 
 export const POLICY_OPTIONS = INPUT_POLICY_OPTIONS;
