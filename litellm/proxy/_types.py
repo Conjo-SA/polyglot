@@ -2465,6 +2465,18 @@ class ConfigGeneralSettings(LiteLLMPydanticObjectBase):
         None,
         description="Allowlist of hosts a request may redirect a provider call's destination URL to.",
     )
+    display_currency: Optional[str] = Field(
+        "USD",
+        description="Currency to display costs in (USD or BRL)",
+    )
+    exchange_rate_source: Optional[str] = Field(
+        "fixed",
+        description="Source of exchange rates ('fixed' or 'api')",
+    )
+    usd_to_brl_rate: Optional[float] = Field(
+        5.30,
+        description="Fixed exchange rate for USD to BRL conversion",
+    )
 
 
 class ConfigYAML(LiteLLMPydanticObjectBase):

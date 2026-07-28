@@ -52,15 +52,16 @@ export const getSpendString = (value: number | null | undefined, decimals: numbe
     return "-";
   }
 
+  // For now, return USD formatted string for backward compatibility, but in the future this should use context
   const formatted = formatNumberWithCommas(value, decimals, false, false);
   const numericFormatted = Number(formatted.replace(/,/g, ""));
 
   if (numericFormatted === 0) {
     const threshold = (1 / 10 ** decimals).toFixed(decimals);
-    return `< R$ ${threshold}`;
+    return `< $ ${threshold}`;
   }
 
-  return `R$ ${formatted}`;
+  return `$ ${formatted}`;
 };
 
 export const copyToClipboard = async (

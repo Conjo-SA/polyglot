@@ -30,6 +30,7 @@ from litellm.proxy.spend_tracking.spend_tracking_utils import (
     get_spend_by_team,
     get_spend_by_team_and_customer,
 )
+from litellm.litellm_core_utils.currency_conversion import convert_usd, DEFAULT_CURRENCY
 from litellm.proxy.utils import handle_exception_on_proxy
 from litellm.repositories.table_repositories import SpendLogsRepository
 from litellm.repositories.team_repository import TeamRepository
@@ -943,7 +944,12 @@ async def get_global_spend_provider(
                         pass
 
         for provider, spend in provider_spend_mapping.items():
-            ui_response.append({"provider": provider, "spend": spend})
+            ui_response.append({
+                "provider": provider, 
+                "spend": spend,
+                "spend_display": convert_usd(spend, DEFAULT_CURRENCY),
+                "currency": DEFAULT_CURRENCY
+            })
 
         return ui_response
 
