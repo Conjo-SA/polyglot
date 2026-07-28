@@ -93,9 +93,9 @@ def test_happy_path_creates_capped_key_and_hides_model(client, monkeypatch, mock
     resp = client.post("/free-trial/register", json=VALID_BODY, headers=VALID_HEADER)
 
     assert resp.status_code == 200
-    body = resp.json()
-    assert body == {"key": "sk-created-key", "max_budget": 5000.0, "currency": "BRL"}
-    # model must not leak anywhere in the response
+    # endpoint returns a bare 200, no body; the key is delivered by email only
+    assert resp.text == ""
+    assert "sk-created-key" not in resp.text
     assert "qwen3" not in resp.text
 
     # key was created with the BRL cap, no reset window, restricted to the model, no team
@@ -153,14 +153,13 @@ def test_duplicate_returns_409_and_rolls_back_key(client, monkeypatch, mock_repo
     delete_mock.assert_awaited_once()  # the just-created key was rolled back
 
 
-def test_email_failure_still_returns_key_and_records_retry_state(client, monkeypatch, mock_repo):
+def test_email_failure_still_returns_200_and_records_retry_state(client, monkeypatch, mock_repo):
     failing_mail = AsyncMock(side_effect=RuntimeError("smtp down"))
     _patch_deps(monkeypatch, mock_repo, send_email=failing_mail)
 
     resp = client.post("/free-trial/register", json=VALID_BODY, headers=VALID_HEADER)
 
     assert resp.status_code == 200
-    assert resp.json()["key"] == "sk-created-key"
     _, update_kwargs = mock_repo.table.update.call_args
     assert update_kwargs["data"]["email_sent"] is False
     assert "smtp down" in update_kwargs["data"]["email_last_error"]

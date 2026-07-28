@@ -20,7 +20,7 @@ from dataclasses import dataclass
 from datetime import datetime, timezone
 from typing import Optional
 
-from fastapi import APIRouter, HTTPException, Request
+from fastapi import APIRouter, HTTPException, Request, Response
 from pydantic import BaseModel, EmailStr, field_validator
 
 from litellm._logging import verbose_proxy_logger
@@ -117,12 +117,6 @@ class FreeTrialRegistrationRequest(BaseModel):
         return _normalize_instagram(v)
 
 
-class FreeTrialRegistrationResponse(BaseModel):
-    key: str
-    max_budget: float
-    currency: str
-
-
 _LOGO_CID = "jarbas_logo"
 _BUNDLED_LOGO_PATH = os.path.join(os.path.dirname(os.path.abspath(__file__)), "..", "assets", "jarbas_ai_logo.png")
 
@@ -216,6 +210,10 @@ def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_
             key_block,
             f'<p style="margin:0 0 6px;{font}font-size:14px;color:#374151;">'
             f"Instagram: <strong>{safe_instagram}</strong></p>",
+            f'<p style="margin:18px 0 0;{font}font-size:14px;color:#374151;">'
+            "Não deixe de seguir "
+            '<a href="https://www.instagram.com/andreconjo" '
+            'style="color:#7c3aed;font-weight:bold;text-decoration:none;">@andreconjo</a></p>',
             "</td></tr>",
             '<tr><td style="padding:24px 36px 36px;border-top:1px solid #f0f0f0;">',
             f'<p style="margin:16px 0 0;{font}font-size:13px;color:#9ca3af;">'
@@ -322,11 +320,9 @@ async def _send_welcome_email(
 @router.post(
     "/free-trial/register",
     tags=["free trial"],
-    response_model=FreeTrialRegistrationResponse,
+    status_code=200,
 )
-async def register_free_trial(
-    request_data: FreeTrialRegistrationRequest, request: Request
-) -> FreeTrialRegistrationResponse:
+async def register_free_trial(request_data: FreeTrialRegistrationRequest, request: Request) -> Response:
     from litellm.proxy.proxy_server import prisma_client
     from litellm.repositories.table_repositories import FreeTrialRegistrationRepository
 
@@ -381,11 +377,7 @@ async def register_free_trial(
         api_key=plaintext_key,
     )
 
-    return FreeTrialRegistrationResponse(
-        key=plaintext_key,
-        max_budget=config.max_budget,
-        currency=config.currency,
-    )
+    return Response(status_code=200)
 
 
 def _hash_key(plaintext_key: str) -> str:
