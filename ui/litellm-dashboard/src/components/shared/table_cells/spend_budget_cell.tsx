@@ -23,7 +23,8 @@ export function SpendBudgetCell({ spend, maxBudget, teamMaxBudget }: SpendBudget
   const pct = hasBudget ? (spendValue / budget) * 100 : 0;
 
   const spendText = useSpendString(spendValue, 4);
-  const budgetLabel = budget === null ? "· Unlimited" : `of ${spendText}`; // Atualizado para usar a moeda correta
+  const budgetText = useSpendString(budget, 4);
+  const budgetLabel = budget === null ? "· Unlimited" : `of ${budgetText}`; // Atualizado para usar a moeda correta
 
   return (
     <div className="flex min-w-[130px] flex-col gap-1">
@@ -32,7 +33,7 @@ export function SpendBudgetCell({ spend, maxBudget, teamMaxBudget }: SpendBudget
         <span className="text-muted-foreground">{budgetLabel}</span>
       </div>
       {hasBudget && (
-        <Meter value={spendValue} max={budget} aria-valuetext={`${spendText} of budget`}>
+        <Meter value={spendValue} max={budget} aria-valuetext={`${spendText} of ${budgetText}`}>
           <MeterTrack>
             <MeterIndicator tone={meterTone(pct)} />
           </MeterTrack>

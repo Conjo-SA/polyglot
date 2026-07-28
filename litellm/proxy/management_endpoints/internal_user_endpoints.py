@@ -717,7 +717,7 @@ def _build_user_info_response(
     teams_1: Optional[list[Any]],
 ) -> UserInfoResponse:
     """Create UserInfoResponse while filtering sensitive fields."""
-    from litellm.litellm_core_utils.currency_conversion import convert_usd, DEFAULT_CURRENCY
+    from litellm.litellm_core_utils.currency_conversion import convert_usd, get_display_currency
     
     if user_info is None and keys is not None:
         spend = sum(getattr(k, "spend", 0) for k in keys)
@@ -731,8 +731,8 @@ def _build_user_info_response(
             spend = getattr(user_info, "spend", 0)
         
         if spend is not None:
-            user_info["spend_display"] = convert_usd(spend, DEFAULT_CURRENCY)
-            user_info["currency"] = DEFAULT_CURRENCY
+            user_info["spend_display"] = convert_usd(spend, get_display_currency())
+            user_info["currency"] = get_display_currency()
     
     returned_keys = _process_keys_for_user_info(keys=keys, all_teams=teams_1)
     team_list.sort(key=lambda x: getattr(x, "team_alias", "") or "")
@@ -748,11 +748,11 @@ def _build_user_info_response(
             if hasattr(key, "spend") and key.spend is not None:
                 # Converte gastos das chaves
                 if isinstance(key, dict):
-                    key["spend_display"] = convert_usd(key["spend"], DEFAULT_CURRENCY)
-                    key["currency"] = DEFAULT_CURRENCY
+                    key["spend_display"] = convert_usd(key["spend"], get_display_currency())
+                    key["currency"] = get_display_currency()
                 else:
-                    key.spend_display = convert_usd(key.spend, DEFAULT_CURRENCY)
-                    key.currency = DEFAULT_CURRENCY
+                    key.spend_display = convert_usd(key.spend, get_display_currency())
+                    key.currency = get_display_currency()
 
     return UserInfoResponse(
         user_id=user_id,

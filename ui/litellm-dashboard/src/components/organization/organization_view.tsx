@@ -24,7 +24,7 @@ import {
   organizationUpdateCall,
 } from "../networking";
 import ObjectPermissionsView from "../object_permissions_view";
-import NumericalInput from "../shared/numerical_input";
+import CurrencyMoneyInput from "../shared/CurrencyMoneyInput";
 import MemberModal from "../team/EditMembership";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 
@@ -401,7 +401,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item label="Max Budget (USD)" name="max_budget">
-                      <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
+                      <CurrencyMoneyInput />
                     </Form.Item>
 
                     <Form.Item label="Reset Budget" name="budget_duration">

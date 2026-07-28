@@ -731,7 +731,7 @@ const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser
               </Form.Item>
 
               <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
-                <NumericalInput step={0.01} precision={2} width={200} />
+                <CurrencyMoneyInput />
               </Form.Item>
               <Form.Item className="mt-8" label="Reiniciar Orçamento" name="budget_duration">
                 <Select defaultValue={null} placeholder="n/a">

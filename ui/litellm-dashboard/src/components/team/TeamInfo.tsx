@@ -48,7 +48,7 @@ import { ModelSelect } from "../ModelSelect/ModelSelect";
 import NotificationsManager from "../molecules/notifications_manager";
 import { fetchMCPAccessGroups } from "../networking";
 import ObjectPermissionsView from "../object_permissions_view";
-import NumericalInput from "../shared/numerical_input";
+import CurrencyMoneyInput from "../shared/CurrencyMoneyInput";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 import SearchToolSelector from "../search_tools/SearchToolSelector";
 import EditLoggingSettings from "./EditLoggingSettings";
@@ -1068,11 +1068,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item label="Max Budget (USD)" name="max_budget">
-                      <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
+                      <CurrencyMoneyInput />
                     </Form.Item>
 
                     <Form.Item label="Soft Budget (USD)" name="soft_budget">
-                      <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
+                      <CurrencyMoneyInput />
                     </Form.Item>
 
                     <Form.Item

@@ -749,7 +749,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           data={getProviderSpend()}
                           index="provider"
                           category="spend"
-                          valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+                          valueFormatter={(value) => {
+                            const { symbol } = useCurrency();
+                            return `${symbol}${formatNumberWithCommas(value, 2)}`;
+                          }}
                           colors={["cyan", "blue", "indigo", "violet", "purple"]}
                           showLabel
                           startAngle={90}

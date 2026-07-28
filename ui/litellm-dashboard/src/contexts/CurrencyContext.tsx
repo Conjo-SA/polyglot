@@ -33,16 +33,37 @@ export const CurrencyProvider: React.FC<CurrencyProviderProps> = ({ children }) 
     return 'USD';
   });
 
-  const [rate, setRate] = useState<number>(5.30);
+  const [rate, setRate] = useState<number>(5.30);  
 
   useEffect(() => {
-    // Load rate from localStorage or set default
-    if (typeof window !== 'undefined') {
-      const savedRate = localStorage.getItem('usdToBrlRate');
-      if (savedRate) {
-        setRate(parseFloat(savedRate));
+    // Load currency and rate from the public API endpoint
+    const fetchCurrencyConfig = async () => {
+      try {
+        const response = await fetch('/public/currency-config');
+        if (response.ok) {
+          const config = await response.json();
+          setRate(config.rate);
+          // Only update currency if it's not set yet (avoid overriding user preference)
+          if (typeof window !== 'undefined') {
+            const savedCurrency = localStorage.getItem('displayCurrency');
+            if (!savedCurrency) {
+              setCurrency(config.currency);
+            }
+          }
+        }
+      } catch (error) {
+        console.warn('Failed to fetch currency config:', error);
+        // Fallback to localStorage or default value
+        if (typeof window !== 'undefined') {
+          const savedRate = localStorage.getItem('usdToBrlRate');
+          if (savedRate) {
+            setRate(parseFloat(savedRate));
+          }
+        }
       }
-    }
+    };
+
+    fetchCurrencyConfig();
   }, []);
 
   useEffect(() => {

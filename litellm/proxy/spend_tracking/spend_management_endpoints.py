@@ -30,7 +30,7 @@ from litellm.proxy.spend_tracking.spend_tracking_utils import (
     get_spend_by_team,
     get_spend_by_team_and_customer,
 )
-from litellm.litellm_core_utils.currency_conversion import convert_usd, DEFAULT_CURRENCY
+from litellm.litellm_core_utils.currency_conversion import convert_usd, get_display_currency
 from litellm.proxy.utils import handle_exception_on_proxy
 from litellm.repositories.table_repositories import SpendLogsRepository
 from litellm.repositories.team_repository import TeamRepository
@@ -947,8 +947,8 @@ async def get_global_spend_provider(
             ui_response.append({
                 "provider": provider, 
                 "spend": spend,
-                "spend_display": convert_usd(spend, DEFAULT_CURRENCY),
-                "currency": DEFAULT_CURRENCY
+                "spend_display": convert_usd(spend, get_display_currency()),
+                "currency": get_display_currency()
             })
 
         return ui_response
@@ -3472,8 +3472,8 @@ async def _build_ui_spend_logs_response(
             spend = item.get("spend", 0)
             if spend is not None:
                 # Adiciona campos de conversão de moeda
-                item["spend_display"] = convert_usd(spend, DEFAULT_CURRENCY)
-                item["currency"] = DEFAULT_CURRENCY
+                item["spend_display"] = convert_usd(spend, get_display_currency())
+                item["currency"] = get_display_currency()
 
     return {
         "data": response_data,

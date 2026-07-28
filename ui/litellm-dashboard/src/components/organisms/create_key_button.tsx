@@ -56,7 +56,7 @@ import {
   userFilterUICall,
 } from "../networking";
 import CreatedKeyDisplay from "../shared/CreatedKeyDisplay";
-import NumericalInput from "../shared/numerical_input";
+import CurrencyMoneyInput from "../shared/CurrencyMoneyInput";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 import { simplifyKeyGenerateError } from "./utils";
 
@@ -1057,7 +1057,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                       </span>
                     }
                     name="max_budget"
-                    help={`Orçamento não pode exceder o orçamento máximo da equipe: $${team?.max_budget !== null && team?.max_budget !== undefined ? team?.max_budget : "ilimitado"}`}
+                    help={`Orçamento não pode exceder o orçamento máximo da equipe: ${team?.max_budget !== null && team?.max_budget !== undefined ? `${team?.max_budget} ${team?.max_budget ? useCurrency().symbol : ''}` : "ilimitado"}`}
                     rules={[
                       {
                         validator: async (_, value) => {
@@ -1070,7 +1070,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                       },
                     ]}
                   >
-                    <NumericalInput step={0.01} precision={2} width={200} />
+                    <CurrencyMoneyInput />
                   </Form.Item>
                   <Form.Item
                     className="mt-4"

@@ -92,7 +92,10 @@ export default function TopModelView({ topModels, topModelsLimit, setTopModelsLi
             index="key"
             categories={["spend"]}
             colors={["cyan"]}
-            valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+            valueFormatter={(value) => {
+                const { symbol } = useCurrency();
+                return `${symbol}${formatNumberWithCommas(value, 2)}`;
+              }}
             layout="vertical"
             yAxisWidth={200}
             tickGap={5}

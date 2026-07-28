@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { all_admin_roles } from "@/utils/roles";
 import BudgetDurationDropdown from "@/components/common_components/budget_duration_dropdown";
 import { getModelDisplayName } from "@/components/key_team_helpers/fetch_available_models_team_key";
-import NumericalInput from "@/components/shared/numerical_input";
+import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
 
 interface UserEditViewProps {
   userData: any;
@@ -175,7 +175,7 @@ export function UserEditView({
           },
         ]}
       >
-        <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} disabled={unlimitedBudget} />
+        <CurrencyMoneyInput />
       </Form.Item>
 
       <Form.Item label="Reset Budget" name="budget_duration">

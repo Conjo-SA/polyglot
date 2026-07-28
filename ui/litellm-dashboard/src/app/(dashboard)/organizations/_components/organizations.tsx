@@ -41,7 +41,7 @@ import {
   organizationListCall,
 } from "@/components/networking";
 import OrganizationInfoView from "@/components/organization/organization_view";
-import NumericalInput from "@/components/shared/numerical_input";
+import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
 import VectorStoreSelector from "@/components/vector_store_management/VectorStoreSelector";
 
 interface OrganizationsTableProps {
@@ -450,7 +450,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
           </Form.Item>
 
           <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
-            <NumericalInput step={0.01} precision={2} width={200} />
+            <CurrencyMoneyInput />
           </Form.Item>
           <Form.Item label="Reiniciar Orçamento" name="budget_duration">
             <Select2 defaultValue={null} placeholder="n/a">

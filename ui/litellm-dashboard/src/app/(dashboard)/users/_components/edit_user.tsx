@@ -3,7 +3,7 @@ import { TextInput, SelectItem } from "@tremor/react";
 
 import { Button as Button2, Modal, Form, Select as Select2, InputNumber } from "antd";
 
-import NumericalInput from "@/components/shared/numerical_input";
+import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
 import BudgetDurationDropdown from "@/components/common_components/budget_duration_dropdown";
 
 interface EditUserModalProps {
@@ -88,7 +88,7 @@ const EditUserModal: React.FC<EditUserModalProps> = ({ visible, possibleUIRoles,
             tooltip="(float) - Orçamento máximo deste usuário"
             help="Orçamento máximo deste usuário."
           >
-            <NumericalInput min={0} step={0.01} />
+            <CurrencyMoneyInput />
           </Form.Item>
 
           <Form.Item label="Reiniciar Orçamento" name="budget_duration">

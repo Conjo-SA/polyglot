@@ -35,8 +35,8 @@ describe("CurrencyMoneyInput", () => {
     
     render(<CurrencyMoneyInput value={100} />);
     
-    // Should show the converted value (100 / 5.3 = 18.87)
-    expect(screen.getByRole("spinbutton")).toHaveValue(18.87);
+    // Should show the converted value (100 * 5.3 = 530)
+    expect(screen.getByRole("spinbutton")).toHaveValue(530);
   });
 
   it("calls onChange with USD value when BRL input changes", () => {
@@ -52,11 +52,11 @@ describe("CurrencyMoneyInput", () => {
     
     const input = screen.getByRole("spinbutton");
     
-    // Change the display value from 18.87 (100/5.3) to 10
+    // Change the display value from 530 (100*5.3) to 10
     fireEvent.change(input, { target: { value: "10" } });
     
-    // Should call onChange with USD equivalent: 10 * 5.3 = 53
-    expect(handleChange).toHaveBeenCalledWith(53);
+    // Should call onChange with USD equivalent: 10 / 5.3 = 1.89
+    expect(handleChange).toHaveBeenCalledWith(Number((10 / 5.3).toFixed(6)));
   });
 
   it("properly displays rate conversion info for BRL", () => {
