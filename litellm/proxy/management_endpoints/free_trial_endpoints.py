@@ -158,7 +158,7 @@ def _resolve_logo() -> tuple[str, dict[str, bytes]]:
     return _DEFAULT_EMAIL_LOGO_URL, {}
 
 
-def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_src: str) -> str:
+def _welcome_email_html(name: str, api_key: Optional[str], logo_src: str) -> str:
     """
     Branded HTML welcome email. Uses a table-based layout with inline styles for
     broad email-client compatibility. `logo_src` is either a hosted URL or a
@@ -166,7 +166,6 @@ def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_
     """
     logo_url = html_lib.escape(logo_src)
     safe_name = html_lib.escape(name)
-    safe_instagram = html_lib.escape(instagram)
     font = "font-family:Arial,Helvetica,sans-serif;"
 
     key_block = ""
@@ -208,9 +207,7 @@ def _welcome_email_html(name: str, instagram: str, api_key: Optional[str], logo_
             "Seu acesso de teste ao <strong>Jarbas AI</strong> está pronto. "
             "Use a chave abaixo para começar a testar.</p>",
             key_block,
-            f'<p style="margin:0 0 6px;{font}font-size:14px;color:#374151;">'
-            f"Instagram: <strong>{safe_instagram}</strong></p>",
-            f'<p style="margin:18px 0 0;{font}font-size:14px;color:#374151;">'
+            f'<p style="margin:0 0 0;{font}font-size:14px;color:#374151;">'
             "Não deixe de seguir "
             '<a href="https://www.instagram.com/andreconjo" '
             'style="color:#7c3aed;font-weight:bold;text-decoration:none;">@andreconjo</a></p>',
@@ -293,7 +290,7 @@ async def _send_welcome_email(
         sent = await send_email(
             receiver_email=email,
             subject="Seu acesso de teste ao Jarbas AI",
-            html=_welcome_email_html(name=name, instagram=instagram, api_key=api_key, logo_src=logo_src),
+            html=_welcome_email_html(name=name, api_key=api_key, logo_src=logo_src),
             inline_images=inline_images,
         )
         error: Optional[str] = None if sent else "email delivery failed"

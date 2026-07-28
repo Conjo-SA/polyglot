@@ -84,7 +84,7 @@ async def test_due_row_resent_with_decrypted_key_and_marked_sent(monkeypatch, re
     _, mail_kwargs = mail.call_args
     assert mail_kwargs["receiver_email"] == "user@example.com"
     assert "Fulano" in mail_kwargs["html"]
-    assert "@fulano" in mail_kwargs["html"]
+    assert "@fulano" not in mail_kwargs["html"]
     assert "sk-retry-key" in mail_kwargs["html"]  # the key is re-sent on retry
     _, update_kwargs = repo.table.update.call_args
     assert update_kwargs["data"] == {"email_sent": True}

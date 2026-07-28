@@ -114,12 +114,14 @@ def test_happy_path_creates_capped_key_and_hides_model(client, monkeypatch, mock
     assert data["instagram"] == "@fulano"
     assert data["key_encrypted"] and data["key_encrypted"] != "sk-created-key"
 
-    # welcome email delivered to the provided address, containing name, instagram AND the key
+    # welcome email delivered to the provided address, containing name and the key;
+    # the trial user's own instagram must NOT appear, only the CTO's handle
     _, mail_kwargs = mail.call_args
     assert mail_kwargs["receiver_email"] == "fulano@example.com"
     assert "Fulano De Tal" in mail_kwargs["html"]
-    assert "@fulano" in mail_kwargs["html"]
     assert "sk-created-key" in mail_kwargs["html"]
+    assert "@fulano" not in mail_kwargs["html"]
+    assert "@andreconjo" in mail_kwargs["html"]
     mock_repo.table.update.assert_awaited()  # marked email_sent
 
 

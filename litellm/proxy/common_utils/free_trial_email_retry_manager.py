@@ -87,7 +87,7 @@ class FreeTrialEmailRetryManager:
             sent = await send_email(
                 receiver_email=row.email,
                 subject="Seu acesso de teste ao Jarbas AI",
-                html=_welcome_email_html(name=row.name, instagram=row.instagram, api_key=api_key, logo_src=logo_src),
+                html=_welcome_email_html(name=row.name, api_key=api_key, logo_src=logo_src),
                 inline_images=inline_images,
             )
             error = None if sent else "email delivery failed"
