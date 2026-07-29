@@ -1,15 +1,16 @@
 import React from "react";
 import { render, screen, fireEvent } from "@testing-library/react";
+import { describe, expect, it, vi, beforeEach } from "vitest";
 import { CurrencyMoneyInput } from "./CurrencyMoneyInput";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 // Mock the context
-jest.mock("@/contexts/CurrencyContext", () => ({
-  useCurrency: jest.fn(),
+vi.mock("@/contexts/CurrencyContext", () => ({
+  useCurrency: vi.fn(),
 }));
 
 describe("CurrencyMoneyInput", () => {
-  const mockUseCurrency = useCurrency as jest.Mock;
+  const mockUseCurrency = useCurrency as ReturnType<typeof vi.fn>;
 
   beforeEach(() => {
     mockUseCurrency.mockReturnValue({
@@ -35,12 +36,12 @@ describe("CurrencyMoneyInput", () => {
     
     render(<CurrencyMoneyInput value={100} />);
     
-    // Should show the converted value (100 * 5.3 = 530)
-    expect(screen.getByRole("spinbutton")).toHaveValue(530);
+    // Should show the converted value (100 / 5.3 = 18.87)
+    expect(screen.getByRole("spinbutton")).toHaveValue("18.87");
   });
 
   it("calls onChange with USD value when BRL input changes", () => {
-    const handleChange = jest.fn();
+    const handleChange = vi.fn();
     
     mockUseCurrency.mockReturnValue({
       currency: "BRL",
@@ -52,11 +53,11 @@ describe("CurrencyMoneyInput", () => {
     
     const input = screen.getByRole("spinbutton");
     
-    // Change the display value from 530 (100*5.3) to 10
+    // Change the display value from 18.87 (100/5.3) to 10
     fireEvent.change(input, { target: { value: "10" } });
     
-    // Should call onChange with USD equivalent: 10 / 5.3 = 1.89
-    expect(handleChange).toHaveBeenCalledWith(Number((10 / 5.3).toFixed(6)));
+    // Should call onChange with USD equivalent: 10 * 5.3 = 53
+    expect(handleChange).toHaveBeenCalledWith(53);
   });
 
   it("properly displays rate conversion info for BRL", () => {

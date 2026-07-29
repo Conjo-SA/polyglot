@@ -3464,10 +3464,20 @@ async def _build_ui_spend_logs_response(
         # v2 path: return raw Prisma model instances so FastAPI applies its
         # own Pydantic-aware serialisation (preserves alias handling, custom
         # serializers, etc.).
-        response_data = data  # type: ignore[assignment]
+        # Adiciona conversão de moeda para todos os registros
+        response_data = []
+        for item in data:
+            item_dict = item.model_dump() if hasattr(item, "model_dump") else dict(item)
+            spend = item_dict.get("spend", 0)
+            if spend is not None:
+                # Adiciona campos de conversão de moeda
+                item_dict["spend_display"] = convert_usd(spend, get_display_currency())
+                item_dict["currency"] = get_display_currency()
+            response_data.append(item_dict)
 
     # Adiciona conversão de moeda para todos os registros
     # Apenas processa os registros que são dicts
+    # (Este código agora está redundante, mas mantido para consistência)
     for item in response_data:
         if isinstance(item, dict): 
             spend = item.get("spend", 0)

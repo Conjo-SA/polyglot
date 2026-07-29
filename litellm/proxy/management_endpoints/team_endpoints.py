@@ -101,6 +101,10 @@ from litellm.proxy.management_helpers.object_permission_utils import (
 from litellm.proxy.management_helpers.team_member_permission_checks import (
     TeamMemberPermissionChecks,
 )
+from litellm.litellm_core_utils.currency_conversion import (
+    convert_usd,
+    get_display_currency,
+)
 from litellm.proxy.management_helpers.utils import (
     add_new_member,
     management_endpoint_wrapper,
@@ -3595,18 +3599,18 @@ async def team_info(
             team_info = {"spend": spend}
 
         ## REMOVE HASHED TOKEN INFO before returning ##
-processed_keys = []
-for key in keys:
-    try:
-        _key = key.model_dump()
-    except Exception:
-        _key = key.dict()
-    _key.pop('token', None)
-    if _key.get('spend') is not None:
-        _key['spend_display'] = convert_usd(_key['spend'], get_display_currency())
-        _key['currency'] = get_display_currency()
-    processed_keys.append(_key)
-keys = processed_keys
+        processed_keys = []
+        for key in keys:
+            try:
+                _key = key.model_dump()
+            except Exception:
+                _key = key.dict()
+            _key.pop('token', None)
+            if _key.get('spend') is not None:
+                _key['spend_display'] = convert_usd(_key['spend'], get_display_currency())
+                _key['currency'] = get_display_currency()
+            processed_keys.append(_key)
+        keys = processed_keys
 
         response_object = TeamInfoResponseObject(
             team_id=team_id,
