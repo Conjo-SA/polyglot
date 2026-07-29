@@ -19,12 +19,33 @@ const colorNameToHex: { [key: string]: string } = {
 export const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
   if (active && payload && payload.length) {
     const formatCategoryName = (name: string): string => {
-      return name
+      // Translate common category names to Portuguese
+      const translations: { [key: string]: string } = {
+        "prompt tokens": "tokens de prompt",
+        "completion tokens": "tokens de completude", 
+        "total tokens": "total de tokens",
+        "api requests": "solicitações api",
+        "successful requests": "solicitações bem-sucedidas",
+        "failed requests": "solicitações falhadas",
+        "spend": "gasto",
+        "cache read input tokens": "tokens de leitura do cache",
+        "cache creation input tokens": "tokens de criação do cache"
+      };
+      
+      let result = name
         .replace("metrics.", "")
         .replace(/_/g, " ")
         .split(" ")
         .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
         .join(" ");
+      
+      // Apply translations where available
+      const lowerResult = result.toLowerCase();
+      if (translations[lowerResult]) {
+        result = translations[lowerResult];
+      }
+      
+      return result;
     };
 
     const getRawValue = (dataPoint: ChartDataPoint, key: string): number | undefined => {
@@ -79,12 +100,33 @@ export const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) =>
 
 export const CustomLegend = ({ categories, colors }: { categories: string[]; colors: string[] }) => {
   const formatCategoryName = (name: string): string => {
-    return name
+    // Translate common category names to Portuguese
+    const translations: { [key: string]: string } = {
+      "prompt tokens": "tokens de prompt",
+      "completion tokens": "tokens de completude", 
+      "total tokens": "total de tokens",
+      "api requests": "solicitações api",
+      "successful requests": "solicitações bem-sucedidas",
+      "failed requests": "solicitações falhadas",
+      "spend": "gasto",
+      "cache read input tokens": "tokens de leitura do cache",
+      "cache creation input tokens": "tokens de criação do cache"
+    };
+    
+    let result = name
       .replace("metrics.", "")
       .replace(/_/g, " ")
       .split(" ")
       .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
       .join(" ");
+    
+    // Apply translations where available
+    const lowerResult = result.toLowerCase();
+    if (translations[lowerResult]) {
+      result = translations[lowerResult];
+    }
+    
+    return result;
   };
 
   return (
