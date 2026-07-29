@@ -8,6 +8,7 @@ import { Team } from "./key_team_helpers/key_list";
 import KeyModelUsageView from "./UsagePage/components/KeyModelUsageView";
 import { DailyData, KeyMetricWithMetadata, ModelActivityData, TopApiKeyData, TopModelData } from "./UsagePage/types";
 import { valueFormatter } from "./UsagePage/utils/value_formatters";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 interface ActivityMetricsProps {
   modelMetrics: Record<string, ModelActivityData>;

@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { userDailyActivityAggregatedCall } from "../networking";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 const USAGE_QUERY_KEY = "chat-user-usage";
 

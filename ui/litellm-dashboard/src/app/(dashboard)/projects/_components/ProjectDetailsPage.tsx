@@ -22,6 +22,7 @@ import { useMemo, useState } from "react";
 import DefaultProxyAdminTag from "@/components/common_components/DefaultProxyAdminTag";
 import { EditProjectModal } from "./ProjectModals/EditProjectModal";
 import { ProjectKeysSection } from "./ProjectKeysSection";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;

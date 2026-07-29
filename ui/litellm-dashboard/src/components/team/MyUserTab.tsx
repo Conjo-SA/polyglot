@@ -4,6 +4,7 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { Card, Col, Row, Space, Tag, Tooltip, Typography } from "antd";
 import React from "react";
 import { useMyTeamMember } from "./useMyTeamMember";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 interface MyUserTabProps {
   teamId: string;

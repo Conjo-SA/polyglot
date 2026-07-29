@@ -26,6 +26,7 @@ import { RegenerateKeyModal } from "../organisms/RegenerateKeyModal";
 import { parseErrorMessage } from "../shared/errorUtils";
 import { KeyEditView } from "./key_edit_view";
 import { useTranslation } from "react-i18next";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 interface KeyInfoViewProps {
   keyId: string;

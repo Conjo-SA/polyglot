@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { modelAvailableCall } from "./networking";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 // Define the props type
 interface UserSpendData {

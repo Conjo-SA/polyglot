@@ -4,6 +4,7 @@ import { TrashIcon, PencilAltIcon, CheckIcon, XIcon } from "@heroicons/react/out
 import { SimpleTable } from "@/components/common_components/simple_table";
 import { MarginConfig } from "./types";
 import { getProviderDisplayInfo, handleImageError } from "./provider_display_helpers";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 interface ProviderMarginTableProps {
   marginConfig: MarginConfig;

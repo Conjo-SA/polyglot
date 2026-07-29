@@ -47,8 +47,8 @@ const getModelCapabilities = (model: ModelHubData) =>
     .map(([key]) => key);
 
 const formatCost = (cost: number) => {
-  const { currency, rate } = useCurrency();
-  return formatCostPerMillion(cost * 1_000_000, currency, rate);
+  // Não multiplicar por 1_000_000 novamente, já é feito pela função formatCostPerMillion que recebe o valor real por token
+  return `$${cost.toFixed(2)}`;
 };
 
 const formatTokens = (tokens: number) => {

@@ -41,6 +41,7 @@ import { CopyIcon, CheckIcon } from "lucide-react";
 import NotificationsManager from "@/components/molecules/notifications_manager";
 import { getBudgetDurationLabel } from "@/components/common_components/budget_duration_dropdown";
 import DeleteResourceModal from "@/components/common_components/DeleteResourceModal";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 interface UserInfoViewProps {
   userId: string;

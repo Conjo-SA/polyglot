@@ -56,6 +56,7 @@ import RouterSettingsAccordion, { RouterSettingsAccordionRef } from "../common_c
 import MemberModal from "./EditMembership";
 import MemberPermissions from "./member_permissions";
 import MyUserTab from "./MyUserTab";
+import { MoneyCell } from "@/components/shared/table_cells";
 import {
   getTeamInfoDefaultTab,
   getTeamInfoVisibleTabs,

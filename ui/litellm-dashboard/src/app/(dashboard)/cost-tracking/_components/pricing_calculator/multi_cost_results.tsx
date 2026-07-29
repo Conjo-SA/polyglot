@@ -6,6 +6,7 @@ import { CostEstimateResponse } from "../types";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { MultiModelResult } from "./types";
 import MultiExportDropdown from "./multi_export_dropdown";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 interface MultiCostResultsProps {
   multiResult: MultiModelResult;
