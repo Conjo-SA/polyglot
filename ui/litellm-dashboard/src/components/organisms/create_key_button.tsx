@@ -1052,20 +1052,24 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     className="mt-4"
                     label={
                       <span>
-                        Orçamento Máximo (USD){" "}
-                        <Tooltip title="Valor máximo em USD que esta chave pode gastar. Quando atingido, a chave será bloqueada de fazer requisições adicionais">
+                        {`Orçamento Máximo (${currency})`}{" "}
+                        <Tooltip title="Valor máximo que esta chave pode gastar (convertido para a moeda selecionada). Quando atingido, a chave será bloqueada de fazer requisições adicionais">
                           <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                         </Tooltip>
                       </span>
                     }
                     name="max_budget"
-                    help={`Orçamento não pode exceder o orçamento máximo da equipe: ${team?.max_budget !== null && team?.max_budget !== undefined ? `${formatSpend(team.max_budget, 2, currency, rate)}` : "ilimitado"}`}
+                    help={
+                      team?.max_budget !== null && team?.max_budget !== undefined
+                        ? `Orçamento não pode exceder o orçamento máximo da equipe: ${convertAndFormat(team.max_budget, currency, rate, 4)}`
+                        : "Orçamento não pode exceder o orçamento máximo da equipe: ilimitado"
+                    }
                     rules={[
                       {
                         validator: async (_, value) => {
                           if (value && team && team.max_budget !== null && value > team.max_budget) {
                             throw new Error(
-                              `Orçamento não pode exceder o orçamento máximo da equipe: <MoneyCell value={team.max_budget} decimals={4} />`,
+                              `Orçamento não pode exceder o orçamento máximo da equipe: ${convertAndFormat(team.max_budget, currency, rate, 4)}`,
                             );
                           }
                         },

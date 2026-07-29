@@ -3795,6 +3795,8 @@ class TeamInfoResponseObjectTeamTable(LiteLLM_TeamTable):
     access_group_models: Optional[List[str]] = None
     access_group_mcp_server_ids: Optional[List[str]] = None
     access_group_agent_ids: Optional[List[str]] = None
+    spend_display: Optional[float] = None
+    currency: Optional[str] = None
 
 
 class TeamInfoResponseObject(TypedDict):

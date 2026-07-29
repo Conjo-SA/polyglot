@@ -3467,6 +3467,7 @@ async def _build_ui_spend_logs_response(
         response_data = data  # type: ignore[assignment]
 
     # Adiciona conversão de moeda para todos os registros
+    # Apenas processa os registros que são dicts
     for item in response_data:
         if isinstance(item, dict): 
             spend = item.get("spend", 0)

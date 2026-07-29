@@ -3595,60 +3595,18 @@ async def team_info(
             team_info = {"spend": spend}
 
         ## REMOVE HASHED TOKEN INFO before returning ##
-        for key in keys:
-            try:
-                key = key.model_dump()
-            except Exception:
-                # if using pydantic v1
-                key = key.dict()
-            key.pop("token", None)
-
-        ## GET ALL MEMBERSHIPS ##
-        returned_tm = await get_all_team_memberships(prisma_client, [team_id], user_id=None)
-
-        if isinstance(team_info, dict):
-            _team_info = TeamInfoResponseObjectTeamTable(**team_info)
-        elif isinstance(team_info, BaseModel):
-            _team_info = TeamInfoResponseObjectTeamTable(**team_info.model_dump())
-        else:
-            _team_info = TeamInfoResponseObjectTeamTable()
-
-        ## GET TEAM BUDGET (if exists) ##
-        team_member_budget_id = (
-            _team_info.metadata.get("team_member_budget_id") if _team_info.metadata is not None else None
-        )
-        if team_member_budget_id is not None:
-            _team_info = await _add_team_member_budget_table(
-                team_member_budget_id=team_member_budget_id,
-                prisma_client=prisma_client,
-                team_info_response_object=_team_info,
-            )
-
-        # Resolve resources inherited from access groups
-        await _resolve_team_access_group_resources(_team_info)
-
-        # Adiciona conversão de moeda para informações do time
-        from litellm.litellm_core_utils.currency_conversion import convert_usd, get_display_currency
-        
-        # Converte o gasto total do time
-        if hasattr(_team_info, 'spend') and _team_info.spend is not None:
-            _team_info.spend_display = convert_usd(_team_info.spend, get_display_currency())
-            _team_info.currency = get_display_currency()
-        elif isinstance(_team_info, dict) and _team_info.get('spend') is not None:
-            _team_info['spend_display'] = convert_usd(_team_info['spend'], get_display_currency())
-            _team_info['currency'] = get_display_currency()
-            
-        # Converte gastos das chaves do time, se houver
-        if keys is not None:
-            for key in keys:
-                if hasattr(key, "spend") and key.spend is not None:
-                    # Converte gastos das chaves
-                    if isinstance(key, dict):
-                        key["spend_display"] = convert_usd(key["spend"], get_display_currency())
-                        key["currency"] = get_display_currency()
-                    else:
-                        key.spend_display = convert_usd(key.spend, get_display_currency())
-                        key.currency = get_display_currency()
+processed_keys = []
+for key in keys:
+    try:
+        _key = key.model_dump()
+    except Exception:
+        _key = key.dict()
+    _key.pop('token', None)
+    if _key.get('spend') is not None:
+        _key['spend_display'] = convert_usd(_key['spend'], get_display_currency())
+        _key['currency'] = get_display_currency()
+    processed_keys.append(_key)
+keys = processed_keys
 
         response_object = TeamInfoResponseObject(
             team_id=team_id,

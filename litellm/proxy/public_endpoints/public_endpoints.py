@@ -402,7 +402,8 @@ async def get_currency_config() -> Dict[str, Any]:
         Dictionary with currency, rate, and source information
     """
     try:
-        rate = get_usd_to_brl_rate()
+        from fastapi.concurrency import run_in_threadpool
+        rate = await run_in_threadpool(get_usd_to_brl_rate)
         currency = get_display_currency()
         
         # Get the source of the exchange rate
