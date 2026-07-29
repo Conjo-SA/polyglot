@@ -165,10 +165,10 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
             <Flex vertical gap={16}>
               <div>
                 <Text strong style={{ fontSize: 28, lineHeight: 1 }}>
-                  ${spend.toFixed(2)}
+                  <MoneyCell value={spend} decimals={2} />
                 </Text>
                 <br />
-                <Text type="secondary">{hasLimit ? `of <MoneyCell value={maxBudget} decimals={2} />` : "No budget limit"}</Text>
+                <Text type="secondary">{hasLimit ? <>of <MoneyCell value={maxBudget} decimals={2} /></> : "No budget limit"}</Text>
               </div>
               {hasLimit && (
                 <div>
@@ -190,7 +190,7 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                 categories={["spend"]}
                 colors={["cyan"]}
                 layout="vertical"
-                valueFormatter={(value) => <MoneyCell value={value} decimals={4} />}
+                valueFormatter={(value) => formatSpend(value, 4, currency, rate)}
                 yAxisWidth={140}
                 showLegend={false}
                 style={{ height: Math.max(modelSpendData.length * 40, 120) }}

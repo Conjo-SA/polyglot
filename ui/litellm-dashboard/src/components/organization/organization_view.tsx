@@ -24,7 +24,7 @@ import {
   organizationUpdateCall,
 } from "../networking";
 import ObjectPermissionsView from "../object_permissions_view";
-import CurrencyMoneyInput from "../shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
 import MemberModal from "../team/EditMembership";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 

@@ -48,7 +48,7 @@ import { ModelSelect } from "../ModelSelect/ModelSelect";
 import NotificationsManager from "../molecules/notifications_manager";
 import { fetchMCPAccessGroups } from "../networking";
 import ObjectPermissionsView from "../object_permissions_view";
-import CurrencyMoneyInput from "../shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 import SearchToolSelector from "../search_tools/SearchToolSelector";
 import EditLoggingSettings from "./EditLoggingSettings";

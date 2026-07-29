@@ -13,6 +13,20 @@ from litellm.litellm_core_utils.currency_conversion import (
     configure_currency
 )
 
+@pytest.fixture(autouse=True)
+def _reset_currency_state():
+    import litellm.litellm_core_utils.currency_conversion as cc
+    original = (
+        cc._DEFAULT_CURRENCY_VAR,
+        cc._EXCHANGE_RATE_SOURCE_VAR,
+        cc._FIXED_USD_TO_BRL_RATE_VAR,
+        dict(cc._cache),
+    )
+    yield
+    cc._DEFAULT_CURRENCY_VAR, cc._EXCHANGE_RATE_SOURCE_VAR, cc._FIXED_USD_TO_BRL_RATE_VAR = original[:3]
+    cc._cache.clear()
+    cc._cache.update(original[3])
+
 def test_convert_usd_to_brl():
     """Test basic conversion from USD to BRL"""
     # Test with fixed rate (default)

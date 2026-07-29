@@ -456,9 +456,13 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
       .map(([key]) => key);
   };
 
+  // Importar formatCostPerMillion e não fazer a multiplicação de novo
+import { formatCostPerMillion } from "@/utils/dataUtils";
+
   const formatCost = (cost: number) => {
-    // Não multiplicar por 1_000_000 novamente, já é feito pela função formatCostPerMillion que recebe o valor real por token
-    return `$${cost.toFixed(4)}`;
+    // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
+    // Recebe o custo por token e retorna o custo por 1M de tokens formatado
+    return formatCostPerMillion(cost); 
   };
 
   const [modelSorting, setModelSorting] = useState<SortingState>([{ id: "model_group", desc: false }]);

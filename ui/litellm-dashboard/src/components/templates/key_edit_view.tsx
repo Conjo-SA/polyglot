@@ -33,7 +33,7 @@ import MCPToolPermissions from "../mcp_server_management/MCPToolPermissions";
 import NotificationsManager from "../molecules/notifications_manager";
 import { getPromptsList, modelAvailableCall, tagListCall } from "../networking";
 import { fetchTeamModels } from "../organisms/create_key_button";
-import CurrencyMoneyInput from "../shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
 import { Tag } from "../tag_management/types";
 import EditLoggingSettings from "../team/EditLoggingSettings";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";

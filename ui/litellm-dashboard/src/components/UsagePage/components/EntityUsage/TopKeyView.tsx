@@ -205,7 +205,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
             tickGap={5}
             layout="vertical"
             showLegend={false}
-            valueFormatter={(value) => <MoneyCell value={value} decimals={2} />}
+            valueFormatter={(value) => formatSpend(value, 2, currency, rate)}
             onValueChange={(item) => handleKeyClick(item)}
             showTooltip={true}
             customTooltip={(props) => {

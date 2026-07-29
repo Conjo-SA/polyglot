@@ -307,6 +307,8 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
       .join(" ");
   };
 
+  import { formatCostPerMillion } from "@/utils/dataUtils";
+
   const getModelCapabilities = (model: ModelHubData) => {
     // Find all properties that start with 'supports_' and are true
     return Object.entries(model)
@@ -314,9 +316,11 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
       .map(([key]) => key);
   };
 
+  // Definir formatCost corretamente para funcionar com a moeda configurada
   const formatCost = (cost: number) => {
-    // Não multiplicar por 1_000_000 novamente, já é feito pela função formatCostPerMillion que recebe o valor real por token
-    return `$${cost.toFixed(2)}`;
+    // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
+    // Recebe o custo por token e retorna o custo por 1M de tokens formatado
+    return formatCostPerMillion(cost);
   };
 
   const handleMakePublicSuccess = () => {

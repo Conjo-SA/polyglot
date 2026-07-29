@@ -5,6 +5,7 @@ import { useProjects } from "@/app/(dashboard)/hooks/projects/useProjects";
 import { useTags } from "@/app/(dashboard)/hooks/tags/useTags";
 import { useUISettings } from "@/app/(dashboard)/hooks/uiSettings/useUISettings";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
+import { useCurrency } from "@/components/context/CurrencyContext";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useQueryClient } from "@tanstack/react-query";
@@ -56,7 +57,7 @@ import {
   userFilterUICall,
 } from "../networking";
 import CreatedKeyDisplay from "../shared/CreatedKeyDisplay";
-import CurrencyMoneyInput from "../shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 import { simplifyKeyGenerateError } from "./utils";
 
@@ -166,6 +167,7 @@ export const fetchUserModels = async (
  * ─────────────────────────────────────────────────────────────────────────
  */
 const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOpenCreate, prefillData }) => {
+  const { currency, rate } = useCurrency();
   
   const { accessToken, userId: userID, userRole } = useAuthorized();
   const { data: organizations, isLoading: isOrganizationsLoading } = useOrganizations();
@@ -1057,7 +1059,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                       </span>
                     }
                     name="max_budget"
-                    help={`Orçamento não pode exceder o orçamento máximo da equipe: ${team?.max_budget !== null && team?.max_budget !== undefined ? `${team?.max_budget} ${team?.max_budget ? useCurrency().symbol : ''}` : "ilimitado"}`}
+                    help={`Orçamento não pode exceder o orçamento máximo da equipe: ${team?.max_budget !== null && team?.max_budget !== undefined ? `${formatSpend(team.max_budget, 2, currency, rate)}` : "ilimitado"}`}
                     rules={[
                       {
                         validator: async (_, value) => {
