@@ -598,7 +598,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
                 onTest={async (cb) => {
                   try {
                     await serviceHealthCheck(accessToken, cb.name);
-                    NotificationsManager.success("Health check triggered");
+                    NotificationsManager.success("Verificação de integridade acionada");
                   } catch (error) {
                     NotificationsManager.fromBackend(parseErrorMessage(error));
                   }
@@ -690,7 +690,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
                   }}
                   className="mx-2"
                 >
-                  Test Alerts
+                  Testar Alertas
                 </Button>
               </Card>
             </TabPanel>
@@ -705,7 +705,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
       </Grid>
 
       <Modal
-        title="Add Logging Callback"
+        title="Adicionar Callback de Registro"
         open={showAddCallbacksModal}
         width={800}
         onCancel={() => {
@@ -722,7 +722,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
           style={{ color: "blue" }}
         >
           {" "}
-          Polyglot Docs: Logging
+          Documentação Polyglot: Registro
         </a>
 
         <Form
@@ -766,7 +766,7 @@ const Settings: React.FC<SettingsPageProps> = ({ accessToken, userRole, userID, 
       <Modal
         open={showEditCallback}
         width={800}
-        title={"Edit Callback Settings"}
+        title={"Editar Configurações do Callback"}
         onCancel={() => {
           setShowEditCallback(false);
           setSelectedEditCallback(null);

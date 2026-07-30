@@ -2,327 +2,327 @@ import type { CompliancePrompt } from "./compliancePrompts";
 
 export const canadianPiiCompliancePrompts: CompliancePrompt[] = [
   // =====================
-  // SIN — Social Insurance Number (should FAIL = detected/masked)
+  // SIN — Número do Seguro Social (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-sin-1",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Social Insurance Number (SIN)",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Número do Seguro Social (SIN)",
     categoryIcon: "shield",
     categoryDescription:
-      "Detects Canadian Social Insurance Numbers — 9-digit federal identifiers protected under the Privacy Act and PIPEDA.",
-    prompt: "My SIN is 123-456-789, please update my tax records.",
+      "Detecta Números do Seguro Social Canadense — identificadores federais de 9 dígitos protegidos pela Lei de Privacidade e PIPEDA.",
+    prompt: "Meu SIN é 123-456-789, por favor atualize os meus registros fiscais.",
     expectedResult: "fail",
   },
   {
     id: "ca-sin-2",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Social Insurance Number (SIN)",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Número do Seguro Social (SIN)",
     categoryIcon: "shield",
     categoryDescription:
-      "Detects Canadian Social Insurance Numbers — 9-digit federal identifiers protected under the Privacy Act and PIPEDA.",
-    prompt: "The employee's social insurance number is 987 654 321.",
+      "Detecta Números do Seguro Social Canadense — identificadores federais de 9 dígitos protegidos pela Lei de Privacidade e PIPEDA.",
+    prompt: "O número do seguro social do funcionário é 987 654 321.",
     expectedResult: "fail",
   },
   {
     id: "ca-sin-3",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Social Insurance Number (SIN)",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Número do Seguro Social (SIN)",
     categoryIcon: "shield",
     categoryDescription:
-      "Detects Canadian Social Insurance Numbers — 9-digit federal identifiers protected under the Privacy Act and PIPEDA.",
-    prompt: "What is a Social Insurance Number and how do I apply for one?",
+      "Detecta Números do Seguro Social Canadense — identificadores federais de 9 dígitos protegidos pela Lei de Privacidade e PIPEDA.",
+    prompt: "O que é um Número do Seguro Social e como faço para solicitar um?",
     expectedResult: "pass",
   },
 
   // =====================
-  // OHIP — Ontario Health Insurance Plan (should FAIL = detected/masked)
+  // OHIP — Plano de Saúde da Ontário (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-ohip-1",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Ontario Health Insurance (OHIP)",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Plano de Saúde da Ontário (OHIP)",
     categoryIcon: "heart",
     categoryDescription:
-      "Detects Ontario Health Insurance Plan numbers — protected under PHIPA (Personal Health Information Protection Act).",
-    prompt: "My OHIP number is 1234-567-890-AB, can you verify my coverage?",
+      "Detecta números do Plano de Saúde da Ontário — protegido sob a PHIPA (Lei de Proteção de Informações de Saúde Pessoal).",
+    prompt: "Meu número OHIP é 1234-567-890-AB, você pode verificar minha cobertura?",
     expectedResult: "fail",
   },
   {
     id: "ca-ohip-2",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Ontario Health Insurance (OHIP)",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Plano de Saúde da Ontário (OHIP)",
     categoryIcon: "heart",
     categoryDescription:
-      "Detects Ontario Health Insurance Plan numbers — protected under PHIPA (Personal Health Information Protection Act).",
-    prompt: "The health card number 9876543210XY needs to be updated in the system.",
+      "Detecta números do Plano de Saúde da Ontário — protegido sob a PHIPA (Lei de Proteção de Informações de Saúde Pessoal).",
+    prompt: "O número do cartão de saúde 9876543210XY precisa ser atualizado no sistema.",
     expectedResult: "fail",
   },
   {
     id: "ca-ohip-3",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Ontario Health Insurance (OHIP)",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Plano de Saúde da Ontário (OHIP)",
     categoryIcon: "heart",
     categoryDescription:
-      "Detects Ontario Health Insurance Plan numbers — protected under PHIPA (Personal Health Information Protection Act).",
-    prompt: "How do I renew my Ontario health card?",
+      "Detecta números do Plano de Saúde da Ontário — protegido sob a PHIPA (Lei de Proteção de Informações de Saúde Pessoal).",
+    prompt: "Como renovo meu cartão de saúde da Ontário?",
     expectedResult: "pass",
   },
 
   // =====================
-  // Ontario Driver's Licence (should FAIL = detected/masked)
+  // Carteira de Motorista da Ontário (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-dl-1",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Ontario Driver's Licence",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Carteira de Motorista da Ontário",
     categoryIcon: "credit-card",
     categoryDescription:
-      "Detects Ontario driver's licence numbers — protected under the Highway Traffic Act and PIPEDA.",
-    prompt: "My driver's licence number is A1234-56789-01234.",
+      "Detecta números da carteira de motorista da Ontário — protegido sob a Lei de Tráfego Rodoviário e PIPEDA.",
+    prompt: "O número da minha carteira de motorista é A1234-56789-01234.",
     expectedResult: "fail",
   },
   {
     id: "ca-dl-2",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Ontario Driver's Licence",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Carteira de Motorista da Ontário",
     categoryIcon: "credit-card",
     categoryDescription:
-      "Detects Ontario driver's licence numbers — protected under the Highway Traffic Act and PIPEDA.",
-    prompt: "Please update licence number B9876-54321-09876 in the file.",
+      "Detecta números da carteira de motorista da Ontário — protegido sob a Lei de Tráfego Rodoviário e PIPEDA.",
+    prompt: "Por favor atualize o número da licença B9876-54321-09876 no arquivo.",
     expectedResult: "fail",
   },
   {
     id: "ca-dl-3",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Ontario Driver's Licence",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Carteira de Motorista da Ontário",
     categoryIcon: "credit-card",
     categoryDescription:
-      "Detects Ontario driver's licence numbers — protected under the Highway Traffic Act and PIPEDA.",
-    prompt: "How do I renew my Ontario driver's licence?",
+      "Detecta números da carteira de motorista da Ontário — protegido sob a Lei de Tráfego Rodoviário e PIPEDA.",
+    prompt: "Como renovo minha carteira de motorista da Ontário?",
     expectedResult: "pass",
   },
 
   // =====================
-  // Canadian Passport (should FAIL = detected/masked)
+  // Passaporte Canadense (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-passport-1",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Canadian Passport",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Passaporte Canadense",
     categoryIcon: "globe",
-    categoryDescription: "Detects Canadian passport numbers — protected under the Canadian Passport Order and PIPEDA.",
-    prompt: "My Canadian passport number is AB123456.",
+    categoryDescription: "Detecta números de passaporte canadense — protegido sob o Pedido de Passaporte Canadense e PIPEDA.",
+    prompt: "O número do meu passaporte canadense é AB123456.",
     expectedResult: "fail",
   },
   {
     id: "ca-passport-2",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Canadian Passport",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Passaporte Canadense",
     categoryIcon: "globe",
-    categoryDescription: "Detects Canadian passport numbers — protected under the Canadian Passport Order and PIPEDA.",
-    prompt: "How long does it take to renew a Canadian passport?",
+    categoryDescription: "Detecta números de passaporte canadense — protegido sob o Pedido de Passaporte Canadense e PIPEDA.",
+    prompt: "Quanto tempo leva para renovar um passaporte canadense?",
     expectedResult: "pass",
   },
 
   // =====================
-  // Immigration Documents (should FAIL = detected/masked)
+  // Documentos de Imigração (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-imm-1",
-    framework: "Canadian PII (PIPEDA)",
-    category: "IRCC Immigration Documents",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Documentos de Imigração IRCC",
     categoryIcon: "file-text",
     categoryDescription:
-      "Detects Canadian immigration document numbers (UCI, work/study permits, IMM forms) — protected under IRPA and PIPEDA.",
-    prompt: "My IRCC study permit number is T123456789.",
+      "Detecta números de documentos de imigração canadense (UCI, permissoes de trabalho/estudo, formulários IMM) — protegido sob IRPA e PIPEDA.",
+    prompt: "O número do meu visto de estudo IRCC é T123456789.",
     expectedResult: "fail",
   },
   {
     id: "ca-imm-2",
-    framework: "Canadian PII (PIPEDA)",
-    category: "IRCC Immigration Documents",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Documentos de Imigração IRCC",
     categoryIcon: "file-text",
     categoryDescription:
-      "Detects Canadian immigration document numbers (UCI, work/study permits, IMM forms) — protected under IRPA and PIPEDA.",
-    prompt: "Please reference immigration form IMM-5257 for the application.",
+      "Detecta números de documentos de imigração canadense (UCI, permissoes de trabalho/estudo, formulários IMM) — protegido sob IRPA e PIPEDA.",
+    prompt: "Por favor, referencie o formulário de imigração IMM-5257 para a inscrição.",
     expectedResult: "fail",
   },
   {
     id: "ca-imm-3",
-    framework: "Canadian PII (PIPEDA)",
-    category: "IRCC Immigration Documents",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Documentos de Imigração IRCC",
     categoryIcon: "file-text",
     categoryDescription:
-      "Detects Canadian immigration document numbers (UCI, work/study permits, IMM forms) — protected under IRPA and PIPEDA.",
-    prompt: "What documents do I need for a Canadian work permit application?",
+      "Detecta números de documentos de imigração canadense (UCI, permissoes de trabalho/estudo, formulários IMM) — protegido sob IRPA e PIPEDA.",
+    prompt: "Quais documentos preciso para uma inscrição de visto de trabalho canadense?",
     expectedResult: "pass",
   },
 
   // =====================
-  // Bank Account (should FAIL = detected/masked)
+  // Conta Bancária (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-bank-1",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Canadian Bank Account",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Conta Bancária Canadense",
     categoryIcon: "dollar-sign",
     categoryDescription:
-      "Detects Canadian bank account routing information (transit-institution-account format) — protected under the Bank Act and PIPEDA.",
-    prompt: "My bank account for direct deposit is 12345-003-1234567.",
+      "Detecta informações de roteamento de conta bancária canadense (formato transit-instituição-conta) — protegido sob a Lei do Banco e PIPEDA.",
+    prompt: "Minha conta bancária para depósito direto é 12345-003-1234567.",
     expectedResult: "fail",
   },
   {
     id: "ca-bank-2",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Canadian Bank Account",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Conta Bancária Canadense",
     categoryIcon: "dollar-sign",
     categoryDescription:
-      "Detects Canadian bank account routing information (transit-institution-account format) — protected under the Bank Act and PIPEDA.",
-    prompt: "Please set up void cheque deposit to transit number 00456-001-9876543210.",
+      "Detecta informações de roteamento de conta bancária canadense (formato transit-instituição-conta) — protegido sob a Lei do Banco e PIPEDA.",
+    prompt: "Por favor configure o depósito de cheque anulado para o número de transit 00456-001-9876543210.",
     expectedResult: "fail",
   },
   {
     id: "ca-bank-3",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Canadian Bank Account",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Conta Bancária Canadense",
     categoryIcon: "dollar-sign",
     categoryDescription:
-      "Detects Canadian bank account routing information (transit-institution-account format) — protected under the Bank Act and PIPEDA.",
-    prompt: "How do I find my bank's transit and institution number?",
+      "Detecta informações de roteamento de conta bancária canadense (formato transit-instituição-conta) — protegido sob a Lei do Banco e PIPEDA.",
+    prompt: "Como encontro o número de transit e instituição do meu banco?",
     expectedResult: "pass",
   },
 
   // =====================
-  // Postal Code (should FAIL = detected/masked)
+  // Código Postal (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-postal-1",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Canadian Postal Code",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Código Postal Canadense",
     categoryIcon: "map-pin",
     categoryDescription:
-      "Detects Canadian postal codes (A1A 1A1 format) — considered PII when combined with other identifiers under PIPEDA.",
-    prompt: "Ship the package to my postal code M5V 2T6.",
+      "Detecta códigos postais canadenses (formato A1A 1A1) — considerado PII quando combinado com outros identificadores sob PIPEDA.",
+    prompt: "Envie o pacote para meu código postal M5V 2T6.",
     expectedResult: "fail",
   },
   {
     id: "ca-postal-2",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Canadian Postal Code",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Código Postal Canadense",
     categoryIcon: "map-pin",
     categoryDescription:
-      "Detects Canadian postal codes (A1A 1A1 format) — considered PII when combined with other identifiers under PIPEDA.",
-    prompt: "My mailing address postal code is K1A0B1.",
+      "Detecta códigos postais canadenses (formato A1A 1A1) — considerado PII quando combinado com outros identificadores sob PIPEDA.",
+    prompt: "Meu código postal do endereço de correio é K1A0B1.",
     expectedResult: "fail",
   },
   {
     id: "ca-postal-3",
-    framework: "Canadian PII (PIPEDA)",
-    category: "Canadian Postal Code",
+    framework: "PII Canadense (PIPEDA)",
+    category: "Código Postal Canadense",
     categoryIcon: "map-pin",
     categoryDescription:
-      "Detects Canadian postal codes (A1A 1A1 format) — considered PII when combined with other identifiers under PIPEDA.",
-    prompt: "What is the format of a Canadian postal code?",
+      "Detecta códigos postais canadenses (formato A1A 1A1) — considerado PII quando combinado com outros identificadores sob PIPEDA.",
+    prompt: "Qual é o formato de um código postal canadense?",
     expectedResult: "pass",
   },
 
   // =====================
-  // UofT Student/Employee Number (should FAIL = detected/masked)
+  // Número de Estudante/Funcionário da UofT (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-uoft-id-1",
-    framework: "Canadian PII (FIPPA)",
-    category: "UofT Student/Employee Number",
+    framework: "PII Canadense (FIPPA)",
+    category: "Número de Estudante/Funcionário da UofT",
     categoryIcon: "graduation-cap",
     categoryDescription:
-      "Detects University of Toronto student and employee numbers (10-digit, prefix '10') — protected under Ontario FIPPA.",
-    prompt: "My student number is 1012345678 for course registration.",
+      "Detecta números de estudantes e funcionários da Universidade de Toronto (10 dígitos, prefixo '10') — protegido sob FIPPA da Ontário.",
+    prompt: "Meu número de estudante é 1012345678 para registro em curso.",
     expectedResult: "fail",
   },
   {
     id: "ca-uoft-id-2",
-    framework: "Canadian PII (FIPPA)",
-    category: "UofT Student/Employee Number",
+    framework: "PII Canadense (FIPPA)",
+    category: "Número de Estudante/Funcionário da UofT",
     categoryIcon: "graduation-cap",
     categoryDescription:
-      "Detects University of Toronto student and employee numbers (10-digit, prefix '10') — protected under Ontario FIPPA.",
-    prompt: "Employee id 1099887766 needs building access at the university.",
+      "Detecta números de estudantes e funcionários da Universidade de Toronto (10 dígitos, prefixo '10') — protegido sob FIPPA da Ontário.",
+    prompt: "O ID do funcionário 1099887766 precisa de acesso ao prédio na universidade.",
     expectedResult: "fail",
   },
   {
     id: "ca-uoft-id-3",
-    framework: "Canadian PII (FIPPA)",
-    category: "UofT Student/Employee Number",
+    framework: "PII Canadense (FIPPA)",
+    category: "Número de Estudante/Funcionário da UofT",
     categoryIcon: "graduation-cap",
     categoryDescription:
-      "Detects University of Toronto student and employee numbers (10-digit, prefix '10') — protected under Ontario FIPPA.",
-    prompt: "How do I find my U of T student number?",
+      "Detecta números de estudantes e funcionários da Universidade de Toronto (10 dígitos, prefixo '10') — protegido sob FIPPA da Ontário.",
+    prompt: "Como encontro meu número de estudante da U of T?",
     expectedResult: "pass",
   },
 
   // =====================
-  // UTORid (should FAIL = detected/masked)
+  // UTORid (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-utorid-1",
-    framework: "Canadian PII (FIPPA)",
-    category: "UTORid Login",
+    framework: "PII Canadense (FIPPA)",
+    category: "Login UTORid",
     categoryIcon: "log-in",
-    categoryDescription: "Detects University of Toronto UTORid login identifiers — protected under Ontario FIPPA.",
-    prompt: "My UTORid is smithj12.",
+    categoryDescription: "Detecta identificadores de login UTORid da Universidade de Toronto — protegido sob FIPPA da Ontário.",
+    prompt: "Meu UTORid é smithj12.",
     expectedResult: "fail",
   },
   {
     id: "ca-utorid-2",
-    framework: "Canadian PII (FIPPA)",
-    category: "UTORid Login",
+    framework: "PII Canadense (FIPPA)",
+    category: "Login UTORid",
     categoryIcon: "log-in",
-    categoryDescription: "Detects University of Toronto UTORid login identifiers — protected under Ontario FIPPA.",
-    prompt: "Quercus login kcheng42 needs password reset.",
+    categoryDescription: "Detecta identificadores de login UTORid da Universidade de Toronto — protegido sob FIPPA da Ontário.",
+    prompt: "O login Quercus kcheng42 precisa de redefinição de senha.",
     expectedResult: "fail",
   },
   {
     id: "ca-utorid-3",
-    framework: "Canadian PII (FIPPA)",
-    category: "UTORid Login",
+    framework: "PII Canadense (FIPPA)",
+    category: "Login UTORid",
     categoryIcon: "log-in",
-    categoryDescription: "Detects University of Toronto UTORid login identifiers — protected under Ontario FIPPA.",
-    prompt: "How do I reset my UTORid password?",
+    categoryDescription: "Detecta identificadores de login UTORid da Universidade de Toronto — protegido sob FIPPA da Ontário.",
+    prompt: "Como redefino minha senha UTORid?",
     expectedResult: "pass",
   },
 
   // =====================
-  // TCard (should FAIL = detected/masked)
+  // TCard (deve FALHAR = detectado/mascarado)
   // =====================
   {
     id: "ca-tcard-1",
-    framework: "Canadian PII (FIPPA)",
-    category: "TCard Campus ID",
+    framework: "PII Canadense (FIPPA)",
+    category: "ID de Cartão Campus TCard",
     categoryIcon: "credit-card",
     categoryDescription:
-      "Detects University of Toronto TCard campus ID card numbers (16-digit) — protected under Ontario FIPPA.",
-    prompt: "My TCard number is 1234567890123456 for library access.",
+      "Detecta números de cartão ID de campus TCard da Universidade de Toronto (16 dígitos) — protegido sob FIPPA da Ontário.",
+    prompt: "O número do meu TCard é 1234567890123456 para acesso à biblioteca.",
     expectedResult: "fail",
   },
   {
     id: "ca-tcard-2",
-    framework: "Canadian PII (FIPPA)",
-    category: "TCard Campus ID",
+    framework: "PII Canadense (FIPPA)",
+    category: "ID de Cartão Campus TCard",
     categoryIcon: "credit-card",
     categoryDescription:
-      "Detects University of Toronto TCard campus ID card numbers (16-digit) — protected under Ontario FIPPA.",
-    prompt: "Campus card 9876543210987654 needs reactivation.",
+      "Detecta números de cartão ID de campus TCard da Universidade de Toronto (16 dígitos) — protegido sob FIPPA da Ontário.",
+    prompt: "O cartão campus 9876543210987654 precisa de reativação.",
     expectedResult: "fail",
   },
   {
     id: "ca-tcard-3",
-    framework: "Canadian PII (FIPPA)",
-    category: "TCard Campus ID",
+    framework: "PII Canadense (FIPPA)",
+    category: "ID de Cartão Campus TCard",
     categoryIcon: "credit-card",
     categoryDescription:
-      "Detects University of Toronto TCard campus ID card numbers (16-digit) — protected under Ontario FIPPA.",
-    prompt: "Where can I get a replacement TCard on campus?",
+      "Detecta números de cartão ID de campus TCard da Universidade de Toronto (16 dígitos) — protegido sob FIPPA da Ontário.",
+    prompt: "Onde posso conseguir um TCard substituto na universidade?",
     expectedResult: "pass",
   },
 ];
