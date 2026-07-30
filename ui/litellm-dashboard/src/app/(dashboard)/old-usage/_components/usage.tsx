@@ -526,15 +526,15 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
     return (
       <div style={{ width: "100%" }} className="p-8">
         <Card>
-          <Title>Database Query Limit Reached</Title>
+          <Title>Limite de Consulta ao Banco de Dados Alcançado</Title>
           <Text className="mt-4">
-            SpendLogs in DB has {proxySettings.NUM_SPEND_LOGS_ROWS} rows.
+            SpendLogs no banco de dados possui {proxySettings.NUM_SPEND_LOGS_ROWS} linhas.
             <br></br>
-            Please follow our guide to view usage when SpendLogs has more than 1M rows.
+            Por favor, siga nosso guia para visualizar o uso quando SpendLogs tiver mais de 1M de linhas.
           </Text>
           <Button className="mt-4">
             <a href="https://docs.litellm.ai/docs/proxy/cost_tracking" target="_blank">
-              View Usage Guide
+              Ver Guia de Uso
             </a>
           </Button>
         </Card>
@@ -546,13 +546,13 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
     <div style={{ width: "100%" }} className="p-8">
       <TabGroup>
         <TabList className="mt-2">
-          <Tab>All Up</Tab>
+<Tab>Tudo</Tab>
 
           {isAdminOrAdminViewer(userRole) ? (
             <>
-              <Tab>Team Based Usage</Tab>
-              <Tab>Customer Usage</Tab>
-              <Tab>Tag Based Usage</Tab>
+              <Tab>Uso por Equipe</Tab>
+              <Tab>Uso por Cliente</Tab>
+              <Tab>Uso por Tag</Tab>
             </>
           ) : (
             <>
@@ -564,22 +564,22 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
           <TabPanel>
             <TabGroup>
               <TabList variant="solid" className="mt-1">
-                <Tab>Cost</Tab>
-                <Tab>Activity</Tab>
+                <Tab>Custo</Tab>
+                <Tab>Atividade</Tab>
               </TabList>
               <TabPanels>
                 <TabPanel>
                   <Grid numItems={2} className="gap-2 h-screen w-full">
                     <Col numColSpan={2}>
                       <Text className="text-tremor-default text-tremor-content dark:text-dark-tremor-content mb-2 mt-2 text-lg">
-                        Project Spend {new Date().toLocaleString("default", { month: "long" })} 1 -{" "}
+                        Gasto do Projeto {new Date().toLocaleString("default", { month: "long" })} 1 -{" "}
                         {new Date(new Date().getFullYear(), new Date().getMonth() + 1, 0).getDate()}
                       </Text>
                       <ViewUserSpend userSpend={totalMonthlySpend} selectedTeam={null} userMaxBudget={null} />
                     </Col>
                     <Col numColSpan={2}>
                       <Card>
-                        <Title>Monthly Spend</Title>
+                        <Title>Gastos Mensais</Title>
                         <BarChart
                           data={keySpendData}
                           index="date"
@@ -594,13 +594,13 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                     </Col>
                     <Col numColSpan={1}>
                       <Card className="h-full">
-                        <Title>Top Virtual Keys</Title>
+                        <Title>Principais Chaves Virtuais</Title>
                         <TopKeyView topKeys={topKeys} teams={null} topKeysLimit={5} setTopKeysLimit={() => {}} />
                       </Card>
                     </Col>
                     <Col numColSpan={1}>
                       <Card className="h-full">
-                        <Title>Top Models</Title>
+                        <Title>Principais Modelos</Title>
                         <BarChart
                           className="mt-4 h-40"
                           data={topModels}
@@ -618,7 +618,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                     <Col numColSpan={1}></Col>
                     <Col numColSpan={2}>
                       <Card className="mb-2">
-                        <Title>Spend by Provider</Title>
+                        <Title>Gastos por Provedor</Title>
                         <>
                           <Grid numItems={2}>
                             <Col numColSpan={1}>
@@ -636,8 +636,8 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                               <Table>
                                 <TableHead>
                                   <TableRow>
-                                    <TableHeaderCell>Provider</TableHeaderCell>
-                                    <TableHeaderCell>Spend</TableHeaderCell>
+                                    <TableHeaderCell>Provedor</TableHeaderCell>
+                                    <TableHeaderCell>Gasto</TableHeaderCell>
                                   </TableRow>
                                 </TableHead>
                                 <TableBody>
@@ -661,11 +661,11 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                 <TabPanel>
                   <Grid numItems={1} className="gap-2 h-[75vh] w-full">
                     <Card>
-                      <Title>All Up</Title>
+                      <Title>Tudo</Title>
                       <Grid numItems={2}>
                         <Col>
                           <Subtitle style={{ fontSize: "15px", fontWeight: "normal", color: "#535452" }}>
-                            API Requests {valueFormatterNumbers(globalActivity.sum_api_requests)}
+                            Requisições de API {valueFormatterNumbers(globalActivity.sum_api_requests)}
                           </Subtitle>
                           <AreaChart
                             className="h-40"
@@ -699,7 +699,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                           <Grid numItems={2}>
                             <Col>
                               <Subtitle style={{ fontSize: "15px", fontWeight: "normal", color: "#535452" }}>
-                                API Requests {valueFormatterNumbers(globalActivity.sum_api_requests)}
+                                Requisições de API {valueFormatterNumbers(globalActivity.sum_api_requests)}
                               </Subtitle>
                               <AreaChart
                                 className="h-40"
@@ -736,11 +736,11 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
             <Grid numItems={2} className="gap-2 h-[75vh] w-full">
               <Col numColSpan={2}>
                 <Card className="mb-2">
-                  <Title>Total Spend Per Team</Title>
+                  <Title>Gasto Total Por Equipe</Title>
                   <BarList data={totalSpendPerTeam} />
                 </Card>
                 <Card>
-                  <Title>Daily Spend Per Team</Title>
+                  <Title>Gasto Diário Por Equipe</Title>
                   <BarChart
                     className="h-72"
                     data={teamSpendData}
@@ -757,9 +757,9 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
           </TabPanel>
           <TabPanel>
             <p className="mb-2 text-gray-500 italic text-[12px]">
-              Customers of your LLM API calls. Tracked when a `user` param is passed in your LLM calls{" "}
+              Clientes das suas chamadas da API LLM. Rastreado quando um parâmetro `user` é passado nas suas chamadas LLM{" "}
               <a className="text-blue-500" href="https://docs.litellm.ai/docs/proxy/users" target="_blank">
-                docs here
+                docs aqui
               </a>
             </p>
             <Grid numItems={2}>
@@ -773,7 +773,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                 />
               </Col>
               <Col>
-                <Text>Select Key</Text>
+                <Text>Selecionar Chave</Text>
                 <Select defaultValue="all-keys">
                   <SelectItem
                     key="all-keys"
@@ -782,7 +782,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
                       updateEndUserData(dateValue.from, dateValue.to, null);
                     }}
                   >
-                    All Keys
+                    Todas as Chaves
                   </SelectItem>
                   {keys?.map((key: any, index: number) => {
                     if (key && key["key_alias"] !== null && key["key_alias"].length > 0) {
@@ -808,9 +808,9 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
               <Table className="max-h-[70vh] min-h-[500px]">
                 <TableHead>
                   <TableRow>
-                    <TableHeaderCell>Customer</TableHeaderCell>
-                    <TableHeaderCell>Spend</TableHeaderCell>
-                    <TableHeaderCell>Total Events</TableHeaderCell>
+                    <TableHeaderCell>Cliente</TableHeaderCell>
+                    <TableHeaderCell>Gasto</TableHeaderCell>
+                    <TableHeaderCell>Total de Eventos</TableHeaderCell>
                   </TableRow>
                 </TableHead>
 
@@ -897,15 +897,15 @@ const UsagePage: React.FC<UsagePageProps> = ({ accessToken, token, userRole, use
             <Grid numItems={2} className="gap-2 h-[75vh] w-full mb-4">
               <Col numColSpan={2}>
                 <Card>
-                  <Title>Spend Per Tag</Title>
+                  <Title>Gasto Por Tag</Title>
                   <Text>
-                    Get Started by Tracking cost per tag{" "}
+                    Comece rastreando o custo por tag{" "}
                     <a
                       className="text-blue-500"
                       href="https://docs.litellm.ai/docs/proxy/cost_tracking"
                       target="_blank"
                     >
-                      here
+                      aqui
                     </a>
                   </Text>
                   <BarChart

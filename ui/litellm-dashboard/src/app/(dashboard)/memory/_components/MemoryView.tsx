@@ -96,7 +96,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       return createMemory(accessToken, args);
     },
     onSuccess: (row) => {
-      message.success(`Created ${row.key}`);
+      message.success(`Criado ${row.key}`);
       invalidateList();
     },
     onError: (err: Error) => {
@@ -201,7 +201,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       render: (_: unknown, r: MemoryRow) => <IdCell value={r.memory_id} onClick={() => setDetailRow(r)} />,
     },
     {
-      title: "Name",
+      title: "Nome",
       dataIndex: "key",
       key: "key",
       width: 200,
@@ -212,7 +212,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       // `updated_at DESC`; use the prefix filter for discovery by name.
     },
     {
-      title: "Preview",
+      title: "Visualização",
       dataIndex: "value",
       key: "value",
       render: (v: string) => (
@@ -222,21 +222,21 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
       ),
     },
     {
-      title: "User ID",
+      title: "ID do Usuário",
       dataIndex: "user_id",
       key: "user_id",
       width: 160,
       render: (uid?: string | null) => <IdCell value={uid} />,
     },
     {
-      title: "Team ID",
+      title: "ID da Equipe",
       dataIndex: "team_id",
       key: "team_id",
       width: 160,
       render: (tid?: string | null) => <IdCell value={tid} />,
     },
     {
-      title: "Updated",
+      title: "Atualizado",
       dataIndex: "updated_at",
       key: "updated_at",
       width: 180,
@@ -274,7 +274,7 @@ export const MemoryView: React.FC<MemoryViewProps> = ({ accessToken }) => {
             Memória
           </Title>
           <Paragraph type="secondary" style={{ marginBottom: 0 }}>
-            Inspeccione o que seus agentes armazenaram em <Text code>/v1/memory</Text>. Limitado às memórias visíveis ao seu
+            Inspecione o que seus agentes armazenaram em <Text code>/v1/memory</Text>. Limitado às memórias visíveis ao seu
             usuário / equipe (administradores veem todas).
           </Paragraph>
         </div>

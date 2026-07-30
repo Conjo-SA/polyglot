@@ -32,7 +32,7 @@ export default function CloudZeroCreationModal({ open, onOk, onCancel }: CloudZe
         },
         {
           onSuccess: () => {
-            MessageManager.success("CloudZero integration created successfully");
+            MessageManager.success("Integração com CloudZero criada com sucesso");
             form.resetFields();
             onOk();
           },
@@ -59,13 +59,13 @@ export default function CloudZeroCreationModal({ open, onOk, onCancel }: CloudZe
 
   return (
     <Modal
-      title="Create CloudZero Integration"
+      title="Criar Integração com CloudZero"
       open={open}
       onOk={handleSubmit}
       onCancel={handleCancel}
       confirmLoading={createMutation.isPending}
-      okText={createMutation.isPending ? "Creating..." : "Create"}
-      cancelText="Cancel"
+      okText={createMutation.isPending ? "Criando..." : "Criar"}
+      cancelText="Cancelar"
       okButtonProps={{
         disabled: createMutation.isPending,
       }}
@@ -75,23 +75,23 @@ export default function CloudZeroCreationModal({ open, onOk, onCancel }: CloudZe
     >
       <Form form={form} layout="vertical" onFinish={handleSubmit}>
         <Form.Item
-          label="CloudZero API Key"
+          label="Chave da API do CloudZero"
           name="api_key"
-          rules={[{ required: true, message: "Please enter your CloudZero API key" }]}
+          rules={[{ required: true, message: "Por favor, insira sua chave da API do CloudZero" }]}
         >
-          <Input.Password placeholder="Enter your CloudZero API key" />
+          <Input.Password placeholder="Insira sua chave da API do CloudZero" />
         </Form.Item>
         <Form.Item
-          label="Connection ID"
+          label="ID da Conexão"
           name="connection_id"
-          rules={[{ required: true, message: "Please enter your CloudZero connection ID" }]}
+          rules={[{ required: true, message: "Por favor, insira o ID da conexão do CloudZero" }]}
         >
-          <Input placeholder="Enter your CloudZero connection ID" />
+          <Input placeholder="Insira o ID da conexão do CloudZero" />
         </Form.Item>
         <Form.Item
-          label="Timezone"
+          label="Fuso Horário"
           name="timezone"
-          tooltip="Timezone for date handling (defaults to UTC if not provided)"
+          tooltip="Fuso horário para tratamento de datas (padrão UTC se não informado)"
         >
           <Input placeholder="UTC" />
         </Form.Item>

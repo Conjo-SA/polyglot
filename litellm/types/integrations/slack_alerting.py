@@ -33,7 +33,7 @@ class ProviderRegionOutageModel(BaseOutageModel):
     deployment_ids: Set[str]
 
 
-# we use this for the email header, please send a test email if you change this. verify it looks good on email
+# usamos isso para o cabeçalho do email, envie um email de teste se você alterar isso. verifique se parece bom no email
 LITELLM_LOGO_URL = "https://litellm-listing.s3.amazonaws.com/litellm_logo.png"
 LITELLM_SUPPORT_CONTACT = "support@berri.ai"
 
@@ -54,63 +54,63 @@ class SlackAlertingArgs(LiteLLMPydanticObjectBase):
         default=int(
             os.getenv(
                 "SLACK_DAILY_REPORT_FREQUENCY",
-                int(SlackAlertingArgsEnum.daily_report_frequency.value),
+                int(SackAlertingArgsEnum.daily_report_frequency.value),
             )
         ),
-        description="Frequency of receiving deployment latency/failure reports. Default is 12hours. Value is in seconds.",
+        description="Frequência de recebimento de relatórios de latência/falha de implantação. O padrão é 12 horas. O valor está em segundos.",
     )
     report_check_interval: int = Field(
         default=SlackAlertingArgsEnum.report_check_interval.value,
-        description="Frequency of checking cache if report should be sent. Background process. Default is once per hour. Value is in seconds.",
-    )  # 5 minutes
+        description="Frequência de verificação do cache se o relatório deve ser enviado. Processo em segundo plano. O padrão é uma vez por hora. O valor está em segundos.",
+    )  # 5 minutos
     budget_alert_ttl: int = Field(
         default=SlackAlertingArgsEnum.budget_alert_ttl.value,
-        description="Cache ttl for budgets alerts. Prevents spamming same alert, each time budget is crossed. Value is in seconds.",
+        description="TTL do cache para alertas de orçamento. Evita o envio repetido do mesmo alerta sempre que o orçamento é ultrapassado. O valor está em segundos.",
     )  # 24 hours
     outage_alert_ttl: int = Field(
         default=SlackAlertingArgsEnum.outage_alert_ttl.value,
-        description="Cache ttl for model outage alerts. Sets time-window for errors. Default is 1 minute. Value is in seconds.",
+        description="TTL do cache para alertas de interrupção de modelos. Define o período de tempo para erros. O padrão é 1 minuto. O valor está em segundos.",
     )  # 1 minute ttl
     region_outage_alert_ttl: int = Field(
         default=SlackAlertingArgsEnum.region_outage_alert_ttl.value,
-        description="Cache ttl for provider-region based outage alerts. Alert sent if 2+ models in same region report errors. Sets time-window for errors. Default is 1 minute. Value is in seconds.",
+        description="TTL do cache para alertas de interrupção baseados em provedor/região. Um alerta é enviado se 2+ modelos na mesma região relatam erros. Define o período de tempo para erros. O padrão é 1 minuto. O valor está em segundos.",
     )  # 1 minute ttl
     minor_outage_alert_threshold: int = Field(
         default=SlackAlertingArgsEnum.minor_outage_alert_threshold.value,
-        description="The number of errors that count as a model/region minor outage. ('400' error code is not counted).",
+        description="O número de erros que conta como uma interrupção menor de modelo/região. ('400' código de erro não é contado).",
     )
     major_outage_alert_threshold: int = Field(
         default=SlackAlertingArgsEnum.major_outage_alert_threshold.value,
-        description="The number of errors that countas a model/region major outage. ('400' error code is not counted).",
+        description="O número de erros que conta como uma interrupção maior de modelo/região. ('400' código de erro não é contado).",
     )
     max_outage_alert_list_size: int = Field(
         default=SlackAlertingArgsEnum.max_outage_alert_list_size.value,
-        description="Maximum number of errors to store in cache. For a given model/region. Prevents memory leaks.",
+        description="Número máximo de erros a armazenar em cache. Para um dado modelo/região. Evita vazamentos de memória.",
     )  # prevent memory leak
     log_to_console: bool = Field(
         default=False,
-        description="If true, the alerting payload will be printed to the console.",
+        description="Se verdadeiro, a carga útil do alerta será impressa no console.",
     )
 
 
 class DeploymentMetrics(LiteLLMPydanticObjectBase):
     """
-    Metrics per deployment, stored in cache
+Métricas por implantação, armazenadas em cache
 
-    Used for daily reporting
-    """
+Usadas para relatórios diários
+"""
 
     id: str
-    """id of deployment in router model list"""
+    """id da implantação na lista de modelos do roteador"""
 
     failed_request: bool
-    """did it fail the request?"""
+    """a requisição falhou?"""
 
     latency_per_output_token: Optional[float]
-    """latency/output token of deployment"""
+    """latência/token de saída da implantação"""
 
     updated_at: dt
-    """Current time of deployment being updated"""
+    """Hora atual da implantação sendo atualizada"""
 
 
 class SlackAlertingCacheKeys(Enum):
@@ -125,72 +125,72 @@ class SlackAlertingCacheKeys(Enum):
 
 class AlertType(str, Enum):
     """
-    Enum for alert types and management event types
+    Enum para tipos de alerta e eventos de gerenciamento
     """
 
-    # LLM-related alerts
+    # Alertas relacionados a LLM
     llm_exceptions = "llm_exceptions"
     llm_too_slow = "llm_too_slow"
     llm_requests_hanging = "llm_requests_hanging"
 
-    # Budget and spend alerts
+    # Alertas de orçamento e gastos
     budget_alerts = "budget_alerts"
     spend_reports = "spend_reports"
     failed_tracking_spend = "failed_tracking_spend"
 
-    # Database alerts
+    # Alertas de banco de dados
     db_exceptions = "db_exceptions"
 
-    # Report alerts
+    # Alertas de relatório
     daily_reports = "daily_reports"
 
-    # Deployment alerts
+    # Alertas de implantação
     cooldown_deployment = "cooldown_deployment"
     new_model_added = "new_model_added"
 
-    # Outage alerts
+    # Alertas de interrupção
     outage_alerts = "outage_alerts"
     region_outage_alerts = "region_outage_alerts"
 
-    # Fallback alerts
+    # Alertas de fallback
     fallback_reports = "fallback_reports"
 
-    # Virtual Key Events
+    # Eventos de Chave Virtual
     new_virtual_key_created = "new_virtual_key_created"
     virtual_key_updated = "virtual_key_updated"
     virtual_key_deleted = "virtual_key_deleted"
 
-    # Team Events
+    # Eventos de Equipe
     new_team_created = "new_team_created"
     team_updated = "team_updated"
     team_deleted = "team_deleted"
 
-    # Internal User Events
+    # Eventos de Usuário Interno
     new_internal_user_created = "new_internal_user_created"
     internal_user_updated = "internal_user_updated"
     internal_user_deleted = "internal_user_deleted"
 
 
 DEFAULT_ALERT_TYPES: List[AlertType] = [
-    # LLM related alerts
+    # Alertas relacionados a LLM
     AlertType.llm_exceptions,
     AlertType.llm_too_slow,
     AlertType.llm_requests_hanging,
-    # Budget and spend alerts
+    # Alertas de orçamento e gastos
     AlertType.budget_alerts,
     AlertType.spend_reports,
     AlertType.failed_tracking_spend,
-    # Database alerts
+    # Alertas de banco de dados
     AlertType.db_exceptions,
-    # Report alerts
+    # Alertas de relatório
     AlertType.daily_reports,
-    # Deployment alerts
+    # Alertas de implantação
     AlertType.cooldown_deployment,
     AlertType.new_model_added,
-    # Outage alerts
+    # Alertas de interrupção
     AlertType.outage_alerts,
     AlertType.region_outage_alerts,
-    # Fallback alerts
+    # Alertas de fallback
     AlertType.fallback_reports,
 ]
 

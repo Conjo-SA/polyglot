@@ -25,8 +25,8 @@ function EmptyState() {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Inbox className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">No skills found</div>
-      <div className="text-sm text-muted-foreground">Add one to get started.</div>
+      <div className="text-sm font-medium text-foreground">Nenhuma skill encontrada</div>
+      <div className="text-sm text-muted-foreground">Adicione uma para começar.</div>
     </div>
   );
 }
@@ -48,7 +48,7 @@ const PluginTable: React.FC<PluginTableProps> = ({ pluginsList, isLoading, onDel
       sorting={sorting}
       onSortingChange={setSorting}
       isLoading={isLoading}
-      loadingMessage="Loading skills…"
+      loadingMessage="Carregando skills…"
       noDataMessage={<EmptyState />}
       size="compact"
     />

@@ -14,11 +14,11 @@ interface AuditLogDrawerProps {
 }
 
 const TABLE_NAME_DISPLAY: Record<string, string> = {
-  LiteLLM_VerificationToken: "Keys",
-  LiteLLM_TeamTable: "Teams",
-  LiteLLM_UserTable: "Users",
-  LiteLLM_OrganizationTable: "Organizations",
-  LiteLLM_ProxyModelTable: "Models",
+  LiteLLM_VerificationToken: "Chaves",
+  LiteLLM_TeamTable: "Equipes",
+  LiteLLM_UserTable: "Usuários",
+  LiteLLM_OrganizationTable: "Organizações",
+  LiteLLM_ProxyModelTable: "Modelos",
 };
 
 const ACTION_COLOR: Record<string, string> = {
@@ -61,7 +61,7 @@ function CopyableJsonBlock({ label, value }: { label: string; value: Record<stri
         <button
           onClick={handleCopy}
           className="p-1 hover:bg-gray-200 rounded-sm text-gray-500 hover:text-gray-700 transition-colors"
-          title="Copy JSON"
+          title="Copiar JSON"
         >
           {copied ? <CheckOutlined className="text-green-600" /> : <CopyOutlined />}
         </button>
@@ -219,19 +219,19 @@ export function AuditLogDrawer({ open, onClose, log }: AuditLogDrawerProps) {
       <div className="px-6 py-5">
         {/* Metadata */}
         <div className="bg-gray-50 border rounded-lg p-4 mb-5">
-          <p className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Details</p>
-          <MetadataRow label="Table" value={tableDisplay} />
+          <p className="text-xs font-semibold text-gray-700 mb-2 uppercase tracking-wide">Detalhes</p>
+          <MetadataRow label="Tabela" value={tableDisplay} />
           <MetadataRow
-            label="Object ID"
+            label="ID do Objeto"
             value={
               <Text copyable className="font-mono text-xs">
                 {log.object_id}
               </Text>
             }
           />
-          <MetadataRow label="Changed By" value={<DefaultProxyAdminTag userId={log.changed_by} />} />
+          <MetadataRow label="Alterado Por" value={<DefaultProxyAdminTag userId={log.changed_by} />} />
           <MetadataRow
-            label="API Key (Hash)"
+            label="Chave de API (Hash)"
             value={
               log.changed_by_api_key ? (
                 <Text copyable className="font-mono text-xs break-all">
