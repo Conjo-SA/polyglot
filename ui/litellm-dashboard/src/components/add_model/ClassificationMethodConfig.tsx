@@ -65,12 +65,12 @@ const ClassificationMethodConfig: React.FC<ClassificationMethodConfigProps> = ({
       >
         <Space direction="vertical" className="w-full">
           <Radio value="heuristic">
-            <Text strong>Heuristic</Text>{" "}
-            <Text type="secondary">(default) — rule-based scoring, no API calls, &lt;1ms latency</Text>
+            <Text strong>Heurística</Text>{" "}
+            <Text type="secondary">(padrão) — pontuação baseada em regras, sem chamadas à API, latência &lt;1ms</Text>
           </Radio>
           <Radio value="llm">
-            <Text strong>LLM Classifier</Text>{" "}
-            <Text type="secondary">— use a model to decide the tier (e.g. a small/fast model)</Text>
+            <Text strong>Classificador LLM</Text>{" "}
+            <Text type="secondary">— use um modelo para decidir o nível (por exemplo, um modelo pequeno/rápido)</Text>
           </Radio>
         </Space>
       </Radio.Group>
@@ -79,12 +79,12 @@ const ClassificationMethodConfig: React.FC<ClassificationMethodConfigProps> = ({
         <div className="mt-4 space-y-3">
           <div>
             <Text strong style={{ display: "block", marginBottom: 4 }}>
-              Classifier Model
+              Modelo Classificador
             </Text>
             <AntdSelect
               value={value.classifier_llm_config?.model || undefined}
               onChange={handleClassifierModelChange}
-              placeholder="Select the model that will classify request complexity"
+              placeholder="Selecione o modelo que classificará a complexidade das requisições"
               showSearch
               style={{ width: "100%" }}
               options={modelOptions}
@@ -92,13 +92,13 @@ const ClassificationMethodConfig: React.FC<ClassificationMethodConfigProps> = ({
             />
             {classifierModelMissing && (
               <Text type="danger" style={{ fontSize: 12 }}>
-                A classifier model is required
+                Um modelo classificador é obrigatório
               </Text>
             )}
           </div>
           <div>
             <Text strong style={{ display: "block", marginBottom: 4 }}>
-              Timeout (ms)
+              Tempo limite (ms)
             </Text>
             <InputNumber
               value={value.classifier_llm_config?.timeout_ms ?? DEFAULT_CLASSIFIER_TIMEOUT_MS}
@@ -107,8 +107,8 @@ const ClassificationMethodConfig: React.FC<ClassificationMethodConfigProps> = ({
               style={{ width: "100%" }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
-              Falls back to the heuristic scorer if the classifier call errors, times out, or returns an unparseable
-              response.
+              Retorna ao avaliador heurístico se a chamada do classificador tiver erros, timeout ou retornar uma
+              resposta impossível de analisar.
             </Text>
           </div>
         </div>
@@ -117,20 +117,20 @@ const ClassificationMethodConfig: React.FC<ClassificationMethodConfigProps> = ({
       {value.classifier_type === "heuristic" && (
         <div className="mt-4">
           <div className="flex items-center gap-2 mb-1">
-            <Text strong>Custom Technical Keywords</Text>
+            <Text strong>Palavras-chave Técnicas Personalizadas</Text>
             <Tooltip title="Domain-specific terms appended to the built-in technical keyword list. Prompts containing these terms score higher on the technical dimension and route to more capable models.">
               <InfoCircleOutlined className="text-gray-400" />
             </Tooltip>
           </div>
           <Text type="secondary" style={{ display: "block", marginBottom: 8, fontSize: 12 }}>
-            Optional: Add terms to the built-in list to improve classification accuracy on the technical dimension.
-            (e.g., udp, kafka, terraform).
+            Opcional: Adicione termos à lista interna para melhorar a precisão da classificação na dimensão técnica.
+            (por exemplo, udp, kafka, terraform).
           </Text>
           <AntdSelect
             mode="tags"
             value={customTechnicalKeywords ?? []}
             onChange={(keywords: string[]) => onCustomTechnicalKeywordsChange?.(keywords)}
-            placeholder="Type a keyword and press Enter, or paste a comma-separated list"
+            placeholder="Digite uma palavra-chave e pressione Enter, ou cole uma lista separada por vírgulas"
             tokenSeparators={[","]}
             open={false}
             suffixIcon={null}
@@ -142,12 +142,12 @@ const ClassificationMethodConfig: React.FC<ClassificationMethodConfigProps> = ({
 
       <Card className="bg-gray-50 mt-4">
         <Text strong style={{ display: "block", marginBottom: 8 }}>
-          How Classification Works
+          Como funciona a Classificação
         </Text>
         <Text type="secondary" style={{ fontSize: 13 }}>
-          The router scores each request across 7 dimensions: token count, code presence, reasoning markers, technical
-          terms, simple indicators, multi-step patterns, and question complexity. The weighted score determines the
-          tier:
+          O roteador pontua cada solicitação em 7 dimensões: contagem de tokens, presença de código, marcadores de
+          raciocínio, termos técnicos, indicadores simples, padrões multietapas e complexidade da pergunta. A pontuação
+          ponderada determina o nível:
         </Text>
         <ul style={{ marginTop: 8, marginBottom: 0, paddingLeft: 20, fontSize: 13, color: "rgba(0, 0, 0, 0.45)" }}>
           <li>

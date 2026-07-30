@@ -70,9 +70,9 @@ const ReuseCredentialsModal: React.FC<ReuseCredentialsModalProps> = ({
               }}
               style={{ marginRight: 10 }}
             >
-              Cancel
+              Cancelar
             </Button>
-            <Button htmlType="submit">Reuse Credentials</Button>
+            <Button htmlType="submit">Reutilizar Credenciais</Button>
           </div>
         </div>
       </Form>

@@ -172,7 +172,7 @@ const FilterComponent: React.FC<FilterComponentProps> = ({
                     loading={isOptionLoading}
                     options={searchOptionsMap[option.name] || []}
                     allowClear
-                    notFoundContent={isOptionLoading ? "Loading..." : "No results found"}
+                    notFoundContent={isOptionLoading ? "Carregando..." : "Nenhum resultado encontrado"}
                   />
                 ) : option.options ? (
                   <Select

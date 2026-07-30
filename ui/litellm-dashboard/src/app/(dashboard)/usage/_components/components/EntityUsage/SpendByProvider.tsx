@@ -62,12 +62,12 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
         <Title>Gasto por Provedor</Title>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-700">Show Zero Spend</label>
+            <label className="text-sm text-gray-700">Mostrar Gasto Zero</label>
             <Switch checked={includeZeroSpend} onChange={setIncludeZeroSpend} />
           </div>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1">
-              <label className="text-sm text-gray-700">Show Unknown</label>
+              <label className="text-sm text-gray-700">Mostrar Desconhecido</label>
               <Tooltip title="Requisições que falharam ao rotear para um provedor">
                 <InfoCircleOutlined className="text-gray-400 hover:text-gray-600" />
               </Tooltip>

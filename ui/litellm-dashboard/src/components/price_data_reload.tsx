@@ -48,7 +48,7 @@ interface PriceDataReloadProps {
 const PriceDataReload: React.FC<PriceDataReloadProps> = ({
   accessToken,
   onReloadSuccess,
-  buttonText = "Reload Price Data",
+  buttonText = "Recarregar Dados de Preços",
   showIcon = true,
   size = "middle",
   type = "primary",
@@ -220,11 +220,11 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
       <Space direction="horizontal" size="middle" style={{ marginBottom: 16 }}>
         {/* Hard Refresh Button - Always visible */}
         <Popconfirm
-          title="Hard Refresh Price Data"
-          description="This will immediately fetch the latest pricing information from the remote source. Continue?"
+          title="Atualização Direta dos Dados de Preços"
+          description="Isso irá buscar imediatamente as informações de precificação mais recentes da fonte remota. Continuar?"
           onConfirm={handleHardRefresh}
-          okText="Yes"
-          cancelText="No"
+          okText="Sim"
+          cancelText="Não"
           okButtonProps={{
             style: {
               backgroundColor: "#6366f1",
@@ -292,7 +292,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
               lineHeight: "1.25rem",
             }}
           >
-            Set Up Periodic Reload
+            Configurar Recarga Periódica
           </Button>
         ) : (
           <Button
@@ -313,7 +313,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
               lineHeight: "1.25rem",
             }}
           >
-            Cancel Periodic Reload
+            Cancelar Recarga Periódica
           </Button>
         )}
       </Space>
@@ -338,13 +338,13 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
                 <DatabaseOutlined style={{ color: "#fa8c16", fontSize: 16 }} />
               )}
               <Text strong style={{ fontSize: "13px" }}>
-                Pricing Data Source
+                Fonte dos Dados de Preços
               </Text>
               <Tag
                 color={sourceInfo.source === "remote" ? "blue" : "orange"}
                 style={{ marginLeft: "auto", fontWeight: 600, textTransform: "uppercase", fontSize: "11px" }}
               >
-                {sourceInfo.source === "remote" ? "Remote" : "Local"}
+                {sourceInfo.source === "remote" ? "Remota" : "Local"}
               </Tag>
             </div>
 
@@ -353,7 +353,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
             {/* Model count */}
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <Text type="secondary" style={{ fontSize: "12px" }}>
-                Models loaded:
+                Modelos carregados:
               </Text>
               <Text strong style={{ fontSize: "12px" }}>
                 {sourceInfo.model_count.toLocaleString()}
@@ -364,7 +364,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
             {sourceInfo.url && (
               <div style={{ display: "flex", justifyContent: "space-between", alignItems: "flex-start", gap: 8 }}>
                 <Text type="secondary" style={{ fontSize: "12px", whiteSpace: "nowrap" }}>
-                  {sourceInfo.source === "remote" ? "Loaded from:" : "Attempted URL:"}
+                  {sourceInfo.source === "remote" ? "Carregado de:" : "URL tentada:"}
                 </Text>
                 <Tooltip title={sourceInfo.url}>
                   <Text
@@ -390,7 +390,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
               <div style={{ display: "flex", alignItems: "center", gap: 6, marginTop: 2 }}>
                 <InfoCircleOutlined style={{ color: "#fa8c16", fontSize: 12 }} />
                 <Text type="secondary" style={{ fontSize: "11px" }}>
-                  Local mode forced via <code>LITELLM_LOCAL_MODEL_COST_MAP=True</code>
+                  Modo local forçado via <code>LITELLM_LOCAL_MODEL_COST_MAP=True</code>
                 </Text>
               </div>
             )}
@@ -411,7 +411,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
               >
                 <WarningOutlined style={{ color: "#fa8c16", fontSize: 12, marginTop: 2 }} />
                 <Text style={{ fontSize: "11px", color: "#614700" }}>
-                  Fell back to local: {sourceInfo.fallback_reason}
+                  Recuou para local: {sourceInfo.fallback_reason}
                 </Text>
               </div>
             )}
@@ -433,16 +433,16 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
             {reloadStatus.scheduled ? (
               <div>
                 <Tag color="green" icon={<ClockCircleOutlined />}>
-                  Scheduled every {reloadStatus.interval_hours} hours
+                  Agendado a cada {reloadStatus.interval_hours} horas
                 </Tag>
               </div>
             ) : (
-              <Text type="secondary">No periodic reload scheduled</Text>
+              <Text type="secondary">Nenhuma recarga periódica agendada</Text>
             )}
 
             <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
               <Text type="secondary" style={{ fontSize: "12px" }}>
-                Last run:
+                Última execução:
               </Text>
               <Text style={{ fontSize: "12px" }}>{formatDateTime(reloadStatus.last_run)}</Text>
             </div>
@@ -452,7 +452,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
                 {reloadStatus.next_run && (
                   <div style={{ display: "flex", justifyContent: "space-between", alignItems: "center" }}>
                     <Text type="secondary" style={{ fontSize: "12px" }}>
-                      Next run:
+                      Próxima execução:
                     </Text>
                     <Text style={{ fontSize: "12px" }}>{formatDateTime(reloadStatus.next_run)}</Text>
                   </div>
@@ -471,13 +471,13 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
 
       {/* Schedule Modal */}
       <Modal
-        title="Set Up Periodic Reload"
+        title="Configurar Recarga Periódica"
         open={showScheduleModal}
         onOk={handleScheduleReload}
         onCancel={() => setShowScheduleModal(false)}
         confirmLoading={isScheduling}
-        okText="Schedule"
-        cancelText="Cancel"
+        okText="Agendar"
+        cancelText="Cancelar"
         okButtonProps={{
           style: {
             backgroundColor: "#6366f1",
@@ -487,7 +487,7 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
         }}
       >
         <div style={{ marginBottom: 16 }}>
-          <Text>Set up automatic reload of price data every:</Text>
+          <Text>Configurar recarga automática dos dados de preços a cada:</Text>
         </div>
         <div style={{ marginBottom: 16 }}>
           <InputNumber
@@ -495,13 +495,13 @@ const PriceDataReload: React.FC<PriceDataReloadProps> = ({
             max={168} // 1 week max
             value={hours}
             onChange={(value) => setHours(value || 6)}
-            addonAfter="hours"
+            addonAfter="horas"
             style={{ width: "100%" }}
           />
         </div>
         <div>
           <Text type="secondary">
-            This will automatically fetch the latest pricing data from the remote source every {hours} hours.
+            Isso irá buscar automaticamente as informações de precificação mais recentes da fonte remota a cada {hours} horas.
           </Text>
         </div>
       </Modal>

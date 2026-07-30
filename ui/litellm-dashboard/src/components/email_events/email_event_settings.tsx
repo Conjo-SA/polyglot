@@ -48,7 +48,7 @@ const EmailEventSettings: React.FC<EmailEventSettingsProps> = ({ accessToken }) 
 
     try {
       await updateEmailEventSettings(accessToken, { settings: eventSettings });
-      NotificationsManager.success("Email event settings updated successfully");
+      NotificationsManager.success("Definições de eventos de email atualizadas com sucesso");
     } catch (error) {
       console.error("Failed to update email event settings:", error);
       NotificationsManager.fromBackend(error);
@@ -60,7 +60,7 @@ const EmailEventSettings: React.FC<EmailEventSettingsProps> = ({ accessToken }) 
 
     try {
       await resetEmailEventSettings(accessToken);
-      NotificationsManager.success("Email event settings reset to defaults");
+      NotificationsManager.success("Definições de eventos de email restauradas aos padrões");
       // Refresh settings after reset
       fetchEventSettings();
     } catch (error) {
@@ -73,23 +73,23 @@ const EmailEventSettings: React.FC<EmailEventSettingsProps> = ({ accessToken }) 
   const getEventDescription = (event: EmailEvent): string => {
     // Convert event name to a sentence with more context
     if (event.includes("Virtual Key Created")) {
-      return "An email will be sent to the user when a new virtual key is created with their user ID";
+      return "Um email será enviado ao usuário quando uma nova chave virtual for criada com seu ID de usuário";
     } else if (event.includes("New User Invitation")) {
-      return "An email will be sent to the email address of the user when a new user is created";
+      return "Um email será enviado ao endereço de email do usuário quando um novo usuário for criado";
     } else {
       // Handle any other event type from the API
       const words = event
         .split(/(?=[A-Z])/)
         .join(" ")
         .toLowerCase();
-      return `Receive an email notification when ${words}`;
+      return `Receba uma notificação por email quando ${words}`;
     }
   };
 
   return (
     <Card>
-      <Title level={4}>Email Notifications</Title>
-      <Text>Select which events should trigger email notifications.</Text>
+      <Title level={4}>Notificações por Email</Title>
+      <Text>Selecione quais eventos devem acionar notificações por email.</Text>
       <Divider />
 
       {loading ? (
@@ -115,10 +115,10 @@ const EmailEventSettings: React.FC<EmailEventSettingsProps> = ({ accessToken }) 
 
       <div className="mt-6 flex space-x-4">
         <Button onClick={handleSaveSettings} disabled={loading}>
-          Save Changes
+          Salvar Alterações
         </Button>
         <Button onClick={handleResetSettings} variant="secondary" disabled={loading}>
-          Reset to Defaults
+          Restaurar Padrões
         </Button>
       </div>
     </Card>

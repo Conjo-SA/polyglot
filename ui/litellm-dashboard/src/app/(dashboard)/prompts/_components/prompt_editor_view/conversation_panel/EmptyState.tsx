@@ -11,8 +11,8 @@ const EmptyState: React.FC<EmptyStateProps> = ({ hasVariables }) => {
       <RobotOutlined style={{ fontSize: "48px", marginBottom: "16px" }} />
       <span className="text-base">
         {hasVariables
-          ? "Fill in the variables above, then type a message to start testing"
-          : "Type a message below to start testing your prompt"}
+          ? "Preencha as variáveis acima e digite uma mensagem para começar a testar"
+          : "Digite uma mensagem abaixo para começar a testar seu prompt"}
       </span>
     </div>
   );

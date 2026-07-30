@@ -98,7 +98,7 @@ export function GuardrailsOverview({
       ),
     },
     {
-      title: "Provider",
+      title: "Fornecedor",
       dataIndex: "provider",
       key: "provider",
       render: (provider: string) => (
@@ -112,7 +112,7 @@ export function GuardrailsOverview({
       ),
     },
     {
-      title: "Requests",
+      title: "Requisições",
       dataIndex: "requestsEvaluated",
       key: "requestsEvaluated",
       align: "right",
@@ -121,7 +121,7 @@ export function GuardrailsOverview({
       render: (v: number) => v.toLocaleString(),
     },
     {
-      title: "Fail Rate",
+      title: "Taxa de Falha",
       dataIndex: "failRate",
       key: "failRate",
       align: "right",
@@ -135,7 +135,7 @@ export function GuardrailsOverview({
       ),
     },
     {
-      title: "Avg. latency added",
+      title: "Latência Média Adicionada",
       dataIndex: "avgLatency",
       key: "avgLatency",
       align: "right",
@@ -184,12 +184,12 @@ export function GuardrailsOverview({
         <div>
           <div className="flex items-center gap-2 mb-1">
             <SafetyOutlined className="text-lg text-indigo-500" />
-            <h1 className="text-xl font-semibold text-gray-900">Guardrails Monitor</h1>
+            <h1 className="text-xl font-semibold text-gray-900">Monitor de Guardrails</h1>
           </div>
           <p className="text-sm text-gray-500">Monitore o desempenho dos guardrails em todas as solicitações</p>
         </div>
         <div className="flex items-center gap-3">
-          <Button type="default" icon={<DownloadOutlined />} title="Coming soon">
+          <Button type="default" icon={<DownloadOutlined />} title="Em breve">
             Exportar Dados
           </Button>
         </div>
@@ -217,7 +217,7 @@ export function GuardrailsOverview({
         </Col>
         <Col xs={12} sm={12} md={8} flex="1 0 20%">
           <MetricCard
-            label="Avg. latency added"
+            label="Latência Média Adicionada"
             value={`${metrics.avgLatency}ms`}
             valueColor={
               metrics.avgLatency > 150 ? "text-red-600" : metrics.avgLatency > 50 ? "text-amber-600" : "text-green-600"

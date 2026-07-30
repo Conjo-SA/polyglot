@@ -49,13 +49,13 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
       ].includes(file.type);
 
       if (!isValidType) {
-        MessageManager.error(`${file.name} is not a supported file type. Please upload PDF, TXT, DOCX, or MD files.`);
+        MessageManager.error(`${file.name} não é um tipo de arquivo suportado. Por favor, envie arquivos PDF, TXT, DOCX ou MD.`);
         return Upload.LIST_IGNORE;
       }
 
       const isLt50M = file.size / 1024 / 1024 < 50;
       if (!isLt50M) {
-        MessageManager.error(`${file.name} must be smaller than 50MB!`);
+        MessageManager.error(`${file.name} deve ter tamanho menor que 50MB!`);
         return Upload.LIST_IGNORE;
       }
 
@@ -189,7 +189,7 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
   return (
     <div className="space-y-6">
       <div>
-        <Title>Create Vector Store</Title>
+        <Title> Criar Loja Vetorial </Title>
         <Text className="text-gray-500">
           Faça upload de documentos e selecione um provedor para criar uma nova loja vetorial com conteúdo embutido.
         </Text>
@@ -198,7 +198,7 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
       {/* Upload Area */}
       <Card>
         <div className="mb-4">
-          <Text className="font-medium">Passo 1: Fazer Upload de Documentos</Text>
+          <Text className="font-medium"> Passo 1: Fazer Upload de Documentos </Text>
           <Text className="text-sm text-gray-500 block mt-1">
             Faça upload de um ou mais documentos (PDF, TXT, DOCX, MD). Tamanho máximo por arquivo: 50MB.
           </Text>
@@ -216,7 +216,7 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
       {documents.length > 0 && (
         <Card>
           <div className="mb-4">
-            <Text className="font-medium">Uploaded Documents ({documents.length})</Text>
+            <Text className="font-medium"> Documentos Fazem Upload ({documents.length}) </Text>
           </div>
           <DocumentsTable documents={documents} onRemove={handleRemoveDocument} />
         </Card>
@@ -226,9 +226,9 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
       <Card>
         <div className="space-y-4">
           <div>
-            <Text className="font-medium">Step 2: Configure Vector Store</Text>
+            <Text className="font-medium"> Passo 2: Configurar Loja Vetorial </Text>
             <Text className="text-sm text-gray-500 block mt-1">
-              Choose the provider and optionally provide a name and description for your vector store.
+              Escolha o provedor e, opcionalmente, forneça um nome e descrição para sua loja vetorial.
             </Text>
           </div>
 
@@ -401,14 +401,14 @@ const CreateVectorStore: React.FC<CreateVectorStoreProps> = ({ accessToken, onSu
       {/* Success Message */}
       {ingestResults.length > 0 && (
         <Alert
-          message="Vector Store Created Successfully"
+          message="Loja Vetorial Criada com Sucesso"
           description={
             <div>
               <p>
-                <strong>Vector Store ID:</strong> {ingestResults[0]?.vector_store_id}
+                <strong>ID da Loja Vetorial:</strong> {ingestResults[0]?.vector_store_id}
               </p>
               <p>
-                <strong>Documents Ingested:</strong> {ingestResults.length}
+                <strong>Documentos Ingeridos:</strong> {ingestResults.length}
               </p>
             </div>
           }
