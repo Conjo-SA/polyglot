@@ -6,6 +6,8 @@ import { Providers, provider_map, providerLogoMap } from "@/components/provider_
 import { resolveLogoSrc } from "@/lib/assetPaths";
 import { MarginConfig } from "./types";
 import { handleImageError } from "./provider_display_helpers";
+import { useCurrency } from "@/contexts/CurrencyContext";
+
 
 interface AddMarginFormProps {
   marginConfig: MarginConfig;

@@ -1,6 +1,7 @@
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { CheckOutlined, CopyOutlined, SyncOutlined } from "@ant-design/icons";
 import { Alert, Button, Col, Flex, Form, Input, InputNumber, Modal, Row, Space, Typography } from "antd";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";

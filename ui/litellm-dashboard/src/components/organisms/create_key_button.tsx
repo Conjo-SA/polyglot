@@ -6,10 +6,11 @@ import { useTags } from "@/app/(dashboard)/hooks/tags/useTags";
 import { useUISettings } from "@/app/(dashboard)/hooks/uiSettings/useUISettings";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { useCurrency } from "@/contexts/CurrencyContext";
-import { formatNumberWithCommas } from "@/utils/dataUtils";
+import { formatNumberWithCommas, formatSpend } from "@/utils/dataUtils";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { Accordion, AccordionBody, AccordionHeader, Button, Col, Grid, Text, TextInput, Title } from "@tremor/react";
+import NumericalInput from "@/components/shared/numerical_input";
 import { Button as Button2, Form, Input, Modal, Radio, Select, Switch, Tag, Tooltip, Typography } from "antd";
 import { useDebouncedCallback } from "@tanstack/react-pacer/debouncer";
 import { DEBOUNCE_WAIT_MS } from "@/utils/debounceConstants";
@@ -1061,7 +1062,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     name="max_budget"
                     help={
                       team?.max_budget !== null && team?.max_budget !== undefined
-                        ? `Orçamento não pode exceder o orçamento máximo da equipe: ${convertAndFormat(team.max_budget, currency, rate, 4)}`
+                        ? `Orçamento não pode exceder o orçamento máximo da equipe: ${formatSpend(team.max_budget, 4, currency, rate)}`
                         : "Orçamento não pode exceder o orçamento máximo da equipe: ilimitado"
                     }
                     rules={[
@@ -1069,7 +1070,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                         validator: async (_, value) => {
                           if (value && team && team.max_budget !== null && value > team.max_budget) {
                             throw new Error(
-                              `Orçamento não pode exceder o orçamento máximo da equipe: ${convertAndFormat(team.max_budget, currency, rate, 4)}`,
+                              `Orçamento não pode exceder o orçamento máximo da equipe: ${formatSpend(team.max_budget, 4, currency, rate)}`,
                             );
                           }
                         },

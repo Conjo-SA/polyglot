@@ -28,7 +28,7 @@ import {
   SaveOutlined,
 } from "@ant-design/icons";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
-import { Accordion, AccordionBody, AccordionHeader, Badge, Card, Grid, Text, TextInput, Title } from "@tremor/react";
+import { Accordion, AccordionBody, AccordionHeader, Badge, Card, Grid, NumberInput, Text, TextInput, Title } from "@tremor/react";
 import { Button, Form, Input, InputNumber, Select, Space, Switch, Tabs, Tag, Tooltip } from "antd";
 import MessageManager from "@/components/molecules/message_manager";
 import { CheckIcon, CopyIcon } from "lucide-react";
@@ -198,6 +198,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
   const [selectedEditMember, setSelectedEditMember] = useState<Member | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [mcpAccessGroups, setMcpAccessGroups] = useState<string[]>([]);
+  const { currency, symbol } = useCurrency();
   const [mcpAccessGroupsLoaded, setMcpAccessGroupsLoaded] = useState(false);
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
   const { data: guardrailsData, isLoading: isGuardrailsLoading } = useGuardrails();
@@ -1069,11 +1070,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label={`Max Budget (${currency})`} name="max_budget">
+                    <Form.Item label={`Max Budget (${symbol})`} name="max_budget">
                       <CurrencyMoneyInput />
                     </Form.Item>
 
-                    <Form.Item label={`Soft Budget (${currency})`} name="soft_budget">
+                    <Form.Item label={`Soft Budget (${symbol})`} name="soft_budget">
                       <CurrencyMoneyInput />
                     </Form.Item>
 
@@ -1121,11 +1122,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           </Form.Item>
                         </Form.Item>
                         <Form.Item
-                          label={`Default Budget (${currency})`}
+                          label={`Default Budget (${symbol})`}
                           name="team_member_budget"
                           tooltip="Default spend budget for each member in this team."
                         >
-                          <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
+                          <NumberInput step={0.01} style={{ width: "100%" }} />
                         </Form.Item>
                         <Form.Item label="Default Budget Duration" name="team_member_budget_duration">
                           <DurationSelect
@@ -1145,14 +1146,14 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           name="team_member_tpm_limit"
                           tooltip="Default tokens per minute limit for each member. Can be overridden per member."
                         >
-                          <NumericalInput step={1} style={{ width: "100%" }} placeholder="e.g., 1000" />
+                          <NumberInput step={1} style={{ width: "100%" }} placeholder="e.g., 1000" />
                         </Form.Item>
                         <Form.Item
                           label="Default RPM Limit"
                           name="team_member_rpm_limit"
                           tooltip="Default requests per minute limit for each member. Can be overridden per member."
                         >
-                          <NumericalInput step={1} style={{ width: "100%" }} placeholder="e.g., 100" />
+                          <NumberInput step={1} style={{ width: "100%" }} placeholder="e.g., 100" />
                         </Form.Item>
                       </AccordionBody>
                     </Accordion>

@@ -16,8 +16,8 @@ import {
   getUiConfig,
   mcpHubPublicServersCall,
   modelHubPublicModelsCall,
-  formatCostPerMillion,
 } from "./networking";
+import { formatCostPerMillion } from "@/utils/dataUtils";
 import { Plugin } from "./claude_code_plugins/types";
 import SkillHubDashboard from "./AIHub/SkillHubDashboard";
 import {

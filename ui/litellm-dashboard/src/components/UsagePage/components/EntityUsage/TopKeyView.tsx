@@ -4,12 +4,13 @@ import { IdCell, MoneyCell } from "@/components/shared/table_cells";
 import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/outline";
 import { Segmented, Tooltip } from "antd";
 import React, { useState } from "react";
-import { formatNumberWithCommas } from "../../../../utils/dataUtils";
+import { formatNumberWithCommas, formatSpend } from "../../../../utils/dataUtils";
 import { transformKeyInfo } from "../../../key_team_helpers/transform_key_info";
 import { keyInfoV1Call } from "../../../networking";
 import KeyInfoView from "../../../templates/key_info_view";
 import { DataTable } from "../../../view_logs/table";
 import { TagUsage } from "../../types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface TopKeyViewProps {
   topKeys: any[];
@@ -26,6 +27,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
   const [keyData, setKeyData] = useState<any | undefined>(undefined);
   const [viewMode, setViewMode] = useState<"chart" | "table">("table");
   const [expandedTags, setExpandedTags] = useState<Set<string>>(new Set());
+  const { currency, rate } = useCurrency();
 
   const toggleTagsExpansion = (apiKey: string) => {
     setExpandedTags((prev) => {

@@ -1,5 +1,5 @@
 import { AreaChart, BarChart, CustomLegend, CustomTooltip } from "@/components/shared/charts";
-import { formatNumberWithCommas } from "@/utils/dataUtils";
+import { formatNumberWithCommas, formatSpend } from "@/utils/dataUtils";
 import { resolveTeamAliasFromTeamID } from "@/utils/teamUtils";
 import { Card, Grid, Text, Title } from "@tremor/react";
 import { Collapse } from "antd";
@@ -9,6 +9,7 @@ import KeyModelUsageView from "./UsagePage/components/KeyModelUsageView";
 import { DailyData, KeyMetricWithMetadata, ModelActivityData, TopApiKeyData, TopModelData } from "./UsagePage/types";
 import { valueFormatter } from "./UsagePage/utils/value_formatters";
 import { MoneyCell } from "@/components/shared/table_cells";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface ActivityMetricsProps {
   modelMetrics: Record<string, ModelActivityData>;
@@ -24,6 +25,7 @@ const ModelSection = ({
   metrics: ModelActivityData;
   hidePromptCachingMetrics?: boolean;
 }) => {
+  const { currency, rate } = useCurrency();
   return (
     <div className="space-y-2">
       {/* Summary Cards */}

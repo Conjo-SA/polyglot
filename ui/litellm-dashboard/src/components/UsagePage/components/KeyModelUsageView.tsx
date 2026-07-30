@@ -1,11 +1,12 @@
 import { BarChart } from "@/components/shared/charts";
 import { MoneyCell } from "@/components/shared/table_cells";
 import { Card, CardAction, CardContent, CardHeader, CardTitle } from "@/components/ui/card";
-import { formatNumberWithCommas } from "@/utils/dataUtils";
+import { formatNumberWithCommas, formatSpend } from "@/utils/dataUtils";
 import { Table } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import React, { useState } from "react";
 import { TopModelData } from "../types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface KeyModelUsageViewProps {
   topModels: TopModelData[];
@@ -50,6 +51,7 @@ const columns: ColumnsType<TopModelData> = [
 
 const KeyModelUsageView: React.FC<KeyModelUsageViewProps> = ({ topModels }) => {
   const [viewMode, setViewMode] = useState<"chart" | "table">("table");
+  const { currency, rate } = useCurrency();
 
   if (topModels.length === 0) {
     return null;

@@ -42,6 +42,7 @@ import {
 } from "@/components/networking";
 import OrganizationInfoView from "@/components/organization/organization_view";
 import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
+import NumericalInput from "@/components/shared/numerical_input";
 import VectorStoreSelector from "@/components/vector_store_management/VectorStoreSelector";
 
 interface OrganizationsTableProps {

@@ -30,7 +30,7 @@ from litellm.proxy.spend_tracking.spend_tracking_utils import (
     get_spend_by_team,
     get_spend_by_team_and_customer,
 )
-from litellm.litellm_core_utils.currency_conversion import convert_usd, aconvert_usd, get_display_currency
+from litellm.litellm_core_utils.currency_conversion import convert_usd, get_display_currency
 from litellm.proxy.utils import handle_exception_on_proxy
 from litellm.repositories.table_repositories import SpendLogsRepository
 from litellm.repositories.team_repository import TeamRepository

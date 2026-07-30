@@ -3,6 +3,7 @@ import { Tooltip, InputNumber, Collapse, Badge } from "antd";
 import { InfoCircleOutlined, DollarOutlined, ToolOutlined } from "@ant-design/icons";
 import { Card, Title, Text } from "@tremor/react";
 import { MCPServerCostInfo } from "@/components/mcp_tools/types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface MCPServerCostConfigProps {
   value?: MCPServerCostInfo;

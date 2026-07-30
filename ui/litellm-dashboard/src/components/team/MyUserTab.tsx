@@ -32,6 +32,7 @@ const formatRateLimit = (value: number | null | undefined): string => {
 
 export default function MyUserTab({ teamId }: MyUserTabProps) {
   const { data, isLoading, error } = useMyTeamMember(teamId);
+  const { currency, symbol } = useCurrency();
 
   if (isLoading) {
     return (

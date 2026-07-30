@@ -6,6 +6,7 @@ import { DataTableSortHeader } from "@/components/shared/DataTable";
 import { CellTooltip, IdentityCell, StatusBadge, type StatusTone } from "@/components/shared/table_cells";
 import { Badge } from "@/components/ui/badge";
 import { getProviderLogoAndName } from "@/components/provider_info_helpers";
+import { formatCostPerMillion } from "@/utils/dataUtils";
 
 export interface ModelGroupInfo {
   model_group: string;

@@ -301,14 +301,18 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
           <Col xs={24} sm={12}>
             <Statistic
               title={<span className="text-xs">Total Per Request</span>}
-              value={formatCost(multiResult.totals.cost_per_request)}
+              value={multiResult.totals.cost_per_request ?? 0}
+              formatter={() => formatCost(multiResult.totals.cost_per_request)}
               valueStyle={{ color: "#1890ff", fontSize: "18px", fontFamily: "monospace" }}
             />
           </Col>
           <Col xs={24} sm={12}>
             <Statistic
               title={<span className="text-xs">Total {periodLabel}</span>}
-              value={formatCost(timePeriod === "day" ? multiResult.totals.daily_cost : multiResult.totals.monthly_cost)}
+              value={(timePeriod === "day" ? multiResult.totals.daily_cost : multiResult.totals.monthly_cost) ?? 0}
+              formatter={() =>
+                formatCost(timePeriod === "day" ? multiResult.totals.daily_cost : multiResult.totals.monthly_cost)
+              }
               valueStyle={{
                 color: timePeriod === "day" ? "#52c41a" : "#722ed1",
                 fontSize: "18px",

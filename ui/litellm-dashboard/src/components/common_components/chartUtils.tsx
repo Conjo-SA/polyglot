@@ -58,18 +58,7 @@ export const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) =>
             }
             return value.toLocaleString();
           };
-          
-          const formattedValue = formatValue(rawValue, isSpend, symbol, rate);
-          
-          const formatValue = (value: number | undefined, isSpend: boolean, currencySymbol: string, conversionRate: number): string => {
-            if (value === undefined) return "N/A";
-            if (isSpend) {
-              const convertedValue = value * conversionRate;
-              return `${currencySymbol}${convertedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
-            }
-            return value.toLocaleString();
-          };
-          
+                    
           const formattedValue = formatValue(rawValue, isSpend, symbol, rate);
 
           const colorName = item.color as keyof typeof colorNameToHex;

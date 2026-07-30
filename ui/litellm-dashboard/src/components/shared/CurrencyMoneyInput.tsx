@@ -8,9 +8,24 @@ interface Props {
   onChange?: (usdValue: number | null) => void;
   placeholder?: string;
   disabled?: boolean;
+  min?: number;
+  step?: number;
+  precision?: number;
+  className?: string;
+  width?: number | string;
 }
 
-export function CurrencyMoneyInput({ value, onChange, placeholder, disabled = false }: Props) {
+export function CurrencyMoneyInput({
+  value,
+  onChange,
+  placeholder,
+  disabled = false,
+  min,
+  step,
+  precision,
+  className,
+  width,
+}: Props) {
   const { currency, rate, symbol } = useCurrency();
 
   const displayValue =
@@ -31,8 +46,12 @@ export function CurrencyMoneyInput({ value, onChange, placeholder, disabled = fa
         value={displayValue}
         onChange={handleChange}
         placeholder={placeholder}
-        step={currency === "BRL" ? 10 : 1}
+        step={step ?? (currency === "BRL" ? 10 : 1)}
+        min={min}
+        precision={precision}
         disabled={disabled}
+        className={className}
+        style={width !== undefined ? { width } : undefined}
       />
       {currency === "BRL" && value ? (
         <span className="text-xs text-gray-400 ml-2">

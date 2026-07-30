@@ -19,6 +19,7 @@ import { Tooltip } from "antd";
 import React, { useState } from "react";
 import { ProviderLogo } from "@/components/molecules/models/ProviderLogo";
 import { ChartLoader } from "@/components/shared/chart_loader";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 type ProviderSpendData = {
   provider: string;

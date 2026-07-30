@@ -14,6 +14,7 @@ import {
   TextInput,
 } from "@tremor/react";
 import { Button, Form, Input, Switch, InputNumber, Select } from "antd";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { updatePassThroughEndpoint, deletePassThroughEndpointsCall } from "./networking";
 import { Eye, EyeOff } from "lucide-react";
 import RoutePreview from "./route_preview";

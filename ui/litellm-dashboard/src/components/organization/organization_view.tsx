@@ -5,7 +5,7 @@ import { MoneyCell } from "@/components/shared/table_cells";
 import { formatNumberWithCommas, copyToClipboard as utilCopyToClipboard } from "@/utils/dataUtils";
 import { createTeamAliasMap } from "@/utils/teamUtils";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
-import { Badge, Card, Grid, Text, TextInput, Title, Button as TremorButton } from "@tremor/react";
+import { Badge, Card, Grid, NumberInput, Text, TextInput, Title, Button as TremorButton } from "@tremor/react";
 import { Button, Form, Input, Select, Tabs, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { CheckIcon, CopyIcon } from "lucide-react";
@@ -48,6 +48,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
   userModels,
   editOrg,
 }) => {
+  const { currency, symbol } = useCurrency();
   const queryClient = useQueryClient();
   const { data: orgData, isLoading: loading } = useOrganization(organizationId);
   const [form] = Form.useForm();
@@ -401,7 +402,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label={`Max Budget (${currency})`} name="max_budget">
+                    <Form.Item label={`Max Budget (${symbol})`} name="max_budget">
                       <CurrencyMoneyInput />
                     </Form.Item>
 
@@ -414,11 +415,11 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item label="Tokens per minute Limit (TPM)" name="tpm_limit">
-                      <NumericalInput step={1} style={{ width: "100%" }} />
+                      <NumberInput step={1} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item label="Requests per minute Limit (RPM)" name="rpm_limit">
-                      <NumericalInput step={1} style={{ width: "100%" }} />
+                      <NumberInput step={1} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item label="Vector Stores" name="vector_stores">

@@ -1,5 +1,6 @@
 import { Button, InputNumber, Select } from "antd";
 import React from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export interface BudgetWindowEntry {
   budget_duration: string;

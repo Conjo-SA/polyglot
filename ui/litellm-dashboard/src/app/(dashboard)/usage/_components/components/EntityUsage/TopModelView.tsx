@@ -2,6 +2,7 @@ import { BarChart } from "@/components/shared/charts";
 import { MoneyCell } from "@/components/shared/table_cells";
 import { Segmented } from "antd";
 import { useState } from "react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { DataTable } from "@/components/view_logs/table";
 
