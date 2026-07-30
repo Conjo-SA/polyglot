@@ -27,7 +27,7 @@ describe("CurrencyMoneyInput", () => {
     expect(screen.getByText("$")).toBeInTheDocument();
   });
 
-  it("converts BRL value to display value correctly", () => {
+  it("converts USD value to BRL display value correctly", () => {
     mockUseCurrency.mockReturnValue({
       currency: "BRL",
       rate: 5.3,
@@ -36,8 +36,8 @@ describe("CurrencyMoneyInput", () => {
     
     render(<CurrencyMoneyInput value={100} />);
     
-    // Should show the converted value (100 / 5.3 = 18.87)
-    expect(screen.getByRole("spinbutton")).toHaveValue("18.87");
+    // 100 USD * 5.3 = 530 BRL (comportamento correto)
+    expect(screen.getByRole("spinbutton")).toHaveValue("530");
   });
 
   it("calls onChange with USD value when BRL input changes", () => {
@@ -53,11 +53,11 @@ describe("CurrencyMoneyInput", () => {
     
     const input = screen.getByRole("spinbutton");
     
-    // Change the display value from 18.87 (100/5.3) to 10
-    fireEvent.change(input, { target: { value: "10" } });
+    // Usuário digita 53 (BRL) → deve virar 10 USD (53 / 5.3)
+    fireEvent.change(input, { target: { value: "53" } });
     
-    // Should call onChange with USD equivalent: 10 * 5.3 = 53
-    expect(handleChange).toHaveBeenCalledWith(53);
+    // Deve chamar onChange com o valor em USD equivalente: 53 / 5.3 = 10
+    expect(handleChange).toHaveBeenCalledWith(10);
   });
 
   it("properly displays rate conversion info for BRL", () => {

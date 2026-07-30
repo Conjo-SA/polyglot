@@ -22,6 +22,7 @@ import BudgetDurationDropdown from "@/components/common_components/budget_durati
 import { copyToClipboard as utilCopyToClipboard } from "@/utils/dataUtils";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { Button as AntdButton } from "antd";
+import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 
 interface TagInfoViewProps {
   tagId: string;
@@ -270,7 +271,7 @@ const TagInfoView: React.FC<TagInfoViewProps> = ({ tagId, onClose, accessToken, 
                   tagDetails.litellm_budget_table.max_budget !== null && (
                     <div>
                       <Text className="font-medium">Max Budget</Text>
-                      <Text>${tagDetails.litellm_budget_table.max_budget}</Text>
+                      <MoneyCell value={tagDetails.litellm_budget_table.max_budget} decimals={2} showZero />
                     </div>
                   )}
                 {tagDetails.litellm_budget_table.budget_duration && (

@@ -67,10 +67,10 @@ export const formatSpend = (
 
   if (numericFormatted === 0) {
     const threshold = (1 / 10 ** decimals).toFixed(decimals);
-    return `< ${currency === "BRL" ? "R$" : "$"} ${threshold}`;
+    return `< ${currency === "BRL" ? "R$" : "$"}${threshold}`;
   }
 
-  return `${currency === "BRL" ? "R$" : "$"} ${formatted}`;
+  return `${currency === "BRL" ? "R$" : "$"}${formatted}`;
 };
 
 /**

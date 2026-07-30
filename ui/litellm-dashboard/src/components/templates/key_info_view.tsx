@@ -26,7 +26,7 @@ import { RegenerateKeyModal } from "../organisms/RegenerateKeyModal";
 import { parseErrorMessage } from "../shared/errorUtils";
 import { KeyEditView } from "./key_edit_view";
 import { useTranslation } from "react-i18next";
-import { MoneyCell } from "@/components/shared/table_cells";
+import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface KeyInfoViewProps {
@@ -747,7 +747,7 @@ export default function KeyInfoView({
 
                   <div>
                     <Text className="font-medium">{t("virtualKeysTable.spend")}</Text>
-                    <Text>${formatNumberWithCommas(currentKeyData.spend, 4)} USD</Text>
+                    <MoneyCell value={currentKeyData.spend} decimals={4} />
                   </div>
 
                   <div>

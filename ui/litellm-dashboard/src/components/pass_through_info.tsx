@@ -16,6 +16,7 @@ import {
 import { Button, Form, Input, Switch, InputNumber, Select } from "antd";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
+import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 import { updatePassThroughEndpoint, deletePassThroughEndpointsCall } from "./networking";
 import { Eye, EyeOff } from "lucide-react";
 import RoutePreview from "./route_preview";
@@ -220,7 +221,8 @@ const PassThroughInfoView: React.FC<PassThroughInfoProps> = ({
                   )}
                   {endpointData.cost_per_request !== undefined && (
                     <div>
-                      <Text>Cost per request: ${endpointData.cost_per_request}</Text>
+                      <Text>Cost per request:</Text>
+                      <MoneyCell value={endpointData.cost_per_request} decimals={6} />
                     </div>
                   )}
                 </div>
