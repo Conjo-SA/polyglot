@@ -54,7 +54,7 @@ class SlackAlertingArgs(LiteLLMPydanticObjectBase):
         default=int(
             os.getenv(
                 "SLACK_DAILY_REPORT_FREQUENCY",
-                int(SackAlertingArgsEnum.daily_report_frequency.value),
+                int(SlackAlertingArgsEnum.daily_report_frequency.value),
             )
         ),
         description="Frequência de recebimento de relatórios de latência/falha de implantação. O padrão é 12 horas. O valor está em segundos.",
