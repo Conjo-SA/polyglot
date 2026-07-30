@@ -819,7 +819,7 @@ async def user_info(
             query_type="find_all",
         )
 
-        response_data = _build_user_info_response(
+        response_data = await _build_user_info_response(
             user_id=user_id,
             user_info=user_info,
             keys=keys,

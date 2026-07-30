@@ -425,7 +425,7 @@ export default function KeyInfoView({
       ? <MoneyCell value={currentKeyData.max_budget} decimals={2} />
       : parentTeam?.max_budget != null
         ? t("keyInfoView.budgetTeamSuffix", {
-            budget: <MoneyCell value={parentTeam.max_budget} decimals={2} />,
+            budget: formatSpend(parentTeam.max_budget, 2, currency, rate),
             team: parentTeam.team_alias || parentTeam.team_id,
             duration: parentTeam.budget_duration ? ` / ${parentTeam.budget_duration}` : "",
           })
@@ -492,7 +492,7 @@ export default function KeyInfoView({
           },
           {
             label: t("virtualKeysTable.spend"),
-            value: currentKeyData?.spend ? currentKeyData.spend.toFixed(4) : "0.0000",
+            value: formatSpend(currentKeyData?.spend ?? 0, 4, currency, rate),
           },
         ]}
         onCancel={() => {

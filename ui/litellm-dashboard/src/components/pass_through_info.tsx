@@ -15,6 +15,7 @@ import {
 } from "@tremor/react";
 import { Button, Form, Input, Switch, InputNumber, Select } from "antd";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import { updatePassThroughEndpoint, deletePassThroughEndpointsCall } from "./networking";
 import { Eye, EyeOff } from "lucide-react";
 import RoutePreview from "./route_preview";
@@ -351,7 +352,7 @@ const PassThroughInfoView: React.FC<PassThroughInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item label="Cost per Request" name="cost_per_request">
-                      <InputNumber min={0} step={0.01} precision={2} placeholder="0.00" addonBefore={useCurrency().symbol} />
+                      <CurrencyMoneyInput min={0} step={0.01} precision={2} placeholder="0.00" />
                     </Form.Item>
 
                     <Form.Item

@@ -7,6 +7,7 @@ import BudgetDurationDropdown, { getBudgetDurationLabel } from "./common_compone
 import { getModelDisplayName } from "./key_team_helpers/fetch_available_models_team_key";
 import NotificationsManager from "./molecules/notifications_manager";
 import { ModelSelect } from "./ModelSelect/ModelSelect";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 const { Title, Text } = Typography;
 
@@ -205,15 +206,14 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
                 values.max_budget != null ? <Text>${Number(values.max_budget).toLocaleString()}</Text> : <NotSet />
               }
               editContent={
-                <InputNumber
-                  className="w-full"
-                  style={{ maxWidth: 320 }}
-                  value={editedValues.max_budget}
-                  onChange={(v) => update("max_budget", v)}
-                  placeholder="Not set"
-                  prefix={useCurrency().symbol}
-                  min={0}
-                />
+                <FormItem name="max_budget" noStyle>
+                  <CurrencyMoneyInput
+                    value={editedValues.max_budget}
+                    onChange={(v) => update("max_budget", v)}
+                    placeholder="Not set"
+                    min={0}
+                  />
+                </FormItem>
               }
             />
 

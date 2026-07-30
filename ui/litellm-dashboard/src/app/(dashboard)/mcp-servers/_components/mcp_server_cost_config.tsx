@@ -1,9 +1,10 @@
 import React from "react";
-import { Tooltip, InputNumber, Collapse, Badge } from "antd";
+import { Tooltip, InputNumber, Collapse, Badge, FormItem } from "antd";
 import { InfoCircleOutlined, DollarOutlined, ToolOutlined } from "@ant-design/icons";
 import { Card, Title, Text } from "@tremor/react";
 import { MCPServerCostInfo } from "@/components/mcp_tools/types";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 interface MCPServerCostConfigProps {
   value?: MCPServerCostInfo;
@@ -56,17 +57,18 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
                 <InfoCircleOutlined className="ml-1 text-gray-400" />
               </Tooltip>
             </label>
-            <InputNumber
-              min={0}
-              step={0.0001}
-              precision={4}
-              placeholder="0.0000"
-              value={value.default_cost_per_query}
-              onChange={handleDefaultCostChange}
-              disabled={disabled}
-              style={{ width: "200px" }}
-              addonBefore={useCurrency().symbol}
-            />
+            <FormItem name="default_cost_per_query" noStyle>
+              <CurrencyMoneyInput
+                min={0}
+                step={0.0001}
+                precision={4}
+                placeholder="0.0000"
+                value={value.default_cost_per_query}
+                onChange={handleDefaultCostChange}
+                disabled={disabled}
+                style={{ width: "200px" }}
+              />
+            </FormItem>
             <Text className="block mt-1 text-gray-500 text-sm">
               Set a default cost for all tool calls to this server
             </Text>
@@ -108,17 +110,18 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
                               )}
                             </div>
                             <div className="ml-4">
-                              <InputNumber
-                                min={0}
-                                step={0.0001}
-                                precision={4}
-                                placeholder="Use default"
-                                value={value.tool_name_to_cost_per_query?.[tool.name]}
-                                onChange={(cost) => handleToolCostChange(tool.name, cost)}
-                                disabled={disabled}
-                                style={{ width: "120px" }}
-                                addonBefore={useCurrency().symbol}
-                              />
+                              <FormItem name={`tool-cost-${tool.name}`} noStyle>
+                                <CurrencyMoneyInput
+                                  min={0}
+                                  step={0.0001}
+                                  precision={4}
+                                  placeholder="Use default"
+                                  value={value.tool_name_to_cost_per_query?.[tool.name]}
+                                  onChange={(cost) => handleToolCostChange(tool.name, cost)}
+                                  disabled={disabled}
+                                  style={{ width: "120px" }}
+                                />
+                              </FormItem>
                             </div>
                           </div>
                         ))}

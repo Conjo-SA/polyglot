@@ -7,6 +7,7 @@ import { resolveLogoSrc } from "@/lib/assetPaths";
 import { MarginConfig } from "./types";
 import { handleImageError } from "./provider_display_helpers";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 
 interface AddMarginFormProps {
