@@ -25,11 +25,11 @@ const asset_logos_folder = "/ui/assets/";
 export const auditLogsPreviewImg = `${asset_logos_folder}audit-logs-preview.png`;
 
 const TABLE_NAME_DISPLAY: Record<string, string> = {
-  LiteLLM_VerificationToken: "Keys",
-  LiteLLM_TeamTable: "Teams",
-  LiteLLM_UserTable: "Users",
-  LiteLLM_OrganizationTable: "Organizations",
-  LiteLLM_ProxyModelTable: "Models",
+  LiteLLM_VerificationToken: "Chaves",
+  LiteLLM_TeamTable: "Equipes",
+  LiteLLM_UserTable: "Usuários",
+  LiteLLM_OrganizationTable: "Organizações",
+  LiteLLM_ProxyModelTable: "Modelos",
 };
 
 const ACTION_COLOR: Record<string, string> = {
@@ -98,7 +98,7 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
       render: (val: string) => <DateCell value={val} />,
     },
     {
-      title: "Action",
+      title: "Ação",
       dataIndex: "action",
       key: "action",
       width: 100,
@@ -109,27 +109,27 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
       ),
     },
     {
-      title: "Table",
+      title: "Tabela",
       dataIndex: "table_name",
       key: "table_name",
       width: 130,
       render: (val: string) => TABLE_NAME_DISPLAY[val] ?? val,
     },
     {
-      title: "Object ID",
+      title: "ID do Objeto",
       dataIndex: "object_id",
       key: "object_id",
       render: (val: string) => <IdCell value={val} variant="plain" truncate={false} />,
     },
     {
-      title: "Changed By",
+      title: "Alterado Por",
       dataIndex: "changed_by",
       key: "changed_by",
       width: 200,
       render: (val: string) => <DefaultProxyAdminTag userId={val} />,
     },
     {
-      title: "API Key (Hash)",
+      title: "Chave de API (Hash)",
       dataIndex: "changed_by_api_key",
       key: "changed_by_api_key",
       width: 140,
@@ -140,12 +140,12 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
   if (!premiumUser) {
     return (
       <div style={{ textAlign: "center", marginTop: "20px" }}>
-        <h1 style={{ display: "block", marginBottom: "10px" }}>✨ Enterprise Feature.</h1>
+        <h1 style={{ display: "block", marginBottom: "10px" }}>✨ Recurso Empresarial.</h1>
         <p style={{ display: "block", marginBottom: "10px" }}>
-          This is a Polyglot Enterprise feature, and requires a valid key to use.
+          Este é um recurso empresarial do Polyglot e requer uma chave válida para ser usado.
         </p>
         <p style={{ display: "block", marginBottom: "20px", fontStyle: "italic" }}>
-          Here&apos;s a preview of what Audit Logs offer:
+          Aqui está uma prévia do que os Logs de Auditoria oferecem:
         </p>
         <img
           src={resolveLogoSrc(auditLogsPreviewImg)}
@@ -174,13 +174,13 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
         {/* Header */}
         <div className="border-b px-6 py-4">
           <div className="flex items-center justify-between mb-4">
-            <h1 className="text-xl font-semibold">Audit Logs</h1>
+            <h1 className="text-xl font-semibold">Logs de Auditoria</h1>
           </div>
 
           {/* Filters + pagination on same row */}
           <div className="flex flex-wrap items-center gap-3">
             <Search
-              placeholder="Object ID"
+              placeholder="ID do Objeto"
               allowClear
               style={{ width: 200 }}
               onSearch={(val) => {
@@ -195,7 +195,7 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
               }}
             />
             <Search
-              placeholder="Changed By"
+              placeholder="Alterado Por"
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => {
@@ -210,7 +210,7 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
               }}
             />
             <Search
-              placeholder="Team ID"
+              placeholder="ID da Equipe"
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => {
@@ -225,7 +225,7 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
               }}
             />
             <Search
-              placeholder="Key Hash"
+              placeholder="Hash da Chave"
               allowClear
               style={{ width: 180 }}
               onSearch={(val) => {
@@ -240,14 +240,14 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
               }}
             />
             <Select
-              placeholder="All Actions"
+              placeholder="Todas as Ações"
               allowClear
               style={{ width: 140 }}
               options={[
-                { label: "Created", value: "created" },
-                { label: "Updated", value: "updated" },
-                { label: "Deleted", value: "deleted" },
-                { label: "Rotated", value: "rotated" },
+                { label: "Criado", value: "created" },
+                { label: "Atualizado", value: "updated" },
+                { label: "Excluído", value: "deleted" },
+                { label: "Rotacionado", value: "rotated" },
               ]}
               onChange={(val) => {
                 setAction(val);
@@ -255,15 +255,15 @@ export default function AuditLogs({ userID, userRole, token, accessToken, isActi
               }}
             />
             <Select
-              placeholder="All Tables"
+              placeholder="Todas as Tabelas"
               allowClear
               style={{ width: 150 }}
               options={[
-                { label: "Keys", value: "LiteLLM_VerificationToken" },
-                { label: "Teams", value: "LiteLLM_TeamTable" },
-                { label: "Users", value: "LiteLLM_UserTable" },
-                { label: "Organizations", value: "LiteLLM_OrganizationTable" },
-                { label: "Models", value: "LiteLLM_ProxyModelTable" },
+                { label: "Chaves", value: "LiteLLM_VerificationToken" },
+                { label: "Equipes", value: "LiteLLM_TeamTable" },
+                { label: "Usuários", value: "LiteLLM_UserTable" },
+                { label: "Organizações", value: "LiteLLM_OrganizationTable" },
+                { label: "Modelos", value: "LiteLLM_ProxyModelTable" },
               ]}
               onChange={(val) => {
                 setTableName(val);

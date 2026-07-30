@@ -25,13 +25,13 @@ export const columns = (
   // Backend sortable columns: user_id, user_email, created_at, spend, user_alias, user_role
   const baseColumns: ColumnDef<UserInfo>[] = [
     {
-      header: "User ID",
+      header: "ID do Usuário",
       accessorKey: "user_id",
       enableSorting: true,
       cell: ({ row }) => <IdCell value={row.original.user_id} variant="plain" copyable />,
     },
     {
-      header: "Email",
+      header: "E-mail",
       accessorKey: "user_email",
       enableSorting: true,
       cell: ({ row }) => <span className="text-xs">{row.original.user_email || "-"}</span>,
@@ -45,49 +45,49 @@ export const columns = (
           (row.original.metadata as Record<string, unknown> | null | undefined)?.scim_active === false;
         if (isScimInactive) {
           return (
-            <Tooltip title="Deactivated via SCIM (external identity provider). The user's virtual keys are blocked.">
+            <Tooltip title="Desativado via SCIM (provedor de identidade externo). As chaves virtuais do usuário estão bloqueadas.">
               <Tag color="red" data-testid={`user-status-${row.original.user_id}`}>
-                Inactive
+                Inativo
               </Tag>
             </Tooltip>
           );
         }
         return (
           <Tag color="green" data-testid={`user-status-${row.original.user_id}`}>
-            Active
+            Ativo
           </Tag>
         );
       },
     },
     {
-      header: "Global Proxy Role",
+      header: "Função Global do Proxy",
       accessorKey: "user_role",
       enableSorting: true,
       cell: ({ row }) => <span className="text-xs">{possibleUIRoles?.[row.original.user_role]?.ui_label || "-"}</span>,
     },
     {
-      header: "User Alias",
+      header: "Apelido do Usuário",
       accessorKey: "user_alias",
       enableSorting: false,
       cell: ({ row }) => <span className="text-xs">{row.original.user_alias || "-"}</span>,
     },
     {
-      header: "Spend (USD)",
+      header: "Gasto (USD)",
       accessorKey: "spend",
       enableSorting: true,
       cell: ({ row }) => <MoneyCell value={row.original.spend} decimals={4} />,
     },
     {
-      header: "Budget (USD)",
+      header: "Orçamento (USD)",
       accessorKey: "max_budget",
       enableSorting: false,
-      cell: ({ row }) => <MoneyCell value={row.original.max_budget} decimals={2} emptyText="Unlimited" showZero />,
+      cell: ({ row }) => <MoneyCell value={row.original.max_budget} decimals={2} emptyText="Ilimitado" showZero />,
     },
     {
       header: () => (
         <div className="flex items-center gap-2">
-          <span>SSO ID</span>
-          <Tooltip title="SSO ID is the ID of the user in the SSO provider. If the user is not using SSO, this will be null.">
+          <span>ID SSO</span>
+          <Tooltip title="ID SSO é o ID do usuário no provedor SSO. Se o usuário não estiver usando SSO, será nulo.">
             <InformationCircleIcon className="w-4 h-4" />
           </Tooltip>
         </div>
@@ -99,42 +99,42 @@ export const columns = (
       ),
     },
     {
-      header: "Virtual Keys",
+      header: "Chaves Virtuais",
       accessorKey: "key_count",
       enableSorting: false,
       cell: ({ row }) => (
         <Grid numItems={2}>
           {row.original.key_count > 0 ? (
             <Badge size="xs" color="indigo">
-              {row.original.key_count} {row.original.key_count === 1 ? "Key" : "Keys"}
+              {row.original.key_count} {row.original.key_count === 1 ? "Chave" : "Chaves"}
             </Badge>
           ) : (
             <Badge size="xs" color="gray">
-              No Keys
+              Nenhuma Chave
             </Badge>
           )}
         </Grid>
       ),
     },
     {
-      header: "Created At",
+      header: "Criado Em",
       accessorKey: "created_at",
       enableSorting: true,
       cell: ({ row }) => <DateCell value={row.original.created_at} precision="date" />,
     },
     {
-      header: "Updated At",
+      header: "Atualizado Em",
       accessorKey: "updated_at",
       enableSorting: false,
       cell: ({ row }) => <DateCell value={row.original.updated_at} precision="date" />,
     },
     {
       id: "actions",
-      header: "Actions",
+      header: "Ações",
       enableSorting: false,
       cell: ({ row }) => (
         <div className="flex gap-2">
-          <Tooltip title="Edit user details">
+          <Tooltip title="Editar detalhes do usuário">
             <Icon
               icon={PencilAltIcon}
               size="sm"
@@ -142,7 +142,7 @@ export const columns = (
               className="cursor-pointer hover:text-blue-600"
             />
           </Tooltip>
-          <Tooltip title="Delete user">
+          <Tooltip title="Excluir usuário">
             <Icon
               icon={TrashIcon}
               size="sm"
@@ -150,7 +150,7 @@ export const columns = (
               className="cursor-pointer hover:text-red-600"
             />
           </Tooltip>
-          <Tooltip title="Reset Password">
+          <Tooltip title="Redefinir Senha">
             <Icon
               icon={RefreshIcon}
               size="sm"

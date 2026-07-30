@@ -33,7 +33,7 @@ const formatDateWithoutTZ = (date: Date | undefined) => {
 };
 
 function valueFormatterNumbers(number: number) {
-  const formatter = new Intl.NumberFormat("en-US", {
+  const formatter = new Intl.NumberFormat("pt-BR", {
     maximumFractionDigits: 0,
     notation: "compact",
     compactDisplay: "short",
@@ -185,7 +185,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
     let cached_tokens = 0;
     const processedData = newData.reduce((acc: uiData[], item) => {
       if (!item.call_type) {
-        item.call_type = "Unknown";
+        item.call_type = "Desconhecido";
       }
 
       llm_api_requests += (item.total_rows || 0) - (item.cache_hit_true_rows || 0);
@@ -319,7 +319,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
             <div className="grid grid-cols-1 gap-6 sm:grid-cols-2 lg:grid-cols-3 mt-4">
               <Card>
                 <p className="text-tremor-default font-medium text-tremor-content dark:text-dark-tremor-content">
-                  Proporção de Acertos no Cacheertos no Cache
+                  Proporção de Acertos no Cache
                 </p>
                 <div className="mt-2 flex items-baseline space-x-2.5">
                   <p className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
@@ -329,7 +329,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
               </Card>
               <Card>
                 <p className="text-tremor-default font-medium text-tremor-content dark:text-dark-tremor-content">
-                  Cache Hits
+                  Hits no Cache
                 </p>
                 <div className="mt-2 flex items-baseline space-x-2.5">
                   <p className="text-tremor-metric font-semibold text-tremor-content-strong dark:text-dark-tremor-content-strong">
@@ -352,7 +352,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
 
             <ChartCard className="mt-4">
               <CardHeader>
-                <CardTitle className="text-base font-semibold">Acertos no Cache vs Solicitações à APItações à API</CardTitle>
+                <CardTitle className="text-base font-semibold">Acertos no Cache vs Solicitações à API</CardTitle>
               </CardHeader>
               <CardContent>
                 <BarChart
@@ -360,7 +360,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
                   stack={true}
                   index="name"
                   valueFormatter={valueFormatterNumbers}
-                  categories={["LLM API requests", "Cache hit"]}
+                  categories={["Solicitações à API LLM", "Acerto no Cache"]}
                   colors={["sky", "teal"]}
                   yAxisWidth={48}
                 />
@@ -379,7 +379,7 @@ const CacheDashboard: React.FC<CachePageProps> = ({ accessToken, token, userRole
                   stack={true}
                   index="name"
                   valueFormatter={valueFormatterNumbers}
-                  categories={["Generated Completion Tokens", "Cached Completion Tokens"]}
+                  categories={["Tokens de Completão Gerados", "Tokens de Completão Armazenados"]}
                   colors={["sky", "teal"]}
                   yAxisWidth={48}
                 />

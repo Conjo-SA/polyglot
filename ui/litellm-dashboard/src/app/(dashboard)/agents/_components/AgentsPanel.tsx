@@ -138,7 +138,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
               + Adicionar Novo Agente
             </Button>
           )}
-          <Tooltip title="When enabled, only agents with reachable URLs are shown">
+          <Tooltip title="Quando ativado, apenas agentes com URLs acessíveis são mostrados">
             <div className="flex items-center gap-2">
               <CheckCircleOutlined className={healthCheckEnabled ? "text-green-500" : "text-gray-400"} />
               <span className="text-sm text-gray-600">Verificação de Saúde</span>
@@ -168,13 +168,13 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
             <Table>
               <TableHead>
                 <TableRow>
-                  <TableHeaderCell>Agent Name</TableHeaderCell>
-                  <TableHeaderCell>Agent ID</TableHeaderCell>
-                  <TableHeaderCell>Spend (USD)</TableHeaderCell>
-                  <TableHeaderCell>Model</TableHeaderCell>
-                  <TableHeaderCell>Created</TableHeaderCell>
+                  <TableHeaderCell>Nome do Agente</TableHeaderCell>
+                  <TableHeaderCell>ID do Agente</TableHeaderCell>
+                  <TableHeaderCell>Gastos (USD)</TableHeaderCell>
+                  <TableHeaderCell>Modelo</TableHeaderCell>
+                  <TableHeaderCell>Criado</TableHeaderCell>
                   <TableHeaderCell>Status</TableHeaderCell>
-                  {isAdmin && <TableHeaderCell>Actions</TableHeaderCell>}
+                  {isAdmin && <TableHeaderCell>Ações</TableHeaderCell>}
                 </TableRow>
               </TableHead>
               <TableBody>
@@ -208,9 +208,9 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
                       </TableCell>
                       <TableCell>
                         {(agent.keys?.length ?? 0) > 0 ? (
-                          <StatusBadge tone="success" label="Active" />
+                          <StatusBadge tone="success" label="Ativo" />
                         ) : (
-                          <StatusBadge tone="warning" label="Needs Setup" />
+                          <StatusBadge tone="warning" label="Precisa de Configuração" />
                         )}
                       </TableCell>
                       {isAdmin && (
@@ -240,16 +240,16 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
 
       {agentToDelete && (
         <Modal
-          title="Delete Agent"
+          title="Excluir Agente"
           open={agentToDelete !== null}
           onOk={handleDeleteConfirm}
           onCancel={handleDeleteCancel}
           confirmLoading={isDeleting}
-          okText="Delete"
+          okText="Excluir"
           okButtonProps={{ danger: true }}
         >
-          <p>Are you sure you want to delete agent: {agentToDelete.name}?</p>
-          <p>This action cannot be undone.</p>
+          <p>Tem certeza que deseja excluir o agente: {agentToDelete.name}?</p>
+          <p>Esta ação não pode ser desfeita.</p>
         </Modal>
       )}
     </div>

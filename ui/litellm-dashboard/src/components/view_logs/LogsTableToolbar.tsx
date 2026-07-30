@@ -75,7 +75,7 @@ export function LogsTableToolbar({
             <div className="relative w-64 min-w-0 shrink-0">
               <input
                 type="text"
-                placeholder="Search by Request ID"
+                placeholder="Buscar por ID da Requisição"
                 className="w-full px-3 py-2 pl-8 border rounded-md text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-blue-500"
                 value={searchTerm}
                 onChange={(e) => onSearchChange(e.target.value)}
@@ -140,7 +140,7 @@ export function LogsTableToolbar({
                         className={`w-full px-3 py-2 text-left text-sm hover:bg-gray-50 rounded-md ${isCustomDate ? "bg-blue-50 text-blue-600" : ""}`}
                         onClick={() => onIsCustomDateChange(!isCustomDate)}
                       >
-                        Custom Range
+                        Intervalo Personalizado
                       </button>
                     </div>
                   </div>
@@ -148,7 +148,7 @@ export function LogsTableToolbar({
               </div>
 
               <div className="flex items-center gap-2">
-                <span className="text-sm font-medium text-gray-900">Atualização ao Vivo</span>
+                <span className="text-sm font-medium text-gray-900">Atualização Automática</span>
                 <Switch checked={isLiveTail} defaultChecked={true} onChange={onIsLiveTailChange} />
               </div>
 
@@ -157,9 +157,9 @@ export function LogsTableToolbar({
                 icon={<SyncOutlined spin={isButtonLoading} />}
                 onClick={onRefetch}
                 disabled={isButtonLoading}
-                title="Buscar dados"
+                title="Atualizar dados"
               >
-                {isButtonLoading ? "Buscando" : "Buscar"}
+                {isButtonLoading ? "Atualizando" : "Atualizar"}
               </Button>
             </div>
 
@@ -197,18 +197,18 @@ export function LogsTableToolbar({
               className="text-sm text-gray-700 whitespace-nowrap"
               title={
                 !isLoading && filteredLogs?.total_is_capped
-                  ? `Showing the first ${filteredLogs.total.toLocaleString()} results. Narrow the date range or add filters to see more.`
+                  ? `Mostrando os primeiros ${filteredLogs.total.toLocaleString()} resultados. Reduza o intervalo de datas ou adicione filtros para ver mais.`
                   : undefined
               }
             >
-              Showing {isLoading ? "..." : filteredLogs ? (currentPage - 1) * pageSize + 1 : 0} -{" "}
-              {isLoading ? "..." : filteredLogs ? Math.min(currentPage * pageSize, filteredLogs.total) : 0} of{" "}
+              Mostrando {isLoading ? "..." : filteredLogs ? (currentPage - 1) * pageSize + 1 : 0} -{" "}
+              {isLoading ? "..." : filteredLogs ? Math.min(currentPage * pageSize, filteredLogs.total) : 0} de{" "}
               {isLoading ? "..." : filteredLogs ? filteredLogs.total : 0}
-              {!isLoading && filteredLogs?.total_is_capped ? "+" : ""} results
+              {!isLoading && filteredLogs?.total_is_capped ? "+" : ""} resultados
             </span>
             <div className="flex items-center space-x-2">
               <span className="text-sm text-gray-700 min-w-[90px]">
-                Page {isLoading ? "..." : currentPage} of{" "}
+                Página {isLoading ? "..." : currentPage} de{" "}
                 {isLoading ? "..." : filteredLogs ? filteredLogs.total_pages : 1}
                 {!isLoading && filteredLogs?.total_is_capped ? "+" : ""}
               </span>
@@ -224,7 +224,7 @@ export function LogsTableToolbar({
                 disabled={isLoading || currentPage === (filteredLogs.total_pages || 1)}
                 className="px-3 py-1 text-sm border rounded-md hover:bg-gray-50 disabled:opacity-50 disabled:cursor-not-allowed"
               >
-                Próximo
+                Próxima
               </button>
             </div>
           </div>
@@ -233,10 +233,10 @@ export function LogsTableToolbar({
       {isLiveTail && currentPage === 1 && (
         <div className="mb-4 px-4 py-2 bg-green-50 border border-green-200 rounded-md flex items-center justify-between">
           <div className="flex items-center gap-2">
-            <span className="text-sm text-green-700">Auto-refreshing every 15 seconds</span>
+            <span className="text-sm text-green-700">Atualizando automaticamente a cada 15 segundos</span>
           </div>
           <button onClick={() => onIsLiveTailChange(false)} className="text-sm text-green-600 hover:text-green-800">
-            Stop
+            Parar
           </button>
         </div>
       )}

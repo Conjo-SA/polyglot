@@ -13,15 +13,15 @@ export default function CloudZeroEmptyPlaceholder({ startCreation }: CloudZeroEm
         image={Empty.PRESENTED_IMAGE_SIMPLE}
         description={
           <div className="space-y-2">
-            <Title level={4}>No CloudZero Integration Found</Title>
+            <Title level={4}>Nenhuma Integração com CloudZero Encontrada</Title>
             <Paragraph type="secondary" className="max-w-md mx-auto">
-              Connect your CloudZero account to start tracking and analyzing your cloud costs directly from Polyglot.
+              Conecte sua conta do CloudZero para começar a rastrear e analisar seus custos na nuvem diretamente do Polyglot.
             </Paragraph>
           </div>
         }
       >
         <Button type="primary" size="large" onClick={startCreation} className="flex items-center gap-2 mx-auto mt-4">
-          Add CloudZero Integration
+          Adicionar Integração com CloudZero
         </Button>
       </Empty>
     </div>

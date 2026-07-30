@@ -82,8 +82,8 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
   {
     id: "name",
     accessorKey: "name",
-    meta: { title: "Agent Name" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Agent Name" />,
+    meta: { title: "Nome do Agente" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Nome do Agente" />,
     size: 200,
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -94,8 +94,8 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
   {
     id: "description",
     accessorKey: "description",
-    meta: { title: "Description", className: "hidden md:table-cell" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Description" />,
+    meta: { title: "Descrição", className: "hidden md:table-cell" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Descrição" />,
     size: 240,
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -108,8 +108,8 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
   {
     id: "version",
     accessorKey: "version",
-    meta: { title: "Version", skeleton: "badge", className: "hidden lg:table-cell" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Version" />,
+    meta: { title: "Versão", skeleton: "badge", className: "hidden lg:table-cell" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Versão" />,
     size: 100,
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -122,8 +122,8 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
   {
     id: "protocolVersion",
     accessorKey: "protocolVersion",
-    meta: { title: "Protocol", className: "hidden lg:table-cell" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Protocol" />,
+    meta: { title: "Protocolo", className: "hidden lg:table-cell" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Protocolo" />,
     size: 100,
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -131,8 +131,8 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
   },
   {
     id: "skills",
-    meta: { title: "Skills", skeleton: "chips" },
-    header: "Skills",
+    meta: { title: "Habilidades", skeleton: "chips" },
+    header: "Habilidades",
     size: 180,
     enableSorting: false,
     cell: ({ row }) => {
@@ -158,8 +158,8 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
   },
   {
     id: "capabilities",
-    meta: { title: "Capabilities", skeleton: "chips" },
-    header: "Capabilities",
+    meta: { title: "Recursos", skeleton: "chips" },
+    header: "Recursos",
     size: 160,
     enableSorting: false,
     cell: ({ row }) => {
@@ -182,8 +182,8 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
   },
   {
     id: "io_modes",
-    meta: { title: "I/O Modes", skeleton: "twoLine", className: "hidden xl:table-cell" },
-    header: "I/O Modes",
+    meta: { title: "Modos de Entrada/Saída", skeleton: "twoLine", className: "hidden xl:table-cell" },
+    header: "Modos de Entrada/Saída",
     size: 150,
     enableSorting: false,
     cell: ({ row }) => {
@@ -204,8 +204,8 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
   {
     id: "is_public",
     accessorKey: "is_public",
-    meta: { title: "Public", skeleton: "badge", className: "hidden md:table-cell" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Public" />,
+    meta: { title: "Público", skeleton: "badge", className: "hidden md:table-cell" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Público" />,
     size: 100,
     enableSorting: true,
     sortingFn: (rowA, rowB) => {
@@ -215,7 +215,7 @@ export const getAgentHubTableColumns = ({ onAgentClick }: AgentHubTableColumnsDe
     },
     cell: ({ row }) => {
       const isPublic = row.original.is_public === true;
-      return <StatusBadge tone={isPublic ? "success" : "neutral"} label={isPublic ? "Yes" : "No"} />;
+      return <StatusBadge tone={isPublic ? "success" : "neutral"} label={isPublic ? "Sim" : "Não"} />;
     },
   },
   {

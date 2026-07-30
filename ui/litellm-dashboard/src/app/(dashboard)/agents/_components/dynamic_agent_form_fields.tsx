@@ -19,16 +19,16 @@ const DynamicAgentFormFields: React.FC<DynamicAgentFormFieldsProps> = ({ agentTy
   return (
     <>
       <Form.Item
-        label="Agent Name"
+        label="Nome do Agente"
         name="agent_name"
-        rules={[{ required: true, message: "Please enter a unique agent name" }]}
-        tooltip="Unique identifier for the agent"
+        rules={[{ required: true, message: "Por favor, insira um nome único para o agente" }]}
+        tooltip="Identificador único para o agente"
       >
-        <Input placeholder="e.g., my-langgraph-agent" />
+        <Input placeholder="ex: meu-agente-langgraph" />
       </Form.Item>
 
-      <Form.Item label="Description" name="description" tooltip="Brief description of what this agent does">
-        <Input.TextArea rows={2} placeholder="Describe what this agent does..." />
+      <Form.Item label="Descrição" name="description" tooltip="Breve descrição do que este agente faz">
+        <Input.TextArea rows={2} placeholder="Descreva o que este agente faz..." />
       </Form.Item>
 
       {agentTypeInfo.credential_fields.map((field: AgentCredentialFieldMetadata) => (
@@ -125,9 +125,9 @@ export const buildDynamicAgentData = (values: any, agentTypeInfo: AgentCreateInf
       skills: [
         {
           id: "chat",
-          name: "Chat",
-          description: "General chat capability",
-          tags: ["chat", "conversation"],
+          name: "Conversação",
+          description: "Capacidade geral de chat",
+          tags: ["chat", "conversação"],
         },
       ],
     },

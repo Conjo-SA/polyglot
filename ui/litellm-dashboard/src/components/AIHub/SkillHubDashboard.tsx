@@ -23,11 +23,11 @@ function SkillsEmptyState({ filtered }: { filtered: boolean }) {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Inbox className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">{filtered ? "No matching skills" : "No skills yet"}</div>
+      <div className="text-sm font-medium text-foreground">{filtered ? "Nenhuma habilidade correspondente" : "Ainda não há habilidades"}</div>
       <div className="text-sm text-muted-foreground">
         {filtered
-          ? "Adjust the search or domain filter to see more skills."
-          : "Skills added here will appear for developers."}
+          ? "Ajuste a pesquisa ou o filtro de domínio para ver mais habilidades."
+          : "Habilidades adicionadas aqui aparecerão para desenvolvedores."}
       </div>
     </div>
   );
@@ -92,7 +92,7 @@ const SkillHubDashboard: React.FC<SkillHubDashboardProps> = ({
       {/* Stats row */}
       <div className="grid grid-cols-3 gap-4">
         <div className="border border-gray-200 rounded-lg p-4">
-          <div className="text-xs text-gray-500 mb-1">Total Skills</div>
+          <div className="text-xs text-gray-500 mb-1">Total de Habilidades</div>
           <div className="text-2xl font-semibold text-gray-900">{totalSkills}</div>
         </div>
         <div className="border border-gray-200 rounded-lg p-4">
@@ -100,7 +100,7 @@ const SkillHubDashboard: React.FC<SkillHubDashboardProps> = ({
           <div className="text-2xl font-semibold text-gray-900">{namespaces.length}</div>
         </div>
         <div className="border border-gray-200 rounded-lg p-4">
-          <div className="text-xs text-gray-500 mb-1">Domains</div>
+          <div className="text-xs text-gray-500 mb-1">Domínios</div>
           <div className="text-2xl font-semibold text-gray-900">{domains.length}</div>
         </div>
       </div>
@@ -108,10 +108,10 @@ const SkillHubDashboard: React.FC<SkillHubDashboardProps> = ({
       {/* Search + filters + table */}
       <div>
         <div className="flex items-center justify-between mb-3">
-          <h3 className="text-sm font-semibold text-gray-700">All {publicPage ? "Public " : ""}Skills</h3>
+          <h3 className="text-sm font-semibold text-gray-700">Todas {publicPage ? "as Habilidades Públicas " : "Habilidades "} </h3>
           <div className="flex items-center gap-2">
             <Select
-              placeholder="All Domains"
+              placeholder="Todos os Domínios"
               allowClear
               value={domainFilter}
               onChange={(val) => setDomainFilter(val)}
@@ -120,7 +120,7 @@ const SkillHubDashboard: React.FC<SkillHubDashboardProps> = ({
             />
             <Input
               prefix={<SearchOutlined className="text-gray-400" />}
-              placeholder="Search by name, namespace, or tag…"
+              placeholder="Buscar por nome, namespace ou tag..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               style={{ width: 280 }}
@@ -136,13 +136,13 @@ const SkillHubDashboard: React.FC<SkillHubDashboardProps> = ({
           sorting={sorting}
           onSortingChange={setSorting}
           isLoading={isLoading}
-          loadingMessage="Loading skills…"
+          loadingMessage="Carregando habilidades..."
           noDataMessage={<SkillsEmptyState filtered={hasActiveFilter} />}
           size="compact"
         />
         <div className="mt-3 text-center">
           <p className="text-sm text-gray-500">
-            Showing {filteredSkills.length} of {totalSkills} skill{totalSkills !== 1 ? "s" : ""}
+            Mostrando {filteredSkills.length} de {totalSkills} habilidade{totalSkills !== 1 ? "s" : ""}
           </p>
         </div>
       </div>

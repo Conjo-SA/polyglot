@@ -65,14 +65,14 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = ({ accessToken, mode
 
   const columns = [
     {
-      title: "Model",
+      title: "Modelo",
       dataIndex: "model",
       key: "model",
       width: "35%",
       render: (_: string, record: ModelEntry) => (
         <Select
           showSearch
-          placeholder="Select a model"
+          placeholder="Selecionar um modelo"
           value={record.model || undefined}
           onChange={(value) => handleEntryChange(record.id, "model", value)}
           optionFilterProp="label"
@@ -91,7 +91,7 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = ({ accessToken, mode
       ),
     },
     {
-      title: "Input Tokens",
+      title: "Tokens de Entrada",
       dataIndex: "input_tokens",
       key: "input_tokens",
       width: "18%",
@@ -123,7 +123,7 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = ({ accessToken, mode
       ),
     },
     {
-      title: `Requests/${timePeriod === "day" ? "Day" : "Month"}`,
+      title: `Requisições/${timePeriod === "day" ? "Dia" : "Mês"}`,
       dataIndex: timePeriod === "day" ? "num_requests_per_day" : "num_requests_per_month",
       key: "num_requests",
       width: "20%",
@@ -172,8 +172,8 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = ({ accessToken, mode
           optionType="button"
           buttonStyle="solid"
         >
-          <Radio.Button value="day">Per Day</Radio.Button>
-          <Radio.Button value="month">Per Month</Radio.Button>
+          <Radio.Button value="day">Por Dia</Radio.Button>
+          <Radio.Button value="month">Por Mês</Radio.Button>
         </Radio.Group>
       </div>
 
@@ -185,7 +185,7 @@ const PricingCalculator: React.FC<PricingCalculatorProps> = ({ accessToken, mode
         size="small"
         footer={() => (
           <Button type="dashed" onClick={handleAddEntry} icon={<PlusOutlined />} className="w-full">
-            Add Another Model
+            Adicionar Outro Modelo
           </Button>
         )}
       />
