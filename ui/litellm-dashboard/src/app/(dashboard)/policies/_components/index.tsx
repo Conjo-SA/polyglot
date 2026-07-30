@@ -371,17 +371,17 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
         <TabPanels>
           <TabPanel>
             <Alert
-              message="About Policies"
+              message="Sobre Políticas"
               description={
                 <div>
                   <p className="mb-3">
-                    Use policies to group guardrails and control which ones run for specific teams, keys, or models.
+                    Use policies para agrupar guardrails e controlar quais rodam para equipes específicas, chaves ou modelos.
                   </p>
-                  <p className="mb-2 font-semibold">Why use policies?</p>
+                  <p className="mb-2 font-semibold">Por que usar políticas?</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
-                    <li>Enable/disable specific guardrails for teams, keys, or models</li>
-                    <li>Group guardrails into a single policy</li>
-                    <li>Inherit from existing policies and override what you need</li>
+                    <li>Habilitar/desabilitar guardrails específicos para equipes, chaves ou modelos</li>
+                    <li>Agrupe guardrails em uma única política</li>
+                    <li>Herde de políticas existentes e sobrescreva aquilo que precisa</li>
                   </ul>
                   <a
                     href="https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies"
@@ -389,7 +389,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline inline-block mt-1"
                   >
-                    Learn more in the documentation →
+                    Saiba mais na documentação →
                   </a>
                 </div>
               }
@@ -409,17 +409,17 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
 
           <TabPanel>
             <Alert
-              message="About Policies"
+              message="Sobre Políticas"
               description={
                 <div>
                   <p className="mb-3">
-                    Use policies to group guardrails and control which ones run for specific teams, keys, or models.
+                    Use policies para agrupar guardrails e controlar quais rodam para equipes específicas, chaves ou modelos.
                   </p>
-                  <p className="mb-2 font-semibold">Why use policies?</p>
+                  <p className="mb-2 font-semibold">Por que usar políticas?</p>
                   <ul className="list-disc list-inside mb-3 space-y-1 ml-2">
-                    <li>Enable/disable specific guardrails for teams, keys, or models</li>
-                    <li>Group guardrails into a single policy</li>
-                    <li>Inherit from existing policies and override what you need</li>
+                    <li>Habilitar/desabilitar guardrails específicos para equipes, chaves ou modelos</li>
+                    <li>Agrupe guardrails em uma única política</li>
+                    <li>Herde de políticas existentes e sobrescreva aquilo que precisa</li>
                   </ul>
                   <a
                     href="https://docs.litellm.ai/docs/proxy/guardrails/guardrail_policies"
@@ -427,7 +427,7 @@ const PoliciesPanel: React.FC<PoliciesPanelProps> = ({ accessToken, userRole }) 
                     rel="noopener noreferrer"
                     className="text-blue-600 hover:text-blue-800 underline inline-block mt-1"
                   >
-                    Learn more in the documentation →
+                    Saiba mais na documentação →
                   </a>
                 </div>
               }

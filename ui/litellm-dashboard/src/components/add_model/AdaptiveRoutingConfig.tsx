@@ -47,22 +47,21 @@ const AdaptiveRoutingConfig: React.FC<AdaptiveRoutingConfigProps> = ({ value, on
     <>
       <div className="flex items-center gap-2 mb-2">
         <Switch checked={value.adaptive ?? false} onChange={handleAdaptiveToggle} />
-        <Text strong>Enable adaptive bandit selection</Text>
+        <Text strong>Habilitar seleção adaptativa por bandit</Text>
       </div>
       <Text type="secondary" style={{ display: "block", fontSize: 12 }}>
-        When disabled, each request always uses the model assigned to its classified tier.
+        Quando desativado, cada requisição sempre usa o modelo atribuído ao seu tier classificado.
       </Text>
 
       <Card className="bg-gray-50 mt-4">
         <Text strong style={{ display: "block", marginBottom: 8 }}>
-          How Adaptive Routing Works
+          Como Funciona o Roteamento Adaptativo
         </Text>
         <Text type="secondary" style={{ fontSize: 13 }}>
-          It learns from how each conversation actually goes: does the user have to rephrase or correct the model, does
-          it get stuck repeating itself, does it run out of tool calls, does the user seem satisfied. Combined with
-          cost, this live feedback shifts future routing toward the models that are actually working well, and improves
-          as more conversations come in. Until there&apos;s enough feedback, it defaults to the classified tier&apos;s
-          model.
+          Ele aprende com o funcionamento real de cada conversa: se o usuário precisa reformular ou corrigir o modelo, se
+          ele fica preso repetindo-se, se esgota as chamadas de ferramentas, se o usuário parece satisfeito. Combinado com
+          o custo, este feedback em tempo real desloca o roteamento futuro para os modelos que realmente funcionam bem, e melhora
+          conforme mais conversas forem recebidas. Até que haja feedback suficiente, ele retorna ao modelo do tier classificado.
         </Text>
       </Card>
 
@@ -70,25 +69,25 @@ const AdaptiveRoutingConfig: React.FC<AdaptiveRoutingConfigProps> = ({ value, on
         <div className="mt-4 space-y-4">
           <div>
             <Text strong style={{ display: "block", marginBottom: 4 }}>
-              Quality vs. Cost ({Math.round(adaptiveWeights.quality * 100)}% quality /{" "}
-              {Math.round(adaptiveWeights.cost * 100)}% cost)
+              Qualidade vs. Custo ({Math.round(adaptiveWeights.quality * 100)}% qualidade /{" "}
+              {Math.round(adaptiveWeights.cost * 100)}% custo)
             </Text>
             <Slider
               min={0}
               max={100}
               value={Math.round(adaptiveWeights.quality * 100)}
               onChange={handleQualityWeightChange}
-              tooltip={{ formatter: (v) => `${v}% quality / ${100 - (v ?? 0)}% cost` }}
+              tooltip={{ formatter: (v) => `${v}% qualidade / ${100 - (v ?? 0)}% custo` }}
             />
             <Text type="secondary" style={{ fontSize: 12 }}>
-              Higher quality weight favors more capable (pricier) models; higher cost weight favors cheaper models when
-              the bandit has feedback to act on. Recommended: 30% quality / 70% cost split.
+              Peso de qualidade mais alto favorece modelos mais capazes (mais caros); peso de custo mais alto favorece modelos mais baratos quando
+              o bandit tem feedback para agir. Recomendado: divisão de 30% qualidade / 70% custo.
             </Text>
           </div>
 
           <div>
             <Text strong style={{ display: "block", marginBottom: 4 }}>
-              Eligible Model Pool
+              Conjunto de Modelos Eligíveis
             </Text>
             <Radio.Group
               value={adaptiveEligible}
@@ -97,12 +96,12 @@ const AdaptiveRoutingConfig: React.FC<AdaptiveRoutingConfigProps> = ({ value, on
             >
               <Space direction="vertical" className="w-full">
                 <Radio value="all">
-                  <Text strong>All tiers (soft floor)</Text>{" "}
-                  <Text type="secondary">— router can pick across tiers, depending on the best fit for the prompt</Text>
+                  <Text strong>Todos os tiers (limite suave)</Text>{" "}
+                  <Text type="secondary">— roteador pode selecionar entre tiers, dependendo da melhor adequação ao prompt</Text>
                 </Radio>
                 <Radio value="classified_tier">
-                  <Text strong>Classified tier only</Text>{" "}
-                  <Text type="secondary">— router can only pick models within tier</Text>
+                  <Text strong>Apenas tier classificado</Text>{" "}
+                  <Text type="secondary">— roteador só pode selecionar modelos dentro do tier</Text>
                 </Radio>
               </Space>
             </Radio.Group>
@@ -111,7 +110,7 @@ const AdaptiveRoutingConfig: React.FC<AdaptiveRoutingConfigProps> = ({ value, on
           {adaptiveEligible === "all" && (
             <div>
               <Text strong style={{ display: "block", marginBottom: 4 }}>
-                Tier Distance Penalty
+                Penalidade por Distância entre Tiers
               </Text>
               <InputNumber
                 value={tierDistancePenalty}
@@ -121,7 +120,7 @@ const AdaptiveRoutingConfig: React.FC<AdaptiveRoutingConfigProps> = ({ value, on
                 style={{ width: "100%" }}
               />
               <Text type="secondary" style={{ fontSize: 12 }}>
-                Score penalty applied per tier-step away from the classified tier.
+                Penalidade de pontuação aplicada por passo de tier afastado do tier classificado.
               </Text>
             </div>
           )}

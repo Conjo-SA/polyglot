@@ -70,24 +70,24 @@ interface ComplexityRouterConfigProps {
 
 const TIER_DESCRIPTIONS: Record<keyof ComplexityTiers, { label: string; description: string; examples: string }> = {
   SIMPLE: {
-    label: "Simple",
-    description: "Basic questions, greetings, simple factual queries",
-    examples: '"Hello!", "What is Python?", "Thanks!"',
+    label: "Simples",
+    description: "Perguntas básicas, saudações, consultas factuais simples",
+    examples: '"Olá!", "O que é Python?", "Obrigado!"',
   },
   MEDIUM: {
-    label: "Medium",
-    description: "Standard queries requiring some reasoning or explanation",
-    examples: '"Explain how REST APIs work", "Debug this error"',
+    label: "Médio",
+    description: "Consultas padrão que requerem algum raciocínio ou explicação",
+    examples: '"Explique como funcionam as APIs REST", "Depure este erro"',
   },
   COMPLEX: {
-    label: "Complex",
-    description: "Technical, multi-part requests requiring deep knowledge",
-    examples: '"Design a microservices architecture", "Implement a rate limiter"',
+    label: "Complexo",
+    description: "Consultas técnicas, de múltiplas partes que requerem conhecimento profundo",
+    examples: '"Projete uma arquitetura de microserviços", "Implemente um limitador de taxa"',
   },
   REASONING: {
-    label: "Reasoning",
-    description: "Chain-of-thought, analysis, explicit reasoning requests",
-    examples: '"Think step by step...", "Analyze the pros and cons..."',
+    label: "Raciocínio",
+    description: "Raciocínio encadeado, análise, pedidos de raciocínio explícito",
+    examples: '"Pense passo a passo...", "Analise os prós e contras..."',
   },
 };
 
@@ -128,16 +128,16 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
     <div className="w-full max-w-none">
       <Space align="center" style={{ marginBottom: 16 }}>
         <Typography.Title level={4} style={{ margin: 0 }}>
-          Complexity Tier Configuration
+          Configuração de Níveis de Complexidade
         </Typography.Title>
-        <Tooltip title="Map each complexity tier to one or more models. Simple queries use cheaper/faster models, complex queries use more capable models.">
+        <Tooltip title="Mapeie cada nível de complexidade para um ou mais modelos. Consultas simples utilizam modelos mais baratos/rapidos, consultas complexas utilizam modelos mais capazes.">
           <InfoCircleOutlined className="text-gray-400" />
         </Tooltip>
       </Space>
 
       <Text type="secondary" style={{ display: "block", marginBottom: 24 }}>
-        The complexity router automatically classifies requests by complexity using rule-based scoring (no API calls,
-        &lt;1ms latency). Configure which model(s) handle each tier.
+        O roteador de complexidade classifica automaticamente as requisições por complexidade usando pontuação baseada em regras (sem chamadas à API,
+        latência &lt;1ms). Configure qual(is) modelo(s) irá(ão) lidar com cada nível.
       </Text>
 
       <Card>
@@ -150,20 +150,20 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
               <div className="mb-4">
                 <div className="flex items-center gap-2 mb-2">
                   <Text strong style={{ fontSize: 16 }}>
-                    {tierInfo.label} Tier
+                    Nível {tierInfo.label}
                   </Text>
                   <Tooltip title={tierInfo.description}>
                     <InfoCircleOutlined className="text-gray-400" />
                   </Tooltip>
                 </div>
                 <Text type="secondary" style={{ display: "block", marginBottom: 8, fontSize: 12 }}>
-                  Examples: {tierInfo.examples}
+                  Exemplos: {tierInfo.examples}
                 </Text>
                 <AntdSelect
                   mode="multiple"
                   value={value.tiers[tier]}
                   onChange={(models) => handleTierChange(tier, models)}
-                  placeholder={`Select model(s) for ${tierInfo.label.toLowerCase()} queries`}
+                  placeholder={`Selecionar modelo(s) para consultas ${tierInfo.label.toLowerCase()}`}
                   showSearch
                   style={{ width: "100%" }}
                   options={modelOptions}
@@ -171,13 +171,13 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
                 />
                 {value.tiers[tier].length > 1 && (
                   <Text type="secondary" style={{ fontSize: 12 }}>
-                    Multiple models selected — the router randomly picks among them per request (or Thompson-samples
-                    within the pool when adaptive routing is on).
+                    Vários modelos selecionados — o roteador seleciona aleatoriamente entre eles por requisição (ou amostras Thompson
+                    dentro do grupo quando o roteamento adaptativo está ativado).
                   </Text>
                 )}
                 {tierMissing && (
                   <Text type="danger" style={{ fontSize: 12 }}>
-                    This tier is required
+                    Este nível é obrigatório
                   </Text>
                 )}
               </div>
@@ -196,7 +196,7 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
             key: "classifier",
             label: (
               <Text strong style={{ color: "#374151" }}>
-                Advanced: Classification Method
+                Avançado: Método de Classificação
               </Text>
             ),
             children: (
@@ -214,7 +214,7 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
             key: "adaptive",
             label: (
               <Text strong style={{ color: "#374151" }}>
-                Advanced: Adaptive Routing
+                Avançado: Roteamento Adaptativo
               </Text>
             ),
             children: <AdaptiveRoutingConfig value={value} onChange={onChange} />,
@@ -223,7 +223,7 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
             key: "response",
             label: (
               <Text strong style={{ color: "#374151" }}>
-                Advanced: Response Format
+                Avançado: Formato da Resposta
               </Text>
             ),
             children: (
@@ -233,10 +233,10 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
                     checked={value.return_raw_model_name ?? false}
                     onChange={(returnRawModelName) => onChange({ ...value, return_raw_model_name: returnRawModelName })}
                   />
-                  <Text strong>Return raw model name</Text>
+                  <Text strong>Retornar nome do modelo bruto</Text>
                 </div>
                 <Text type="secondary" style={{ display: "block", fontSize: 12 }}>
-                  Return the resolved underlying model name in responses instead of the autorouter alias.
+                  Retorna o nome do modelo subjacente resolvido nas respostas em vez do alias do autorouter.
                 </Text>
               </>
             ),
@@ -247,7 +247,7 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
                   key: "escalation",
                   label: (
                     <Text strong style={{ color: "#374151" }}>
-                      Advanced: Escalation Keywords
+                      Avançado: Palavras-chave de Escalação
                     </Text>
                   ),
                   children: <EscalationKeywords keywords={escalationKeywords} onChange={onEscalationKeywordsChange} />,
@@ -260,7 +260,7 @@ const ComplexityRouterConfig: React.FC<ComplexityRouterConfigProps> = ({
                   key: "keyword-semantic",
                   label: (
                     <Text strong style={{ color: "#374151" }}>
-                      Advanced: Keyword/Semantic Matching
+                      Avançado: Correspondência de Palavras-Chave/Semântica
                     </Text>
                   ),
                   children: (

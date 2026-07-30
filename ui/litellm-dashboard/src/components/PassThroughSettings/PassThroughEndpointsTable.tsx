@@ -21,8 +21,8 @@ function EmptyState() {
       <div className="mb-1 flex size-10 items-center justify-center rounded-lg bg-muted">
         <Waypoints className="size-5 text-muted-foreground" />
       </div>
-      <div className="text-sm font-medium text-foreground">No pass-through endpoints configured</div>
-      <div className="text-sm text-muted-foreground">Add a pass-through endpoint to route custom paths.</div>
+      <div className="text-sm font-medium text-foreground">Nenhum endpoint de passagem configurado</div>
+      <div className="text-sm text-muted-foreground">Adicione um endpoint de passagem para rotear caminhos personalizados.</div>
     </div>
   );
 }
@@ -44,7 +44,7 @@ export function PassThroughEndpointsTable({
       columns={columns}
       getRowId={(endpoint, index) => endpoint.id || endpoint.path || String(index)}
       isLoading={isLoading}
-      loadingMessage="Loading pass-through endpoints…"
+      loadingMessage="Carregando endpoints de passagem…"
       noDataMessage={<EmptyState />}
       size="compact"
     />

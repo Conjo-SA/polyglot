@@ -16,22 +16,20 @@ const EscalationKeywords: React.FC<EscalationKeywordsProps> = ({ keywords, onCha
     <div className="w-full max-w-none">
       <div className="flex items-center gap-2 mb-1">
         <Typography.Title level={4} style={{ margin: 0 }}>
-          Escalation Keywords
+          Palavras-chave de Escalação
         </Typography.Title>
-        <Tooltip title="Case-sensitive phrases a user can include in their message to force a bump to the next-higher complexity tier when they aren't happy with results. They can force a stronger model, but not choose which one.">
+        <Tooltip title="Frases sensíveis a maiúsculas e minúsculas que um usuário pode incluir em sua mensagem para forçar um aumento para o próximo nível de complexidade quando não estiver satisfeito com os resultados. Eles podem forçar um modelo mais forte, mas não escolher qual um.">
           <InfoCircleOutlined className="text-gray-400" />
         </Tooltip>
       </div>
       <Text type="secondary" style={{ display: "block", marginBottom: 8, fontSize: 12 }}>
-        Optional: when a user message contains one of these phrases, the request is bumped one tier higher than it would
-        otherwise route to. Matching is case-sensitive, so &quot;LITELLM ESCALATE&quot; only fires on the exact, shouted
-        form. Leave empty to disable.
+        Opcional: quando uma mensagem do usuário contém uma destas frases, a solicitação é elevada para um nível superior ao que ela normalmente seria roteada. A correspondência diferencia maiúsculas e minúsculas, então &quot;LITELLM ESCALATE&quot; só se activa com a forma exata gritada. Deixe vazio para desativar.
       </Text>
       <AntdSelect
         mode="tags"
         value={keywords}
         onChange={onChange}
-        placeholder="e.g., LITELLM ESCALATE"
+        placeholder="ex., LITELLM ESCALATE"
         tokenSeparators={[","]}
         open={false}
         suffixIcon={null}

@@ -125,7 +125,7 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
     const trimmed = effectiveUrl.trim();
     if (!trimmed) {
       setError(
-        isParentDriven ? "Fill in the agent's connection details above first" : "Enter the agent's base URL first",
+        isParentDriven ? "Preencha os detalhes de conexão do agente acima primeiro" : "Digite a URL base do agente primeiro",
       );
       setCard(null);
       onApplyRef.current(null);
@@ -153,7 +153,7 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
       resetSelections(response.agent_card);
     } catch (e: any) {
       if (requestId !== discoverRequestIdRef.current) return;
-      setError(e?.message ? String(e.message) : "Failed to discover agent card");
+      setError(e?.message ? String(e.message) : "Falha ao descobrir o cartão do agente");
       setCard(null);
       lastSyncedSelectionRef.current = null;
       onApplyRef.current(null);
@@ -247,19 +247,19 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
     <div className="border border-gray-200 rounded-lg p-4 bg-gray-50 mb-4">
       <div className="flex items-center gap-2 mb-2">
         <LinkOutlined className="text-indigo-600" />
-        <Text strong>Discover from agent URL</Text>
-        <Tooltip title="Polyglot will fetch /.well-known/agent-card.json from this URL and let you pick which skills and capabilities to expose through the proxy.">
+        <Text strong>Descobrir a partir da URL do agente</Text>
+        <Tooltip title="Polyglot buscará /.well-known/agent-card.json nesta URL e permitirá que você selecione quais habilidades e capacidades expor através do proxy.">
           <InfoCircleOutlined className="text-gray-400" />
         </Tooltip>
       </div>
       {isParentDriven ? (
         <>
           <Paragraph className="text-xs text-gray-500 mb-2">
-            Using the connection details you entered above. We&apos;ll fetch:
+            Usando os detalhes de conexão que você inseriu acima. Buscaremos:
           </Paragraph>
           <div className="bg-white border border-gray-200 rounded-sm px-3 py-2 mb-3 font-mono text-xs text-gray-700 break-all">
             {discoveryRequest!.display_url || effectiveUrl || (
-              <span className="text-gray-400 italic">Fill in the fields above first</span>
+              <span className="text-gray-400 italic">Preencha os campos acima primeiro</span>
             )}
           </div>
           <div className="flex justify-end">
@@ -270,20 +270,20 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
               onClick={handleDiscover}
               disabled={!effectiveUrl.trim()}
             >
-              {card ? "Re-discover" : "Discover"}
+              {card ? "Redescobrir" : "Descobrir"}
             </Button>
           </div>
         </>
       ) : (
         <>
           <Paragraph className="text-xs text-gray-500 mb-3">
-            Paste the upstream agent&apos;s base URL. We&apos;ll try <code>/.well-known/agent-card.json</code>,{" "}
-            <code>/.well-known/agent.json</code>, and <code>/agent.json</code> in order.
+            Cole a URL base do agente upstream. Buscaremos <code>/.well-known/agent-card.json</code>,{" "}
+            <code>/.well-known/agent.json</code>, e <code>/agent.json</code> na ordem.
           </Paragraph>
 
           <Space.Compact style={{ width: "100%" }}>
             <Input
-              placeholder="https://upstream-agent.example.com"
+              placeholder="https://agente-upstream.exemplo.com"
               value={manualUrl}
               onChange={(e) => setManualUrl(e.target.value)}
               onPressEnter={handleDiscover}
@@ -306,7 +306,7 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
         <Alert
           className="mt-3"
           type="error"
-          message="Discovery failed"
+          message="Falha na descoberta"
           description={error}
           showIcon
           closable
@@ -325,7 +325,7 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
           <div className="flex items-center justify-between mb-3">
             <Space>
               <CheckCircleTwoTone twoToneColor="#52c41a" />
-              <Text strong>Upstream card loaded</Text>
+              <Text strong>Cartão upstream carregado</Text>
               {card.version && <Tag color="blue">v{card.version}</Tag>}
               {card.provider?.organization && <Tag color="purple">{card.provider.organization}</Tag>}
             </Space>
@@ -333,16 +333,16 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
 
           <div className="grid grid-cols-1 md:grid-cols-2 gap-3 mb-4">
             <div>
-              <label className="text-xs font-medium text-gray-600 block mb-1">Name (shown to API clients)</label>
-              <Input value={editedName} onChange={(e) => setEditedName(e.target.value)} placeholder="Agent name" />
+              <label className="text-xs font-medium text-gray-600 block mb-1">Nome (mostrado para clientes da API)</label>
+              <Input value={editedName} onChange={(e) => setEditedName(e.target.value)} placeholder="Nome do agente" />
             </div>
             <div>
-              <label className="text-xs font-medium text-gray-600 block mb-1">Description</label>
+              <label className="text-xs font-medium text-gray-600 block mb-1">Descrição</label>
               <Input.TextArea
                 value={editedDescription}
                 onChange={(e) => setEditedDescription(e.target.value)}
                 rows={2}
-                placeholder="What this agent does"
+                placeholder="O que este agente faz"
               />
             </div>
           </div>
@@ -352,15 +352,15 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
               key="skills"
               header={
                 <Space>
-                  <Text strong>Skills</Text>
+                  <Text strong>Habilidades</Text>
                   <Tag>
-                    {selectedSkillCount} / {skillCount} selected
+                    {selectedSkillCount} / {skillCount} selecionadas
                   </Tag>
                 </Space>
               }
             >
               {skillCount === 0 ? (
-                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Upstream card has no skills" />
+                <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="O cartão upstream não possui habilidades" />
               ) : (
                 <div className="space-y-2">
                   {(card.skills ?? []).map((skill, idx) => {
@@ -404,8 +404,8 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
               key="capabilities"
               header={
                 <Space>
-                  <Text strong>Capabilities</Text>
-                  <Tooltip title="Only capabilities Polyglot can faithfully proxy today are listed. Others (push notifications, extensions) are coming soon.">
+                  <Text strong>Capacidades</Text>
+                  <Tooltip title="Apenas capacidades que o Polyglot pode fielmente encaminhar hoje estão listadas. Outras (notificações push, extensões) chegam em breve.">
                     <InfoCircleOutlined className="text-gray-400" />
                   </Tooltip>
                 </Space>
@@ -425,7 +425,7 @@ const AgentCardDiscovery: React.FC<AgentCardDiscoveryProps> = ({
                         </Text>
                         {!upstreamHas && (
                           <Tag className="ml-2" color="default">
-                            not advertised upstream
+                            não anunciada upstream
                           </Tag>
                         )}
                       </div>

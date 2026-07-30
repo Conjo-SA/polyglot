@@ -92,7 +92,7 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
       const updatedPassThroughSettings = [...passThroughItems, createdEndpoint];
       setPassThroughItems(updatedPassThroughSettings);
 
-      NotificationsManager.success("Pass-through endpoint created successfully");
+      NotificationsManager.success("Ponto de acesso criado com sucesso");
       form.resetFields();
       setPathValue("");
       setTargetValue("");
@@ -101,7 +101,7 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
       setGuardrails({});
       setIsModalVisible(false);
     } catch (error) {
-      NotificationsManager.fromBackend("Error creating pass-through endpoint: " + error);
+      NotificationsManager.fromBackend("Erro ao criar ponto de acesso: " + error);
     } finally {
       setIsLoading(false);
     }
@@ -109,19 +109,19 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
 
   const copyToClipboard = (text: string) => {
     navigator.clipboard.writeText(text);
-    NotificationsManager.success("Copied to clipboard!");
+    NotificationsManager.success("Copiado para a área de transferência!");
   };
 
   return (
     <div>
       <Button className="mx-auto mb-4 mt-4" onClick={() => setIsModalVisible(true)}>
-        + Add Pass-Through Endpoint
+        + Adicionar Ponto de Acesso
       </Button>
       <Modal
         title={
           <div className="flex items-center space-x-3 pb-4 border-b border-gray-100">
             <ApiOutlined className="text-xl text-blue-500" />
-            <h2 className="text-xl font-semibold text-gray-900">Add Pass-Through Endpoint</h2>
+            <h2 className="text-xl font-semibold text-gray-900">Adicionar Ponto de Acesso</h2>
           </div>
         }
         open={isModalVisible}
@@ -136,8 +136,8 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
       >
         <div className="mt-6">
           <Alert
-            message="What is a Pass-Through Endpoint?"
-            description="Route requests from your Polyglot proxy to any external API. Perfect for custom models, image generation APIs, or any service you want to proxy through Polyglot."
+            message="O que é um Ponto de Acesso?"
+            description="Encaminhe solicitações do seu proxy Polyglot para qualquer API externa. Perfeito para modelos personalizados, APIs de geração de imagens ou qualquer serviço que você queira encaminhar pelo Polyglot."
             type="info"
             showIcon
             className="mb-6"
@@ -156,18 +156,18 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
           >
             {/* Route Configuration Section */}
             <Card className="p-5">
-              <Title className="text-lg font-semibold text-gray-900 mb-2">Route Configuration</Title>
+              <Title className="text-lg font-semibold text-gray-900 mb-2">Configuração de Rota</Title>
               <Subtitle className="text-gray-600 mb-5">
-                Configure how requests to your domain will be forwarded to the target API
+                Configure como as solicitações ao seu domínio serão encaminhadas para a API de destino
               </Subtitle>
 
               <div className="space-y-5">
                 <Form.Item
-                  label={<span className="text-sm font-medium text-gray-700">Path Prefix</span>}
+                  label={<span className="text-sm font-medium text-gray-700">Prefixo de Caminho</span>}
                   name="path"
-                  rules={[{ required: true, message: "Path is required", pattern: /^\// }]}
+                  rules={[{ required: true, message: "Caminho é obrigatório", pattern: /^\// }]}
                   extra={
-                    <div className="text-xs text-gray-500 mt-1">Example: /bria, /adobe-photoshop, /elasticsearch</div>
+                    <div className="text-xs text-gray-500 mt-1">Exemplo: /bria, /adobe-photoshop, /elasticsearch</div>
                   }
                   className="mb-4"
                 >
@@ -182,13 +182,13 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
                 </Form.Item>
 
                 <Form.Item
-                  label={<span className="text-sm font-medium text-gray-700">Target URL</span>}
+                  label={<span className="text-sm font-medium text-gray-700">URL de Destino</span>}
                   name="target"
                   rules={[
-                    { required: true, message: "Target URL is required" },
-                    { type: "url", message: "Please enter a valid URL" },
+                    { required: true, message: "URL de destino é obrigatória" },
+                    { type: "url", message: "Por favor, insira uma URL válida" },
                   ]}
-                  extra={<div className="text-xs text-gray-500 mt-1">Example:https://engine.prod.bria-api.com</div>}
+                  extra={<div className="text-xs text-gray-500 mt-1">Exemplo:https://engine.prod.bria-api.com</div>}
                   className="mb-4"
                 >
                   <TextInput
@@ -204,8 +204,8 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
                 <Form.Item
                   label={
                     <span className="text-sm font-medium text-gray-700 flex items-center">
-                      HTTP Methods (Optional)
-                      <Tooltip title="Select specific HTTP methods. Leave empty to support all methods (GET, POST, PUT, DELETE, PATCH). Useful when the same path needs different targets for different methods.">
+                      Métodos HTTP (Opcional)
+                      <Tooltip title="Selecione métodos HTTP específicos. Deixe vazio para suportar todos os métodos (GET, POST, PUT, DELETE, PATCH). Útil quando o mesmo caminho precisa de destinos diferentes para métodos diferentes.">
                         <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                       </Tooltip>
                     </span>
@@ -214,8 +214,8 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
                   extra={
                     <div className="text-xs text-gray-500 mt-1">
                       {selectedMethods.length === 0
-                        ? "All HTTP methods supported (default)"
-                        : `Only ${selectedMethods.join(", ")} requests will be routed to this endpoint`}
+                        ? "Todos os métodos HTTP suportados (padrão)"
+                        : `Apenas solicitações ${selectedMethods.join(", ")} serão roteadas para este ponto de acesso`}
                     </div>
                   }
                   className="mb-4"
@@ -238,9 +238,9 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
 
                 <div className="flex items-center justify-between py-3">
                   <div>
-                    <div className="text-sm font-medium text-gray-700">Include Subpaths</div>
+                    <div className="text-sm font-medium text-gray-700">Incluir Subcaminhos</div>
                     <div className="text-xs text-gray-500 mt-0.5">
-                      Forward all subpaths to the target API (recommended for REST APIs)
+                      Encaminhar todos os subcaminhos para a API de destino (recomendado para APIs REST)
                     </div>
                   </div>
                   <Form.Item name="include_subpath" valuePropName="checked" className="mb-0">
@@ -255,16 +255,16 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
 
             {/* Headers Section */}
             <Card className="p-6">
-              <Title className="text-lg font-semibold text-gray-900 mb-2">Headers</Title>
+              <Title className="text-lg font-semibold text-gray-900 mb-2">Cabeçalhos</Title>
               <Subtitle className="text-gray-600 mb-6">
-                Add headers that will be sent with every request to the target API
+                Adicione cabeçalhos que serão enviados com cada solicitação à API de destino
               </Subtitle>
 
               <Form.Item
                 label={
                   <span className="text-sm font-medium text-gray-700 flex items-center">
-                    Authentication Headers
-                    <Tooltip title="Authentication and other headers to forward with requests">
+                    Cabeçalhos de Autenticação
+                    <Tooltip title="Cabeçalhos de autenticação e outros para encaminhar com solicitações">
                       <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                     </Tooltip>
                   </span>
@@ -273,8 +273,8 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
                 rules={[{ required: true, message: "Please configure the headers" }]}
                 extra={
                   <div className="text-xs text-gray-500 mt-2">
-                    <div className="font-medium mb-1">Add authentication tokens and other required headers</div>
-                    <div>Common examples: auth_token, Authorization, x-api-key</div>
+                    <div className="font-medium mb-1">Adicione tokens de autenticação e outros cabeçalhos necessários</div>
+                    <div>Exemplos comuns: auth_token, Authorization, x-api-key</div>
                   </div>
                 }
               >
@@ -284,16 +284,16 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
 
             {/* Default Query Parameters Section */}
             <Card className="p-6">
-              <Title className="text-lg font-semibold text-gray-900 mb-2">Default Query Parameters</Title>
+              <Title className="text-lg font-semibold text-gray-900 mb-2">Parâmetros Padrão de Consulta</Title>
               <Subtitle className="text-gray-600 mb-6">
-                Add query parameters that will be automatically sent with every request to the target API
+                Adicione parâmetros de consulta que serão enviados automaticamente com cada solicitação à API de destino
               </Subtitle>
 
               <Form.Item
                 label={
                   <span className="text-sm font-medium text-gray-700 flex items-center">
-                    Default Query Parameters (Optional)
-                    <Tooltip title="Query parameters that will be added to all requests. Clients can override these by providing their own values.">
+                    Parâmetros Padrão de Consulta (Opcional)
+                    <Tooltip title="Parâmetros de consulta que serão adicionados a todas as solicitações. Os clientes podem sobrepor estes fornecendo seus próprios valores.">
                       <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
                     </Tooltip>
                   </span>
@@ -301,8 +301,8 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
                 name="default_query_params"
                 extra={
                   <div className="text-xs text-gray-500 mt-2">
-                    <div className="font-medium mb-1">Parameters are sent with all GET, POST, PUT, PATCH requests</div>
-                    <div>Client parameters override defaults. Examples: version=v1, format=json, key=default</div>
+                    <div className="font-medium mb-1">Os parâmetros são enviados com todas as solicitações GET, POST, PUT, PATCH</div>
+                    <div>Parâmetros do cliente sobrepõem os padrões. Exemplos: version=v1, format=json, key=default</div>
                   </div>
                 }
               >
@@ -325,14 +325,14 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
 
             {/* Performance Section */}
             <Card className="p-6">
-              <Title className="text-lg font-semibold text-gray-900 mb-2">Performance</Title>
-              <Subtitle className="text-gray-600 mb-6">Configure upstream request timeout for this endpoint</Subtitle>
+              <Title className="text-lg font-semibold text-gray-900 mb-2">Desempenho</Title>
+              <Subtitle className="text-gray-600 mb-6">Configure o tempo limite de solicitação upstream para este ponto de acesso</Subtitle>
 
               <Form.Item
                 label={
                   <span className="text-sm font-medium text-gray-700 flex items-center">
-                    Request Timeout (seconds)
-                    <Tooltip title="Max time to wait for the upstream API to respond. Leave empty to use general_settings.pass_through_request_timeout (default 600s).">
+                    Tempo Limite de Solicitação (segundos)
+                    <Tooltip title="Tempo máximo de espera para a API upstream responder. Deixe vazio para usar general_settings.pass_through_request_timeout (padrão 600s).">
                       <InfoCircleOutlined className="ml-2 text-gray-400 hover:text-gray-600" />
                     </Tooltip>
                   </span>
@@ -340,7 +340,7 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
                 name="timeout"
                 extra={
                   <div className="text-xs text-gray-500 mt-2">
-                    Use a higher value for slow upstream APIs (e.g. 1200 for long-running LLM calls)
+                    Use um valor mais alto para APIs upstream lentas (ex. 1200 para chamadas LLM longas)
                   </div>
                 }
               >
@@ -350,14 +350,14 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
 
             {/* Billing Section */}
             <Card className="p-6">
-              <Title className="text-lg font-semibold text-gray-900 mb-2">Billing</Title>
-              <Subtitle className="text-gray-600 mb-6">Optional cost tracking for this endpoint</Subtitle>
+              <Title className="text-lg font-semibold text-gray-900 mb-2">Cobrança</Title>
+              <Subtitle className="text-gray-600 mb-6">Rastreamento opcional de custos para este ponto de acesso</Subtitle>
 
               <Form.Item
                 label={
                   <span className="text-sm font-medium text-gray-700 flex items-center">
-                    Cost Per Request (USD)
-                    <Tooltip title="Optional: Track costs for requests to this endpoint">
+                    Custo Por Solicitação (USD)
+                    <Tooltip title="Opcional: Rastrear custos para solicitações a este ponto de acesso">
                       <InfoCircleOutlined className="ml-2 text-gray-400 hover:text-gray-600" />
                     </Tooltip>
                   </span>
@@ -375,7 +375,7 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
 
             <div className="flex items-center justify-end space-x-3 pt-6 border-t border-gray-100">
               <Button variant="secondary" onClick={handleCancel}>
-                Cancel
+                Cancelar
               </Button>
               <Button
                 variant="primary"
@@ -384,7 +384,7 @@ const AddPassThroughEndpoint: React.FC<AddFallbacksProps> = ({
                   form.submit();
                 }}
               >
-                {isLoading ? "Creating..." : "Add Pass-Through Endpoint"}
+                {isLoading ? "Criando..." : "Adicionar Ponto de Acesso"}
               </Button>
             </div>
           </Form>

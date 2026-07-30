@@ -25,7 +25,7 @@ export function SimpleTable<T>({
   data,
   columns,
   isLoading = false,
-  loadingMessage = "Loading...",
+  loadingMessage = "Carregando...",
   emptyMessage = "No data",
   getRowKey,
 }: SimpleTableProps<T>) {

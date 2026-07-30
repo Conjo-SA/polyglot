@@ -99,38 +99,38 @@ const PolicyTestPanel: React.FC<PolicyTestPanelProps> = ({ accessToken }) => {
     <div>
       <div className="bg-white border rounded-lg p-6 mb-6">
         <div className="mb-5">
-          <h3 className="text-base font-semibold mb-1">Policy Simulator</h3>
+          <h3 className="text-base font-semibold mb-1">Simulador de Política</h3>
           <Text type="secondary">
-            Simulate a request to see which policies and guardrails would apply. Select a team, key, model, or tags
-            below and click &quot;Simulate&quot; to see the results.
+            Simule uma requisição para ver quais políticas e guardrails se aplicariam. Selecione uma equipe, chave, modelo ou tags
+            abaixo e clique em &quot;Simular&quot; para ver os resultados.
           </Text>
         </div>
 
         <Form form={form} layout="vertical">
           <div className="grid grid-cols-2 gap-4">
-            <Form.Item name="team_alias" label="Team Alias" className="mb-3">
+            <Form.Item name="team_alias" label="Apelido da Equipe" className="mb-3">
               <Select
                 showSearch
                 allowClear
-                placeholder="Select or type a team alias"
+                placeholder="Selecione ou digite um apelido de equipe"
                 options={availableTeams.map((t) => ({ label: t, value: t }))}
                 filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
               />
             </Form.Item>
-            <Form.Item name="key_alias" label="Key Alias" className="mb-3">
+            <Form.Item name="key_alias" label="Apelido da Chave" className="mb-3">
               <Select
                 showSearch
                 allowClear
-                placeholder="Select or type a key alias"
+                placeholder="Selecione ou digite um apelido de chave"
                 options={availableKeys.map((k) => ({ label: k, value: k }))}
                 filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
               />
             </Form.Item>
-            <Form.Item name="model" label="Model" className="mb-3">
+            <Form.Item name="model" label="Modelo" className="mb-3">
               <Select
                 showSearch
                 allowClear
-                placeholder="Select or type a model"
+                placeholder="Selecione ou digite um modelo"
                 options={availableModels.map((m) => ({ label: m, value: m }))}
                 filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
               />
@@ -138,7 +138,7 @@ const PolicyTestPanel: React.FC<PolicyTestPanelProps> = ({ accessToken }) => {
             <Form.Item name="tags" label="Tags" className="mb-3">
               <Select
                 mode="tags"
-                placeholder="Type a tag and press Enter"
+                placeholder="Digite uma tag e pressione Enter"
                 tokenSeparators={[",", " "]}
                 notFoundContent={null}
                 suffixIcon={null}
@@ -148,10 +148,10 @@ const PolicyTestPanel: React.FC<PolicyTestPanelProps> = ({ accessToken }) => {
           </div>
           <div className="flex space-x-2">
             <Button onClick={handleTest} loading={isLoading} disabled={!accessToken}>
-              Simulate
+              Simular
             </Button>
             <Button variant="secondary" onClick={handleReset}>
-              Reset
+              Reiniciar
             </Button>
           </div>
         </Form>
@@ -175,10 +175,10 @@ const PolicyTestPanel: React.FC<PolicyTestPanelProps> = ({ accessToken }) => {
               />
             </svg>
           </div>
-          <p className="text-sm font-medium text-gray-600 mb-1">No simulation run yet</p>
+          <p className="text-sm font-medium text-gray-600 mb-1">Nenhuma simulação executada ainda</p>
           <p className="text-xs text-gray-400">
-            Fill in one or more fields above and click &quot;Simulate&quot; to see which policies and guardrails would
-            apply to that request.
+            Preencha um ou mais campos acima e clique em &quot;Simular&quot; para ver quais políticas e guardrails se
+            aplicariam a essa requisição.
           </p>
         </div>
       )}

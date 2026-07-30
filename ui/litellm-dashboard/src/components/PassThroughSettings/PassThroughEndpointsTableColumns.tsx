@@ -76,7 +76,7 @@ function EndpointRowActions({ endpoint, onEndpointClick, onDeleteClick }: Endpoi
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Open endpoint actions"
+        aria-label="Abrir ações do endpoint"
         data-testid={`endpoint-actions-${endpointId || endpoint.path}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -89,7 +89,7 @@ function EndpointRowActions({ endpoint, onEndpointClick, onDeleteClick }: Endpoi
           onClick={() => endpointId && onEndpointClick(endpointId)}
         >
           <Pencil />
-          Edit
+          Editar
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -99,7 +99,7 @@ function EndpointRowActions({ endpoint, onEndpointClick, onDeleteClick }: Endpoi
           onClick={() => endpointId && onDeleteClick(endpointId)}
         >
           <Trash2 />
-          Delete
+          Excluir
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

@@ -78,7 +78,7 @@ const TeamDropdown: React.FC<TeamDropdownProps> = ({
   return (
     <Select
       showSearch
-      placeholder="Search or select a team"
+      placeholder="Pesquisar ou selecionar uma equipe"
       value={value || undefined}
       onChange={handleChange}
       disabled={disabled}
@@ -88,7 +88,7 @@ const TeamDropdown: React.FC<TeamDropdownProps> = ({
       searchValue={searchInput}
       onPopupScroll={handlePopupScroll}
       loading={isLoading}
-      notFoundContent={isLoading ? <LoadingOutlined spin /> : "No teams found"}
+      notFoundContent={isLoading ? <LoadingOutlined spin /> : "Nenhuma equipe encontrada"}
       data-testid="team-dropdown"
       popupRender={(menu) => (
         <>

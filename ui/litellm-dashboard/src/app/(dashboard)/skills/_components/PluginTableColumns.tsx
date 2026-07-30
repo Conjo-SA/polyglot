@@ -50,7 +50,7 @@ function PluginRowActions({ plugin, isAdmin, onDeleteClick }: PluginRowActionsPr
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Open skill actions"
+        aria-label="Abrir ações da habilidade"
         data-testid={`plugin-actions-${plugin.name}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -59,10 +59,10 @@ function PluginRowActions({ plugin, isAdmin, onDeleteClick }: PluginRowActionsPr
       <DropdownMenuContent align="end" className="w-52">
         <DropdownMenuItem
           data-testid="plugin-action-copy"
-          onClick={() => void copyToClipboard(plugin.id, "Skill ID copied")}
+          onClick={() => void copyToClipboard(plugin.id, "ID da habilidade copiado")}
         >
           <Copy />
-          Copy skill ID
+          Copiar ID da habilidade
         </DropdownMenuItem>
         {isAdmin && (
           <>
@@ -73,7 +73,7 @@ function PluginRowActions({ plugin, isAdmin, onDeleteClick }: PluginRowActionsPr
               onClick={() => onDeleteClick(plugin.name, plugin.name)}
             >
               <Trash2 />
-              Delete
+              Excluir
             </DropdownMenuItem>
           </>
         )}

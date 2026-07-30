@@ -1,25 +1,25 @@
 """
-Types and field definitions for router settings management endpoints
+Tipos e definições de campo para endpoints de gerenciamento de configurações do roteador
 """
 
 from typing import Any, Dict, List, Literal, Optional
 
 from pydantic import BaseModel, Field, field_validator
 
-# Fallback Management Types
+# Tipos de Gerenciamento de Fallbacks
 
 
 class FallbackCreateRequest(BaseModel):
-    """Request model for creating/updating fallbacks"""
+    """Modelo de requisição para criar/atualizar fallbacks"""
 
-    model: str = Field(description="The model name to configure fallbacks for (e.g., 'gpt-3.5-turbo')")
+    model: str = Field(description="O nome do modelo para configurar fallbacks (ex: 'gpt-3.5-turbo')")
     fallback_models: List[str] = Field(
-        description="List of fallback model names in order of priority",
+        description="Lista dos nomes dos modelos fallback na ordem de prioridade",
         min_length=1,
     )
     fallback_type: Literal["general", "context_window", "content_policy"] = Field(
         default="general",
-        description="Type of fallback: 'general' (default), 'context_window', or 'content_policy'",
+        description="Tipo de fallback: 'general' (padrão), 'context_window', ou 'content_policy'",
     )
 
     @field_validator("fallback_models")
@@ -40,31 +40,31 @@ class FallbackCreateRequest(BaseModel):
 
 
 class FallbackResponse(BaseModel):
-    """Response model for fallback operations"""
+    """Modelo de resposta para operações de fallback"""
 
-    model: str = Field(description="The model name")
-    fallback_models: List[str] = Field(description="List of fallback model names")
-    fallback_type: str = Field(description="Type of fallback")
-    message: str = Field(description="Success message")
+    model: str = Field(description="O nome do modelo")
+    fallback_models: List[str] = Field(description="Lista dos nomes dos modelos fallback")
+    fallback_type: str = Field(description="Tipo de fallback")
+    message: str = Field(description="Mensagem de sucesso")
 
 
 class FallbackGetResponse(BaseModel):
-    """Response model for getting fallbacks"""
+    """Modelo de resposta para obtenção de fallbacks"""
 
-    model: str = Field(description="The model name")
-    fallback_models: List[str] = Field(description="List of fallback model names")
-    fallback_type: str = Field(description="Type of fallback")
+    model: str = Field(description="O nome do modelo")
+    fallback_models: List[str] = Field(description="Lista dos nomes dos modelos fallback")
+    fallback_type: str = Field(description="Tipo de fallback")
 
 
 class FallbackDeleteResponse(BaseModel):
-    """Response model for deleting fallbacks"""
+    """Modelo de resposta para exclusão de fallbacks"""
 
-    model: str = Field(description="The model name")
-    fallback_type: str = Field(description="Type of fallback")
-    message: str = Field(description="Success message")
+    model: str = Field(description="O nome do modelo")
+    fallback_type: str = Field(description="Tipo de fallback")
+    message: str = Field(description="Mensagem de sucesso")
 
 
-# Router Settings Types
+# Tipos de Configurações do Roteador
 
 
 class RouterSettingsField(BaseModel):
@@ -78,81 +78,81 @@ class RouterSettingsField(BaseModel):
     link: Optional[str] = None  # Documentation link for the field
 
 
-# Routing strategy descriptions
+# Descrições das estratégias de roteamento
 ROUTING_STRATEGY_DESCRIPTIONS: Dict[str, str] = {
-    "simple-shuffle": "Randomly picks a deployment from the list. Simple and fast.",
-    "least-busy": "Routes to the deployment with the lowest number of ongoing requests.",
-    "latency-based-routing": "Routes to the deployment with the lowest latency over a sliding window.",
-    "cost-based-routing": "Routes to the deployment with the lowest cost per token.",
-    "usage-based-routing": "Routes to the deployment with the lowest TPM (Tokens Per Minute) usage. (deprecated)",
-    "usage-based-routing-v2": "Improved version of usage-based routing with better tracking.",
+    "simple-shuffle": "Seleciona aleatoriamente um deployment da lista. Simples e rápido.",
+    "least-busy": "Roteia para o deployment com o menor número de requisições em andamento.",
+    "latency-based-routing": "Roteia para o deployment com a menor latência em uma janela deslizante.",
+    "cost-based-routing": "Roteia para o deployment com o menor custo por token.",
+    "usage-based-routing": "Roteia para o deployment com o menor uso de TPM (Tokens Por Minuto). (obsoleto)",
+    "usage-based-routing-v2": "Versão aprimorada do roteamento baseado em uso com melhor rastreamento.",
 }
 
 
-# Define all available router settings fields
+# Definir todos os campos de configurações do roteador disponíveis
 ROUTER_SETTINGS_FIELDS: List[RouterSettingsField] = [
     RouterSettingsField(
         field_name="routing_strategy",
         field_type="String",
         field_value=None,
-        field_description="Routing strategy to use for load balancing across deployments",
+        field_description="Estratégia de roteamento a ser utilizada para balanceamento de carga entre deployments",
         field_default="simple-shuffle",
-        options=[],  # Will be populated dynamically from Router class
-        ui_field_name="Routing Strategy",
+        options=[],  # Será preenchido dinamicamente pela classe Router
+        ui_field_name="Estratégia de Roteamento",
     ),
     RouterSettingsField(
         field_name="routing_strategy_args",
         field_type="Dictionary",
         field_value=None,
-        field_description="Arguments to pass to the routing strategy (e.g., ttl, lowest_latency_buffer for latency-based-routing)",
+        field_description="Argumentos a serem passados para a estratégia de roteamento (ex: ttl, lowest_latency_buffer para latency-based-routing)",
         field_default={},
-        ui_field_name="Routing Strategy Args",
+        ui_field_name="Argumentos da Estratégia de Roteamento",
     ),
     RouterSettingsField(
         field_name="routing_groups",
         field_type="List",
         field_value=None,
-        field_description="Named subsets of model_names that share a routing strategy. Models not claimed by an explicit group fall through to the top-level routing_strategy.",
+        field_description="Subconjuntos nomeados de model_names que compartilham uma estratégia de roteamento. Modelos não atribuídos a um grupo explícito são encaminhados para a routing_strategy de nível superior.",
         field_default=[],
-        ui_field_name="Routing Groups",
+        ui_field_name="Grupos de Roteamento",
     ),
     RouterSettingsField(
         field_name="num_retries",
         field_type="Integer",
         field_value=None,
-        field_description="Number of retries for failed requests",
+        field_description="Número de tentativas para requisições falhas",
         field_default=0,
-        ui_field_name="Number of Retries",
+        ui_field_name="Número de Tentativas",
     ),
     RouterSettingsField(
         field_name="timeout",
         field_type="Float",
         field_value=None,
-        field_description="Timeout for requests in seconds",
+        field_description="Tempo limite para requisições em segundos",
         field_default=None,
-        ui_field_name="Timeout",
+        ui_field_name="Tempo Limite",
     ),
     RouterSettingsField(
         field_name="stream_timeout",
         field_type="Float",
         field_value=None,
-        field_description="Timeout for streaming requests in seconds",
+        field_description="Tempo limite para requisições de streaming em segundos",
         field_default=None,
-        ui_field_name="Stream Timeout",
+        ui_field_name="Tempo Limite de Stream",
     ),
     RouterSettingsField(
         field_name="max_fallbacks",
         field_type="Integer",
         field_value=None,
-        field_description="Maximum number of fallbacks to try before exiting the call",
+        field_description="Número máximo de fallbacks a tentar antes de encerrar a chamada",
         field_default=5,
-        ui_field_name="Max Fallbacks",
+        ui_field_name="Máximo de Fallbacks",
     ),
     RouterSettingsField(
         field_name="fallbacks",
         field_type="List",
         field_value=None,
-        field_description="List of fallback model mappings",
+        field_description="Lista de mapeamentos de modelos fallback",
         field_default=[],
         ui_field_name="Fallbacks",
     ),
@@ -160,113 +160,113 @@ ROUTER_SETTINGS_FIELDS: List[RouterSettingsField] = [
         field_name="context_window_fallbacks",
         field_type="List",
         field_value=None,
-        field_description="List of fallback models for context window errors",
+        field_description="Lista de modelos fallback para erros de janela de contexto",
         field_default=[],
-        ui_field_name="Context Window Fallbacks",
+        ui_field_name="Fallbacks de Janela de Contexto",
     ),
     RouterSettingsField(
         field_name="content_policy_fallbacks",
         field_type="List",
         field_value=None,
-        field_description="List of fallback models for content policy errors",
+        field_description="Lista de modelos fallback para erros de política de conteúdo",
         field_default=[],
-        ui_field_name="Content Policy Fallbacks",
+        ui_field_name="Fallbacks de Política de Conteúdo",
     ),
     RouterSettingsField(
         field_name="allowed_fails",
         field_type="Integer",
         field_value=None,
-        field_description="Number of times a deployment can fail before being added to cooldown",
+        field_description="Número de vezes que um deployment pode falhar antes de ser adicionado ao modo de espera",
         field_default=None,
-        ui_field_name="Allowed Fails",
+        ui_field_name="Falhas Permitidas",
     ),
     RouterSettingsField(
         field_name="cooldown_time",
         field_type="Float",
         field_value=None,
-        field_description="Time in seconds to cooldown a deployment after failure",
+        field_description="Tempo em segundos para colocar um deployment em modo de espera após falha",
         field_default=None,
-        ui_field_name="Cooldown Time",
+        ui_field_name="Tempo de Espera",
     ),
     RouterSettingsField(
         field_name="retry_after",
         field_type="Integer",
         field_value=None,
-        field_description="Minimum time to wait before retrying a failed request in seconds",
+        field_description="Tempo mínimo de espera antes de tentar novamente uma requisição falha em segundos",
         field_default=0,
-        ui_field_name="Retry After",
+        ui_field_name="Repetir Após",
     ),
     RouterSettingsField(
         field_name="retry_policy",
         field_type="Dictionary",
         field_value=None,
-        field_description="Custom retry policy for different exception types",
+        field_description="Política personalizada de repetição para diferentes tipos de exceção",
         field_default=None,
-        ui_field_name="Retry Policy",
+        ui_field_name="Política de Repetição",
     ),
     RouterSettingsField(
         field_name="model_group_alias",
         field_type="Dictionary",
         field_value=None,
-        field_description="Aliases for model groups",
+        field_description="Apelidos para grupos de modelos",
         field_default={},
-        ui_field_name="Model Group Alias",
+        ui_field_name="Apelido de Grupo de Modelo",
     ),
     RouterSettingsField(
         field_name="enable_pre_call_checks",
         field_type="Boolean",
         field_value=None,
-        field_description="Enable pre-call checks before routing requests",
+        field_description="Habilitar verificações pré-chamada antes do roteamento das requisições",
         field_default=False,
-        ui_field_name="Enable Pre-call Checks",
+        ui_field_name="Habilitar Verificações Pré-Chamada",
     ),
     RouterSettingsField(
         field_name="default_litellm_params",
         field_type="Dictionary",
         field_value=None,
-        field_description="Default parameters for Router.chat.completion.create",
+        field_description="Parâmetros padrão para Router.chat.completion.create",
         field_default=None,
-        ui_field_name="Default LiteLLM Params",
+        ui_field_name="Parâmetros Padrão LiteLLM",
     ),
     RouterSettingsField(
         field_name="set_verbose",
         field_type="Boolean",
         field_value=None,
-        field_description="Enable verbose logging for router",
+        field_description="Habilitar registro detalhado para o roteador",
         field_default=False,
-        ui_field_name="Verbose Logging",
+        ui_field_name="Registro Detalhado",
     ),
     RouterSettingsField(
         field_name="default_max_parallel_requests",
         field_type="Integer",
         field_value=None,
-        field_description="Default maximum parallel requests across all deployments",
+        field_description="Número máximo padrão de requisições paralelas em todos os deployments",
         field_default=None,
-        ui_field_name="Max Parallel Requests",
+        ui_field_name="Máximo de Requisições Paralelas",
     ),
     RouterSettingsField(
         field_name="enable_tag_filtering",
         field_type="Boolean",
         field_value=None,
-        field_description="Enable tag-based routing to route requests based on tags",
+        field_description="Habilitar roteamento baseado em tags para encaminhar requisições baseadas em tags",
         field_default=False,
-        ui_field_name="Enable Tag Filtering",
+        ui_field_name="Habilitar Filtragem por Tags",
         link="https://docs.litellm.ai/docs/proxy/tag_routing",
     ),
     RouterSettingsField(
         field_name="tag_filtering_match_any",
         field_type="Boolean",
         field_value=None,
-        field_description="Match any tag instead of all tags for tag-based routing",
+        field_description="Corresponde a qualquer tag em vez de todas as tags para roteamento baseado em tags",
         field_default=True,
-        ui_field_name="Tag Filtering Match Any",
+        ui_field_name="Correspondência de Tags Qualquer",
     ),
     RouterSettingsField(
         field_name="disable_cooldowns",
         field_type="Boolean",
         field_value=None,
-        field_description="Disable cooldown mechanism for failed deployments",
+        field_description="Desabilitar mecanismo de espera para deployments falhos",
         field_default=None,
-        ui_field_name="Disable Cooldowns",
+        ui_field_name="Desabilitar Especialmente",
     ),
 ]

@@ -18,10 +18,10 @@ interface KeywordTierRulesProps {
 }
 
 const TIER_OPTIONS: { value: ComplexityTier; label: string }[] = [
-  { value: "SIMPLE", label: "Simple" },
-  { value: "MEDIUM", label: "Medium" },
-  { value: "COMPLEX", label: "Complex" },
-  { value: "REASONING", label: "Reasoning" },
+  { value: "SIMPLE", label: "Simples" },
+  { value: "MEDIUM", label: "Médio" },
+  { value: "COMPLEX", label: "Complexo" },
+  { value: "REASONING", label: "Raciocínio" },
 ];
 
 const KeywordTierRules: React.FC<KeywordTierRulesProps> = ({ rules, onChange }) => {
@@ -42,24 +42,23 @@ const KeywordTierRules: React.FC<KeywordTierRulesProps> = ({ rules, onChange }) 
       <div className="flex items-center justify-between mb-2">
         <div className="flex items-center gap-2">
           <Typography.Title level={4} style={{ margin: 0 }}>
-            Keyword Tier Overrides
+            Substituições de Nível por Palavras-chave
           </Typography.Title>
-          <Tooltip title="Match known terms and force the request straight to a chosen complexity tier, bypassing rule-based scoring.">
+          <Tooltip title="Corresponda a termos conhecidos e force a requisição diretamente para um nível de complexidade escolhido, ignorando a pontuação baseada em regras.">
             <InfoCircleOutlined className="text-gray-400" />
           </Tooltip>
         </div>
         <Button icon={<PlusOutlined />} onClick={addRule}>
-          Add keyword rule
+          Adicionar regra de palavra-chave
         </Button>
       </div>
       <Text type="secondary" style={{ display: "block", marginBottom: 16 }}>
-        Optional: route requests containing specific keywords directly to a tier, e.g. route &quot;invoice, refund,
-        billing&quot; to the medium tier.
+        Opcional: encaminhe requisições contendo palavras-chave específicas diretamente para um nível, por exemplo, encaminhe "invoice, refund, billing" para o nível médio.
       </Text>
 
       {rules.length === 0 ? (
         <Card className="bg-gray-50">
-          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="No keyword tier overrides configured" />
+          <Empty image={Empty.PRESENTED_IMAGE_SIMPLE} description="Nenhuma substituição de nível por palavra-chave configurada" />
         </Card>
       ) : (
         <div className="flex flex-col gap-3">
@@ -68,13 +67,13 @@ const KeywordTierRules: React.FC<KeywordTierRulesProps> = ({ rules, onChange }) 
               <div className="flex items-end gap-3">
                 <div className="flex-1">
                   <Text strong style={{ display: "block", marginBottom: 8 }}>
-                    Keywords {index + 1}
+                    Palavras-chave {index + 1}
                   </Text>
                   <AntdSelect
                     mode="tags"
                     value={rule.keywords}
                     onChange={(keywords: string[]) => updateRule(rule.id, { keywords })}
-                    placeholder="e.g., invoice, refund, billing"
+                    placeholder="ex: invoice, refund, billing"
                     tokenSeparators={[","]}
                     open={false}
                     suffixIcon={null}
@@ -84,7 +83,7 @@ const KeywordTierRules: React.FC<KeywordTierRulesProps> = ({ rules, onChange }) 
                 </div>
                 <div style={{ width: 220 }}>
                   <Text strong style={{ display: "block", marginBottom: 8 }}>
-                    Route to tier
+                    Encaminhar para o nível
                   </Text>
                   <AntdSelect
                     value={rule.tier}

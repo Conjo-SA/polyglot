@@ -61,7 +61,7 @@ function MCPHubRowActions({ server, onServerClick }: MCPHubRowActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Open MCP server actions"
+        aria-label="Abrir ações do servidor MCP"
         data-testid={`mcp-hub-actions-${server.server_id}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -70,14 +70,14 @@ function MCPHubRowActions({ server, onServerClick }: MCPHubRowActionsProps) {
       <DropdownMenuContent align="end" className="w-52">
         <DropdownMenuItem data-testid="mcp-hub-action-details" onClick={() => onServerClick(server)}>
           <Info />
-          View details
+          Ver detalhes
         </DropdownMenuItem>
         <DropdownMenuItem
           data-testid="mcp-hub-action-copy"
-          onClick={() => void copyToClipboard(server.server_name, "Server name copied")}
+          onClick={() => void copyToClipboard(server.server_name, "Nome do servidor copiado")}
         >
           <Copy />
-          Copy server name
+          Copiar nome do servidor
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

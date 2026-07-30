@@ -65,7 +65,7 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
           <div className="flex items-center gap-2 mb-2">
             <Switch size="small" checked={useServerHeader} onChange={setUseServerHeader} />
             <Text className="text-sm">
-              Limit tools to specific MCP servers or MCP groups by passing the <code>x-mcp-servers</code> header
+              Limite ferramentas para servidores MCP específicos ou grupos MCP passando o header <code>x-mcp-servers</code>
             </Text>
           </div>
           {useServerHeader && (
@@ -73,17 +73,17 @@ const FeatureCard: React.FC<FeatureCardProps> = ({
               className="mt-2"
               type="info"
               showIcon
-              message="Two Options"
+              message="Duas Opções"
               description={
                 <div>
                   <p>
-                    <strong>Option 1:</strong> Get a specific server: <code>"{serverName.replace(/\s+/g, "_")}"</code>
+                    <strong>Opção 1:</strong> Obter um servidor específico: <code>"{serverName.replace(/\s+/g, "_")}"</code>
                   </p>
                   <p>
-                    <strong>Option 2:</strong> Get a group of MCPs: <code>"dev-group"</code>
+                    <strong>Opção 2:</strong> Obter um grupo de MCPs: <code>"dev-group"</code>
                   </p>
                   <p className="mt-2 text-sm text-gray-600">
-                    You can also mix both: <code>"Server1,dev-group"</code>
+                    Você também pode combinar ambas: <code>"Server1,dev-group"</code>
                   </p>
                 </div>
               }
@@ -209,40 +209,40 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Zap className="text-emerald-600" size={24} />
           <Title level={4} className="mb-0 text-emerald-900">
-            Polyglot Proxy API Integration
+            Integração com API do Polyglot Proxy
           </Title>
         </div>
         <Text className="text-emerald-700">
-          Connect to Polyglot Proxy Responses API for seamless tool integration with multiple model providers
+          Conecte-se à API de Respostas do Polyglot Proxy para integração perfeita de ferramentas com múltiplos provedores de modelos
         </Text>
       </div>
 
       <Space direction="vertical" size="large" className="w-full">
         <FeatureCard
           icon={<KeyIcon className="text-emerald-600" size={16} />}
-          title="Virtual Key Setup"
-          description="Configure your Polyglot Proxy Virtual Key for authentication"
+          title="Configuração da Chave Virtual"
+          description="Configure sua chave virtual do Polyglot Proxy para autenticação"
         >
           <Space direction="vertical" size="middle" className="w-full">
             <div>
-              <Text>Get your Virtual Key from your Polyglot Proxy dashboard or contact your administrator</Text>
+              <Text>Obtenha sua chave virtual no painel do Polyglot Proxy ou entre em contato com seu administrador</Text>
             </div>
-            <CodeBlock title="Environment Variable" code='export LITELLM_API_KEY="sk-..."' copyKey="litellm-env" />
+            <CodeBlock title="Variável de Ambiente" code='export LITELLM_API_KEY="sk-..."' copyKey="litellm-env" />
           </Space>
         </FeatureCard>
 
         <FeatureCard
           icon={<ServerIcon className="text-emerald-600" size={16} />}
-          title="MCP Server Information"
-          description="Connection details for your Polyglot MCP server"
+          title="Informações do Servidor MCP"
+          description="Detalhes de conexão para seu servidor Polyglot MCP"
         >
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="litellm-server-url" />
+          <CodeBlock title="URL do Servidor" code={`${proxyBaseUrl}/mcp`} copyKey="litellm-server-url" />
         </FeatureCard>
 
         <FeatureCard
           icon={<Code className="text-emerald-600" size={16} />}
-          title="Implementation Example"
-          description="Complete cURL example for using the Polyglot Proxy Responses API"
+          title="Exemplo de Implementação"
+          description="Exemplo completo de cURL para usar a API de Respostas do Polyglot Proxy"
           serverName={currentServer}
           accessGroups={["dev-group"]}
         >
@@ -264,7 +264,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
             }
         }
     ],
-    "input": "Run available tools",
+    "input": "Executar ferramentas disponíveis",
     "tool_choice": "required"
 }'`}
             copyKey="litellm-curl"
@@ -281,51 +281,51 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Code className="text-blue-600" size={24} />
           <Title level={4} className="mb-0 text-blue-900">
-            OpenAI Responses API Integration
+            Integração com API de Respostas do OpenAI
           </Title>
         </div>
         <Text className="text-blue-700">
-          Connect OpenAI Responses API to your Polyglot MCP server for seamless tool integration
+          Conecte a API de Respostas do OpenAI ao seu servidor Polyglot MCP para integração perfeita de ferramentas
         </Text>
       </div>
 
       <Space direction="vertical" size="large" className="w-full">
         <FeatureCard
           icon={<KeyIcon className="text-blue-600" size={16} />}
-          title="API Key Setup"
-          description="Configure your OpenAI API key for authentication"
+          title="Configuração da Chave da API"
+          description="Configure sua chave da API do OpenAI para autenticação"
         >
           <Space direction="vertical" size="middle" className="w-full">
             <div>
               {/* eslint-disable-next-line react/no-unescaped-entities */}
               <Text>
-                Get your API key from the{" "}
+                Obtenha sua chave da API no{" "}
                 <a
                   href="https://platform.openai.com/api-keys"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-700 inline-flex items-center gap-1"
                 >
-                  OpenAI platform <ExternalLinkIcon size={12} />
+                  plataforma OpenAI <ExternalLinkIcon size={12} />
                 </a>
               </Text>
             </div>
-            <CodeBlock title="Environment Variable" code='export OPENAI_API_KEY="sk-..."' copyKey="openai-env" />
+            <CodeBlock title="Variável de Ambiente" code='export OPENAI_API_KEY="sk-..."' copyKey="openai-env" />
           </Space>
         </FeatureCard>
 
         <FeatureCard
           icon={<ServerIcon className="text-blue-600" size={16} />}
-          title="MCP Server Information"
-          description="Connection details for your Polyglot MCP server"
+          title="Informações do Servidor MCP"
+          description="Detalhes de conexão para seu servidor Polyglot MCP"
         >
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="openai-server-url" />
+          <CodeBlock title="URL do Servidor" code={`${proxyBaseUrl}/mcp`} copyKey="openai-server-url" />
         </FeatureCard>
 
         <FeatureCard
           icon={<Code className="text-blue-600" size={16} />}
-          title="Implementation Example"
-          description="Complete cURL example for using the Responses API"
+          title="Exemplo de Implementação"
+          description="Exemplo completo de cURL para usar a API de Respostas"
           serverName="Zapier Gmail"
           accessGroups={["dev-group"]}
         >
@@ -347,7 +347,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
             }
         }
     ],
-    "input": "Run available tools",
+    "input": "Executar ferramentas disponíveis",
     "tool_choice": "required"
 }'`}
             copyKey="openai-curl"
@@ -364,41 +364,41 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Terminal className="text-purple-600" size={24} />
           <Title level={4} className="mb-0 text-purple-900">
-            Cursor IDE Integration
+            Integração com IDE Cursor
           </Title>
         </div>
         <Text className="text-purple-700">
-          Use tools directly from Cursor IDE with Polyglot MCP. Enable your AI assistant to perform real-world tasks
-          without leaving your coding environment.
+          Use ferramentas diretamente do IDE Cursor com Polyglot MCP. Permita que seu assistente inteligente realize tarefas do mundo real
+          sem sair do seu ambiente de codificação.
         </Text>
       </div>
 
       <Card className="border border-gray-200">
         <Title level={5} className="mb-4 text-gray-800">
-          Setup Instructions
+          Instruções de Configuração
         </Title>
         <Space direction="vertical" size="large" className="w-full">
           <StepCard step={1} title="Open Cursor Settings">
             <Text className="text-gray-600">
-              Use the keyboard shortcut <code className="bg-gray-100 px-2 py-1 rounded-sm">⇧+⌘+J</code> (Mac) or{" "}
+              Use o atalho de teclado <code className="bg-gray-100 px-2 py-1 rounded-sm">⇧+⌘+J</code> (Mac) ou{" "}
               <code className="bg-gray-100 px-2 py-1 rounded-sm">Ctrl+Shift+J</code> (Windows/Linux)
             </Text>
           </StepCard>
 
           <StepCard step={2} title="Navigate to MCP Tools">
-            <Text className="text-gray-600">Go to the "MCP Tools" tab and click "New MCP Server"</Text>
+            <Text className="text-gray-600">Acesse a aba "Ferramentas MCP" e clique em "Novo Servidor MCP"</Text>
           </StepCard>
 
           <StepCard step={3} title="Add Configuration">
             <Text className="text-gray-600 mb-3">
-              Copy the JSON configuration below and paste it into Cursor, then save with{" "}
-              <code className="bg-gray-100 px-2 py-1 rounded-sm">Cmd+S</code> or{" "}
+              Copie a configuração JSON abaixo e cole no Cursor, depois salve com{" "}
+              <code className="bg-gray-100 px-2 py-1 rounded-sm">Cmd+S</code> ou{" "}
               <code className="bg-gray-100 px-2 py-1 rounded-sm">Ctrl+S</code>
             </Text>
             <FeatureCard
               icon={<Code className="text-purple-600" size={16} />}
-              title="Configuration"
-              description="Cursor MCP configuration"
+              title="Configuração"
+              description="Configuração do Cursor MCP"
               serverName="Zapier Gmail"
               accessGroups={["dev-group"]}
             >
@@ -430,29 +430,29 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
         <div className="flex items-center gap-3 mb-3">
           <Globe className="text-green-600" size={24} />
           <Title level={4} className="mb-0 text-green-900">
-            Streamable HTTP Transport
+            Transporte HTTP Streamable
           </Title>
         </div>
         <Text className="text-green-700">
-          Connect to Polyglot MCP using HTTP transport. Compatible with any MCP client that supports HTTP streaming.
+          Conecte-se ao Polyglot MCP usando transporte HTTP. Compatível com qualquer cliente MCP que suporte streaming HTTP.
         </Text>
       </div>
 
       <FeatureCard
         icon={<Globe className="text-green-600" size={16} />}
-        title="Universal MCP Connection"
-        description="Use this URL with any MCP client that supports HTTP transport"
+        title="Conexão Universal MCP"
+        description="Use esta URL com qualquer cliente MCP que suporte transporte HTTP"
       >
         <Space direction="vertical" size="middle" className="w-full">
           <div>
             <Text>
-              Each MCP client supports different transports. Refer to your client documentation to determine the
-              appropriate transport method.
+              Cada cliente MCP suporta diferentes transportes. Consulte a documentação do seu cliente para determinar o
+              método de transporte apropriado.
             </Text>
           </div>
-          <CodeBlock title="Server URL" code={`${proxyBaseUrl}/mcp`} copyKey="http-server-url" />
+          <CodeBlock title="URL do Servidor" code={`${proxyBaseUrl}/mcp`} copyKey="http-server-url" />
           <CodeBlock
-            title="Headers Configuration"
+            title="Configuração de Headers"
             code={JSON.stringify(
               {
                 "x-litellm-api-key": "Bearer YOUR_LITELLM_API_KEY",
@@ -469,7 +469,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
               href="https://modelcontextprotocol.io/docs/concepts/transports"
               icon={<ExternalLinkIcon size={14} />}
             >
-              Learn more about MCP transports
+              Saiba mais sobre transportes MCP
             </Button>
           </div>
         </Space>
@@ -481,10 +481,10 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
     <div>
       <Space direction="vertical" size="large" className="w-full">
         <div>
-          <TremorTitle className="text-3xl font-bold text-gray-900 mb-3">Connect to your MCP client</TremorTitle>
+          <TremorTitle className="text-3xl font-bold text-gray-900 mb-3">Conecte-se ao seu cliente MCP</TremorTitle>
           <TremorText className="text-lg text-gray-600">
-            Use tools directly from any MCP client with Polyglot MCP. Enable your AI assistant to perform real-world
-            tasks through a simple, secure connection.
+            Use ferramentas diretamente de qualquer cliente MCP com Polyglot MCP. Permita que seu assistente inteligente realize tarefas do mundo real
+            através de uma conexão simples e segura.
           </TremorText>
         </div>
 
@@ -494,7 +494,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
               <Tab className="px-6 py-3 rounded-md transition-all duration-200">
                 <span className="flex items-center gap-2 font-medium">
                   <Code size={18} />
-                  OpenAI API
+                  API do OpenAI
                 </span>
               </Tab>
               <Tab className="px-6 py-3 rounded-md transition-all duration-200">
@@ -512,7 +512,7 @@ const MCPConnect: React.FC<MCPConnectProps> = ({ currentServerAccessGroups = [] 
               <Tab className="px-6 py-3 rounded-md transition-all duration-200">
                 <span className="flex items-center gap-2 font-medium">
                   <Globe size={18} />
-                  Streamable HTTP
+                  HTTP Streamable
                 </span>
               </Tab>
             </div>
