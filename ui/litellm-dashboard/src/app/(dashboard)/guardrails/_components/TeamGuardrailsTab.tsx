@@ -394,7 +394,7 @@ function DetailPanel({
             type="button"
             onClick={onClose}
             className="text-gray-400 hover:text-gray-600 transition-colors"
-            aria-label="Close detail panel"
+            aria-label="Fechar painel de detalhes"
           >
             <XIcon className="h-4 w-4" />
           </button>
@@ -525,7 +525,7 @@ function DetailPanel({
           </div>
           <div>
             <div className="flex items-center gap-1.5 mb-2">
-              <span className="text-xs font-semibold text-gray-700">Forward client headers</span>
+              <span className="text-xs font-semibold text-gray-700">Encaminhar cabeçalhos do cliente</span>
               {g.extraHeaders.length > 0 && (
                 <span className="bg-gray-100 text-gray-600 rounded-full px-1.5 py-0.5 text-xs">
                   {g.extraHeaders.length}
@@ -533,10 +533,10 @@ function DetailPanel({
               )}
             </div>
             <p className="text-xs text-gray-400 mb-2">
-              Allowed header names to forward from the client request to the guardrail (e.g. x-request-id).
+              Nomes de cabeçalhos permitidos para encaminhar da requisição do cliente para o guardrail (ex: x-request-id).
             </p>
             {g.extraHeaders.length === 0 ? (
-              <p className="text-xs text-gray-400 italic mb-2">No forward client headers configured.</p>
+              <p className="text-xs text-gray-400 italic mb-2">Nenhum cabeçalho do cliente configurado para encaminhar.</p>
             ) : (
               <ul className="list-none space-y-1 mb-2">
                 {g.extraHeaders.map((name, i) => (
@@ -596,7 +596,7 @@ function DetailPanel({
               onClick={() => setConfigExpanded(!configExpanded)}
               className="w-full flex items-center justify-between px-3 py-2 text-left text-xs font-semibold text-gray-700 bg-gray-50 hover:bg-gray-100 transition-colors"
             >
-              <span>Equivalent config</span>
+              <span>Configuração equivalente</span>
               {configExpanded ? (
                 <ChevronUpIcon className="h-3.5 w-3.5 text-gray-500" />
               ) : (
@@ -683,14 +683,14 @@ function ConfirmDialog({ action, guardrailName, onConfirm, onCancel }: ConfirmDi
           )}
         </div>
         <h3 className="text-base font-semibold text-gray-900 mb-1">
-          {isApprove ? "Approve Guardrail" : "Reject Guardrail"}
+          {isApprove ? "Aprovar Guardrail" : "Rejeitar Guardrail"}
         </h3>
         <p className="text-sm text-gray-500 mb-5">
-          Are you sure you want to {action}{" "}
+          Tem certeza que deseja {action === "approve" ? "aprovar" : "rejeitar"}{" "}
           <span className="font-medium text-gray-700">&quot;{guardrailName}&quot;</span>?{" "}
           {isApprove
-            ? "This will make it active and available for use."
-            : "This will mark it as rejected and notify the team."}
+            ? "Isso tornará ele ativo e disponível para uso."
+            : "Isso marcara como rejeitado e notificará o time."}
         </p>
         <div className="flex gap-3">
           <button
@@ -698,7 +698,7 @@ function ConfirmDialog({ action, guardrailName, onConfirm, onCancel }: ConfirmDi
             onClick={onCancel}
             className="flex-1 border border-gray-300 text-gray-700 hover:bg-gray-50 text-sm font-medium py-2 rounded-md transition-colors"
           >
-            Cancel
+            Cancelar
           </button>
           <button
             type="button"
@@ -707,7 +707,7 @@ function ConfirmDialog({ action, guardrailName, onConfirm, onCancel }: ConfirmDi
               isApprove ? "bg-green-500 hover:bg-green-600" : "bg-red-500 hover:bg-red-600"
             }`}
           >
-            {isApprove ? "Approve" : "Reject"}
+            {isApprove ? "Aprovar" : "Rejeitar"}
           </button>
         </div>
       </div>
@@ -787,9 +787,9 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
         litellm_params: { forward_api_key: newValue },
       });
       setGuardrails((prev) => prev.map((x) => (x.id === id ? { ...x, forwardKey: newValue } : x)));
-      NotificationsManager.success(newValue ? "Forward API key enabled" : "Forward API key disabled");
+      NotificationsManager.success(newValue ? "Chave API encaminhada ativada" : "Chave API encaminhada desativada");
     } catch {
-      NotificationsManager.fromBackend("Failed to update forward API key");
+      NotificationsManager.fromBackend("Falha ao atualizar chave API encaminhada");
     }
   }
 
@@ -813,9 +813,9 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             : x,
         ),
       );
-      NotificationsManager.success("Static headers updated");
+      NotificationsManager.success("Cabeçalhos estáticos atualizados");
     } catch {
-      NotificationsManager.fromBackend("Failed to update static headers");
+      NotificationsManager.fromBackend("Falha ao atualizar cabeçalhos estáticos");
     }
   }
 
@@ -826,9 +826,9 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
         litellm_params: { extra_headers: extraHeaders },
       });
       setGuardrails((prev) => prev.map((x) => (x.id === id ? { ...x, extraHeaders } : x)));
-      NotificationsManager.success("Forward client headers updated");
+      NotificationsManager.success("Cabeçalhos do cliente encaminhados atualizados");
     } catch {
-      NotificationsManager.fromBackend("Failed to update forward client headers");
+      NotificationsManager.fromBackend("Falha ao atualizar cabeçalhos do cliente encaminhados");
     }
   }
 
@@ -839,9 +839,9 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
       setConfirmAction(null);
       if (selectedId === id) setSelectedId(null);
       await fetchSubmissions();
-      NotificationsManager.success("Guardrail approved");
+      NotificationsManager.success("Guardrail aprovado");
     } catch {
-      NotificationsManager.fromBackend("Failed to approve guardrail");
+      NotificationsManager.fromBackend("Falha ao aprovar guardrail");
     }
   }
 
@@ -852,9 +852,9 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
       setConfirmAction(null);
       if (selectedId === id) setSelectedId(null);
       await fetchSubmissions();
-      NotificationsManager.success("Guardrail rejected");
+      NotificationsManager.success("Guardrail rejeitado");
     } catch {
-      NotificationsManager.fromBackend("Failed to reject guardrail");
+      NotificationsManager.fromBackend("Falha ao rejeitar guardrail");
     }
   }
 
@@ -871,17 +871,17 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
     <div className="flex h-full">
       <div className={`flex-1 min-w-0 p-6 overflow-auto ${selected ? "border-r border-gray-200" : ""}`}>
         <div className="grid grid-cols-4 gap-4 mb-6">
-          <StatCard label="Total Submitted" value={totalCount} color="text-gray-900" />
-          <StatCard label="Pending Review" value={pendingCount} color="text-yellow-600" />
-          <StatCard label="Active" value={activeCount} color="text-green-600" />
-          <StatCard label="Rejected" value={rejectedCount} color="text-red-600" />
+          <StatCard label="Total Enviados" value={totalCount} color="text-gray-900" />
+          <StatCard label="Aguardando Revisão" value={pendingCount} color="text-yellow-600" />
+          <StatCard label="Ativo" value={activeCount} color="text-green-600" />
+          <StatCard label="Rejeitado" value={rejectedCount} color="text-red-600" />
         </div>
         <div className="flex items-center gap-3 mb-5">
           <div className="relative flex-1 max-w-xs">
             <SearchIcon className="absolute left-3 top-1/2 -translate-y-1/2 h-4 w-4 text-gray-400" />
             <input
               type="text"
-              placeholder="Search guardrails..."
+              placeholder="Buscar guardrails..."
               value={search}
               onChange={(e) => setSearch(e.target.value)}
               className="w-full pl-9 pr-4 py-2 border border-gray-200 rounded-md text-sm text-gray-700 placeholder-gray-400 focus:outline-hidden focus:ring-1 focus:ring-blue-500 focus:border-blue-500"
@@ -903,14 +903,14 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             className="ml-auto flex items-center gap-2 bg-blue-500 hover:bg-blue-600 text-white text-sm font-medium px-4 py-2 rounded-md transition-colors"
           >
             <PlusIcon className="h-4 w-4" />
-            Add Guardrail
+            Adicionar Guardrail
           </button>
         </div>
         <div className="space-y-3">
           {isLoading && <div className="text-center py-12 text-gray-500 text-sm">Loading submissions…</div>}
           {error && <div className="text-center py-12 text-red-600 text-sm">{error}</div>}
           {!isLoading && !error && filtered.length === 0 && (
-            <div className="text-center py-12 text-gray-400 text-sm">No guardrails match your filters.</div>
+            <div className="text-center py-12 text-gray-400 text-sm">Nenhum guardrail corresponde aos seus filtros.</div>
           )}
           {!isLoading &&
             !error &&
@@ -982,7 +982,7 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
                 litellm_params,
                 guardrail_info: values.guardrail_info ? JSON.parse(values.guardrail_info) : undefined,
               });
-              NotificationsManager.success("Guardrail submitted for review");
+              NotificationsManager.success("Guardrail enviado para revisão");
               setIsSubmitModalOpen(false);
               submitForm.resetFields();
               fetchSubmissions();
@@ -991,7 +991,7 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             }
           }}
         >
-          <Form.Item label="Team" name="team_id" rules={[{ required: true, message: "Select a team" }]}>
+          <Form.Item label="Time" name="team_id" rules={[{ required: true, message: "Selecione um time" }]}>
             <TeamDropdown />
           </Form.Item>
           <Form.Item
@@ -1009,19 +1009,19 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             </Select>
           </Form.Item>
           <Form.Item
-            label="API Base URL"
+            label="URL Base da API"
             name="api_base"
             rules={[
-              { required: true, message: "Enter the API base URL" },
-              { type: "url", message: "Must be a valid URL" },
+              { required: true, message: "Informe a URL base da API" },
+              { type: "url", message: "Deve ser uma URL válida" },
             ]}
           >
             <Input placeholder="https://your-guardrail-api.com/v1/check" className="font-mono" />
           </Form.Item>
           <Form.Item
-            label="Additional litellm_params (optional)"
+            label="Parâmetros adicionais litellm (opcional)"
             name="extra_litellm_params"
-            tooltip="JSON object merged into litellm_params. e.g. forward_api_key, headers, model, unreachable_fallback"
+            tooltip="Objeto JSON mesclado em litellm_params. ex: forward_api_key, headers, model, unreachable_fallback"
             rules={[
               {
                 validator: (_, value) => {
@@ -1029,11 +1029,11 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
                   try {
                     const parsed = JSON.parse(value);
                     if (typeof parsed !== "object" || Array.isArray(parsed)) {
-                      return Promise.reject("Must be a JSON object");
+                      return Promise.reject("Deve ser um objeto JSON");
                     }
                     return Promise.resolve();
                   } catch {
-                    return Promise.reject("Invalid JSON");
+                    return Promise.reject("JSON inválido");
                   }
                 },
               },
@@ -1046,7 +1046,7 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
             />
           </Form.Item>
           <Form.Item
-            label="Guardrail Info (optional)"
+            label="Informações do Guardrail (opcional)"
             name="guardrail_info"
             rules={[
               {
@@ -1056,7 +1056,7 @@ export function TeamGuardrailsTab({ accessToken }: TeamGuardrailsTabProps) {
                     JSON.parse(value);
                     return Promise.resolve();
                   } catch {
-                    return Promise.reject("Invalid JSON");
+                    return Promise.reject("JSON inválido");
                   }
                 },
               },

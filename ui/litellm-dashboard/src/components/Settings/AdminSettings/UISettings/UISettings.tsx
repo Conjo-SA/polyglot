@@ -307,7 +307,7 @@ export default function UISettings() {
               aria-label={forwardClientHeadersProperty?.description ?? "Forward client headers to LLM API"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Forward client headers to LLM API</Typography.Text>
+              <Typography.Text strong>Encaminhar cabeçalhos do cliente para a API LLM</Typography.Text>
               <Typography.Text type="secondary">
                 {forwardClientHeadersProperty?.description ??
                   "Encaminha cabeçalhos do cliente (Authorization, anthropic-beta e cabeçalhos personalizados x-*) para o LLM upstream. Ative para Claude Code com assinatura Max (encaminha o token OAuth) ou para passar cabeçalhos personalizados/rastreamento ao provedor. Independente do interruptor BYOK — ative apenas o(s) necessário(s)."}
@@ -324,7 +324,7 @@ export default function UISettings() {
               aria-label={forwardLLMProviderAuthHeadersProperty?.description ?? "Forward LLM provider auth headers"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Forward LLM provider auth headers</Typography.Text>
+              <Typography.Text strong>Encaminhar cabeçalhos de autenticação do provedor LLM</Typography.Text>
               <Typography.Text type="secondary">
                 {forwardLLMProviderAuthHeadersProperty?.description ??
                   "Encaminha cabeçalhos de autenticação do provedor (x-api-key, x-goog-api-key, api-key, ocp-apim-subscription-key) para o LLM upstream, substituindo qualquer chave configurada para aquela solicitação. Ative para Claude Code BYOK (clientes trazem sua própria chave API). Independente do interruptor de cabeçalhos do cliente — ative apenas o(s) necessário(s)."}
@@ -397,7 +397,7 @@ export default function UISettings() {
             />
             <Space direction="vertical" size={4}>
               <Typography.Text strong type={!isAgentsDisabled ? "secondary" : undefined}>
-                Allow agents for team admins
+                Permitir agentes para administradores de equipe
               </Typography.Text>
               {allowAgentsTeamAdminsProperty?.description && (
                 <Typography.Text type="secondary">{allowAgentsTeamAdminsProperty.description}</Typography.Text>
@@ -434,7 +434,7 @@ export default function UISettings() {
             />
             <Space direction="vertical" size={4}>
               <Typography.Text strong type={!isVectorStoresDisabled ? "secondary" : undefined}>
-                Allow vector stores for team admins
+                Permitir armazenamento vetorial para administradores de equipe
               </Typography.Text>
               {allowVectorStoresTeamAdminsProperty?.description && (
                 <Typography.Text type="secondary">{allowVectorStoresTeamAdminsProperty.description}</Typography.Text>
@@ -444,7 +444,7 @@ export default function UISettings() {
 
           <Divider />
 
-          {/* Scope user search to organization */}
+          {/* Escopo da pesquisa de usuários para organização */}
           <Space align="start" size="middle">
             <Switch
               checked={Boolean(values.scope_user_search_to_org)}
@@ -454,7 +454,7 @@ export default function UISettings() {
               aria-label={scopeUserSearchProperty?.description ?? "Scope user search to organization"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Scope user search to organization</Typography.Text>
+              <Typography.Text strong>Limitar pesquisa de usuários à organização</Typography.Text>
               <Typography.Text type="secondary">
                 {scopeUserSearchProperty?.description ??
                   "Se ativado, o endpoint de busca de usuários restringe resultados por organização. Quando desativado, qualquer usuário autenticado pode buscar todos os usuários."}
@@ -464,7 +464,7 @@ export default function UISettings() {
 
           <Divider />
 
-          {/* Disable custom Virtual key values */}
+          {/* Desabilitar valores de chaves virtuais personalizadas */}
           <Space align="start" size="middle">
             <Switch
               checked={Boolean(values.disable_custom_api_keys)}
@@ -474,7 +474,7 @@ export default function UISettings() {
               aria-label={disableCustomApiKeysProperty?.description ?? "Disable custom Virtual key values"}
             />
             <Space direction="vertical" size={4}>
-              <Typography.Text strong>Disable custom Virtual key values</Typography.Text>
+              <Typography.Text strong>Desabilitar valores de chaves virtuais personalizadas</Typography.Text>
               <Typography.Text type="secondary">
                 {disableCustomApiKeysProperty?.description ??
                   "Se verdadeiro, os usuários não podem especificar valores de chave personalizados. Todas as chaves devem ser geradas automaticamente."}

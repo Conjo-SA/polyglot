@@ -21,33 +21,33 @@ const generateModelSection = (result: CostEstimateResponse): string => {
       <h3>${result.model} ${result.provider ? `<span class="provider">(${result.provider})</span>` : ""}</h3>
       
       <div class="meta">
-        <p><strong>Input Tokens per Request:</strong> ${formatRequestsForExport(result.input_tokens)}</p>
-        <p><strong>Output Tokens per Request:</strong> ${formatRequestsForExport(result.output_tokens)}</p>
-        ${result.num_requests_per_day ? `<p><strong>Requests per Day:</strong> ${formatRequestsForExport(result.num_requests_per_day)}</p>` : ""}
-        ${result.num_requests_per_month ? `<p><strong>Requests per Month:</strong> ${formatRequestsForExport(result.num_requests_per_month)}</p>` : ""}
+        <p><strong>Tokens de Entrada por Pedido:</strong> ${formatRequestsForExport(result.input_tokens)}</p>
+        <p><strong>Tokens de Saída por Pedido:</strong> ${formatRequestsForExport(result.output_tokens)}</p>
+        ${result.num_requests_per_day ? `<p><strong>Pedidos por Dia:</strong> ${formatRequestsForExport(result.num_requests_per_day)}</p>` : ""}
+        ${result.num_requests_per_month ? `<p><strong>Pedidos por Mês:</strong> ${formatRequestsForExport(result.num_requests_per_month)}</p>` : ""}
       </div>
 
       <table>
         <tr>
-          <th>Cost Type</th>
-          <th>Per Request</th>
+          <th>Tipo de Custo</th>
+          <th>Por Pedido</th>
           ${result.daily_cost !== null ? "<th>Daily</th>" : ""}
           ${result.monthly_cost !== null ? "<th>Monthly</th>" : ""}
         </tr>
         <tr>
-          <td>Input Cost</td>
+          <td>Custo de Entrada</td>
           <td class="cost-value">${formatCostForExport(result.input_cost_per_request)}</td>
           ${result.daily_cost !== null ? `<td class="cost-value">${formatCostForExport(result.daily_input_cost)}</td>` : ""}
           ${result.monthly_cost !== null ? `<td class="cost-value">${formatCostForExport(result.monthly_input_cost)}</td>` : ""}
         </tr>
         <tr>
-          <td>Output Cost</td>
+          <td>Custo de Saída</td>
           <td class="cost-value">${formatCostForExport(result.output_cost_per_request)}</td>
           ${result.daily_cost !== null ? `<td class="cost-value">${formatCostForExport(result.daily_output_cost)}</td>` : ""}
           ${result.monthly_cost !== null ? `<td class="cost-value">${formatCostForExport(result.monthly_output_cost)}</td>` : ""}
         </tr>
         <tr>
-          <td>Margin/Fee</td>
+          <td>Margem/Taxa</td>
           <td class="cost-value">${formatCostForExport(result.margin_cost_per_request)}</td>
           ${result.daily_cost !== null ? `<td class="cost-value">${formatCostForExport(result.daily_margin_cost)}</td>` : ""}
           ${result.monthly_cost !== null ? `<td class="cost-value">${formatCostForExport(result.monthly_margin_cost)}</td>` : ""}
@@ -66,7 +66,7 @@ const generateModelSection = (result: CostEstimateResponse): string => {
 export const exportMultiToPDF = (multiResult: MultiModelResult): void => {
   const printWindow = window.open("", "_blank");
   if (!printWindow) {
-    alert("Please allow popups to export PDF");
+    alert("Por favor, permita popups para exportar o PDF");
     return;
   }
 
@@ -77,7 +77,7 @@ export const exportMultiToPDF = (multiResult: MultiModelResult): void => {
     <!DOCTYPE html>
     <html>
     <head>
-      <title>Multi-Model Cost Estimate Report</title>
+      <title>Relatório de Estimativa de Custos de Múltiplos Modelos</title>
       <style>
         body {
           font-family: -apple-system, BlinkMacSystemFont, 'Segoe UI', Roboto, sans-serif;
@@ -193,22 +193,22 @@ export const exportMultiToPDF = (multiResult: MultiModelResult): void => {
       </style>
     </head>
     <body>
-      <h1>LLM Cost Estimate Report</h1>
-      <p style="color: #666; margin-top: -20px; margin-bottom: 30px;">${modelCount} model${modelCount !== 1 ? "s" : ""} configured</p>
+      <h1>Relatório de Estimativa de Custos LLM</h1>
+      <p style="color: #666; margin-top: -20px; margin-bottom: 30px;">${modelCount} modelo${modelCount !== 1 ? "s" : ""} configurado${modelCount !== 1 ? "s" : ""}</p>
       
       <div class="summary-box">
-        <h2>Combined Totals</h2>
+        <h2>Totais Combinados</h2>
         <div class="summary-grid">
           <div class="summary-item">
-            <div class="label">Total Per Request</div>
+            <div class="label">Total Por Pedido</div>
             <div class="value blue">${formatCostForExport(multiResult.totals.cost_per_request)}</div>
           </div>
           <div class="summary-item">
-            <div class="label">Total Daily</div>
+            <div class="label">Total Diário</div>
             <div class="value green">${formatCostForExport(multiResult.totals.daily_cost)}</div>
           </div>
           <div class="summary-item">
-            <div class="label">Total Monthly</div>
+            <div class="label">Total Mensal</div>
             <div class="value purple">${formatCostForExport(multiResult.totals.monthly_cost)}</div>
           </div>
         </div>
@@ -217,15 +217,15 @@ export const exportMultiToPDF = (multiResult: MultiModelResult): void => {
             ? `
         <div class="summary-grid" style="margin-top: 15px; padding-top: 15px; border-top: 1px solid #ddd;">
           <div class="summary-item">
-            <div class="label">Margin/Request</div>
+            <div class="label">Margem/Pedido</div>
             <div class="value" style="color: #faad14;">${formatCostForExport(multiResult.totals.margin_per_request)}</div>
           </div>
           <div class="summary-item">
-            <div class="label">Daily Margin</div>
+            <div class="label">Margem Diária</div>
             <div class="value" style="color: #faad14;">${formatCostForExport(multiResult.totals.daily_margin)}</div>
           </div>
           <div class="summary-item">
-            <div class="label">Monthly Margin</div>
+            <div class="label">Margem Mensal</div>
             <div class="value" style="color: #faad14;">${formatCostForExport(multiResult.totals.monthly_margin)}</div>
           </div>
         </div>
@@ -234,11 +234,11 @@ export const exportMultiToPDF = (multiResult: MultiModelResult): void => {
         }
       </div>
 
-      <h2>Model Breakdown</h2>
+      <h2>Detalhamento por Modelo</h2>
       ${validEntries.map((e) => generateModelSection(e.result!)).join("")}
 
       <div class="footer">
-        <p>Generated by Polyglot Pricing Calculator on ${new Date().toLocaleString()}</p>
+        <p>Gerado pelo Calculador de Preços Polyglot em ${new Date().toLocaleString()}</p>
       </div>
     </body>
     </html>
@@ -254,34 +254,34 @@ export const exportMultiToPDF = (multiResult: MultiModelResult): void => {
 export const exportMultiToCSV = (multiResult: MultiModelResult): void => {
   const validEntries = multiResult.entries.filter((e) => e.result !== null);
 
-  const rows: string[][] = [["LLM Multi-Model Cost Estimate Report"], ["Generated", new Date().toLocaleString()], [""]];
+  const rows: string[][] = [["Relatório de Estimativa de Custos de Múltiplos Modelos LLM"], ["Gerado", new Date().toLocaleString()], [""]];
 
   // Summary section
   rows.push(
-    ["COMBINED TOTALS"],
-    ["Total Per Request", multiResult.totals.cost_per_request.toString()],
-    ["Total Daily", multiResult.totals.daily_cost?.toString() || "-"],
-    ["Total Monthly", multiResult.totals.monthly_cost?.toString() || "-"],
-    ["Margin Per Request", multiResult.totals.margin_per_request.toString()],
-    ["Daily Margin", multiResult.totals.daily_margin?.toString() || "-"],
-    ["Monthly Margin", multiResult.totals.monthly_margin?.toString() || "-"],
+    ["TOTAiS COMBINADOS"],
+    ["Total Por Pedido", multiResult.totals.cost_per_request.toString()],
+    ["Total Diário", multiResult.totals.daily_cost?.toString() || "-"],
+    ["Total Mensal", multiResult.totals.monthly_cost?.toString() || "-"],
+    ["Margem Por Pedido", multiResult.totals.margin_per_request.toString()],
+    ["Margem Diária", multiResult.totals.daily_margin?.toString() || "-"],
+    ["Margem Mensal", multiResult.totals.monthly_margin?.toString() || "-"],
     [""],
   );
 
   // Summary table header
   rows.push([
-    "Model",
-    "Provider",
-    "Input Tokens",
-    "Output Tokens",
-    "Requests/Day",
-    "Requests/Month",
-    "Cost/Request",
-    "Daily Cost",
-    "Monthly Cost",
-    "Input Cost/Req",
-    "Output Cost/Req",
-    "Margin/Req",
+    "Modelo",
+    "Provedor",
+    "Tokens de Entrada",
+    "Tokens de Saída",
+    "Pedidos/Dia",
+    "Pedidos/Mês",
+    "Custo/Pedido",
+    "Custo Diário",
+    "Custo Mensal",
+    "Custo Entrada/Pedido",
+    "Custo Saída/Pedido",
+    "Margem/Pedido",
   ]);
 
   // Add each model's data

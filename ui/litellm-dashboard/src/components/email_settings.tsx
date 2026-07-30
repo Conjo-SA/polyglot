@@ -101,43 +101,43 @@ const EmailSettings: React.FC<EmailSettingsProps> = ({ accessToken, premiumUser,
                         <p style={{ fontSize: "small", fontStyle: "italic" }}>
                           {key === "SMTP_HOST" && (
                             <div style={{ color: "gray" }}>
-                              Enter the SMTP host address, e.g. `smtp.resend.com`
+                              Insira o endereço do servidor SMTP, por exemplo `smtp.resend.com`
                               <span style={{ color: "red" }}> Required * </span>
                             </div>
                           )}
 
                           {key === "SMTP_PORT" && (
                             <div style={{ color: "gray" }}>
-                              Enter the SMTP port number, e.g. `587`
+                              Insira o número da porta SMTP, por exemplo `587`
                               <span style={{ color: "red" }}> Required * </span>
                             </div>
                           )}
 
                           {key === "SMTP_USERNAME" && (
                             <div style={{ color: "gray" }}>
-                              Enter the SMTP username, e.g. `username`
+                              Insira o nome de usuário SMTP, por exemplo `usuário`
                               <span style={{ color: "red" }}> Required * </span>
                             </div>
                           )}
 
-                          {key === "SMTP_PASSWORD" && <span style={{ color: "red" }}> Required * </span>}
+                          {key === "SMTP_PASSWORD" && <span style={{ color: "red" }}> Necessário * </span>}
 
                           {key === "SMTP_SENDER_EMAIL" && (
                             <div style={{ color: "gray" }}>
-                              Enter the sender email address, e.g. `sender@berri.ai`
+                              Insira o endereço de e-mail do remetente, por exemplo `remetente@berri.ai`
                               <span style={{ color: "red" }}> Required * </span>
                             </div>
                           )}
 
                           {key === "TEST_EMAIL_ADDRESS" && (
                             <div style={{ color: "gray" }}>
-                              Email Address to send `Test Email Alert` to. example: `info@berri.ai`
+                              Endereço de e-mail para enviar o alerta de teste. exemplo: `info@berri.ai`
                               <span style={{ color: "red" }}> Required * </span>
                             </div>
                           )}
                           {key === "EMAIL_LOGO_URL" && (
                             <div style={{ color: "gray" }}>
-                              (Optional) Customize the Logo that appears in the email, pass a url to your logo
+                              (Opcional) Personalize o logotipo que aparece no e-mail, informe uma URL para seu logotipo
                             </div>
                           )}
                           {key === "EMAIL_SUPPORT_CONTACT" && (
