@@ -8,6 +8,7 @@ import { getModelDisplayName } from "./key_team_helpers/fetch_available_models_t
 import NotificationsManager from "./molecules/notifications_manager";
 import { ModelSelect } from "./ModelSelect/ModelSelect";
 import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
+import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 
 const { Title, Text } = Typography;
 
@@ -203,7 +204,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
               description="Maximum budget (in USD) for new automatically created teams."
               isEditing={isEditing}
               viewContent={
-                values.max_budget != null ? <Text>${Number(values.max_budget).toLocaleString()}</Text> : <NotSet />
+                values.max_budget != null ? <MoneyCell value={values.max_budget} decimals={2} /> : <NotSet />
               }
               editContent={
                 <FormItem name="max_budget" noStyle>

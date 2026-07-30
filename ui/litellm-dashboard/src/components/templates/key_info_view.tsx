@@ -2,7 +2,7 @@ import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { useProjects } from "@/app/(dashboard)/hooks/projects/useProjects";
 import { useUISettings } from "@/app/(dashboard)/hooks/uiSettings/useUISettings";
 import useTeams from "@/app/(dashboard)/hooks/useTeams";
-import { formatNumberWithCommas } from "@/utils/dataUtils";
+import { formatNumberWithCommas, formatSpend } from "@/utils/dataUtils";
 import { mapEmptyStringToNull } from "@/utils/keyUpdateUtils";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import { Badge, Button, Card, Grid, Tab, TabGroup, TabList, TabPanel, TabPanels, Text, Title } from "@tremor/react";
@@ -27,6 +27,7 @@ import { parseErrorMessage } from "../shared/errorUtils";
 import { KeyEditView } from "./key_edit_view";
 import { useTranslation } from "react-i18next";
 import { MoneyCell } from "@/components/shared/table_cells";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface KeyInfoViewProps {
   keyId: string;
@@ -83,6 +84,7 @@ export default function KeyInfoView({
   const [isRegenerateModalOpen, setIsRegenerateModalOpen] = useState(false);
   const [isResetSpendModalOpen, setIsResetSpendModalOpen] = useState(false);
   const { mutate: resetKeySpend, isPending: resetSpendLoading } = useResetKeySpend();
+  const { currency, rate } = useCurrency();
   // Add local state to maintain key data and track regeneration
   const [currentKeyData, setCurrentKeyData] = useState<KeyResponse | undefined>(keyData);
   const [lastRegeneratedAt, setLastRegeneratedAt] = useState<Date | null>(null);

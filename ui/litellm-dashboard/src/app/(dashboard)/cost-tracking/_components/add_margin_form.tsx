@@ -6,7 +6,6 @@ import { Providers, provider_map, providerLogoMap } from "@/components/provider_
 import { resolveLogoSrc } from "@/lib/assetPaths";
 import { MarginConfig } from "./types";
 import { handleImageError } from "./provider_display_helpers";
-import { useCurrency } from "@/contexts/CurrencyContext";
 import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 
@@ -157,29 +156,13 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
           }
           rules={[
             { required: true, message: "Por favor informe um valor fixo" },
-            {
-              validator: (_, value) => {
-                if (!value) {
-                  return Promise.reject(new Error("Por favor informe um valor fixo"));
-                }
-                const numValue = parseFloat(value);
-                if (isNaN(numValue) || numValue < 0) {
-                  return Promise.reject(new Error("O valor fixo deve ser não negativo"));
-                }
-                return Promise.resolve();
-              },
-            },
           ]}
         >
-          <div className="flex items-center gap-2">
-            <span className="text-gray-600">{useCurrency().symbol}</span>
-            <TextInput
-              placeholder="0.001"
-              value={fixedAmountValue}
-              onValueChange={onFixedAmountChange}
-              className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 flex-1"
-            />
-          </div>
+          <CurrencyMoneyInput
+            value={fixedAmountValue !== "" ? parseFloat(fixedAmountValue) : undefined}
+            onChange={(value) => onFixedAmountChange(value !== null ? value.toString() : '')}
+            min={0}
+          />
         </Form.Item>
       )}
 
@@ -190,7 +173,7 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
           disabled={
             !selectedProvider ||
             (marginType === "percentage" && !percentageValue) ||
-            (marginType === "fixed" && !fixedAmountValue)
+            (marginType === "fixed" && (!fixedAmountValue || isNaN(parseFloat(fixedAmountValue))))
           }
         >
           Adicionar Margem por Provedor
