@@ -4,7 +4,7 @@ import { Form, Input, Modal, Select as Select2, Tooltip } from "antd";
 import React from "react";
 import BudgetDurationDropdown from "@/components/common_components/budget_duration_dropdown";
 import NumericalInput from "@/components/shared/numerical_input";
-import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 interface ModelInfo {
   model_name: string;

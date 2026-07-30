@@ -15,7 +15,7 @@ import {
   modelAvailableCall,
   AgentCreateInfo,
 } from "@/components/networking";
-import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { getModelDisplayName } from "@/components/key_team_helpers/fetch_available_models_team_key";
 import { Team } from "@/components/key_team_helpers/key_list";
@@ -545,7 +545,7 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({ visible, onClose, accessTok
                 step={0.5}
                 placeholder="e.g. 5.00"
                 disabled={!requireTraceIdOutbound}
-                value={maxBudgetPerSession}
+                value={maxBudgetPerSession === null ? undefined : maxBudgetPerSession}
                 onChange={(val) => setMaxBudgetPerSession(val)}
               />
               <p className="text-xs text-gray-400 mt-1">Max spend per trace before returning 429</p>

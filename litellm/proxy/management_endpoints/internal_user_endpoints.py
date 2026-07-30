@@ -732,14 +732,18 @@ def _build_user_info_response(
         _user_info["metadata"] = _redact_scim_enterprise_metadata(_user_info.get("metadata"))
         spend = _user_info.get("spend")
         if spend is not None:
-            _user_info["spend_display"] = convert_usd(spend, get_display_currency())
+            from fastapi.concurrency import run_in_threadpool
+            spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
+            _user_info["spend_display"] = spend_display
             _user_info["currency"] = get_display_currency()
     
     # Adiciona conversão de moedas para as keys
     for _key in returned_keys:
         spend = _key.get("spend")
         if spend is not None:
-            _key["spend_display"] = convert_usd(spend, get_display_currency())
+            from fastapi.concurrency import run_in_threadpool
+            spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
+            _key["spend_display"] = spend_display
             _key["currency"] = get_display_currency()
 
     return UserInfoResponse(

@@ -15,7 +15,7 @@ import {
   Typography,
   Button,
 } from "antd";
-import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import type { FormInstance } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";

@@ -30,7 +30,7 @@ from litellm.proxy.spend_tracking.spend_tracking_utils import (
     get_spend_by_team,
     get_spend_by_team_and_customer,
 )
-from litellm.litellm_core_utils.currency_conversion import convert_usd, get_display_currency
+from litellm.litellm_core_utils.currency_conversion import convert_usd, aconvert_usd, get_display_currency
 from litellm.proxy.utils import handle_exception_on_proxy
 from litellm.repositories.table_repositories import SpendLogsRepository
 from litellm.repositories.team_repository import TeamRepository
@@ -944,10 +944,12 @@ async def get_global_spend_provider(
                         pass
 
         for provider, spend in provider_spend_mapping.items():
+            from fastapi.concurrency import run_in_threadpool
+            spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
             ui_response.append({
                 "provider": provider, 
                 "spend": spend,
-                "spend_display": convert_usd(spend, get_display_currency()),
+                "spend_display": spend_display,
                 "currency": get_display_currency()
             })
 
@@ -3471,7 +3473,9 @@ async def _build_ui_spend_logs_response(
             spend = item_dict.get("spend", 0)
             if spend is not None:
                 # Adiciona campos de conversão de moeda
-                item_dict["spend_display"] = convert_usd(spend, get_display_currency())
+                from fastapi.concurrency import run_in_threadpool
+                spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
+                item_dict["spend_display"] = spend_display
                 item_dict["currency"] = get_display_currency()
             response_data.append(item_dict)
 
@@ -3483,7 +3487,9 @@ async def _build_ui_spend_logs_response(
             spend = item.get("spend", 0)
             if spend is not None:
                 # Adiciona campos de conversão de moeda
-                item["spend_display"] = convert_usd(spend, get_display_currency())
+                from fastapi.concurrency import run_in_threadpool
+                spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
+                item["spend_display"] = spend_display
                 item["currency"] = get_display_currency()
 
     return {

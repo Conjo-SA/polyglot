@@ -89,8 +89,10 @@ def test_get_rate_api_fallback_no_cache():
     from litellm.litellm_core_utils.currency_conversion import _cache
     _cache["rate"] = None
     
-    rate = get_usd_to_brl_rate()
-    assert rate == 5.30  # Should fall back to fixed rate
+    # Mock httpx.get to simulate network failure
+    with patch('httpx.get', side_effect=Exception("timeout")):
+        rate = get_usd_to_brl_rate()
+        assert rate == 5.30  # Should fall back to fixed rate
 
 if __name__ == "__main__":
     test_convert_usd_to_brl()

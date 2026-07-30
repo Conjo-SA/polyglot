@@ -5,6 +5,7 @@ import { Card, Col, Row, Space, Tag, Tooltip, Typography } from "antd";
 import React from "react";
 import { useMyTeamMember } from "./useMyTeamMember";
 import { MoneyCell } from "@/components/shared/table_cells";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface MyUserTabProps {
   teamId: string;
@@ -127,7 +128,7 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
 
         <Col xs={24} md={12}>
           <Card>
-            {labelWithTooltip("Total Spend (USD)", "Cumulative spend across all budget cycles within this team.")}
+            {labelWithTooltip(`Total Spend (${currency})`, `Cumulative spend across all budget cycles within this team.`)}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={4} style={{ margin: 0 }}>
                 ${formatNumber(totalSpend, 4)}

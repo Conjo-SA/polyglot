@@ -5,7 +5,7 @@ import React, { useState } from "react";
 import { all_admin_roles } from "@/utils/roles";
 import BudgetDurationDropdown from "@/components/common_components/budget_duration_dropdown";
 import { getModelDisplayName } from "@/components/key_team_helpers/fetch_available_models_team_key";
-import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 interface UserEditViewProps {
   userData: any;

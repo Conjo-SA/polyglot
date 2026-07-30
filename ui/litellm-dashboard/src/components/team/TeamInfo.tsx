@@ -18,6 +18,7 @@ import { useGuardrails, GuardrailListItem } from "@/app/(dashboard)/hooks/guardr
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { mapEmptyStringToNull } from "@/utils/keyUpdateUtils";
 import { isProxyAdminRole } from "@/utils/roles";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import {
   EditOutlined,
   GlobalOutlined,
@@ -1068,11 +1069,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Max Budget (USD)" name="max_budget">
+                    <Form.Item label={`Max Budget (${currency})`} name="max_budget">
                       <CurrencyMoneyInput />
                     </Form.Item>
 
-                    <Form.Item label="Soft Budget (USD)" name="soft_budget">
+                    <Form.Item label={`Soft Budget (${currency})`} name="soft_budget">
                       <CurrencyMoneyInput />
                     </Form.Item>
 
@@ -1120,7 +1121,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           </Form.Item>
                         </Form.Item>
                         <Form.Item
-                          label="Default Budget (USD)"
+                          label={`Default Budget (${currency})`}
                           name="team_member_budget"
                           tooltip="Default spend budget for each member in this team."
                         >
@@ -1734,8 +1735,8 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               name: "max_budget_in_team",
               label: (
                 <span>
-                  Team Member Budget (USD){" "}
-                  <Tooltip title="Maximum amount in USD this member can spend within this team. This is separate from any global user budget limits">
+                  Team Member Budget ({currency}){" "}
+                  <Tooltip title={`Maximum amount in ${currency} this member can spend within this team. This is separate from any global user budget limits`}>
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>

@@ -1,7 +1,7 @@
 import React from "react";
 import { TextInput, Accordion, AccordionHeader, AccordionBody } from "@tremor/react";
 import { Button as Button2, Modal, Form, InputNumber, Select } from "antd";
-import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import { useCreateBudget } from "@/app/(dashboard)/hooks/budgets/useBudgets";
 import NotificationsManager from "@/components/molecules/notifications_manager";
 

@@ -8,6 +8,7 @@ import { TextInput, Button as TremorButton } from "@tremor/react";
 import { Form, Input, Select, Switch, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { rolesWithWriteAccess } from "../../utils/roles";
 import AgentSelector from "../agent_management/AgentSelector";
 import AccessGroupSelector from "../common_components/AccessGroupSelector";
@@ -488,7 +489,7 @@ export function KeyEditView({
         <Input placeholder={t("keyEditView.allowedRoutesPlaceholder")} />
       </Form.Item>
 
-      <Form.Item label={t("regenerateKeyModal.maxBudget")} name="max_budget">
+      <Form.Item label={t("regenerateKeyModal.maxBudget", { currency })} name="max_budget">
         <CurrencyMoneyInput />
       </Form.Item>
 

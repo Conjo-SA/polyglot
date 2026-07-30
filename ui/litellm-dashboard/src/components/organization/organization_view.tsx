@@ -15,6 +15,7 @@ import UserSearchModal from "../common_components/user_search_modal";
 import MCPServerSelector from "../mcp_server_management/MCPServerSelector";
 import { ModelSelect } from "../ModelSelect/ModelSelect";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import {
   Member,
   Organization,
@@ -400,7 +401,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Max Budget (USD)" name="max_budget">
+                    <Form.Item label={`Max Budget (${currency})`} name="max_budget">
                       <CurrencyMoneyInput />
                     </Form.Item>
 

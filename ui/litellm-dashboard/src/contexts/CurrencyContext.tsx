@@ -7,7 +7,7 @@ interface CurrencyContextType {
   currency: Currency;
   rate: number;
   symbol: string;
-  setCurrency?: (currency: Currency) => void;
+  setCurrency: (currency: Currency) => void;
 }
 
 const CurrencyContext = createContext<CurrencyContextType | undefined>(undefined);

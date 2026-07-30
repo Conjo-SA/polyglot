@@ -41,7 +41,7 @@ import {
   organizationListCall,
 } from "@/components/networking";
 import OrganizationInfoView from "@/components/organization/organization_view";
-import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import VectorStoreSelector from "@/components/vector_store_management/VectorStoreSelector";
 
 interface OrganizationsTableProps {

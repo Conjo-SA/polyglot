@@ -28,6 +28,7 @@ import MCPServerSelector from "./mcp_server_management/MCPServerSelector";
 import MCPToolPermissions from "./mcp_server_management/MCPToolPermissions";
 import NotificationsManager from "./molecules/notifications_manager";
 import { Organization, fetchMCPAccessGroups, getGuardrailsList, getPoliciesList, teamDeleteCall } from "./networking";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import NumericalInput from "./shared/numerical_input";
 import VectorStoreSelector from "./vector_store_management/VectorStoreSelector";
 import SearchToolSelector from "./search_tools/SearchToolSelector";
@@ -730,7 +731,7 @@ const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser
                 />
               </Form.Item>
 
-              <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
+              <Form.Item label={`Orçamento Máximo (${currency})`} name="max_budget">
                 <CurrencyMoneyInput />
               </Form.Item>
               <Form.Item className="mt-8" label="Reiniciar Orçamento" name="budget_duration">
@@ -772,7 +773,7 @@ const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser
                     />
                   </Form.Item>
                   <Form.Item
-                    label="Orçamento do Membro da Equipe (USD)"
+                    label={`Orçamento do Membro da Equipe (${currency})`}
                     name="team_member_budget"
                     normalize={(value) => (value ? Number(value) : undefined)}
                     tooltip="Este é o orçamento individual para um usuário na equipe."

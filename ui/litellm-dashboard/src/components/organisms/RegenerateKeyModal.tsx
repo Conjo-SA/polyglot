@@ -23,6 +23,7 @@ interface RegenerateKeyModalProps {
 
 export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdate }: RegenerateKeyModalProps) {
   const { t } = useTranslation();
+  const { currency } = useCurrency();
   const DURATION_RULE = { pattern: DURATION_RULE_PATTERN, message: t("regenerateKeyModal.durationRuleMessage") };
   const { accessToken } = useAuthorized();
   const [form] = Form.useForm();
@@ -179,7 +180,7 @@ export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdat
 
           <Row gutter={12}>
             <Col span={8}>
-              <Form.Item name="max_budget" label={t("regenerateKeyModal.maxBudget")}>
+              <Form.Item name="max_budget" label={t("regenerateKeyModal.maxBudget", { currency })}>
                 <CurrencyMoneyInput />
               </Form.Item>
             </Col>

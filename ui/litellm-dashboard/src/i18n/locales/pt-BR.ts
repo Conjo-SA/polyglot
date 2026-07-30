@@ -83,7 +83,7 @@ const ptBR = {
     keyAlias: "Apelido da Chave",
     noAliasSet: "Nenhum apelido definido",
     virtualKey: "Chave Virtual",
-    maxBudget: "Orçamento Máximo (USD)",
+    maxBudget: "Orçamento Máximo ({{currency}})",
     tpmLimit: "Limite de TPM",
     rpmLimit: "Limite de RPM",
     expireKey: "Expirar Chave",
@@ -284,9 +284,9 @@ const ptBR = {
     keyTypeTooltip: "Selecione o tipo de chave para determinar quais rotas e operações esta chave pode acessar",
     optionalSettings: "Configurações Opcionais",
     maxBudgetTooltip:
-      "Valor máximo em BRL que esta chave pode gastar. Ao atingir esse valor, a chave será bloqueada de fazer novas requisições",
-    budgetCannotExceedTeam: "O orçamento não pode exceder o orçamento máximo do time: R$ {{budget}}",
-    budgetCannotExceedTeamError: "O orçamento não pode exceder o orçamento máximo do time: R$ {{budget}}",
+      "Valor máximo que esta chave pode gastar. Ao atingir esse valor, a chave será bloqueada de fazer novas requisições",
+    budgetCannotExceedTeam: "O orçamento não pode exceder o orçamento máximo do time: {{formattedBudget}}",
+    budgetCannotExceedTeamError: "O orçamento não pode exceder o orçamento máximo do time: {{formattedBudget}}",
     unlimitedLower: "ilimitado",
     resetBudgetTooltip:
       "Com que frequência o orçamento deve ser redefinido. Por exemplo, definir 'diário' redefine o orçamento a cada 24 horas",

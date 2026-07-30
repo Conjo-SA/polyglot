@@ -3607,7 +3607,9 @@ async def team_info(
                 _key = key.dict()
             _key.pop('token', None)
             if _key.get('spend') is not None:
-                _key['spend_display'] = convert_usd(_key['spend'], get_display_currency())
+                from fastapi.concurrency import run_in_threadpool
+                spend_display = await run_in_threadpool(convert_usd, _key['spend'], get_display_currency())
+                _key['spend_display'] = spend_display
                 _key['currency'] = get_display_currency()
             processed_keys.append(_key)
         keys = processed_keys

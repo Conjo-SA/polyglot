@@ -17,7 +17,7 @@ import { getModelDisplayName } from "@/components/key_team_helpers/fetch_availab
 import { tagInfoCall, tagUpdateCall } from "@/components/networking";
 import { Tag } from "@/components/tag_management/types";
 import NotificationsManager from "@/components/molecules/notifications_manager";
-import CurrencyMoneyInput from "@/components/shared/CurrencyMoneyInput";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import BudgetDurationDropdown from "@/components/common_components/budget_duration_dropdown";
 import { copyToClipboard as utilCopyToClipboard } from "@/utils/dataUtils";
 import { CheckIcon, CopyIcon } from "lucide-react";

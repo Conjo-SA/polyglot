@@ -307,8 +307,6 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
       .join(" ");
   };
 
-  import { formatCostPerMillion } from "@/utils/dataUtils";
-
   const getModelCapabilities = (model: ModelHubData) => {
     // Find all properties that start with 'supports_' and are true
     return Object.entries(model)

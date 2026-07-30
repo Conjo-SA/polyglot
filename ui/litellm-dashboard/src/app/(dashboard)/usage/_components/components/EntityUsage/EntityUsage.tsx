@@ -29,7 +29,7 @@ import React, { useMemo, useState } from "react";
 import TeamMultiSelect from "@/components/common_components/team_multi_select";
 import { ActivityMetrics, processActivityData } from "@/components/activity_metrics";
 import { UsageExportHeader } from "@/components/EntityUsageExport";
-import { useCurrency } from "@/components/context/CurrencyContext";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import type { EntityType } from "@/components/EntityUsageExport/types";
 import {
   agentDailyActivityCall,

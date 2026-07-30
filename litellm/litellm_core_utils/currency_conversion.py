@@ -81,6 +81,43 @@ def get_exchange_rate_source() -> str:
     return _EXCHANGE_RATE_SOURCE_VAR
 
 
+async def aget_usd_to_brl_rate() -> float:
+    if _EXCHANGE_RATE_SOURCE_VAR == "fixed":
+        return _FIXED_USD_TO_BRL_RATE_VAR
+
+    now = time.time()
+    if _cache["rate"] and now - _cache["fetched_at"] < CACHE_TTL_SECONDS:
+        return _cache["rate"]
+
+    # exemplo: Banco Central do Brasil (PTAX) ou exchangerate-api.com
+    try:
+        async with httpx.AsyncClient(timeout=5) as client:
+            resp = await client.get(
+                "https://economia.awesomeapi.com.br/json/last/USD-BRL"
+            )
+            resp.raise_for_status()
+            rate = float(resp.json()["USDBRL"]["bid"])
+            _cache["rate"] = rate
+            _cache["fetched_at"] = now
+            return rate
+    except Exception:
+        # A API pode cair, ter timeout, ou mudar o schema — não deixamos isso
+        # derrubar `convert_usd()`. Fallback, em ordem de preferência:
+        #   1) última taxa em cache, mesmo expirada (ainda é mais realista que
+        #      um valor fixo desatualizado, e o cache só expira de hora em
+        #      hora, então normalmente não está muito velha)
+        #   2) taxa fixa (_FIXED_USD_TO_BRL_RATE_VAR), só como último recurso, se
+        #      a API falhar logo no primeiro request do processo e ainda não
+        #      houver nada em cache
+        logger.warning(
+            "Falha ao buscar taxa de câmbio USD->BRL na API, usando fallback",
+            exc_info=True,
+        )
+        if _cache["rate"]:
+            return _cache["rate"]
+        return _FIXED_USD_TO_BRL_RATE_VAR
+
+
 def convert_usd(amount_usd: Optional[float], to: str = None) -> Optional[float]:
     # Se não for fornecido, usa a moeda configurada
     if to is None:
@@ -92,4 +129,19 @@ def convert_usd(amount_usd: Optional[float], to: str = None) -> Optional[float]:
         return amount_usd
     if to == "BRL":
         return round(amount_usd * get_usd_to_brl_rate(), 6)
+    raise ValueError(f"moeda não suportada: {to}")
+
+
+async def aconvert_usd(amount_usd: Optional[float], to: str = None) -> Optional[float]:
+    # Se não for fornecido, usa a moeda configurada
+    if to is None:
+        to = _DEFAULT_CURRENCY_VAR
+    
+    if amount_usd is None:
+        return None
+    if to == "USD":
+        return amount_usd
+    if to == "BRL":
+        rate = await aget_usd_to_brl_rate()
+        return round(amount_usd * rate, 6)
     raise ValueError(f"moeda não suportada: {to}")
