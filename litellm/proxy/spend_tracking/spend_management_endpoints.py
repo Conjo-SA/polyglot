@@ -2376,7 +2376,7 @@ async def view_spend_logs(
                     # Add currency conversion details for backward compatibility
                     spend_amount = record.get("_sum", {}).get("spend", 0)
                     if spend_amount is not None:
-                        spend_display = await run_in_threadpool(aconvert_usd, spend_amount, get_display_currency())
+                        spend_display = await run_in_threadpool(convert_usd, spend_amount, get_display_currency())
                         record["spend_display"] = spend_display
                         record["currency"] = get_display_currency()
                 return_list = []
@@ -2423,7 +2423,7 @@ async def view_spend_logs(
                 for log in spend_logs:
                     spend_amount = log.get("spend")
                     if spend_amount is not None:
-                        spend_display = await run_in_threadpool(aconvert_usd, spend_amount, get_display_currency())
+                        spend_display = await run_in_threadpool(convert_usd, spend_amount, get_display_currency())
                         log["spend_display"] = spend_display
                         log["currency"] = get_display_currency()
                 return spend_logs
@@ -2437,7 +2437,7 @@ async def view_spend_logs(
             for log in data:
                 spend_amount = log.get("spend")
                 if spend_amount is not None:
-                    spend_display = await run_in_threadpool(aconvert_usd, spend_amount, get_display_currency())
+                    spend_display = await run_in_threadpool(convert_usd, spend_amount, get_display_currency())
                     log["spend_display"] = spend_display
                     log["currency"] = get_display_currency()
             return data

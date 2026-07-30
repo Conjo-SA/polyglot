@@ -32,6 +32,7 @@ import { generateCodeSnippet } from "@/components/chat_ui/CodeSnippets";
 import { getEndpointType } from "@/components/chat_ui/mode_endpoint_mapping";
 import { MessageType } from "@/components/chat_ui/types";
 import { getProviderLogoAndName } from "./provider_info_helpers";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const { TabPane } = Tabs;
 
@@ -463,11 +464,13 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
     return formatCostPerMillion(cost, currency, rate);
   };
 
+  const { currency, rate } = useCurrency();
+
   const [modelSorting, setModelSorting] = useState<SortingState>([{ id: "model_group", desc: false }]);
   const [agentSorting, setAgentSorting] = useState<SortingState>([{ id: "name", desc: false }]);
   const [mcpSorting, setMcpSorting] = useState<SortingState>([{ id: "server_name", desc: false }]);
 
-  const modelColumns = useMemo(() => getPublicModelHubColumns({ onModelClick: showModal }), [showModal]);
+  const modelColumns = useMemo(() => getPublicModelHubColumns({ onModelClick: showModal, currency, rate }), [showModal, currency, rate]);
   const agentColumns = useMemo(() => getPublicAgentHubColumns({ onAgentClick: showAgentModal }), [showAgentModal]);
   const mcpColumns = useMemo(() => getPublicMCPHubColumns({ onServerClick: showMcpModal }), [showMcpModal]);
 
@@ -945,7 +948,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                     <Text className="font-medium">Input Cost per 1M Tokens:</Text>
                     <Text>
                       {selectedModel.input_cost_per_token
-                        ? formatCost(selectedModel.input_cost_per_token)
+                        ? formatCost(selectedModel.input_cost_per_token, currency, rate)
                         : "Not specified"}
                     </Text>
                   </div>
@@ -953,7 +956,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                     <Text className="font-medium">Output Cost per 1M Tokens:</Text>
                     <Text>
                       {selectedModel.output_cost_per_token
-                        ? formatCost(selectedModel.output_cost_per_token)
+                        ? formatCost(selectedModel.output_cost_per_token, currency, rate)
                         : "Not specified"}
                     </Text>
                   </div>

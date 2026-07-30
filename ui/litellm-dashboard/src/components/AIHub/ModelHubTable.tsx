@@ -28,6 +28,7 @@ import { SortingState } from "@tanstack/react-table";
 import { Badge, Button, Card, Tab, TabGroup, TabList, TabPanel, TabPanels, Text, Title } from "@tremor/react";
 import { Modal } from "antd";
 import { Copy, Inbox } from "lucide-react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -380,7 +381,9 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
   const [agentSorting, setAgentSorting] = useState<SortingState>([{ id: "name", desc: false }]);
   const [mcpSorting, setMcpSorting] = useState<SortingState>([{ id: "server_name", desc: false }]);
 
-  const modelColumns = useMemo(() => getModelHubTableColumns({ onModelClick: showModal }), [showModal]);
+  const { currency, rate } = useCurrency();
+
+  const modelColumns = useMemo(() => getModelHubTableColumns({ onModelClick: showModal, currency, rate }), [showModal, currency, rate]);
   const agentColumns = useMemo(() => getAgentHubTableColumns({ onAgentClick: showAgentModal }), [showAgentModal]);
   const mcpColumns = useMemo(() => getMCPHubTableColumns({ onServerClick: showMcpModal }), [showMcpModal]);
 
@@ -656,7 +659,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   <Text className="font-medium">Custo de Entrada por 1M Tokens:</Text>
                   <Text>
                     {selectedModel.input_cost_per_token
-                      ? formatCost(selectedModel.input_cost_per_token)
+                      ? formatCost(selectedModel.input_cost_per_token, currency, rate)
                       : "Not specified"}
                   </Text>
                 </div>
@@ -664,7 +667,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   <Text className="font-medium">Custo de Saída por 1M Tokens:</Text>
                   <Text>
                     {selectedModel.output_cost_per_token
-                      ? formatCost(selectedModel.output_cost_per_token)
+                      ? formatCost(selectedModel.output_cost_per_token, currency, rate)
                       : "Not specified"}
                   </Text>
                 </div>

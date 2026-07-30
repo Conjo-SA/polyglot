@@ -165,9 +165,11 @@ function OverflowChips({ items }: { items: string[] }) {
 
 interface PublicModelHubColumnsDeps {
   onModelClick: (model: ModelGroupInfo) => void;
+  currency?: string;
+  rate?: number;
 }
 
-export const getPublicModelHubColumns = ({ onModelClick }: PublicModelHubColumnsDeps): ColumnDef<ModelGroupInfo>[] => [
+export const getPublicModelHubColumns = ({ onModelClick, currency, rate }: PublicModelHubColumnsDeps): ColumnDef<ModelGroupInfo>[] => [
   {
     id: "model_group",
     accessorKey: "model_group",

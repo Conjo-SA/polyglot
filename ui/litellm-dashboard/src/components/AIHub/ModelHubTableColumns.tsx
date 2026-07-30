@@ -96,9 +96,11 @@ function ModelHubRowActions({ model, onModelClick }: ModelHubRowActionsProps) {
 
 interface ModelHubTableColumnsDeps {
   onModelClick: (model: ModelHubData) => void;
+  currency?: string;
+  rate?: number;
 }
 
-export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDeps): ColumnDef<ModelHubData>[] => [
+export const getModelHubTableColumns = ({ onModelClick, currency, rate }: ModelHubTableColumnsDeps): ColumnDef<ModelHubData>[] => [
   {
     id: "model_group",
     accessorKey: "model_group",
