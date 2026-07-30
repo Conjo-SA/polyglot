@@ -17,7 +17,7 @@ import { cn } from "@/lib/cva.config";
 
 import { getGuardrailLogoAndName } from "./guardrail_info_helpers";
 
-const CONFIG_DELETE_HINT = "Config guardrails are defined in the config file and cannot be deleted from the dashboard.";
+const CONFIG_DELETE_HINT = "Guardrails de configuração são definidos no arquivo de configuração e não podem ser excluídos pelo painel.";
 
 function GuardrailProviderCell({ provider }: { provider: string }) {
   const { logo, displayName } = getGuardrailLogoAndName(provider);
@@ -83,8 +83,8 @@ export const getGuardrailTableColumns = ({
   {
     id: "guardrail_id",
     accessorKey: "guardrail_id",
-    meta: { title: "Guardrail ID" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Guardrail ID" />,
+    meta: { title: "ID do Guardrail" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="ID do Guardrail" />,
     size: 200,
     enableSorting: true,
     cell: ({ row }) => (
@@ -98,8 +98,8 @@ export const getGuardrailTableColumns = ({
   {
     id: "guardrail_name",
     accessorKey: "guardrail_name",
-    meta: { title: "Name" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Name" />,
+    meta: { title: "Nome" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Nome" />,
     size: 200,
     enableSorting: true,
     cell: ({ row }) => {
@@ -113,16 +113,16 @@ export const getGuardrailTableColumns = ({
   },
   {
     id: "provider",
-    meta: { title: "Provider" },
-    header: "Provider",
+    meta: { title: "Provedor" },
+    header: "Provedor",
     size: 180,
     enableSorting: false,
     cell: ({ row }) => <GuardrailProviderCell provider={row.original.litellm_params.guardrail} />,
   },
   {
     id: "mode",
-    meta: { title: "Mode" },
-    header: "Mode",
+    meta: { title: "Modo" },
+    header: "Modo",
     size: 130,
     enableSorting: false,
     cell: ({ row }) => (
@@ -131,22 +131,22 @@ export const getGuardrailTableColumns = ({
   },
   {
     id: "default_on",
-    meta: { title: "Default On" },
-    header: "Default On",
+    meta: { title: "Padrão Ativo" },
+    header: "Padrão Ativo",
     size: 120,
     enableSorting: false,
     cell: ({ row }) => {
       const isDefaultOn = !!row.original.litellm_params?.default_on;
       return (
-        <StatusBadge tone={isDefaultOn ? "success" : "neutral"} label={isDefaultOn ? "Default On" : "Default Off"} />
+        <StatusBadge tone={isDefaultOn ? "success" : "neutral"} label={isDefaultOn ? "Padrão Ativo" : "Padrão Inativo"} />
       );
     },
   },
   {
     id: "created_at",
     accessorKey: "created_at",
-    meta: { title: "Created At" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Created At" />,
+    meta: { title: "Criado Em" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Criado Em" />,
     size: 150,
     enableSorting: true,
     cell: ({ row }) => <DateCell value={row.original.created_at} />,
@@ -154,8 +154,8 @@ export const getGuardrailTableColumns = ({
   {
     id: "updated_at",
     accessorKey: "updated_at",
-    meta: { title: "Updated At" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Updated At" />,
+    meta: { title: "Atualizado Em" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Atualizado Em" />,
     size: 150,
     enableSorting: true,
     cell: ({ row }) => <DateCell value={row.original.updated_at} />,

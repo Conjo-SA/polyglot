@@ -53,7 +53,7 @@ function CallbackRowActions({ callback, onTest, onEdit, onDelete }: CallbackRowA
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Open callback actions"
+        aria-label="Abrir ações do callback"
         data-testid={`callback-actions-${callback.name}-${callbackRowMode(callback)}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -94,8 +94,8 @@ export const getLoggingCallbacksTableColumns = ({
   {
     id: "name",
     accessorKey: "name",
-    meta: { title: "Callback Name" },
-    header: "Callback Name",
+    meta: { title: "Nome do Callback" },
+    header: "Nome do Callback",
     enableSorting: false,
     cell: ({ row }) => {
       const id = row.original.name;
@@ -109,8 +109,8 @@ export const getLoggingCallbacksTableColumns = ({
   },
   {
     id: "mode",
-    meta: { title: "Mode", skeleton: "badge" },
-    header: "Mode",
+    meta: { title: "Modo", skeleton: "badge" },
+    header: "Modo",
     size: 240,
     enableSorting: false,
     cell: ({ row }) => {

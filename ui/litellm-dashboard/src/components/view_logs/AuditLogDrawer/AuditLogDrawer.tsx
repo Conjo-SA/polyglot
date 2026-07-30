@@ -50,7 +50,7 @@ function CopyableJsonBlock({ label, value }: { label: string; value: Record<stri
       setCopied(true);
       setTimeout(() => setCopied(false), 2000);
     } catch (e) {
-      console.error("Copy failed:", e);
+      console.error("Falha na cópia:", e);
     }
   }, [value]);
 
@@ -120,8 +120,8 @@ function DiffSection({ log }: { log: AuditLogEntry }) {
       }
     });
 
-    displayBefore = Object.keys(changedBefore).length > 0 ? changedBefore : { note: "No differing fields detected" };
-    displayAfter = Object.keys(changedAfter).length > 0 ? changedAfter : { note: "No differing fields detected" };
+    displayBefore = Object.keys(changedBefore).length > 0 ? changedBefore : { note: "Nenhum campo diferente detectado" };
+    displayAfter = Object.keys(changedAfter).length > 0 ? changedAfter : { note: "Nenhum campo diferente detectado" };
   }
 
   const renderValue = (label: string, value: Record<string, any> | null | undefined) => {
@@ -131,7 +131,7 @@ function DiffSection({ log }: { log: AuditLogEntry }) {
           <div className="flex items-center px-3 py-2 border-b bg-gray-50">
             <span className="text-xs font-semibold text-gray-600">{label}</span>
           </div>
-          <p className="px-3 py-3 text-xs text-gray-400 italic m-0">N/A</p>
+          <p className="px-3 py-3 text-xs text-gray-400 italic m-0">N/D</p>
         </div>
       );
     }
@@ -149,17 +149,17 @@ function DiffSection({ log }: { log: AuditLogEntry }) {
             <div className="px-3 py-3 space-y-1 text-xs">
               {value.token !== undefined && (
                 <p>
-                  <span className="text-gray-500">Token:</span> {value.token ?? "N/A"}
+                  <span className="text-gray-500">Token:</span> {value.token ?? "N/D"}
                 </p>
               )}
               {value.spend !== undefined && (
                 <p>
-                  <span className="text-gray-500">Spend:</span> ${Number(value.spend).toFixed(6)}
+                  <span className="text-gray-500">Gasto:</span> ${Number(value.spend).toFixed(6)}
                 </p>
               )}
               {value.max_budget !== undefined && (
                 <p>
-                  <span className="text-gray-500">Max Budget:</span> ${Number(value.max_budget).toFixed(6)}
+                  <span className="text-gray-500">Orçamento Máx:</span> ${Number(value.max_budget).toFixed(6)}
                 </p>
               )}
             </div>

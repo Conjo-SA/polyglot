@@ -17,7 +17,7 @@ import { cn } from "@/lib/cva.config";
 
 function RateLimitCell({ value }: { value: number | null }) {
   if (value == null) {
-    return <span className="text-muted-foreground">n/a</span>;
+    return <span className="text-muted-foreground">n/d</span>;
   }
   return <span className="tabular-nums">{value}</span>;
 }
@@ -71,8 +71,8 @@ export const getBudgetTableColumns = ({
   {
     id: "budget_id",
     accessorKey: "budget_id",
-    meta: { title: "Budget ID" },
-    header: "Budget ID",
+    meta: { title: "ID do Orçamento" },
+    header: "ID do Orçamento",
     size: 220,
     enableSorting: false,
     cell: ({ row }) => <IdCell value={row.original.budget_id} variant="plain" />,
@@ -80,11 +80,11 @@ export const getBudgetTableColumns = ({
   {
     id: "max_budget",
     accessorKey: "max_budget",
-    meta: { title: "Max Budget", numeric: true },
-    header: "Max Budget",
+    meta: { title: "Orçamento Máx", numeric: true },
+    header: "Orçamento Máx",
     size: 120,
     enableSorting: false,
-    cell: ({ row }) => <MoneyCell value={row.original.max_budget} decimals={2} showZero emptyText="Unlimited" />,
+    cell: ({ row }) => <MoneyCell value={row.original.max_budget} decimals={2} showZero emptyText="Ilimitado" />,
   },
   {
     id: "tpm_limit",
@@ -109,7 +109,7 @@ export const getBudgetTableColumns = ({
         {
           id: "actions",
           meta: { className: "text-right", headerClassName: "text-right" },
-          header: () => <span className="sr-only">Actions</span>,
+          header: () => <span className="sr-only">Ações</span>,
           size: 64,
           enableSorting: false,
           enableHiding: false,
