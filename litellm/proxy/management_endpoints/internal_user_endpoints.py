@@ -709,7 +709,7 @@ def _redact_scim_enterprise_metadata(
     return {k: v for k, v in metadata.items() if k not in _SCIM_DIRECTORY_METADATA_KEYS}
 
 
-def _build_user_info_response(
+async def _build_user_info_response(
     user_id: Optional[str],
     user_info: Optional[Any],
     keys: Optional[List[LiteLLM_VerificationToken]],

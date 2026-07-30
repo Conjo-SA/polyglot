@@ -19,6 +19,7 @@ import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { mapEmptyStringToNull } from "@/utils/keyUpdateUtils";
 import { isProxyAdminRole } from "@/utils/roles";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import NumericalInput from "@/components/shared/numerical_input";
 import {
   EditOutlined,
   GlobalOutlined,

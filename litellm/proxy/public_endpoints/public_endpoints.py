@@ -29,6 +29,7 @@ from litellm.types.proxy.public_endpoints.public_endpoints import (
     PublicModelHubInfo,
     SupportedEndpointsResponse,
 )
+from litellm.litellm_core_utils.get_blog_posts import BlogPostsResponse
 from litellm.types.utils import LlmProviders
 
 router = APIRouter()

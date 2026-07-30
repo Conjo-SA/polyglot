@@ -1,4 +1,5 @@
 import NotificationsManager from "@/components/molecules/notifications_manager";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 export function updateExistingKeys<Source extends object>(target: Source, source: object): Source {
   const clonedTarget = structuredClone(target);

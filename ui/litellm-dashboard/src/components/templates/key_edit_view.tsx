@@ -9,6 +9,7 @@ import { Form, Input, Select, Switch, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
 import { useCurrency } from "@/contexts/CurrencyContext";
+import NumericalInput from "@/components/shared/numerical_input";
 import { rolesWithWriteAccess } from "../../utils/roles";
 import AgentSelector from "../agent_management/AgentSelector";
 import AccessGroupSelector from "../common_components/AccessGroupSelector";
@@ -111,6 +112,7 @@ export function KeyEditView({
       ? mapInternalToDisplayNames(keyData.metadata.litellm_disabled_callbacks)
       : [],
   );
+  const { currency, rate } = useCurrency();
   const [selectedOrganizationId, setSelectedOrganizationId] = useState<string | null>(keyData.organization_id || null);
   const [autoRotationEnabled, setAutoRotationEnabled] = useState<boolean>(keyData.auto_rotate || false);
   const [rotationInterval, setRotationInterval] = useState<string>(keyData.rotation_interval || "");

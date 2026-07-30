@@ -492,7 +492,7 @@ export default function KeyInfoView({
           },
           {
             label: t("virtualKeysTable.spend"),
-            value: currentKeyData?.spend ? <MoneyCell value={currentKeyData.spend} decimals={4} /> : <MoneyCell value={0} decimals={4} />,
+            value: currentKeyData?.spend ? currentKeyData.spend.toFixed(4) : "0.0000",
           },
         ]}
         onCancel={() => {
