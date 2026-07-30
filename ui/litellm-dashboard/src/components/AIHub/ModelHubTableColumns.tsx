@@ -49,10 +49,11 @@ const getModelCapabilities = (model: ModelHubData) =>
 // Importar formatCostPerMillion e não fazer a multiplicação de novo
 import { formatCostPerMillion } from "@/utils/dataUtils";
 
-const formatCost = (cost: number) => {
+// Export the function to be used by parent component that has currency context
+const formatCost = (cost: number, currency?: string, rate?: number) => {
   // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
   // Recebe o custo por token e retorna o custo por 1M de tokens formatado
-  return formatCostPerMillion(cost); 
+  return formatCostPerMillion(cost, currency, rate); 
 };
 
 const formatTokens = (tokens: number) => {
@@ -185,9 +186,9 @@ export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDe
       const model = row.original;
       return (
         <div className="flex flex-col gap-0.5 text-xs tabular-nums">
-          <span>{model.input_cost_per_token ? formatCost(model.input_cost_per_token) : "-"}</span>
+          <span>{model.input_cost_per_token ? formatCost(model.input_cost_per_token, currency, rate) : "-"}</span>
           <span className="text-muted-foreground">
-            {model.output_cost_per_token ? formatCost(model.output_cost_per_token) : "-"}
+            {model.output_cost_per_token ? formatCost(model.output_cost_per_token, currency, rate) : "-"}
           </span>
         </div>
       );

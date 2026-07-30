@@ -18,6 +18,9 @@ const colorNameToHex: { [key: string]: string } = {
 };
 
 export const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) => {
+  // Move useCurrency() call to the top level to avoid violating Rules of Hooks  
+  const { symbol, rate } = useCurrency();
+  
   if (active && payload && payload.length) {
     const formatCategoryName = (name: string): string => {
       return name
@@ -47,8 +50,16 @@ export const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) =>
           const rawValue = getRawValue(item.payload, dataKey);
           const isSpend = dataKey.includes("spend");
           
-          // Move useCurrency() call to the top level to avoid violating Rules of Hooks
-          const { symbol, rate } = useCurrency();
+          const formatValue = (value: number | undefined, isSpend: boolean, currencySymbol: string, conversionRate: number): string => {
+            if (value === undefined) return "N/A";
+            if (isSpend) {
+              const convertedValue = value * conversionRate;
+              return `${currencySymbol}${convertedValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`;
+            }
+            return value.toLocaleString();
+          };
+          
+          const formattedValue = formatValue(rawValue, isSpend, symbol, rate);
           
           const formatValue = (value: number | undefined, isSpend: boolean, currencySymbol: string, conversionRate: number): string => {
             if (value === undefined) return "N/A";

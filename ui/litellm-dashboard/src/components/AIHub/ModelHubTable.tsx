@@ -21,7 +21,7 @@ import {
   modelHubPublicModelsCall,
 } from "@/components/networking";
 import PublicModelHub from "@/components/public_model_hub";
-import { copyToClipboard } from "@/utils/dataUtils";
+import { copyToClipboard, formatCostPerMillion } from "@/utils/dataUtils";
 import { isAdminRole, isProxyAdminRole } from "@/utils/roles";
 import { CopyOutlined } from "@ant-design/icons";
 import { SortingState } from "@tanstack/react-table";
@@ -315,10 +315,10 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
   };
 
   // Definir formatCost corretamente para funcionar com a moeda configurada
-  const formatCost = (cost: number) => {
+  const formatCost = (cost: number, currency?: string, rate?: number) => {
     // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
     // Recebe o custo por token e retorna o custo por 1M de tokens formatado
-    return formatCostPerMillion(cost);
+    return formatCostPerMillion(cost, currency, rate);
   };
 
   const handleMakePublicSuccess = () => {

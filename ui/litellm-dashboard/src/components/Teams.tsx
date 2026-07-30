@@ -32,6 +32,7 @@ import { useCurrency } from "@/contexts/CurrencyContext";
 import NumericalInput from "./shared/numerical_input";
 import VectorStoreSelector from "./vector_store_management/VectorStoreSelector";
 import SearchToolSelector from "./search_tools/SearchToolSelector";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 interface TeamProps {
   accessToken: string | null;
@@ -123,6 +124,7 @@ const getOrganizationAlias = (
 
 // @deprecated
 const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser = false }) => {
+  const { currency } = useCurrency();
   const { data: organizationsData } = useOrganizations();
   const organizations = organizationsData ?? null;
   const queryClient = useQueryClient();

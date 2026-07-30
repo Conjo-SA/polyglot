@@ -2345,6 +2345,7 @@ async def view_spend_logs(
 
             # Legacy behavior: return summarized data (when summarize=true)
             # SQL query
+            from fastapi.concurrency import run_in_threadpool
             response = await SpendLogsRepository(prisma_client).table.group_by(
                 by=["api_key", "user", "model", "startTime"],
                 where=filter_query,  # type: ignore
@@ -2371,6 +2372,13 @@ async def view_spend_logs(
                     result[date]["models"][model] = result[date]["models"].get(model, 0) + record.get("_sum", {}).get(
                         "spend", 0
                     )
+                    
+                    # Add currency conversion details for backward compatibility
+                    spend_amount = record.get("_sum", {}).get("spend", 0)
+                    if spend_amount is not None:
+                        spend_display = await run_in_threadpool(aconvert_usd, spend_amount, get_display_currency())
+                        record["spend_display"] = spend_display
+                        record["currency"] = get_display_currency()
                 return_list = []
                 final_date = None
                 for k, v in sorted(result.items()):
@@ -2411,12 +2419,27 @@ async def view_spend_logs(
 
             if not scoped_filter:
                 spend_logs = await prisma_client.get_data(table_name="spend", query_type="find_all")
+                # Add currency conversion details for backward compatibility to all spend logs
+                for log in spend_logs:
+                    spend_amount = log.get("spend")
+                    if spend_amount is not None:
+                        spend_display = await run_in_threadpool(aconvert_usd, spend_amount, get_display_currency())
+                        log["spend_display"] = spend_display
+                        log["currency"] = get_display_currency()
                 return spend_logs
 
             data = await SpendLogsRepository(prisma_client).table.find_many(
                 where=scoped_filter,  # type: ignore
                 order={"startTime": "desc"},
             )
+            
+            # Add currency conversion details for backward compatibility to all spend logs
+            for log in data:
+                spend_amount = log.get("spend")
+                if spend_amount is not None:
+                    spend_display = await run_in_threadpool(aconvert_usd, spend_amount, get_display_currency())
+                    log["spend_display"] = spend_display
+                    log["currency"] = get_display_currency()
             return data
 
         return None

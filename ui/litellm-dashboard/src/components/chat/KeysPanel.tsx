@@ -16,6 +16,7 @@ import { keyListCall, regenerateKeyCall } from "../networking";
 import { useCurrency } from "@/contexts/CurrencyContext";
 import { KeyResponse } from "../key_team_helpers/key_list";
 import { formatExpiresUtc, isKeyExpired, calculateExpiryPreviewFromDuration } from "@/utils/keyExpiryUtils";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 const KEYS_QUERY_KEY = "chat-user-keys";
 
@@ -60,6 +61,7 @@ interface FormState {
 }
 
 const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
+  const { currency } = useCurrency();
   const queryClient = useQueryClient();
   const [rotateTarget, setRotateTarget] = useState<KeyResponse | null>(null);
   const [regeneratedKey, setRegeneratedKey] = useState<string | null>(null);
@@ -239,9 +241,12 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
                       {record.key_alias && <div className="text-xs text-muted-foreground">{record.key_alias}</div>}
                     </TableCell>
                     <TableCell className="text-[13px]">
-                      ${record.spend?.toFixed(2) ?? "0.00"}
+                      <MoneyCell value={record.spend} decimals={2} />
                       {record.max_budget != null && record.max_budget > 0 && (
-                        <span className="text-muted-foreground"> / ${record.max_budget.toFixed(2)}</span>
+                        <span className="text-muted-foreground"> / </span>
+                      )}
+                      {record.max_budget != null && record.max_budget > 0 && (
+                        <MoneyCell value={record.max_budget} decimals={2} />
                       )}
                     </TableCell>
                     <TableCell>

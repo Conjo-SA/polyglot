@@ -78,13 +78,10 @@ const formatCapabilityName = (key: string) =>
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
-// Importar formatCostPerMillion e não fazer a multiplicação de novo
-import { formatCostPerMillion } from "@/utils/dataUtils";
-
-const formatCost = (cost: number) => {
+const formatCost = (cost: number, currency?: string, rate?: number) => {
   // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
   // Recebe o custo por token e retorna o custo por 1M de tokens formatado
-  return formatCostPerMillion(cost); 
+  return formatCostPerMillion(cost, currency, rate); 
 };
 
 const formatTokens = (tokens: number | undefined) => {
@@ -241,7 +238,7 @@ export const getPublicModelHubColumns = ({ onModelClick }: PublicModelHubColumns
     enableSorting: true,
     cell: ({ row }) => (
       <span className="text-sm">
-        {row.original.input_cost_per_token ? formatCost(row.original.input_cost_per_token) : "Free"}
+        {row.original.input_cost_per_token ? formatCost(row.original.input_cost_per_token, currency, rate) : "Free"}
       </span>
     ),
   },
@@ -254,7 +251,7 @@ export const getPublicModelHubColumns = ({ onModelClick }: PublicModelHubColumns
     enableSorting: true,
     cell: ({ row }) => (
       <span className="text-sm">
-        {row.original.output_cost_per_token ? formatCost(row.original.output_cost_per_token) : "Free"}
+        {row.original.output_cost_per_token ? formatCost(row.original.output_cost_per_token, currency, rate) : "Free"}
       </span>
     ),
   },

@@ -16,6 +16,7 @@ import {
   getUiConfig,
   mcpHubPublicServersCall,
   modelHubPublicModelsCall,
+  formatCostPerMillion,
 } from "./networking";
 import { Plugin } from "./claude_code_plugins/types";
 import SkillHubDashboard from "./AIHub/SkillHubDashboard";
@@ -456,10 +457,10 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
       .map(([key]) => key);
   };
 
-  const formatCost = (cost: number) => {
+const formatCost = (cost: number, currency?: string, rate?: number) => {
     // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
     // Recebe o custo por token e retorna o custo por 1M de tokens formatado
-    return formatCostPerMillion(cost); 
+    return formatCostPerMillion(cost, currency, rate);
   };
 
   const [modelSorting, setModelSorting] = useState<SortingState>([{ id: "model_group", desc: false }]);
