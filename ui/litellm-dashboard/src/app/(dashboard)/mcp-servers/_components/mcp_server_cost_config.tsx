@@ -1,9 +1,9 @@
 import React from "react";
-import { Tooltip, InputNumber, Collapse, Badge, FormItem } from "antd";
+import { Tooltip, Collapse, Badge, Form } from "antd";
+const FormItem = Form.Item;
 import { InfoCircleOutlined, DollarOutlined, ToolOutlined } from "@ant-design/icons";
 import { Card, Title, Text } from "@tremor/react";
 import { MCPServerCostInfo } from "@/components/mcp_tools/types";
-import { useCurrency } from "@/contexts/CurrencyContext";
 import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 interface MCPServerCostConfigProps {
@@ -66,7 +66,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
                 value={value.default_cost_per_query}
                 onChange={handleDefaultCostChange}
                 disabled={disabled}
-                style={{ width: "200px" }}
+                width="200px"
               />
             </FormItem>
             <Text className="block mt-1 text-gray-500 text-sm">

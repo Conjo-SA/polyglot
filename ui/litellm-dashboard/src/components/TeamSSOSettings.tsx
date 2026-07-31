@@ -1,7 +1,7 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button, InputNumber, Typography, Spin, Select, Tag, Row, Col } from "antd";
+import { Card, Button, InputNumber, Typography, Spin, Select, Tag, Row, Col, Form } from "antd";
+const FormItem = Form.Item;
 import { EditOutlined, SaveOutlined } from "@ant-design/icons";
-import { useCurrency } from "@/contexts/CurrencyContext";
 import { getDefaultTeamSettings, updateDefaultTeamSettings } from "./networking";
 import BudgetDurationDropdown, { getBudgetDurationLabel } from "./common_components/budget_duration_dropdown";
 import { getModelDisplayName } from "./key_team_helpers/fetch_available_models_team_key";

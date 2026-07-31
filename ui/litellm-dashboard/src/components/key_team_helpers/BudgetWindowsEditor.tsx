@@ -1,6 +1,6 @@
-import { Button, InputNumber, Select, FormItem } from "antd";
+import { Button, Select, Form } from "antd";
+const FormItem = Form.Item;
 import React from "react";
-import { useCurrency } from "@/contexts/CurrencyContext";
 import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 export interface BudgetWindowEntry {

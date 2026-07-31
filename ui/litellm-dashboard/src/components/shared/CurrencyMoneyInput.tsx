@@ -1,10 +1,11 @@
 "use client";
 
 import { InputNumber } from "antd";
+import type { CSSProperties } from "react";
 import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface Props {
-  value?: number;        // always in USD (the form/backend expects)
+  value?: number | null;  // always in USD (the form/backend expects)
   onChange?: (usdValue: number | null) => void;
   placeholder?: string;
   disabled?: boolean;
@@ -13,6 +14,7 @@ interface Props {
   precision?: number;
   className?: string;
   width?: number | string;
+  style?: CSSProperties;
 }
 
 export function CurrencyMoneyInput({
@@ -25,6 +27,7 @@ export function CurrencyMoneyInput({
   precision,
   className,
   width,
+  style,
 }: Props) {
   const { currency, rate, symbol } = useCurrency();
 
@@ -51,7 +54,7 @@ export function CurrencyMoneyInput({
         precision={precision}
         disabled={disabled}
         className={className}
-        style={width !== undefined ? { width } : undefined}
+        style={width !== undefined ? { ...style, width } : style}
       />
       {currency === "BRL" && value ? (
         <span className="text-xs text-gray-400 ml-2">
