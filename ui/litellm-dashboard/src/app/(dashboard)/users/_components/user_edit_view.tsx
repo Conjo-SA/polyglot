@@ -82,26 +82,26 @@ export function UserEditView({
   return (
     <Form form={form} onFinish={handleSubmit} layout="vertical">
       {!isBulkEdit && (
-        <Form.Item label="User ID" name="user_id">
+        <Form.Item label="ID do Usuário" name="user_id">
           <TextInput disabled />
         </Form.Item>
       )}
 
       {!isBulkEdit && (
-        <Form.Item label="Email" name="user_email">
+        <Form.Item label="E-mail" name="user_email">
           <TextInput />
         </Form.Item>
       )}
 
-      <Form.Item label="User Alias" name="user_alias">
+      <Form.Item label="Apelido do Usuário" name="user_alias">
         <TextInput />
       </Form.Item>
 
       <Form.Item
         label={
           <span>
-            Global Proxy Role{" "}
-            <Tooltip title="This is the role that the user will globally on the proxy. This role is independent of any team/org specific roles.">
+            Função Global no Proxy{" "}
+            <Tooltip title="Esta é a função que o usuário terá globalmente no proxy. Esta função é independente de quaisquer funções específicas de equipe/organização.">
               <InfoCircleOutlined />
             </Tooltip>
           </span>
@@ -126,8 +126,8 @@ export function UserEditView({
       <Form.Item
         label={
           <span>
-            Personal Models{" "}
-            <Tooltip title="Select which models this user can access outside of team-scope. Choose 'All Proxy Models' to grant access to all models available on the proxy.">
+            Modelos Pessoais{" "}
+            <Tooltip title="Selecione quais modelos este usuário pode acessar fora do escopo da equipe. Escolha 'Todos os Modelos do Proxy' para conceder acesso a todos os modelos disponíveis no proxy.">
               <InfoCircleOutlined style={{ marginLeft: "4px" }} />
             </Tooltip>
           </span>
@@ -136,15 +136,15 @@ export function UserEditView({
       >
         <Select
           mode="multiple"
-          placeholder="Select models"
+          placeholder="Selecionar modelos"
           style={{ width: "100%" }}
           disabled={!all_admin_roles.includes(userRole || "")}
         >
           <Select.Option key="all-proxy-models" value="all-proxy-models">
-            All Proxy Models
+            Todos os Modelos do Proxy
           </Select.Option>
           <Select.Option key="no-default-models" value="no-default-models">
-            No Default Models
+            Nenhum Modelo Padrão
           </Select.Option>
           {userModels.map((model) => (
             <Select.Option key={model} value={model}>
@@ -157,9 +157,9 @@ export function UserEditView({
       <Form.Item
         label={
           <div style={{ display: "flex", alignItems: "center", gap: "12px" }}>
-            <span>Max Budget (USD)</span>
+            <span>Orçamento Máximo (USD)</span>
             <Checkbox checked={unlimitedBudget} onChange={handleUnlimitedBudgetChange}>
-              Unlimited Budget
+              Orçamento Ilimitado
             </Checkbox>
           </div>
         }
@@ -168,7 +168,7 @@ export function UserEditView({
           {
             validator: (_, value) => {
               if (!unlimitedBudget && (value === "" || value === null || value === undefined)) {
-                return Promise.reject(new Error("Please enter a budget or select Unlimited Budget"));
+                return Promise.reject(new Error("Por favor, informe um orçamento ou selecione Orçamento Ilimitado"));
               }
               return Promise.resolve();
             },
@@ -178,19 +178,19 @@ export function UserEditView({
         <CurrencyMoneyInput />
       </Form.Item>
 
-      <Form.Item label="Reset Budget" name="budget_duration">
+      <Form.Item label="Redefinir Orçamento" name="budget_duration">
         <BudgetDurationDropdown />
       </Form.Item>
 
-      <Form.Item label="Metadata" name="metadata">
-        <Textarea rows={4} placeholder="Enter metadata as JSON" />
+      <Form.Item label="Metadados" name="metadata">
+        <Textarea rows={4} placeholder="Informe os metadados no formato JSON" />
       </Form.Item>
 
       <div className="flex justify-end space-x-2">
         <Button variant="secondary" type="button" onClick={onCancel}>
-          Cancel
+          Cancelar
         </Button>
-        <Button type="submit">Save Changes</Button>
+        <Button type="submit">Salvar Alterações</Button>
       </div>
     </Form>
   );

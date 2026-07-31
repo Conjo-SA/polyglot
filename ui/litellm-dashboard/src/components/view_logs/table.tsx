@@ -42,8 +42,8 @@ export function DataTable<TData, TValue>({
   renderSubComponent,
   getRowCanExpand,
   isLoading = false,
-  loadingMessage = "Loading...",
-  noDataMessage = "No results",
+  loadingMessage = "Carregando...",
+  noDataMessage = "Nenhum dado encontrado",
   enableSorting = false,
 }: DataTableProps<TData, TValue>) {
   const supportsExpansion = !!renderSubComponent && !!getRowCanExpand;

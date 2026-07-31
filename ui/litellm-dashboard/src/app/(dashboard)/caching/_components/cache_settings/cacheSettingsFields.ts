@@ -22,10 +22,10 @@ export interface CacheField {
 export const REDIS_TYPES: readonly RedisType[] = ["node", "cluster", "sentinel", "semantic"];
 
 export const REDIS_TYPE_DESCRIPTIONS: Readonly<Record<RedisType, string>> = {
-  node: "Standard Redis node/single instance",
-  cluster: "Redis Cluster mode for high availability and horizontal scaling",
-  sentinel: "Redis Sentinel mode for high availability with automatic failover",
-  semantic: "Semantic caching that reuses responses for similar prompts",
+  node: "Nó Redis padrão/instância única",
+  cluster: "Modo Redis Cluster para alta disponibilidade e escalabilidade horizontal",
+  sentinel: "Modo Redis Sentinel para alta disponibilidade com failover automático",
+  semantic: "Cache semântico que reutiliza respostas para prompts similares",
 };
 
 const portRule: CacheFieldRule = {
@@ -35,7 +35,7 @@ const portRule: CacheFieldRule = {
     }
     const port = Number(value);
     if (!Number.isInteger(port) || port < 1 || port > 65535) {
-      return Promise.reject(new Error("Port must be an integer between 1 and 65535"));
+      return Promise.reject(new Error("A porta deve ser um número inteiro entre 1 e 65535"));
     }
     return Promise.resolve();
   },
@@ -50,10 +50,10 @@ const jsonListRule: CacheFieldRule = {
     try {
       parsed = JSON.parse(String(value));
     } catch {
-      return Promise.reject(new Error("Must be a valid JSON array (use double quotes)"));
+      return Promise.reject(new Error("Deve ser um array JSON válido (use aspas duplas)"));
     }
     if (!Array.isArray(parsed)) {
-      return Promise.reject(new Error("Must be a JSON array"));
+      return Promise.reject(new Error("Deve ser um array JSON"));
     }
     return Promise.resolve();
   },
@@ -66,7 +66,7 @@ const nonNegativeIntegerRule: CacheFieldRule = {
     }
     const parsed = Number(value);
     if (!Number.isInteger(parsed) || parsed < 0) {
-      return Promise.reject(new Error("Must be a non-negative integer"));
+      return Promise.reject(new Error("Deve ser um número inteiro não negativo"));
     }
     return Promise.resolve();
   },
@@ -78,7 +78,7 @@ const numberRule: CacheFieldRule = {
       return Promise.resolve();
     }
     if (Number.isNaN(Number(value))) {
-      return Promise.reject(new Error("Must be a number"));
+      return Promise.reject(new Error("Deve ser um número"));
     }
     return Promise.resolve();
   },
@@ -87,11 +87,11 @@ const numberRule: CacheFieldRule = {
 export const CACHE_FIELDS: readonly CacheField[] = [
   {
     name: "url",
-    label: "Redis URL",
+    label: "URL do Redis",
     type: "string",
     section: "connection",
     helpText:
-      "Full Redis/Valkey connection URL (e.g. redis://:password@host:6379/1). When set, it takes precedence over Host, Port, Password, and Database Index.",
+      "URL de conexão completa do Redis/Valkey (por exemplo, redis://:senha@host:6379/1). Quando definido, tem prioridade sobre Host, Porta, Senha e Índice do Banco de Dados.",
     redisType: null,
   },
   {
@@ -99,94 +99,94 @@ export const CACHE_FIELDS: readonly CacheField[] = [
     label: "Host",
     type: "string",
     section: "connection",
-    helpText: "Redis server hostname or IP address",
+    helpText: "Nome de host ou endereço IP do servidor Redis",
     redisType: null,
   },
   {
     name: "port",
-    label: "Port",
+    label: "Porta",
     type: "string",
     section: "connection",
-    helpText: "Redis server port number",
+    helpText: "Número da porta do servidor Redis",
     redisType: null,
     defaultValue: "6379",
     rules: [portRule],
   },
   {
     name: "db",
-    label: "Database Index",
+    label: "Índice do Banco de Dados",
     type: "integer",
     section: "connection",
-    helpText: "Logical database index to isolate the cache (e.g. 1 for redis://host:6379/1)",
+    helpText: "Índice lógico do banco de dados para isolar o cache (ex: 1 para redis://host:6379/1)",
     redisType: null,
     rules: [nonNegativeIntegerRule],
   },
   {
     name: "password",
-    label: "Password",
+    label: "Senha",
     type: "password",
     section: "connection",
-    helpText: "Redis server password",
+    helpText: "Senha do servidor Redis",
     redisType: null,
   },
   {
     name: "username",
-    label: "Username",
+    label: "Nome de Usuário",
     type: "string",
     section: "connection",
-    helpText: "Redis server username (if required)",
+    helpText: "Nome de usuário do servidor Redis (se necessário)",
     redisType: null,
   },
   {
     name: "redis_startup_nodes",
-    label: "Startup Nodes",
+    label: "Nós Iniciais",
     type: "list",
     section: "cluster",
-    helpText: 'List of startup nodes for Redis Cluster (e.g., [{"host": "127.0.0.1", "port": "7001"}])',
+    helpText: 'Lista de nós inicias para Redis Cluster (ex: [{"host": "127.0.0.1", "port": "7001"}])',
     redisType: "cluster",
     rules: [jsonListRule],
   },
   {
     name: "sentinel_nodes",
-    label: "Sentinel Nodes",
+    label: "Nós Sentinel",
     type: "list",
     section: "sentinel",
-    helpText: 'List of Sentinel nodes (e.g., [["localhost", 26379]])',
+    helpText: 'Lista de nós Sentinel (ex: [["localhost", 26379]])',
     redisType: "sentinel",
     rules: [jsonListRule],
   },
   {
     name: "service_name",
-    label: "Service Name",
+    label: "Nome do Serviço",
     type: "string",
     section: "sentinel",
-    helpText: "Master service name for Redis Sentinel",
+    helpText: "Nome do serviço master para Redis Sentinel",
     redisType: "sentinel",
   },
   {
     name: "sentinel_password",
-    label: "Sentinel Password",
+    label: "Senha do Sentinel",
     type: "password",
     section: "sentinel",
-    helpText: "Password for Redis Sentinel authentication",
+    helpText: "Senha para autenticação do Redis Sentinel",
     redisType: "sentinel",
   },
   {
     name: "similarity_threshold",
-    label: "Similarity Threshold",
+    label: "Limiar de Similaridade",
     type: "float",
     section: "semantic",
-    helpText: "Similarity threshold for semantic cache",
+    helpText: "Limiar de similaridade para cache semântico",
     redisType: "semantic",
     defaultValue: 0.8,
     rules: [numberRule],
   },
   {
     name: "redis_semantic_cache_embedding_model",
-    label: "Embedding Model",
+    label: "Modelo de Embedding",
     type: "model-select",
     section: "semantic",
-    helpText: "Embedding model for semantic cache",
+    helpText: "Modelo de embedding para cache semântico",
     redisType: "semantic",
   },
   {
@@ -194,24 +194,24 @@ export const CACHE_FIELDS: readonly CacheField[] = [
     label: "SSL",
     type: "boolean",
     section: "ssl",
-    helpText: "Enable SSL/TLS connection",
+    helpText: "Habilitar conexão SSL/TLS",
     redisType: null,
     defaultValue: false,
   },
   {
     name: "ssl_cert_reqs",
-    label: "SSL Cert Reqs",
+    label: "Requisitos do Cert SSL",
     type: "string",
     section: "ssl",
-    helpText: "SSL certificate requirements (None, CERT_REQUIRED, CERT_OPTIONAL)",
+    helpText: "Requisitos do certificado SSL (None, CERT_REQUIRED, CERT_OPTIONAL)",
     redisType: null,
   },
   {
     name: "ssl_check_hostname",
-    label: "SSL Check Hostname",
+    label: "Verificação de Hostname SSL",
     type: "boolean",
     section: "ssl",
-    helpText: "Enable SSL hostname verification",
+    helpText: "Habilitar verificação de hostname SSL",
     redisType: null,
     defaultValue: false,
   },
@@ -220,42 +220,42 @@ export const CACHE_FIELDS: readonly CacheField[] = [
     label: "Namespace",
     type: "string",
     section: "cacheManagement",
-    helpText: "Namespace prefix for cache keys",
+    helpText: "Prefixo de namespace para chaves de cache",
     redisType: null,
   },
   {
     name: "ttl",
-    label: "TTL (seconds)",
+    label: "TTL (segundos)",
     type: "float",
     section: "cacheManagement",
-    helpText: "Time-to-live for cached items in seconds",
+    helpText: "Tempo de vida para itens em cache em segundos",
     redisType: null,
     rules: [numberRule],
   },
   {
     name: "max_connections",
-    label: "Max Connections",
+    label: "Máximo de Conexões",
     type: "integer",
     section: "cacheManagement",
-    helpText: "Maximum number of connections in the connection pool",
+    helpText: "Número máximo de conexões no pool de conexões",
     redisType: null,
     rules: [nonNegativeIntegerRule],
   },
   {
     name: "gcp_service_account",
-    label: "GCP Service Account",
+    label: "Conta de Serviço GCP",
     type: "string",
     section: "gcp",
     helpText:
-      "GCP service account for IAM authentication (e.g., projects/-/serviceAccounts/your-sa@project.iam.gserviceaccount.com)",
+      "Conta de serviço GCP para autenticação IAM (ex: projects/-/serviceAccounts/sua-sa@projeto.iam.gserviceaccount.com)",
     redisType: null,
   },
   {
     name: "gcp_ssl_ca_certs",
-    label: "GCP SSL CA Certs",
+    label: "Certificados CA SSL GCP",
     type: "string",
     section: "gcp",
-    helpText: "Path to SSL CA certificate file for GCP Memorystore Redis",
+    helpText: "Caminho para o arquivo de certificado CA SSL para GCP Memorystore Redis",
     redisType: null,
   },
 ];

@@ -780,7 +780,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
               <div className="mt-4 p-4 bg-purple-50 border border-purple-200 rounded-md">
                 <div className="mb-3">
                   <span className="text-sm font-medium text-gray-700">
-                    Select Agent <span className="text-red-500">*</span>
+                    Selecionar Agente <span className="text-red-500">*</span>
                   </span>
                 </div>
                 <Select
@@ -957,7 +957,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
               >
                 <Select
                   mode="multiple"
-                  placeholder="Select models"
+                  placeholder="Selecionar modelos"
                   style={{ width: "100%" }}
                   disabled={keyType === "management" || keyType === "read_only"}
                   onChange={(values) => {
@@ -1001,7 +1001,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
               >
                 <Select
                   defaultValue="llm_api"
-                  placeholder="Select key type"
+                  placeholder="Selecionar tipo de chave"
                   style={{ width: "100%" }}
                   optionLabelProp="label"
                   onChange={(value) => {
@@ -1240,7 +1240,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      placeholder="Select or enter guardrails"
+                      placeholder="Selecionar ou digitar guardrails"
                       options={guardrailsList.map((name) => ({ value: name, label: name }))}
                     />
                   </Form.Item>
@@ -1290,7 +1290,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      placeholder="Select or enter policies"
+                      placeholder="Selecionar ou digitar políticas"
                       options={policiesList.map((name) => ({ value: name, label: name }))}
                     />
                   </Form.Item>
@@ -1317,7 +1317,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      placeholder="Select or enter prompts"
+                      placeholder="Selecionar ou digitar prompts"
                       options={promptsList.map((name) => ({ value: name, label: name }))}
                     />
                   </Form.Item>
@@ -1334,7 +1334,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     className="mt-4"
                     help="Selecione grupos de acesso para atribuir a esta chave"
                   >
-                    <AccessGroupSelector placeholder="Select access groups (optional)" />
+                    <AccessGroupSelector placeholder="Selecionar grupos de acesso (opcional)" />
                   </Form.Item>
                   <Form.Item
                     label={
@@ -1360,7 +1360,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                       onChange={(values: string[]) => form.setFieldValue("allowed_passthrough_routes", values)}
                       value={form.getFieldValue("allowed_passthrough_routes")}
                       accessToken={accessToken}
-                      placeholder="Select or enter pass through routes"
+                      placeholder="Selecionar ou digitar rotas de passagem"
                       teamId={selectedCreateKeyTeam ? selectedCreateKeyTeam.team_id : null}
                     />
                   </Form.Item>
@@ -1381,7 +1381,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                       onChange={(values: string[]) => form.setFieldValue("allowed_vector_store_ids", values)}
                       value={form.getFieldValue("allowed_vector_store_ids")}
                       accessToken={accessToken}
-                      placeholder="Select vector stores (optional)"
+                      placeholder="Selecionar lojas de vetores (opcional)"
                     />
                   </Form.Item>
                   <Form.Item
@@ -1396,7 +1396,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     name="metadata"
                     className="mt-4"
                   >
-                    <Input.TextArea rows={4} placeholder="Enter metadata as JSON" />
+                    <Input.TextArea rows={4} placeholder="Digite os metadados como JSON" />
                   </Form.Item>
                   <Form.Item
                     label={
@@ -1414,7 +1414,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     <Select
                       mode="tags"
                       style={{ width: "100%" }}
-                      placeholder="Select or enter tags"
+                      placeholder="Selecionar ou digitar tags"
                       tokenSeparators={[","]}
                       options={tagOptions}
                     />
@@ -1441,7 +1441,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                           value={form.getFieldValue("allowed_mcp_servers_and_groups")}
                           accessToken={accessToken}
                           teamId={selectedCreateKeyTeam?.team_id ?? null}
-                          placeholder="Select MCP servers or access groups (optional)"
+                          placeholder="Selecionar servidores MCP ou grupos de acesso (opcional)"
                           allowNoMcpServers
                         />
                       </Form.Item>
@@ -1495,7 +1495,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                           onChange={(val: any) => form.setFieldValue("allowed_agents_and_groups", val)}
                           value={form.getFieldValue("allowed_agents_and_groups")}
                           accessToken={accessToken}
-                          placeholder="Select agents or access groups (optional)"
+                          placeholder="Selecionar agentes ou grupos de acesso (opcional)"
                         />
                       </Form.Item>
                     </AccordionBody>
@@ -1546,8 +1546,8 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     <AccordionBody>
                       <div className="mt-4">
                         <Text className="text-sm text-gray-600 mb-4">
-                          Create custom aliases for models that can be used in API calls. This allows you to create
-                          shortcuts for specific models.
+                          Crie aliases personalizados para modelos que podem ser usados em chamadas de API. Isso permite criar
+                          atalhos para modelos específicos.
                         </Text>
                         <ModelAliasManager
                           accessToken={accessToken}

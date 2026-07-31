@@ -37,7 +37,7 @@ export function SearchSelect({
   value,
   onValueChange,
   placeholder = "Select…",
-  emptyText = "No results",
+  emptyText = "Nenhum resultado",
   disabled = false,
   className,
 }: SearchSelectProps) {

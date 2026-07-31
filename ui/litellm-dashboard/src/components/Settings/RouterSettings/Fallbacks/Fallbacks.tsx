@@ -80,7 +80,7 @@ async function testFallbackModelResponse(selectedModel: string, accessToken: str
   });
 
   try {
-    NotificationsManager.info("Testing fallback model response...");
+    NotificationsManager.info("Testando resposta do modelo fallback...");
 
     const response = await client.chat.completions.create({
       model: selectedModel,
@@ -179,7 +179,7 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID }) 
     try {
       await setCallbacksCall(accessToken, payload);
       setRouterSettings(updatedSettings);
-      NotificationsManager.success("Router settings updated successfully");
+      NotificationsManager.success("Configurações do roteador atualizadas com sucesso");
     } catch (error) {
       NotificationsManager.fromBackend("Failed to update router settings: " + error);
     } finally {
@@ -249,14 +249,14 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID }) 
       {!hasFallbacks ? (
         <div className="rounded-lg border border-gray-200 bg-gray-50 px-4 py-6 text-center">
           <Typography.Text type="secondary">
-            No fallbacks configured. Add fallbacks to automatically try another model when the primary fails.
+            Nenhum fallback configurado. Adicione fallbacks para tentar automaticamente outro modelo quando o principal falhar.
           </Typography.Text>
         </div>
       ) : (
         <Table>
           <TableHead>
             <TableRow>
-              <TableHeaderCell>Model Name</TableHeaderCell>
+              <TableHeaderCell>Nome do Modelo</TableHeaderCell>
               <TableHeaderCell>Fallbacks</TableHeaderCell>
               <TableHeaderCell>Actions</TableHeaderCell>
             </TableRow>
@@ -304,12 +304,12 @@ const Fallbacks: React.FC<FallbacksProps> = ({ accessToken, userRole, userID }) 
       )}
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Fallback?"
-        message="Are you sure you want to delete this fallback? This action cannot be undone."
-        resourceInformationTitle="Fallback Information"
+        title="Excluir Fallback?"
+        message="Tem certeza que deseja excluir este fallback? Esta ação não pode ser desfeita."
+        resourceInformationTitle="Informações do Fallback"
         resourceInformation={[
           {
-            label: "Model Name",
+            label: "Nome do Modelo",
             value: fallbackToDelete ? Object.keys(fallbackToDelete)[0] : "",
             code: true,
           },

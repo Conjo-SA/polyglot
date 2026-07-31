@@ -12,7 +12,7 @@ const { Text, Title } = Typography;
 const credentialsInfoPopoverContent = (
   <Space direction="vertical" size={12}>
     <Text strong style={{ fontSize: 13 }}>
-      Credential types
+      Tipos de credenciais
     </Text>
     <Space direction="vertical" size={8}>
       <Flex align="center" gap={8}>
@@ -20,10 +20,10 @@ const credentialsInfoPopoverContent = (
           <Flex align="center" gap={8}>
             <SyncOutlined style={{ color: "#1890ff" }} />
             <Title level={5} style={{ margin: 0, color: "#1890ff" }}>
-              Reusable
+              Reutilizável
             </Title>
           </Flex>
-          <Text type="secondary">Credentials saved in Polyglot that can be added to models repeatedly.</Text>
+          <Text type="secondary">Credenciais salvas no Polyglot que podem ser adicionadas a modelos repetidamente.</Text>
         </Space>
       </Flex>
       <Divider size="small" />
@@ -35,7 +35,7 @@ const credentialsInfoPopoverContent = (
               Manual
             </Title>
           </Flex>
-          <Text type="secondary">Credentials added directly during model creation or defined in the config file.</Text>
+          <Text type="secondary">Credenciais adicionadas diretamente durante a criação do modelo ou definidas no arquivo de configuração.</Text>
         </Space>
       </Flex>
     </Space>
@@ -58,7 +58,7 @@ export const columns = (
   pausingModelId?: string | null,
 ): ColumnDef<ModelData>[] => [
   {
-    header: () => <span className="text-sm font-semibold">Model ID</span>,
+    header: () => <span className="text-sm font-semibold">ID do Modelo</span>,
     accessorKey: "model_info.id",
     enableSorting: false,
     size: 130,
@@ -73,7 +73,7 @@ export const columns = (
     },
   },
   {
-    header: () => <span className="text-sm font-semibold">Model Information</span>,
+    header: () => <span className="text-sm font-semibold">Informações do Modelo</span>,
     accessorKey: "model_name",
     size: 250,
     minSize: 120,
@@ -85,14 +85,14 @@ export const columns = (
           <Flex align="center" gap={8}>
             <ProviderLogo provider={model.provider} />
             <Text type="secondary" style={{ fontSize: 12 }} ellipsis>
-              {model.provider || "Unknown provider"}
+              {model.provider || "Fornecedor desconhecido"}
             </Text>
           </Flex>
 
           <Space direction="vertical" size={6}>
             <Space direction="vertical" size={2} style={{ width: "100%" }}>
               <Text type="secondary" style={{ fontSize: 11 }}>
-                Public Model Name
+                Nome Público do Modelo
               </Text>
               <Text strong style={{ fontSize: 13, maxWidth: 480 }} ellipsis title={displayName}>
                 {displayName}
@@ -101,7 +101,7 @@ export const columns = (
 
             <Space direction="vertical" size={2}>
               <Text type="secondary" style={{ fontSize: 11 }}>
-                Polyglot Model Name
+                Nome do Modelo Polyglot
               </Text>
               <Text
                 style={{ fontSize: 13 }}
@@ -152,7 +152,7 @@ export const columns = (
   {
     header: () => (
       <span className="flex items-center gap-1">
-        <span className="text-sm font-semibold">Credentials</span>
+        <span className="text-sm font-semibold">Credenciais</span>
         <Popover content={credentialsInfoPopoverContent} placement="bottom" arrow={{ pointAtCenter: true }}>
           <InfoCircleOutlined className="cursor-pointer text-gray-400 hover:text-gray-600" style={{ fontSize: 12 }} />
         </Popover>
@@ -187,7 +187,7 @@ export const columns = (
     },
   },
   {
-    header: () => <span className="text-sm font-semibold">Created By</span>,
+    header: () => <span className="text-sm font-semibold">Criado Por</span>,
     accessorKey: "model_info.created_by",
     sortingFn: "datetime",
     size: 160,
@@ -203,23 +203,23 @@ export const columns = (
           {/* Created By - Primary */}
           <div
             className="text-xs font-medium text-gray-900 truncate"
-            title={isConfigModel ? "Defined in config" : createdBy || "Unknown"}
+            title={isConfigModel ? "Definido no config" : createdBy || "Desconhecido"}
           >
-            {isConfigModel ? "Defined in config" : createdBy || "Unknown"}
+            {isConfigModel ? "Definido no config" : createdBy || "Desconhecido"}
           </div>
           {/* Created At - Secondary */}
           <div
             className="text-xs text-gray-500 truncate mt-0.5"
-            title={isConfigModel ? "Config file" : createdAt || "Unknown date"}
+            title={isConfigModel ? "Arquivo de configuração" : createdAt || "Data desconhecida"}
           >
-            {isConfigModel ? "-" : createdAt || "Unknown date"}
+            {isConfigModel ? "-" : createdAt || "Data desconhecida"}
           </div>
         </div>
       );
     },
   },
   {
-    header: () => <span className="text-sm font-semibold">Updated At</span>,
+    header: () => <span className="text-sm font-semibold">Atualizado Em</span>,
     accessorKey: "model_info.updated_at",
     sortingFn: "datetime",
     size: 120,
@@ -230,7 +230,7 @@ export const columns = (
     },
   },
   {
-    header: () => <span className="text-sm font-semibold">Costs</span>,
+    header: () => <span className="text-sm font-semibold">Custos</span>,
     accessorKey: "input_cost",
     size: 120,
     minSize: 80,
@@ -249,19 +249,19 @@ export const columns = (
       }
 
       return (
-        <Tooltip title="Cost per 1M tokens">
+        <Tooltip title="Custo por 1M tokens">
           <div className="flex flex-col min-w-0 w-full">
             {/* Input Cost - Primary */}
-            {inputCost != null && <div className="text-xs font-medium text-gray-900 truncate">In: ${inputCost}</div>}
+            {inputCost != null && <div className="text-xs font-medium text-gray-900 truncate">Entrada: ${inputCost}</div>}
             {/* Output Cost - Secondary */}
-            {outputCost != null && <div className="text-xs text-gray-500 truncate mt-0.5">Out: ${outputCost}</div>}
+            {outputCost != null && <div className="text-xs text-gray-500 truncate mt-0.5">Saída: ${outputCost}</div>}
           </div>
         </Tooltip>
       );
     },
   },
   {
-    header: () => <span className="text-sm font-semibold">Team ID</span>,
+    header: () => <span className="text-sm font-semibold">ID da Equipe</span>,
     accessorKey: "model_info.team_id",
     enableSorting: false,
     size: 130,
@@ -278,7 +278,7 @@ export const columns = (
     },
   },
   {
-    header: () => <span className="text-sm font-semibold">Model Access Group</span>,
+    header: () => <span className="text-sm font-semibold">Grupo de Acesso ao Modelo</span>,
     accessorKey: "model_info.model_access_group",
     enableSorting: false,
     size: 180,

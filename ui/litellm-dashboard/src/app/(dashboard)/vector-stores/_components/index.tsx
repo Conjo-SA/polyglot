@@ -147,7 +147,7 @@ const VectorStoreManagement: React.FC<VectorStoreProps> = ({ accessToken, userID
     <div className="mx-4 h-[75vh]">
       <div className="gap-2 p-8 h-[75vh] w-full mt-2">
         <div className="flex justify-between mt-2 w-full items-center mb-4">
-          <h1>Vector Store Management</h1>
+          <h1>Gerenciamento de Vector Store</h1>
           <div className="flex items-center space-x-2">
             {lastRefreshed && <Text>Last Refreshed: {lastRefreshed}</Text>}
             <Icon
@@ -161,14 +161,14 @@ const VectorStoreManagement: React.FC<VectorStoreProps> = ({ accessToken, userID
         </div>
 
         <Text className="mb-4">
-          <p>You can use vector stores to store and retrieve LLM embeddings.</p>
+          <p>Você pode usar vector stores para armazenar e recuperar embeddings de LLM.</p>
         </Text>
 
         <TabGroup>
           <TabList className="mb-6">
-            <Tab>Create Vector Store</Tab>
-            <Tab>Manage Vector Stores</Tab>
-            <Tab>Test Vector Store</Tab>
+            <Tab>Criar Vector Store</Tab>
+            <Tab>Gerenciar Vector Stores</Tab>
+            <Tab>Testar Vector Store</Tab>
           </TabList>
 
           <TabPanels>
@@ -180,7 +180,7 @@ const VectorStoreManagement: React.FC<VectorStoreProps> = ({ accessToken, userID
             {/* Tab 2: Manage Vector Stores */}
             <TabPanel>
               <TremorButton className="mb-4" onClick={() => setIsCreateModalVisible(true)}>
-                + Add Vector Store
+                + Adicionar Vector Store
               </TremorButton>
 
               <Grid numItems={1} className="gap-2 pt-2 pb-2 w-full mt-2">
@@ -215,10 +215,10 @@ const VectorStoreManagement: React.FC<VectorStoreProps> = ({ accessToken, userID
         {/* Delete Confirmation Modal */}
         <DeleteResourceModal
           isOpen={isDeleteModalOpen}
-          title="Delete Vector Store"
-          message="Are you sure you want to delete this vector store? This action cannot be undone."
-          resourceInformationTitle="Vector Store Information"
-          resourceInformation={[{ label: "Vector Store ID", value: vectorStoreToDelete, code: true }]}
+          title="Excluir Vector Store"
+          message="Tem certeza de que deseja excluir este vector store? Esta ação não pode ser desfeita."
+          resourceInformationTitle="Informações do Vector Store"
+          resourceInformation={[{ label: "ID do Vector Store", value: vectorStoreToDelete, code: true }]}
           onCancel={() => setIsDeleteModalOpen(false)}
           onOk={confirmDelete}
           confirmLoading={isDeleting}

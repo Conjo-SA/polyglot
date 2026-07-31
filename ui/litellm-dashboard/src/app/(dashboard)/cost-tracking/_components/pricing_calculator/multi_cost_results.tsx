@@ -125,7 +125,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
   if (!hasAnyResult && !isAnyLoading && !hasAnyError) {
     return (
       <div className="py-6 text-center border border-dashed border-gray-300 rounded-lg bg-gray-50">
-        <Text className="text-gray-500">Select models above to see cost estimates</Text>
+        <Text className="text-gray-500">Selecione modelos acima para ver estimativas de custo</Text>
       </div>
     );
   }
@@ -135,7 +135,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
     return (
       <div className="py-6 text-center">
         <Spin indicator={<LoadingOutlined spin />} />
-        <Text className="text-gray-500 block mt-2">Calculating costs...</Text>
+        <Text className="text-gray-500 block mt-2">Calculando custos...</Text>
       </div>
     );
   }
@@ -146,13 +146,13 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
       <div className="space-y-4">
         <Divider className="my-4" />
         <div className="flex items-center justify-between">
-          <Text className="text-base font-semibold text-gray-900">Cost Estimates</Text>
+          <Text className="text-base font-semibold text-gray-900">Estimativas de Custo</Text>
           {isAnyLoading && <Spin indicator={<LoadingOutlined spin />} size="small" />}
         </div>
         {/* Error Messages */}
         {errorEntries.map((e) => (
           <div key={e.entry.id} className="text-sm text-red-600 bg-red-50 p-3 rounded-lg border border-red-200">
-            <span className="font-medium">{e.entry.model || "Unknown model"}: </span>
+            <span className="font-medium">{e.entry.model || "Modelo desconhecido"}: </span>
             {e.error}
           </div>
         ))}
@@ -205,7 +205,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
           {record.error && <div className="text-xs text-red-600 bg-red-50 px-2 py-1 rounded-sm">⚠️ {record.error}</div>}
           {record.hasZeroCost && !record.error && (
             <div className="text-xs text-amber-600 bg-amber-50 px-2 py-1 rounded-sm">
-              ⚠️ No pricing data found for this model. Set base_model in config.
+              ⚠️ Nenhum dado de precificação encontrado para este modelo. Defina base_model na configuração.
             </div>
           )}
         </div>
@@ -300,7 +300,7 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
         <Row gutter={[16, 8]}>
           <Col xs={24} sm={12}>
             <Statistic
-              title={<span className="text-xs">Total Per Request</span>}
+              title={<span className="text-xs">Total Por Requisição</span>}
               value={multiResult.totals.cost_per_request ?? 0}
               formatter={() => formatCost(multiResult.totals.cost_per_request)}
               valueStyle={{ color: "#1890ff", fontSize: "18px", fontFamily: "monospace" }}

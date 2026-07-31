@@ -11,10 +11,10 @@ export const ChartLoader: React.FC<ChartLoaderProps> = ({ isDateChanging = false
       <UiLoadingSpinner className="size-5" />
       <div className="flex flex-col">
         <span className="text-gray-600 text-sm font-medium">
-          {isDateChanging ? "Processing date selection..." : "Loading chart data..."}
+          {isDateChanging ? "Processando seleção de data..." : "Carregando dados do gráfico..."}
         </span>
         <span className="text-gray-400 text-xs mt-1">
-          {isDateChanging ? "This will only take a moment" : "Fetching your data"}
+          {isDateChanging ? "Isso levará apenas um instante" : "Buscando seus dados"}
         </span>
       </div>
     </div>

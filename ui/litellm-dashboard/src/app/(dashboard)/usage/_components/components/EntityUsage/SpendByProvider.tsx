@@ -64,13 +64,13 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
         <Title>Gasto por Provedor</Title>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
-            <label className="text-sm text-gray-700">Show Zero Spend</label>
+            <label className="text-sm text-gray-700">Mostrar Gasto Zero</label>
             <Switch checked={includeZeroSpend} onChange={setIncludeZeroSpend} />
           </div>
           <div className="flex items-center gap-2">
             <div className="flex items-center gap-1">
-              <label className="text-sm text-gray-700">Show Unknown</label>
-              <Tooltip title="Requests that failed to route to a provider">
+              <label className="text-sm text-gray-700">Mostrar Desconhecido</label>
+              <Tooltip title="Requisições que falharam ao rotear para um provedor">
                 <InfoCircleOutlined className="text-gray-400 hover:text-gray-600" />
               </Tooltip>
             </div>
@@ -102,9 +102,9 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
               <TableHead>
                 <TableRow>
                   <TableHeaderCell>Provider</TableHeaderCell>
-                  <TableHeaderCell>Spend</TableHeaderCell>
-                  <TableHeaderCell className="text-green-600">Successful</TableHeaderCell>
-                  <TableHeaderCell className="text-red-600">Failed</TableHeaderCell>
+                  <TableHeaderCell>Gasto</TableHeaderCell>
+                  <TableHeaderCell className="text-green-600">Bem-sucedidas</TableHeaderCell>
+                  <TableHeaderCell className="text-red-600">Falhas</TableHeaderCell>
                   <TableHeaderCell>Tokens</TableHeaderCell>
                 </TableRow>
               </TableHead>

@@ -10,7 +10,7 @@ const ExportSummary: React.FC<ExportSummaryProps> = ({ dateRange, selectedFilter
   return (
     <div className="text-sm text-gray-500">
       {dateRange.from?.toLocaleDateString()} - {dateRange.to?.toLocaleDateString()}
-      {selectedFilters.length > 0 && ` · ${selectedFilters.length} filter${selectedFilters.length > 1 ? "s" : ""}`}
+      {selectedFilters.length > 0 && ` · ${selectedFilters.length} filtro${selectedFilters.length > 1 ? "s" : ""}`}
     </div>
   );
 };

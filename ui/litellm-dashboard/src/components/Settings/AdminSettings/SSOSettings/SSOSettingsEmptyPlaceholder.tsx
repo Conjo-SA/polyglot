@@ -13,16 +13,15 @@ export default function SSOSettingsEmptyPlaceholder({ onAdd }: SSOSettingsEmptyP
         image={Empty.PRESENTED_IMAGE_SIMPLE}
         description={
           <div className="space-y-2">
-            <Title level={4}>No SSO Configuration Found</Title>
+            <Title level={4}>Nenhuma Configuração de SSO Encontrada</Title>
             <Paragraph type="secondary" className="max-w-md mx-auto">
-              Configure Single Sign-On (SSO) to enable seamless authentication for your team members using your identity
-              provider.
+              Configure o Single Sign-On (SSO) para habilitar autenticação fluida para seus membros da equipe usando seu provedor de identidade.
             </Paragraph>
           </div>
         }
       >
         <Button type="primary" size="large" onClick={onAdd} className="flex items-center gap-2 mx-auto mt-4">
-          Configure SSO
+          Configurar SSO
         </Button>
       </Empty>
     </div>

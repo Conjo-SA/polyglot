@@ -27,19 +27,19 @@ const APIReferenceView: React.FC<ApiRefProps> = ({ proxySettings }) => {
           {/* Header row with Docs link on the right */}
           <div className="flex items-center justify-between">
             <p className="text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
-              OpenAI Compatible Proxy: API Reference
+              Proxy compatível com OpenAI: Referência da API
             </p>
             <DocLink className="ml-3 shrink-0" href="https://docs.litellm.ai/docs/proxy/user_keys" />
           </div>
 
           <Text className="mt-2 mb-2">
-            Polyglot is OpenAI Compatible. This means your API Key works with the OpenAI SDK. Just replace the base_url
-            to point to your litellm proxy. Example Below{" "}
+            Polyglot é compatível com OpenAI. Isso significa que sua chave de API funciona com o SDK do OpenAI. Basta substituir o base_url
+            para apontar para seu proxy litellm. Exemplo abaixo{" "}
           </Text>
 
           <TabGroup>
             <TabList>
-              <Tab>OpenAI Python SDK</Tab>
+              <Tab>SDK Python do OpenAI</Tab>
               <Tab>LlamaIndex</Tab>
               <Tab>Langchain Py</Tab>
             </TabList>

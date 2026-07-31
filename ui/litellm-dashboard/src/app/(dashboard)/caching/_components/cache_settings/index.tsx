@@ -84,9 +84,9 @@ const CacheSettings: React.FC<CacheSettingsProps> = ({ accessToken }) => {
         buildCachePayload(redisType, values, { forTesting: true }),
       );
       if (result.status === "success") {
-        NotificationsManager.success("Cache connection test successful!");
+        NotificationsManager.success("Teste de conexão com o cache bem-sucedido!");
       } else {
-        NotificationsManager.fromBackend(`Connection test failed: ${result.message || result.error}`);
+        NotificationsManager.fromBackend(`Falha no teste de conexão: ${result.message || result.error}`);
       }
     } catch (error) {
       console.error("Test connection error:", error);
@@ -110,11 +110,11 @@ const CacheSettings: React.FC<CacheSettingsProps> = ({ accessToken }) => {
     setIsSaving(true);
     try {
       await updateCacheSettingsCall(accessToken, buildCachePayload(redisType, values, { forTesting: false }));
-      NotificationsManager.success("Cache settings updated successfully");
+      NotificationsManager.success("Configurações do cache atualizadas com sucesso");
       await loadCacheSettings();
     } catch (error) {
       console.error("Failed to save cache settings:", error);
-      NotificationsManager.fromBackend("Failed to update cache settings");
+      NotificationsManager.fromBackend("Falha ao atualizar configurações do cache");
     } finally {
       setIsSaving(false);
     }
@@ -183,7 +183,7 @@ const CacheSettings: React.FC<CacheSettingsProps> = ({ accessToken }) => {
 
         <Accordion className="mt-4">
           <AccordionHeader>
-            <span className="text-sm font-medium text-gray-900">Advanced Settings</span>
+            <span className="text-sm font-medium text-gray-900">Configurações Avançadas</span>
           </AccordionHeader>
           <AccordionBody>
             <div className="space-y-6">
@@ -215,10 +215,10 @@ const CacheSettings: React.FC<CacheSettingsProps> = ({ accessToken }) => {
 
       <div className="border-t border-gray-200 pt-6 flex justify-end gap-3">
         <Button variant="secondary" size="sm" onClick={handleTestConnection} disabled={isTesting} className="text-sm">
-          {isTesting ? "Testing..." : "Test Connection"}
+          {isTesting ? "Testando..." : "Testar Conexão"}
         </Button>
         <Button size="sm" onClick={handleSaveChanges} disabled={isSaving} className="text-sm font-medium">
-          {isSaving ? "Saving..." : "Save Changes"}
+          {isSaving ? "Salvando..." : "Salvar Alterações"}
         </Button>
       </div>
     </div>

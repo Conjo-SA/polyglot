@@ -485,7 +485,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
           {isEmbedded && (
             <div className="mb-6 p-4 bg-blue-50 border border-blue-200 rounded-lg">
               <p className="text-sm text-gray-700">
-                These are models, agents, and MCP servers your proxy admin has indicated are available in your company.
+                Estes são modelos, agentes e servidores MCP que o administrador do proxy indicou como disponíveis na sua empresa.
               </p>
             </div>
           )}
@@ -493,14 +493,14 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
           {/* About Section - only shown when not embedded */}
           {!isEmbedded && (
             <Card className="mb-10 p-8 bg-white border border-gray-200 rounded-lg shadow-xs">
-              <Title className="text-2xl font-semibold mb-6 text-gray-900">About</Title>
+              <Title className="text-2xl font-semibold mb-6 text-gray-900">Sobre</Title>
               <p className="text-gray-700 mb-6 text-base leading-relaxed">
-                {customDocsDescription ? customDocsDescription : "Proxy Server to call 100+ LLMs in the OpenAI format."}
+                {customDocsDescription ? customDocsDescription : "Servidor proxy para chamar 100+ LLMs no formato OpenAI."}
               </p>
               <div className="flex items-center space-x-3 text-sm text-gray-600">
                 <span className="flex items-center">
                   <span className="w-4 h-4 mr-2">🔧</span>
-                  Built with litellm: v{litellmVersion}
+                  Construído com litellm: v{litellmVersion}
                 </span>
               </div>
             </Card>
@@ -509,7 +509,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
           {/* Useful Links - only shown when not embedded */}
           {usefulLinks && Object.keys(usefulLinks).length > 0 && (
             <Card className="mb-10 p-8 bg-white border border-gray-200 rounded-lg shadow-xs">
-              <Title className="text-2xl font-semibold mb-6 text-gray-900">Useful Links</Title>
+              <Title className="text-2xl font-semibold mb-6 text-gray-900">Links Úteis</Title>
               <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-6">
                 {Object.entries(usefulLinks || {})
                   .map(([title, value]) => {
@@ -536,9 +536,9 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
           {/* Health and Endpoint Status - only shown when not embedded */}
           {!isEmbedded && (
             <Card className="mb-10 p-8 bg-white border border-gray-200 rounded-lg shadow-xs">
-              <Title className="text-2xl font-semibold mb-6 text-gray-900">Health and Endpoint Status</Title>
+              <Title className="text-2xl font-semibold mb-6 text-gray-900">Saúde e Status do Endpoint</Title>
               <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-                <Text className="text-green-600 font-medium text-sm">Service status: {serviceStatus}</Text>
+                <Text className="text-green-600 font-medium text-sm">Status do serviço: {serviceStatus}</Text>
               </div>
             </Card>
           )}
@@ -549,16 +549,16 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
               {/* Models Tab */}
               <TabPane tab="Model Hub" key="models">
                 <div className="flex justify-between items-center mb-8">
-                  <Title className="text-2xl font-semibold text-gray-900">Available Models</Title>
+                  <Title className="text-2xl font-semibold text-gray-900">Modelos Disponíveis</Title>
                 </div>
 
                 {/* Filters */}
                 <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-4 gap-6 mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
                   <div>
                     <div className="flex items-center space-x-2 mb-3">
-                      <Text className="text-sm font-medium text-gray-700">Search Models:</Text>
+                      <Text className="text-sm font-medium text-gray-700">Pesquisar Modelos:</Text>
                       <Tooltip
-                        title="Smart search with relevance ranking - finds models containing your search terms, ranked by relevance. Try searching 'xai grok-4', 'claude-4', 'gpt-4', or 'sonnet'"
+                        title="Pesquisa inteligente com ranqueamento por relevância - encontra modelos contendo seus termos de pesquisa, classificados por relevância. Tente pesquisar 'xai grok-4', 'claude-4', 'gpt-4', ou 'sonnet'"
                         placement="top"
                       >
                         <Info className="w-4 h-4 text-gray-400 cursor-help" />
@@ -568,7 +568,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                       <SearchIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                       <input
                         type="text"
-                        placeholder="Search model names... (smart search enabled)"
+                        placeholder="Pesquisar nomes dos modelos... (pesquisa inteligente ativada)"
                         value={searchTerm}
                         onChange={(e) => setSearchTerm(e.target.value)}
                         className="border border-gray-300 rounded-lg pl-10 pr-4 py-2 w-full text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
@@ -576,7 +576,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                     </div>
                   </div>
                   <div>
-                    <Text className="text-sm font-medium mb-3 text-gray-700">Provider:</Text>
+                    <Text className="text-sm font-medium mb-3 text-gray-700">Fornecedor:</Text>
                     <Select
                       mode="multiple"
                       value={selectedProviders}
@@ -614,7 +614,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                     </Select>
                   </div>
                   <div>
-                    <Text className="text-sm font-medium mb-3 text-gray-700">Mode:</Text>
+                    <Text className="text-sm font-medium mb-3 text-gray-700">Modo:</Text>
                     <Select
                       mode="multiple"
                       value={selectedModes}
@@ -634,7 +634,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                     </Select>
                   </div>
                   <div>
-                    <Text className="text-sm font-medium mb-3 text-gray-700">Features:</Text>
+                    <Text className="text-sm font-medium mb-3 text-gray-700">Recursos:</Text>
                     <Select
                       mode="multiple"
                       value={selectedFeatures}
@@ -666,11 +666,11 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                   loadingMessage="Loading models…"
                   noDataMessage={
                     <PublicHubEmptyState
-                      title={modelHubData?.length ? "No matching models" : "No models available"}
+                      title={modelHubData?.length ? "Nenhum modelo correspondente" : "Nenhum modelo disponível"}
                       body={
                         modelHubData?.length
-                          ? "Adjust the search or filters to see more models."
-                          : "Models made public by the proxy admin will appear here."
+                          ? "Ajuste a pesquisa ou filtros para ver mais modelos."
+                          : "Modelos tornados públicos pelo administrador do proxy aparecerão aqui."
                       }
                     />
                   }
@@ -679,7 +679,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
 
                 <div className="mt-8 text-center">
                   <Text className="text-sm text-gray-600">
-                    Showing {filteredData.length} of {modelHubData?.length || 0} models
+                    Mostrando {filteredData.length} de {modelHubData?.length || 0} modelos
                   </Text>
                 </div>
               </TabPane>
@@ -688,15 +688,15 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
               {agentHubData && Array.isArray(agentHubData) && agentHubData.length > 0 && (
                 <TabPane tab="Agent Hub" key="agents">
                   <div className="flex justify-between items-center mb-8">
-                    <Title className="text-2xl font-semibold text-gray-900">Available Agents</Title>
+                    <Title className="text-2xl font-semibold text-gray-900">Agentes Disponíveis</Title>
                   </div>
 
                   {/* Filters */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
                     <div>
                       <div className="flex items-center space-x-2 mb-3">
-                        <Text className="text-sm font-medium text-gray-700">Search Agents:</Text>
-                        <Tooltip title="Search agents by name or description" placement="top">
+                        <Text className="text-sm font-medium text-gray-700">Pesquisar Agentes:</Text>
+                        <Tooltip title="Pesquisar agentes por nome ou descrição" placement="top">
                           <Info className="w-4 h-4 text-gray-400 cursor-help" />
                         </Tooltip>
                       </div>
@@ -704,7 +704,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                         <SearchIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                         <input
                           type="text"
-                          placeholder="Search agent names or descriptions..."
+                          placeholder="Pesquisar nomes ou descrições dos agentes..."
                           value={agentSearchTerm}
                           onChange={(e) => setAgentSearchTerm(e.target.value)}
                           className="border border-gray-300 rounded-lg pl-10 pr-4 py-2 w-full text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
@@ -712,12 +712,12 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                       </div>
                     </div>
                     <div>
-                      <Text className="text-sm font-medium mb-3 text-gray-700">Skills:</Text>
+                      <Text className="text-sm font-medium mb-3 text-gray-700">Habilidades:</Text>
                       <Select
                         mode="multiple"
                         value={selectedAgentSkills}
                         onChange={(values) => setSelectedAgentSkills(values)}
-                        placeholder="Select skills"
+                        placeholder="Selecionar habilidades"
                         className="w-full"
                         size="large"
                         allowClear
@@ -744,8 +744,8 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                     loadingMessage="Loading agents…"
                     noDataMessage={
                       <PublicHubEmptyState
-                        title="No matching agents"
-                        body="Adjust the search or skill filter to see more agents."
+                        title="Nenhum agente correspondente"
+                        body="Ajuste a pesquisa ou filtro de habilidades para ver mais agentes."
                       />
                     }
                     size="compact"
@@ -753,7 +753,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
 
                   <div className="mt-8 text-center">
                     <Text className="text-sm text-gray-600">
-                      Showing {filteredAgentData.length} of {agentHubData?.length || 0} agents
+                      Mostrando {filteredAgentData.length} de {agentHubData?.length || 0} agentes
                     </Text>
                   </div>
                 </TabPane>
@@ -763,15 +763,15 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
               {mcpHubData && Array.isArray(mcpHubData) && mcpHubData.length > 0 && (
                 <TabPane tab="MCP Hub" key="mcp">
                   <div className="flex justify-between items-center mb-8">
-                    <Title className="text-2xl font-semibold text-gray-900">Available MCP Servers</Title>
+                    <Title className="text-2xl font-semibold text-gray-900">Servidores MCP Disponíveis</Title>
                   </div>
 
                   {/* Filters */}
                   <div className="grid grid-cols-1 md:grid-cols-2 gap-6 mb-8 p-6 bg-gray-50 rounded-lg border border-gray-200">
                     <div>
                       <div className="flex items-center space-x-2 mb-3">
-                        <Text className="text-sm font-medium text-gray-700">Search MCP Servers:</Text>
-                        <Tooltip title="Search MCP servers by name or description" placement="top">
+                        <Text className="text-sm font-medium text-gray-700">Pesquisar Servidores MCP:</Text>
+                        <Tooltip title="Pesquisar servidores MCP por nome ou descrição" placement="top">
                           <Info className="w-4 h-4 text-gray-400 cursor-help" />
                         </Tooltip>
                       </div>
@@ -779,7 +779,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                         <SearchIcon className="w-4 h-4 text-gray-400 absolute left-3 top-1/2 transform -translate-y-1/2" />
                         <input
                           type="text"
-                          placeholder="Search MCP server names or descriptions..."
+                          placeholder="Pesquisar nomes ou descrições dos servidores MCP..."
                           value={mcpSearchTerm}
                           onChange={(e) => setMcpSearchTerm(e.target.value)}
                           className="border border-gray-300 rounded-lg pl-10 pr-4 py-2 w-full text-sm focus:outline-hidden focus:ring-2 focus:ring-blue-500 focus:border-transparent bg-white"
@@ -787,12 +787,12 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                       </div>
                     </div>
                     <div>
-                      <Text className="text-sm font-medium mb-3 text-gray-700">Transport:</Text>
+                      <Text className="text-sm font-medium mb-3 text-gray-700">Transporte:</Text>
                       <Select
                         mode="multiple"
                         value={selectedMcpTransports}
                         onChange={(values) => setSelectedMcpTransports(values)}
-                        placeholder="Select transport types"
+                        placeholder="Selecionar tipos de transporte"
                         className="w-full"
                         size="large"
                         allowClear
@@ -819,8 +819,8 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                     loadingMessage="Loading MCP servers…"
                     noDataMessage={
                       <PublicHubEmptyState
-                        title="No matching MCP servers"
-                        body="Adjust the search or transport filter to see more servers."
+                        title="Nenhum servidor MCP correspondente"
+                        body="Ajuste a pesquisa ou filtro de transporte para ver mais servidores."
                       />
                     }
                     size="compact"
@@ -828,7 +828,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
 
                   <div className="mt-8 text-center">
                     <Text className="text-sm text-gray-600">
-                      Showing {filteredMcpData.length} of {mcpHubData?.length || 0} MCP servers
+                      Mostrando {filteredMcpData.length} de {mcpHubData?.length || 0} servidores MCP
                     </Text>
                   </div>
                 </TabPane>
@@ -867,18 +867,18 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
             <div className="space-y-6">
               {/* Model Overview */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Model Overview</Text>
+                <Text className="text-lg font-semibold mb-4">Visão Geral do Modelo</Text>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <Text className="font-medium">Model Name:</Text>
+                    <Text className="font-medium">Nome do Modelo:</Text>
                     <Text>{selectedModel.model_group}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Mode:</Text>
-                    <Text>{selectedModel.mode || "Not specified"}</Text>
+                    <Text className="font-medium">Modo:</Text>
+                    <Text>{selectedModel.mode || "Não especificado"}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Providers:</Text>
+                    <Text className="font-medium">Fornecedores:</Text>
                     <div className="flex flex-wrap gap-1 mt-1">
                       {(selectedModel.providers ?? []).map((provider) => {
                         const { logo } = getProviderLogoAndName(provider);
@@ -937,27 +937,27 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                 <Text className="text-lg font-semibold mb-4">Token & Cost Information</Text>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
-                    <Text className="font-medium">Max Input Tokens:</Text>
-                    <Text>{selectedModel.max_input_tokens?.toLocaleString() || "Not specified"}</Text>
+                    <Text className="font-medium">Máximo de Tokens de Entrada:</Text>
+                    <Text>{selectedModel.max_input_tokens?.toLocaleString() || "Não especificado"}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Max Output Tokens:</Text>
-                    <Text>{selectedModel.max_output_tokens?.toLocaleString() || "Not specified"}</Text>
+                    <Text className="font-medium">Máximo de Tokens de Saída:</Text>
+                    <Text>{selectedModel.max_output_tokens?.toLocaleString() || "Não especificado"}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Input Cost per 1M Tokens:</Text>
+                    <Text className="font-medium">Custo de Entrada por 1M de Tokens:</Text>
                     <Text>
                       {selectedModel.input_cost_per_token
                         ? formatCost(selectedModel.input_cost_per_token, currency, rate)
-                        : "Not specified"}
+                        : "Não especificado"}
                     </Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Output Cost per 1M Tokens:</Text>
+                    <Text className="font-medium">Custo de Saída por 1M de Tokens:</Text>
                     <Text>
                       {selectedModel.output_cost_per_token
                         ? formatCost(selectedModel.output_cost_per_token, currency, rate)
-                        : "Not specified"}
+                        : "Não especificado"}
                     </Text>
                   </div>
                 </div>
@@ -972,7 +972,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
                     const colors = ["green", "blue", "purple", "orange", "red", "yellow"];
 
                     if (capabilities.length === 0) {
-                      return <Text className="text-gray-500">No special capabilities listed</Text>;
+                      return <Text className="text-gray-500">Nenhum recurso especial listado</Text>;
                     }
 
                     return capabilities.map((capability, index) => (
@@ -987,7 +987,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
               {/* Rate Limits */}
               {(selectedModel.tpm || selectedModel.rpm) && (
                 <div>
-                  <Text className="text-lg font-semibold mb-4">Rate Limits</Text>
+                  <Text className="text-lg font-semibold mb-4">Limites de Taxa</Text>
                   <div className="grid grid-cols-2 gap-4">
                     {selectedModel.tpm && (
                       <div>
@@ -1008,7 +1008,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
               {/* Supported OpenAI Parameters */}
               {selectedModel.supported_openai_params && selectedModel.supported_openai_params.length > 0 && (
                 <div>
-                  <Text className="text-lg font-semibold mb-4">Supported OpenAI Parameters</Text>
+                  <Text className="text-lg font-semibold mb-4">Parâmetros Suportados do OpenAI</Text>
                   <div className="flex flex-wrap gap-2">
                     {selectedModel.supported_openai_params.map((param) => (
                       <Tag key={param} color="green">
@@ -1099,18 +1099,18 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
             <div className="space-y-6">
               {/* Agent Overview */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Agent Overview</Text>
+                <Text className="text-lg font-semibold mb-4">Visão Geral do Agente</Text>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
-                    <Text className="font-medium">Name:</Text>
+                    <Text className="font-medium">Nome:</Text>
                     <Text>{selectedAgent.name}</Text>
                   </div>
                   <div>
-                    <Text className="font-medium">Version:</Text>
+                    <Text className="font-medium">Versão:</Text>
                     <Text>{selectedAgent.version}</Text>
                   </div>
                   <div className="col-span-2">
-                    <Text className="font-medium">Description:</Text>
+                    <Text className="font-medium">Descrição:</Text>
                     <Text>{selectedAgent.description}</Text>
                   </div>
                   {selectedAgent.url && (
@@ -1148,7 +1148,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
               {/* Skills */}
               {selectedAgent.skills && selectedAgent.skills.length > 0 && (
                 <div>
-                  <Text className="text-lg font-semibold mb-4">Skills</Text>
+                  <Text className="text-lg font-semibold mb-4">Habilidades</Text>
                   <div className="space-y-4">
                     {selectedAgent.skills.map((skill, index) => (
                       <div key={index} className="border border-gray-200 rounded-lg p-4">
@@ -1175,7 +1175,7 @@ const formatCost = (cost: number, currency?: string, rate?: number) => {
 
               {/* Input/Output Modes */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Input/Output Modes</Text>
+                <Text className="text-lg font-semibold mb-4">Modos de Entrada/Saída</Text>
                 <div className="grid grid-cols-2 gap-4">
                   <div>
                     <Text className="font-medium">Input Modes:</Text>
@@ -1401,7 +1401,7 @@ print(response.model_dump(mode='json', exclude_none=True))`;
             <div className="space-y-6">
               {/* Server Overview */}
               <div>
-                <Text className="text-lg font-semibold mb-4">Server Overview</Text>
+                <Text className="text-lg font-semibold mb-4">Visão Geral do Servidor</Text>
                 <div className="grid grid-cols-2 gap-4 mb-4">
                   <div>
                     <Text className="font-medium">Server Name:</Text>
@@ -1433,7 +1433,7 @@ print(response.model_dump(mode='json', exclude_none=True))`;
               {/* Additional Info */}
               {selectedMcpServer.mcp_info && Object.keys(selectedMcpServer.mcp_info).length > 0 && (
                 <div>
-                  <Text className="text-lg font-semibold mb-4">Additional Information</Text>
+                  <Text className="text-lg font-semibold mb-4">Informações Adicionais</Text>
                   <div className="bg-gray-50 p-4 rounded-lg">
                     <pre className="text-xs overflow-x-auto">{JSON.stringify(selectedMcpServer.mcp_info, null, 2)}</pre>
                   </div>

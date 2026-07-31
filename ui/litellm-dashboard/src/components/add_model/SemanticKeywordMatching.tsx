@@ -60,7 +60,7 @@ const SemanticKeywordMatching: React.FC<SemanticKeywordMatchingProps> = ({
             <AntdSelect
               value={embeddingModel}
               onChange={onEmbeddingModelChange}
-              placeholder="Select an embedding model"
+              placeholder="Selecionar modelo de embedding"
               showSearch
               style={{ width: "100%" }}
               options={modelOptions}

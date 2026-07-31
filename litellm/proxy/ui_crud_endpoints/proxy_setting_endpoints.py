@@ -41,18 +41,18 @@ class IPAddress(BaseModel):
 
 
 class UIThemeConfig(BaseModel):
-    """Configuration for UI theme customization"""
+    """Configuração para personalização do tema da interface"""
 
-    # Logo configuration
+    # Configuração do logotipo
     logo_url: Optional[str] = Field(
         default=None,
-        description="URL or path to custom logo image. Can be a local file path or HTTP/HTTPS URL",
+        description="URL ou caminho para a imagem do logotipo personalizado. Pode ser um caminho de arquivo local ou URL HTTP/HTTPS",
     )
 
-    # Favicon configuration
+    # Configuração do favicon
     favicon_url: Optional[str] = Field(
         default=None,
-        description="URL to custom favicon image. Must be an HTTP/HTTPS URL to a .ico, .png, or .svg file",
+        description="URL para a imagem do favicon personalizado. Deve ser uma URL HTTP/HTTPS para um arquivo .ico, .png ou .svg",
     )
 
 
@@ -97,89 +97,90 @@ class UISettings(BaseModel):
 
     disable_model_add_for_internal_users: bool = Field(
         default=False,
-        description="If true, internal users cannot add models from the UI",
+        description="Se verdadeiro, usuários internos não podem adicionar modelos pela interface",
     )
 
     disable_team_admin_delete_team_user: bool = Field(
         default=False,
-        description="Prevents Team Admins from deleting users from the teams they manage. Useful for SCIM provisioning where team membership is defined externally.",
+        description="Impede que administradores de equipe removam usuários das equipes que gerenciam. Útil para provisionamento SCIM onde a associação à equipe é definida externamente.",
     )
 
     enabled_ui_pages_internal_users: Optional[List[str]] = Field(
         default=None,
-        description="List of page keys that internal users (non-admins) can see in the UI sidebar. If not set, all pages are visible based on role permissions.",
+        description="Lista das chaves das páginas que usuários internos (não administradores) podem ver na barra lateral da interface. Se não definido, todas as páginas são visíveis baseadas nas permissões de papel.",
     )
 
     require_auth_for_public_ai_hub: bool = Field(
         default=False,
-        description="If true, requires authentication for accessing the public AI Hub.",
+        description="Se verdadeiro, requer autenticação para acessar o Hub de IA público.",
     )
 
     allow_public_health_readiness_details: bool = Field(
         default=False,
-        description="If true, returns the legacy detailed payload from the unauthenticated /health/readiness endpoint.",
+        description="Se verdadeiro, retorna o payload detalhado herdado do endpoint /health/readiness não autenticado.",
     )
 
     forward_client_headers_to_llm_api: bool = Field(
         default=False,
         description=(
-            "Forwards client headers (Authorization, anthropic-beta, and x-* "
-            "custom headers) to the upstream LLM. Enable for Claude Code with a "
-            "Max subscription (forwards the OAuth token) or to pass custom/tracing "
-            "headers through to the provider. Independent of the BYOK toggle — "
-            "enable only the one(s) you need."
+            "Encaminha cabeçalhos do cliente (Authorization, anthropic-beta e "
+            "cabeçalhos personalizados x-*) para o LLM upstream. Ative para Claude "
+            "Code com assinatura Max (encaminha o token OAuth) ou para passar "
+            "cabeçalhos personalizados/rastreamento ao provedor. Independente do "
+            "toggle BYOK — habilite apenas o(s) que precisa."
         ),
     )
 
     forward_llm_provider_auth_headers: bool = Field(
         default=False,
         description=(
-            "Forwards provider auth headers (x-api-key, x-goog-api-key, api-key, "
-            "ocp-apim-subscription-key) to the upstream LLM, overriding any "
-            "deployment-configured key for that request. Enable for Claude Code "
-            "BYOK (clients bring their own API key). Independent of the "
-            "client-headers toggle — enable only the one(s) you need."
+            "Encaminha cabeçalhos de autenticação do provedor (x-api-key, "
+            "x-goog-api-key, api-key, ocp-apim-subscription-key) para o LLM "
+            "upstream, substituindo qualquer chave configurada para aquela "
+            "solicitação. Habilite para Claude Code BYOK (clientes trazem sua "
+            "própria chave API). Independente do toggle de cabeçalhos do "
+            "cliente — habilite apenas o(s) que precisa."
         ),
     )
 
     disable_agents_for_internal_users: bool = Field(
         default=False,
-        description="If true, internal users cannot access agent management endpoints or the Agents page in the UI.",
+        description="Se verdadeiro, usuários internos não podem acessar endpoints de gerenciamento de agentes ou a página de Agentes na interface.",
     )
 
     allow_agents_for_team_admins: bool = Field(
         default=False,
-        description="If true, team admins are exempt from the agents disable restriction (only takes effect when disable_agents_for_internal_users is true).",
+        description="Se verdadeiro, administradores de equipe estão isentos da restrição de desativação de agentes (só tem efeito quando disable_agents_for_internal_users é verdadeiro).",
     )
 
     disable_vector_stores_for_internal_users: bool = Field(
         default=False,
-        description="If true, internal users cannot access vector store management endpoints or the Vector Stores page in the UI.",
+        description="Se verdadeiro, usuários internos não podem acessar endpoints de gerenciamento de armazenamento vetorial ou a página de Armazenamento Vetorial na interface.",
     )
 
     allow_vector_stores_for_team_admins: bool = Field(
         default=False,
-        description="If true, team admins are exempt from the vector stores disable restriction (only takes effect when disable_vector_stores_for_internal_users is true).",
+        description="Se verdadeiro, administradores de equipe estão isentos da restrição de desativação de armazenamento vetorial (só tem efeito quando disable_vector_stores_for_internal_users é verdadeiro).",
     )
 
     scope_user_search_to_org: bool = Field(
         default=False,
-        description="If enabled, the user search endpoint (/user/filter/ui) restricts results by organization. When off, any authenticated user can search all users.",
+        description="Se habilitado, o endpoint de busca de usuários (/user/filter/ui) restringe resultados por organização. Quando desativado, qualquer usuário autenticado pode buscar todos os usuários.",
     )
 
     disable_custom_api_keys: bool = Field(
         default=False,
-        description="If true, users cannot specify custom key values. All keys must be auto-generated.",
+        description="Se verdadeiro, usuários não podem especificar valores de chave personalizados. Todas as chaves devem ser geradas automaticamente.",
     )
 
     disable_key_generate_for_org_admin: bool = Field(
         default=False,
-        description="If true, org admins cannot generate API keys via /key/generate.",
+        description="Se verdadeiro, administradores da organização não podem gerar chaves API via /key/generate.",
     )
 
     enable_chat_ui: bool = Field(
         default=False,
-        description="If true, shows the Chat page in the UI sidebar, letting users chat with an LLM and connect their own MCP server credentials via OAuth.",
+        description="Se verdadeiro, mostra a página de Chat na barra lateral da interface, permitindo que usuários conversem com um LLM e conectem suas próprias credenciais de servidor MCP via OAuth.",
     )
 
 
@@ -278,28 +279,28 @@ def _get_effective_ui_settings_class() -> Type[UISettings]:
 
 
 class MCPSemanticFilterSettings(BaseModel):
-    """Configuration for MCP Semantic Tool Filter"""
+    """Configuração para o Filtro Semântico de Ferramentas MCP"""
 
     enabled: bool = Field(
         default=False,
-        description="Enable semantic filtering of MCP tools based on query relevance",
+        description="Habilita filtragem semântica de ferramentas MCP baseada na relevância da consulta",
     )
 
     embedding_model: str = Field(
         default="text-embedding-3-small",
-        description="Embedding model to use for semantic similarity (e.g., 'text-embedding-3-small', 'text-embedding-ada-002')",
+        description="Modelo de embeddings a ser usado para similaridade semântica (ex: 'text-embedding-3-small', 'text-embedding-ada-002')",
     )
 
     top_k: int = Field(
         default=10,
-        description="Number of most relevant tools to return",
+        description="Número de ferramentas mais relevantes a retornar",
         ge=1,
         le=100,
     )
 
     similarity_threshold: float = Field(
         default=0.3,
-        description="Minimum similarity score for tool inclusion (0.0 to 1.0, where 1.0 = exact match)",
+        description="Pontuação mínima de similaridade para inclusão de ferramenta (0.0 a 1.0, onde 1.0 = correspondência exata)",
         ge=0.0,
         le=1.0,
     )
@@ -313,7 +314,7 @@ class MCPSemanticFilterSettingsResponse(SettingsResponse):
 
 @router.get(
     "/get/allowed_ips",
-    tags=["Budget & Spend Tracking"],
+    tags=["Controle de Orçamento e Gastos"],
     dependencies=[Depends(user_api_key_auth)],
     include_in_schema=False,
 )
@@ -326,7 +327,7 @@ async def get_allowed_ips():
 
 @router.post(
     "/add/allowed_ip",
-    tags=["Budget & Spend Tracking"],
+    tags=["Controle de Orçamento e Gastos"],
     dependencies=[Depends(user_api_key_auth)],
 )
 async def add_allowed_ip(
@@ -349,7 +350,7 @@ async def add_allowed_ip(
         _allowed_ips.append(ip_address.ip)
         general_settings["allowed_ips"] = _allowed_ips
     else:
-        raise HTTPException(status_code=400, detail="IP address already exists")
+        raise HTTPException(status_code=400, detail="Endereço IP já existe")
 
     if store_model_in_db is not True:
         raise HTTPException(
@@ -383,14 +384,14 @@ async def add_allowed_ip(
     )
 
     return {
-        "message": f"IP {ip_address.ip} address added successfully",
+        "message": f"Endereço IP {ip_address.ip} adicionado com sucesso",
         "status": "success",
     }
 
 
 @router.post(
     "/delete/allowed_ip",
-    tags=["Budget & Spend Tracking"],
+    tags=["Controle de Orçamento e Gastos"],
     dependencies=[Depends(user_api_key_auth)],
 )
 async def delete_allowed_ip(
@@ -408,7 +409,7 @@ async def delete_allowed_ip(
         _allowed_ips.remove(ip_address.ip)
         general_settings["allowed_ips"] = _allowed_ips
     else:
-        raise HTTPException(status_code=404, detail="IP address not found")
+        raise HTTPException(status_code=404, detail="Endereço IP não encontrado")
 
     # Load existing config
     config = await proxy_config.get_config()
@@ -435,7 +436,7 @@ async def delete_allowed_ip(
         )
     )
 
-    return {"message": f"IP {ip_address.ip} deleted successfully", "status": "success"}
+    return {"message": f"Endereço IP {ip_address.ip} excluído com sucesso", "status": "success"}
 
 
 async def _get_settings_with_schema(
@@ -659,7 +660,7 @@ async def _update_litellm_setting(
 
 @router.patch(
     "/update/internal_user_settings",
-    tags=["SSO Settings"],
+    tags=["Configurações de SSO"],
     dependencies=[Depends(user_api_key_auth)],
 )
 async def update_internal_user_settings(
@@ -667,8 +668,8 @@ async def update_internal_user_settings(
     user_api_key_dict: UserAPIKeyAuth = Depends(user_api_key_auth),
 ):
     """
-    Update the default internal user parameters for SSO users.
-    These settings will be applied to new users who sign in via SSO.
+    Atualizar os parâmetros padrão de usuário interno para usuários SSO.
+    Essas configurações serão aplicadas a novos usuários que fazem login via SSO.
     """
     if settings.teams is not None and all(isinstance(team, NewUserRequestTeam) for team in settings.teams):
         await update_default_team_member_budget(
@@ -679,14 +680,14 @@ async def update_internal_user_settings(
     return await _update_litellm_setting(
         settings=settings,
         settings_key="default_internal_user_params",
-        success_message="Internal user settings updated successfully",
+        success_message="Configurações de usuário interno atualizadas com sucesso",
         user_api_key_dict=user_api_key_dict,
     )
 
 
 @router.patch(
     "/update/default_team_settings",
-    tags=["SSO Settings"],
+    tags=["Configurações de SSO"],
     dependencies=[Depends(user_api_key_auth)],
 )
 async def update_default_team_settings(
@@ -694,13 +695,13 @@ async def update_default_team_settings(
     user_api_key_dict: UserAPIKeyAuth = Depends(user_api_key_auth),
 ):
     """
-    Update the default team parameters for SSO users.
-    These settings will be applied to new teams created from SSO.
+    Atualizar os parâmetros padrão de equipe para usuários SSO.
+    Essas configurações serão aplicadas a novas equipes criadas a partir do SSO.
     """
     return await _update_litellm_setting(
         settings=settings,
         settings_key="default_team_params",
-        success_message="Default team settings updated successfully",
+        success_message="Configurações padrão da equipe atualizadas com sucesso",
         user_api_key_dict=user_api_key_dict,
     )
 
@@ -713,8 +714,8 @@ async def update_default_team_settings(
 )
 async def get_sso_settings():
     """
-    Get all SSO configuration settings from the dedicated SSO table.
-    Returns a structured object with values and descriptions for UI display.
+    Obter todas as configurações de SSO da tabela dedicada de SSO.
+    Retorna um objeto estruturado com valores e descrições para exibição na interface.
     """
 
     from litellm.proxy.proxy_server import prisma_client, proxy_config
@@ -722,7 +723,7 @@ async def get_sso_settings():
     if prisma_client is None:
         raise HTTPException(
             status_code=500,
-            detail={"error": "Database not connected. Please connect a database."},
+            detail={"error": "Banco de dados não conectado. Por favor, conecte um banco de dados."},
         )
 
     # Get SSO config from dedicated table
@@ -809,7 +810,7 @@ async def get_sso_settings():
 
 @router.patch(
     "/update/sso_settings",
-    tags=["SSO Settings"],
+    tags=["Configurações de SSO"],
     dependencies=[Depends(user_api_key_auth)],
 )
 async def update_sso_settings(
@@ -817,7 +818,7 @@ async def update_sso_settings(
     user_api_key_dict: UserAPIKeyAuth = Depends(user_api_key_auth),
 ):
     """
-    Update SSO configuration by saving to the dedicated SSO table.
+    Atualizar configuração de SSO salvando na tabela dedicada de SSO.
     """
     import json
     import os
@@ -953,7 +954,7 @@ async def update_sso_settings(
         )
 
     return {
-        "message": "SSO settings updated successfully",
+        "message": "Configurações de SSO atualizadas com sucesso",
         "status": "success",
         "settings": sso_data,
     }
@@ -961,16 +962,16 @@ async def update_sso_settings(
 
 @router.get(
     "/get/ui_theme_settings",
-    tags=["UI Theme Settings"],
+    tags=["Configurações do Tema da Interface"],
     response_model=UIThemeSettingsResponse,
 )
 async def get_ui_theme_settings():
     """
-    Get UI theme configuration from the litellm_settings.
-    Returns current logo settings for UI customization.
+    Obter configuração do tema da interface a partir de litellm_settings.
+    Retorna configurações atuais do logotipo para personalização da interface.
 
-    Note: This endpoint is public (no authentication required) so all users can see custom branding.
-    Only the /update/ui_theme_settings endpoint requires authentication for admins to change settings.
+    Observação: Este endpoint é público (sem autenticação necessária) então todos os usuários podem ver marcas personalizadas.
+    Apenas o endpoint /update/ui_theme_settings requer autenticação para administradores modificarem as configurações.
     """
     from litellm.proxy.proxy_server import proxy_config
 
@@ -1000,8 +1001,8 @@ def _validate_public_image_url(value: Optional[str], field_name: str) -> None:
             status_code=400,
             detail={
                 "error": (
-                    f"Invalid {field_name}: must be an http(s) URL with a host. "
-                    "Local filesystem paths and non-http schemes are not allowed."
+                    f"Inválido {field_name}: deve ser uma URL http(s) com um host. "
+                    "Caminhos do sistema de arquivos locais e esquemas não-http não são permitidos."
                 )
             },
         )
@@ -1009,7 +1010,7 @@ def _validate_public_image_url(value: Optional[str], field_name: str) -> None:
 
 @router.patch(
     "/update/ui_theme_settings",
-    tags=["UI Theme Settings"],
+    tags=["Configurações do Tema da Interface"],
     dependencies=[Depends(user_api_key_auth)],
 )
 async def update_ui_theme_settings(
@@ -1017,8 +1018,8 @@ async def update_ui_theme_settings(
     user_api_key_dict: UserAPIKeyAuth = Depends(user_api_key_auth),
 ):
     """
-    Update UI theme configuration.
-    Updates logo settings for the admin UI.
+    Atualizar configuração do tema da interface.
+    Atualiza as configurações do logotipo para a interface administrativa.
     """
     import os
 
@@ -1117,7 +1118,7 @@ async def update_ui_theme_settings(
     )
 
     return {
-        "message": "UI theme settings updated successfully.",
+        "message": "Configurações do tema da interface atualizadas com sucesso.",
         "status": "success",
         "theme_config": theme_data,
     }
@@ -1125,7 +1126,7 @@ async def update_ui_theme_settings(
 
 @router.get(
     "/get/mcp_semantic_filter_settings",
-    tags=["Settings"],
+    tags=["Configurações"],
     dependencies=[Depends(user_api_key_auth)],
     response_model=MCPSemanticFilterSettingsResponse,
 )
@@ -1133,8 +1134,8 @@ async def get_mcp_semantic_filter_settings(
     user_api_key_dict: UserAPIKeyAuth = Depends(user_api_key_auth),
 ):
     """
-    Get MCP semantic filter configuration.
-    Returns current settings for semantic tool filtering.
+    Obter configuração do filtro semântico MCP.
+    Retorna configurações atuais para filtragem de ferramentas semânticas.
     """
     from litellm.proxy.proxy_server import prisma_client, proxy_config
 
@@ -1155,7 +1156,7 @@ async def get_mcp_semantic_filter_settings(
 
 @router.patch(
     "/update/mcp_semantic_filter_settings",
-    tags=["Settings"],
+    tags=["Configurações"],
     dependencies=[Depends(user_api_key_auth)],
 )
 async def update_mcp_semantic_filter_settings(
@@ -1163,8 +1164,8 @@ async def update_mcp_semantic_filter_settings(
     user_api_key_dict: UserAPIKeyAuth = Depends(user_api_key_auth),
 ):
     """
-    Update MCP semantic filter settings in database.
-    Settings will be picked up by all pods within approximately 10 seconds via background polling.
+    Atualizar configurações do filtro semântico MCP no banco de dados.
+    As configurações serão aplicadas por todos os pods dentro de aproximadamente 10 segundos via sondagem em segundo plano.
     """
     if user_api_key_dict.user_role != LitellmUserRoles.PROXY_ADMIN:
         raise HTTPException(
@@ -1175,7 +1176,7 @@ async def update_mcp_semantic_filter_settings(
     result = await _update_litellm_setting(
         settings=settings,
         settings_key="mcp_semantic_tool_filter",
-        success_message="MCP Semantic Filter settings updated successfully. Changes will be applied across all pods within 10 seconds.",
+        success_message="Configurações do Filtro Semântico MCP atualizadas com sucesso. As mudanças serão aplicadas em todos os pods dentro de 10 segundos.",
         user_api_key_dict=user_api_key_dict,
     )
     try:
@@ -1195,10 +1196,10 @@ UI_SETTINGS_CACHE_TTL = 600  # 10 minutes
 
 async def get_ui_settings_cached() -> Dict[str, Any]:
     """
-    Return the persisted UI settings dict, using DualCache for reads.
+    Retorna o dicionário de configurações da interface persistido, usando DualCache para leituras.
 
-    Cache hit  → return cached dict immediately.
-    Cache miss → read from DB, populate cache, return dict.
+    Cache hit  → retorna dicionário em cache imediatamente.
+    Cache miss → lê do BD, popula cache, retorna dicionário.
     """
     from litellm.proxy.proxy_server import prisma_client, user_api_key_cache
 
@@ -1233,8 +1234,8 @@ async def get_ui_settings_cached() -> Dict[str, Any]:
 )
 async def get_ui_settings():
     """
-    Get UI-specific configuration flags.
-    All authenticated users can fetch these settings for client-side behavior.
+    Obter bandeiras de configuração específicas da interface.
+    Todos os usuários autenticados podem buscar essas configurações para comportamento do lado do cliente.
     """
     from litellm.proxy.proxy_server import prisma_client
 
@@ -1291,8 +1292,8 @@ async def update_ui_settings(
     user_api_key_dict: UserAPIKeyAuth = Depends(user_api_key_auth),
 ):
     """
-    Update UI-specific configuration flags.
-    Only proxy admins are allowed to modify these settings.
+    Atualizar bandeiras de configuração específicas da interface.
+    Apenas administradores do proxy têm permissão para modificar estas configurações.
     """
     from litellm.proxy.proxy_server import (
         create_config_audit_log,
@@ -1392,7 +1393,7 @@ async def update_ui_settings(
     )
 
     return {
-        "message": "UI settings updated successfully",
+        "message": "Configurações da interface atualizadas com sucesso",
         "status": "success",
         "settings": ui_settings,
     }
@@ -1400,13 +1401,13 @@ async def update_ui_settings(
 
 @router.post(
     "/upload/logo",
-    tags=["UI Theme Settings"],
+    tags=["Configurações do Tema da Interface"],
     dependencies=[Depends(user_api_key_auth)],
 )
 async def upload_logo(file: UploadFile = File(...)):
     """
-    Upload a custom logo for the admin UI.
-    Accepts image files (PNG, JPG, JPEG, SVG) and stores them for use in the UI.
+    Carregar um logotipo personalizado para a interface administrativa.
+    Aceita arquivos de imagem (PNG, JPG, JPEG, SVG) e os armazena para uso na interface.
     """
     import os
     from pathlib import Path
@@ -1418,13 +1419,13 @@ async def upload_logo(file: UploadFile = File(...)):
     if file_extension not in allowed_extensions:
         raise HTTPException(
             status_code=400,
-            detail=f"Invalid file type. Allowed types: {', '.join(allowed_extensions)}",
+            detail=f"Tipo de arquivo inválido. Tipos permitidos: {', '.join(allowed_extensions)}",
         )
 
     # Validate file size (max 5MB)
     file_content = await file.read()
     if len(file_content) > 5 * 1024 * 1024:  # 5MB
-        raise HTTPException(status_code=400, detail="File size too large. Maximum size is 5MB.")
+        raise HTTPException(status_code=400, detail="Tamanho do arquivo muito grande. O tamanho máximo é 5MB.")
 
     # Create uploads directory if it doesn't exist
     current_dir = os.path.dirname(os.path.abspath(__file__))
@@ -1442,7 +1443,7 @@ async def upload_logo(file: UploadFile = File(...)):
         buffer.write(file_content)
 
     return {
-        "message": "Logo uploaded successfully",
+        "message": "Logotipo carregado com sucesso",
         "status": "success",
         "file_path": file_path,
         "filename": unique_filename,

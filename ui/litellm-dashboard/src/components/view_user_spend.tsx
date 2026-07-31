@@ -113,7 +113,7 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
     modelsToDisplay = userModels;
   }
 
-  const displayMaxBudget = maxBudget !== null ? <MoneyCell value={maxBudget} decimals={4} /> : "No limit";
+  const displayMaxBudget = maxBudget !== null ? <MoneyCell value={maxBudget} decimals={4} /> : "Sem limite";
 
   const roundedSpend = spend !== undefined ? formatNumberWithCommas(spend, 4) : null;
 
@@ -121,13 +121,13 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
     <div className="flex items-center">
       <div className="flex justify-between gap-x-6">
         <div>
-          <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Total Spend</p>
+          <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Gasto Total</p>
           <p className="text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
             <MoneyCell value={spend} decimals={4} />
           </p>
         </div>
         <div>
-          <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Max Budget</p>
+          <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Orçamento Máximo</p>
           <p className="text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
             {displayMaxBudget}
           </p>

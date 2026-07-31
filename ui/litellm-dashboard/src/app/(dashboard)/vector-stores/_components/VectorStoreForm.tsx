@@ -60,7 +60,7 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
       try {
         metadata = metadataJson.trim() ? JSON.parse(metadataJson) : {};
       } catch (e) {
-        NotificationsManager.fromBackend("Invalid JSON in metadata field");
+        NotificationsManager.fromBackend("JSON inválido no campo de metadata");
         return;
       }
 
@@ -92,13 +92,13 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
       payload["litellm_params"] = litellmParams;
 
       await vectorStoreCreateCall(accessToken, payload);
-      NotificationsManager.success("Vector store created successfully");
+      NotificationsManager.success("Vector store criado com sucesso");
       form.resetFields();
       setMetadataJson("{}");
       onSuccess();
     } catch (error) {
       console.error("Error creating vector store:", error);
-      NotificationsManager.fromBackend("Error creating vector store: " + error);
+      NotificationsManager.fromBackend("Erro ao criar vector store: " + error);
     }
   };
 
@@ -110,7 +110,7 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
   };
 
   return (
-    <Modal title="Add New Vector Store" open={isVisible} width={1000} footer={null} onCancel={handleCancel}>
+    <Modal title="Adicionar Novo Vector Store" open={isVisible} width={1000} footer={null} onCancel={handleCancel}>
       <Form form={form} onFinish={handleCreate} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
         <Form.Item
           label={
@@ -132,7 +132,7 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
                   <div className="flex items-center space-x-2">
                     <img
                       src={resolveLogoSrc(vectorStoreProviderLogoMap[providerDisplayName])}
-                      alt={`${providerEnum} logo`}
+                      alt={`logo ${providerEnum}`}
                       className="w-5 h-5"
                       onError={(e) => {
                         // Create a div with provider initial as fallback
@@ -158,20 +158,20 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
         {/* PG Vector Setup Instructions */}
         {selectedProvider === "pg_vector" && (
           <Alert
-            message="PG Vector Setup Required"
+            message="Configuração do PG Vector Necessária"
             description={
               <div>
-                <p>Polyglot provides a server to connect to PG Vector. To use this provider:</p>
+                <p>Polyglot fornece um servidor para se conectar ao PG Vector. Para usar este provedor:</p>
                 <ol style={{ marginLeft: "16px", marginTop: "8px" }}>
                   <li>
-                    Deploy the litellm-pgvector server from:{" "}
+                    Deploy do servidor litellm-pgvector a partir de:{" "}
                     <a href="https://github.com/BerriAI/litellm-pgvector" target="_blank" rel="noopener noreferrer">
                       https://github.com/BerriAI/litellm-pgvector
                     </a>
                   </li>
-                  <li>Configure your PostgreSQL database with pgvector extension</li>
-                  <li>Start the server and note the API base URL and API key</li>
-                  <li>Enter those details in the fields below</li>
+                  <li>Configure seu banco de dados PostgreSQL com a extensão pgvector</li>
+                  <li>Inicie o servidor e anote a URL base da API e a chave da API</li>
+                  <li>Digite esses detalhes nos campos abaixo</li>
                 </ol>
               </div>
             }
@@ -184,24 +184,24 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
         {/* Vertex RAG Engine Setup Instructions */}
         {selectedProvider === "vertex_rag_engine" && (
           <Alert
-            message="Vertex AI RAG Engine Setup"
+            message="Configuração do Vertex AI RAG Engine"
             description={
               <div>
-                <p>To use Vertex AI RAG Engine:</p>
+                <p>Para usar o Vertex AI RAG Engine:</p>
                 <ol style={{ marginLeft: "16px", marginTop: "8px" }}>
                   <li>
-                    Set up your Vertex AI RAG Engine corpus following the guide:{" "}
+                    Configure o corpus do Vertex AI RAG Engine seguindo o guia:{" "}
                     <a
                       href="https://cloud.google.com/vertex-ai/generative-ai/docs/rag-engine/rag-overview"
                       target="_blank"
                       rel="noopener noreferrer"
                     >
-                      Vertex AI RAG Engine Overview
+                      Visão Geral do Vertex AI RAG Engine
                     </a>
                   </li>
-                  <li>Create a corpus in your Google Cloud project</li>
-                  <li>Note the corpus ID from the Vertex AI console</li>
-                  <li>Enter the corpus ID in the Vector Store ID field below</li>
+                  <li>Crie um corpus no seu projeto Google Cloud</li>
+                  <li>Anote o ID do corpus do console Vertex AI</li>
+                  <li>Digite o ID do corpus no campo Vector Store ID abaixo</li>
                 </ol>
               </div>
             }
@@ -214,33 +214,33 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
         {/* Vertex AI Search Setup Instructions */}
         {selectedProvider === "vertex_ai/search_api" && (
           <Alert
-            message="Vertex AI Search Setup"
+            message="Configuração do Vertex AI Search"
             description={
               <div>
-                <p>To use Vertex AI Search (Discovery Engine):</p>
+                <p>Para usar o Vertex AI Search (Discovery Engine):</p>
                 <ol style={{ marginLeft: "16px", marginTop: "8px" }}>
                   <li>
-                    Enable the Discovery Engine API on your Google Cloud project and create a data store following the
-                    guide:{" "}
+                    Ative a API do Discovery Engine no seu projeto Google Cloud e crie uma loja de dados seguindo o
+                    guia:{" "}
                     <a
                       href="https://cloud.google.com/generative-ai-app-builder/docs/create-data-store-es"
                       target="_blank"
                       rel="noopener noreferrer"
                       style={{ textDecoration: "underline" }}
                     >
-                      Create a Vertex AI Search data store
+                      Criar uma loja de dados do Vertex AI Search
                     </a>
                   </li>
-                  <li>Pick a supported location: global, us, or eu</li>
+                  <li>Escolha um local suportado: global, us ou eu</li>
                   <li>
-                    For most data store types (Cloud Storage, BigQuery, Media): copy the data store ID and enter it in
-                    the Vector Store ID field below.
+                    Para a maioria dos tipos de loja de dados (Cloud Storage, BigQuery, Media): copie o ID da loja de dados e digite-o no
+                    campo Vector Store ID abaixo.
                   </li>
                   <li>
-                    For website, healthcare, and connector-based sources (Drive, Gmail, Slack, Jira, etc.): create a
-                    search app on top of the data store, then copy the <strong>Engine ID</strong> and enter it in the
-                    Engine ID field. The Vector Store ID is still required as the Polyglot-side name for this record, but
-                    it isn't used in the GCP URL when Engine ID is set.
+                    Para fontes baseadas em websites, saúde e conectores (Drive, Gmail, Slack, Jira, etc.): crie um
+                    aplicativo de busca sobre a loja de dados, depois copie o <strong>ID do Engine</strong> e digite-o no
+                    campo Engine ID. O Vector Store ID ainda é necessário como nome do lado do Polyglot para este registro, mas
+                    ele não é usado na URL do GCP quando o Engine ID está configurado.
                   </li>
                 </ol>
               </div>
@@ -254,24 +254,24 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
         <Form.Item
           label={
             <span>
-              Vector Store ID{" "}
-              <Tooltip title="Enter the vector store ID from your api provider">
+              ID do Vector Store{" "}
+              <Tooltip title="Digite o ID do vector store fornecido pelo seu provedor de API">
                 <InfoCircleOutlined style={{ marginLeft: "4px" }} />
               </Tooltip>
             </span>
           }
           name="vector_store_id"
-          rules={[{ required: true, message: "Please input the vector store ID from your api provider" }]}
+          rules={[{ required: true, message: "Por favor, informe o ID do vector store fornecido pelo seu provedor de API" }]}
         >
           <TextInput
             placeholder={
               selectedProvider === "vertex_rag_engine"
-                ? "6917529027641081856 (Get corpus ID from Vertex AI console)"
+                ? "6917529027641081856 (Obtenha o ID do corpus do console Vertex AI)"
                 : selectedProvider === "vertex_ai/search_api"
                   ? vertexEngineId
-                    ? "Any identifier you'll use to reference this in Polyglot"
-                    : "my-datastore_1234567890 (Get data store ID from Vertex AI Search console)"
-                  : "Enter vector store ID from your provider"
+                    ? "Qualquer identificador que você usará para referenciar isto no Polyglot"
+                    : "my-datastore_1234567890 (Obtenha o ID da loja de dados do console Vertex AI Search)"
+                  : "Informe o ID do vector store fornecido pelo seu provedor"
             }
           />
         </Form.Item>
@@ -340,8 +340,8 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
         <Form.Item
           label={
             <span>
-              Vector Store Name{" "}
-              <Tooltip title="Custom name you want to give to the vector store, this name will be rendered on the Polyglot UI">
+              Nome do Vector Store{" "}
+              <Tooltip title="Nome personalizado que você deseja atribuir ao vector store, este nome será exibido na interface do Polyglot">
                 <InfoCircleOutlined style={{ marginLeft: "4px" }} />
               </Tooltip>
             </span>
@@ -351,15 +351,15 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
           <TextInput />
         </Form.Item>
 
-        <Form.Item label="Description" name="vector_store_description">
+        <Form.Item label="Descrição" name="vector_store_description">
           <Input.TextArea rows={4} />
         </Form.Item>
 
         <Form.Item
           label={
             <span>
-              Existing Credentials{" "}
-              <Tooltip title="Optionally select API provider credentials for this vector store eg. Bedrock API KEY">
+              Credenciais Existentes{" "}
+              <Tooltip title="Selecione opcionalmente as credenciais do provedor de API para este vector store, ex. Chave API do Bedrock">
                 <InfoCircleOutlined style={{ marginLeft: "4px" }} />
               </Tooltip>
             </span>
@@ -368,11 +368,11 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
         >
           <Select
             showSearch
-            placeholder="Select or search for existing credentials"
+            placeholder="Selecione ou pesquise pelas credenciais existentes"
             optionFilterProp="children"
             filterOption={(input, option) => (option?.label ?? "").toLowerCase().includes(input.toLowerCase())}
             options={[
-              { value: null, label: "None" },
+              { value: null, label: "Nenhuma" },
               ...credentials.map((credential) => ({
                 value: credential.credential_name,
                 label: credential.credential_name,
@@ -386,7 +386,7 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
           label={
             <span>
               Metadata{" "}
-              <Tooltip title="JSON metadata for the vector store (optional)">
+              <Tooltip title="Metadata JSON para o vector store (opcional)">
                 <InfoCircleOutlined style={{ marginLeft: "4px" }} />
               </Tooltip>
             </span>
@@ -396,16 +396,16 @@ const VectorStoreForm: React.FC<VectorStoreFormProps> = ({
             rows={4}
             value={metadataJson}
             onChange={(e) => setMetadataJson(e.target.value)}
-            placeholder='{"key": "value"}'
+            placeholder='{"chave": "valor"}'
           />
         </Form.Item>
 
         <div className="flex justify-end space-x-3">
           <TremorButton onClick={handleCancel} variant="secondary">
-            Cancel
+            Cancelar
           </TremorButton>
           <TremorButton variant="primary" type="submit">
-            Create
+            Criar
           </TremorButton>
         </div>
       </Form>

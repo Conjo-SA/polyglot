@@ -297,9 +297,9 @@ export default function ModelInfoView({
         custom_llm_provider: localModelData.litellm_params?.custom_llm_provider,
       },
     };
-    NotificationsManager.info("Storing credential..");
+    NotificationsManager.info("Armazenando credencial...");
     let credentialResponse = await credentialCreateCall(accessToken, credentialItem);
-    NotificationsManager.success("Credential stored successfully");
+    NotificationsManager.success("Credencial armazenada com sucesso");
   };
 
   const handleModelUpdate = async (values: any) => {
@@ -313,7 +313,7 @@ export default function ModelInfoView({
         parsedExtraParams = values.litellm_extra_params ? JSON.parse(values.litellm_extra_params) : {};
         delete parsedExtraParams.litellm_credential_name;
       } catch (e) {
-        NotificationsManager.fromBackend("Invalid JSON in Polyglot Params");
+        NotificationsManager.fromBackend("JSON inválido nos Parâmetros Polyglot");
         setIsSaving(false);
         return;
       }
@@ -424,7 +424,7 @@ export default function ModelInfoView({
           };
         }
       } catch (e) {
-        NotificationsManager.fromBackend("Invalid JSON in Model Info");
+        NotificationsManager.fromBackend("JSON inválido nas Informações do Modelo");
         return;
       }
 
@@ -456,12 +456,12 @@ export default function ModelInfoView({
         onModelUpdate(updatedModelData);
       }
 
-      NotificationsManager.success("Model settings updated successfully");
+      NotificationsManager.success("Configurações do modelo atualizadas com sucesso");
       setIsDirty(false);
       setIsEditing(false);
     } catch (error) {
       console.error("Error updating model:", error);
-      NotificationsManager.fromBackend("Failed to update model settings");
+      NotificationsManager.fromBackend("Falha ao atualizar as configurações do modelo");
     } finally {
       setIsSaving(false);
     }
@@ -472,9 +472,9 @@ export default function ModelInfoView({
     return (
       <div className="p-4">
         <TremorButton icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
-          Back to Models
+          Voltar para os Modelos
         </TremorButton>
-        <Text>Loading...</Text>
+        <Text>Carregando...</Text>
       </div>
     );
   }
@@ -484,9 +484,9 @@ export default function ModelInfoView({
     return (
       <div className="p-4">
         <TremorButton icon={ArrowLeftIcon} variant="light" onClick={onClose} className="mb-4">
-          Back to Models
+          Voltar para os Modelos
         </TremorButton>
-        <Text>Model not found</Text>
+        <Text>Modelo não encontrado</Text>
       </div>
     );
   }
@@ -496,7 +496,7 @@ export default function ModelInfoView({
     if (isComplexityRouter) {
       const targets = buildComplexityRouterTestTargets(localModelData ?? modelData);
       if (targets.length === 0) {
-        NotificationsManager.warning("No complexity tiers are configured yet, so there is nothing to test.");
+        NotificationsManager.warning("Nenhum nível de complexidade está configurado ainda, então não há nada para testar.");
         return;
       }
       setAutoRouterTestTargets(targets);
@@ -505,7 +505,7 @@ export default function ModelInfoView({
       return;
     }
     try {
-      NotificationsManager.info("Testing connection...");
+      NotificationsManager.info("Testando conexão...");
       const response = await testConnectionRequest(
         accessToken,
         {
@@ -526,15 +526,15 @@ export default function ModelInfoView({
       );
 
       if (response.status === "success") {
-        NotificationsManager.success("Connection test successful!");
+        NotificationsManager.success("Teste de conexão bem-sucedido!");
       } else {
         throw new Error(response?.result?.error || response?.message || "Unknown error");
       }
     } catch (error) {
       if (error instanceof Error) {
-        NotificationsManager.error("Error testing connection: " + truncateString(error.message, 100));
+        NotificationsManager.error("Erro ao testar conexão: " + truncateString(error.message, 100));
       } else {
-        NotificationsManager.error("Error testing connection: " + String(error));
+        NotificationsManager.error("Erro ao testar conexão: " + String(error));
       }
     }
   };
@@ -544,7 +544,7 @@ export default function ModelInfoView({
       setDeleteLoading(true);
       if (!accessToken) return;
       await modelDeleteCall(accessToken, modelId);
-      NotificationsManager.success("Model deleted successfully");
+      NotificationsManager.success("Modelo excluído com sucesso");
 
       if (onModelUpdate) {
         onModelUpdate({
@@ -556,7 +556,7 @@ export default function ModelInfoView({
       onClose();
     } catch (error) {
       console.error("Error deleting the model:", error);
-      NotificationsManager.fromBackend("Failed to delete model");
+      NotificationsManager.fromBackend("Falha ao excluir o modelo");
     } finally {
       setDeleteLoading(false);
       setIsDeleteModalOpen(false);
@@ -612,7 +612,7 @@ export default function ModelInfoView({
               className="flex items-center gap-2"
               data-testid="test-connection-button"
             >
-              Test Connection
+              Testar Conexão
             </Button>
           )}
 
@@ -623,7 +623,7 @@ export default function ModelInfoView({
             disabled={!canEditModel}
             data-testid="update-api-key-button"
           >
-            Update API Key
+            Atualizar Chave API
           </Button>
 
           <Button
@@ -633,7 +633,7 @@ export default function ModelInfoView({
             disabled={!isAdmin}
             data-testid="reuse-credentials-button"
           >
-            Re-use Credentials
+            Reutilizar Credenciais
           </Button>
           <Button
             danger
@@ -643,7 +643,7 @@ export default function ModelInfoView({
             disabled={!canEditModel}
             data-testid="delete-model-button"
           >
-            Delete Model
+            Excluir Modelo
           </Button>
         </div>
       </div>
@@ -659,7 +659,7 @@ export default function ModelInfoView({
             {/* Overview Grid */}
             <Grid numItems={1} numItemsSm={2} numItemsLg={3} className="gap-6 mb-6">
               <Card>
-                <Text>Provider</Text>
+                <Text>Fornecedor</Text>
                 <div className="mt-2 flex items-center space-x-2">
                   {modelData.provider && (
                     <img
@@ -689,7 +689,7 @@ export default function ModelInfoView({
                 </div>
               </Card>
               <Card>
-                <Text>Polyglot Model</Text>
+                <Text>Modelo Polyglot</Text>
                 <div className="mt-2 overflow-hidden">
                   <Tooltip title={modelData.litellm_model_name || "Not Set"}>
                     <div className="break-all text-sm font-medium leading-relaxed cursor-pointer">
@@ -699,11 +699,11 @@ export default function ModelInfoView({
                 </div>
               </Card>
               <Card>
-                <Text>Pricing</Text>
+                <Text>Preços</Text>
                 <div className="mt-2">
-                  <Text>Input:</Text>
+                  <Text>Entrada:</Text>
                   <MoneyCell value={modelData.input_cost} decimals={6} />
-                  <Text>Output:</Text>
+                  <Text>Saída:</Text>
                   <MoneyCell value={modelData.output_cost} decimals={6} />
                 </div>
               </Card>
@@ -720,7 +720,7 @@ export default function ModelInfoView({
                     d="M12 8v4l3 3m6-3a9 9 0 11-18 0 9 9 0 0118 0z"
                   />
                 </svg>
-                Created At{" "}
+                Criado em{" "}
                 {modelData.model_info.created_at
                   ? new Date(modelData.model_info.created_at).toLocaleDateString("en-US", {
                       month: "short",
@@ -738,24 +738,24 @@ export default function ModelInfoView({
                     d="M16 7a4 4 0 11-8 0 4 4 0 018 0zM12 14a7 7 0 00-7 7h14a7 7 0 00-7-7z"
                   />
                 </svg>
-                Created By {modelData.model_info.created_by || "Not Set"}
+                Criado por {modelData.model_info.created_by || "Não Definido"}
               </div>
             </div>
 
             {/* Settings Card */}
             <Card>
               <div className="flex justify-between items-center mb-4">
-                <Title>Model Settings</Title>
+                <Title>Configurações do Modelo</Title>
                 <div className="flex gap-2">
                   {isAutoRouter && canEditModel && !isEditing && (
                     <TremorButton onClick={() => setIsAutoRouterModalOpen(true)} className="flex items-center">
-                      Edit Auto Router
+                      Editar Roteador Automático
                     </TremorButton>
                   )}
                   {canEditModel ? (
                     !isEditing && (
                       <TremorButton onClick={() => setIsEditing(true)} className="flex items-center">
-                        Edit Settings
+                        Editar Configurações
                       </TremorButton>
                     )
                   ) : (
@@ -834,10 +834,10 @@ export default function ModelInfoView({
                   <div className="space-y-4">
                     <div className="space-y-4">
                       <div>
-                        <Text className="font-medium">Model Name</Text>
+                        <Text className="font-medium">Nome do Modelo</Text>
                         {isEditing ? (
                           <Form.Item name="model_name" className="mb-0">
-                            <TextInput placeholder="Enter model name" />
+                            <TextInput placeholder="Digite o nome do modelo" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">{localModelData.model_name}</div>
@@ -845,10 +845,10 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Polyglot Model Name</Text>
+                        <Text className="font-medium">Nome do Modelo Polyglot</Text>
                         {isEditing ? (
                           <Form.Item name="litellm_model_name" className="mb-0">
-                            <TextInput placeholder="Enter Polyglot model name" />
+                            <TextInput placeholder="Digite o nome do modelo Polyglot" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">{localModelData.litellm_model_name}</div>
@@ -856,10 +856,10 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Input Cost (per 1M tokens)</Text>
+                        <Text className="font-medium">Custo de Entrada (por 1M tokens)</Text>
                         {isEditing ? (
                           <Form.Item name="input_cost" className="mb-0">
-                            <NumericalInput placeholder="Enter input cost" />
+                            <NumericalInput placeholder="Digite o custo de entrada" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
@@ -873,10 +873,10 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Output Cost (per 1M tokens)</Text>
+                        <Text className="font-medium">Custo de Saída (por 1M tokens)</Text>
                         {isEditing ? (
                           <Form.Item name="output_cost" className="mb-0">
-                            <NumericalInput placeholder="Enter output cost" />
+                            <NumericalInput placeholder="Digite o custo de saída" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
@@ -890,14 +890,14 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Cache Read Cost (per 1M tokens)</Text>
+                        <Text className="font-medium">Custo de Leitura do Cache (por 1M tokens)</Text>
                         {isEditing ? (
                           <Form.Item
                             name="cache_read_cost"
                             className="mb-0"
-                            tooltip="If left blank on save, defaults to Input Cost."
+                            tooltip="Se deixado em branco ao salvar, padrão será o Custo de Entrada."
                           >
-                            <NumericalInput placeholder="Defaults to Input Cost if blank" />
+                            <NumericalInput placeholder="Padrão será o Custo de Entrada se estiver em branco" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
@@ -913,14 +913,14 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">Cache Write Cost (per 1M tokens)</Text>
+                        <Text className="font-medium">Custo de Escrita do Cache (por 1M tokens)</Text>
                         {isEditing ? (
                           <Form.Item
                             name="cache_write_cost"
                             className="mb-0"
-                            tooltip="If left blank on save, defaults to Input Cost (backend falls back to input_cost_per_token)."
+                            tooltip="Se deixado em branco ao salvar, padrão será o Custo de Entrada (backend volta para input_cost_per_token)."
                           >
-                            <NumericalInput placeholder="Defaults to Input Cost if blank" />
+                            <NumericalInput placeholder="Padrão será o Custo de Entrada se estiver em branco" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
@@ -936,117 +936,117 @@ export default function ModelInfoView({
                       </div>
 
                       <div>
-                        <Text className="font-medium">API Base</Text>
+                        <Text className="font-medium">Base da API</Text>
                         {isEditing ? (
                           <Form.Item name="api_base" className="mb-0">
-                            <TextInput placeholder="Enter API base" />
+                            <TextInput placeholder="Digite a base da API" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
-                            {localModelData.litellm_params?.api_base || "Not Set"}
+                            {localModelData.litellm_params?.api_base || "Não Definido"}
                           </div>
                         )}
                       </div>
 
                       <div>
-                        <Text className="font-medium">Custom LLM Provider</Text>
+                        <Text className="font-medium">Fornecedor LLM Personalizado</Text>
                         {isEditing ? (
                           <Form.Item name="custom_llm_provider" className="mb-0">
-                            <TextInput placeholder="Enter custom LLM provider" />
+                            <TextInput placeholder="Digite o fornecedor LLM personalizado" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
-                            {localModelData.litellm_params?.custom_llm_provider || "Not Set"}
+                            {localModelData.litellm_params?.custom_llm_provider || "Não Definido"}
                           </div>
                         )}
                       </div>
 
                       <div>
-                        <Text className="font-medium">Organization</Text>
+                        <Text className="font-medium">Organização</Text>
                         {isEditing ? (
                           <Form.Item name="organization" className="mb-0">
-                            <TextInput placeholder="Enter organization" />
+                            <TextInput placeholder="Digite a organização" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
-                            {localModelData.litellm_params?.organization || "Not Set"}
+                            {localModelData.litellm_params?.organization || "Não Definido"}
                           </div>
                         )}
                       </div>
 
                       <div>
-                        <Text className="font-medium">TPM (Tokens per Minute)</Text>
+                        <Text className="font-medium">TPM (Tokens por Minuto)</Text>
                         {isEditing ? (
                           <Form.Item name="tpm" className="mb-0">
-                            <NumericalInput placeholder="Enter TPM" />
+                            <NumericalInput placeholder="Digite o TPM" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
-                            {localModelData.litellm_params?.tpm || "Not Set"}
+                            {localModelData.litellm_params?.tpm || "Não Definido"}
                           </div>
                         )}
                       </div>
 
                       <div>
-                        <Text className="font-medium">RPM (Requests per Minute)</Text>
+                        <Text className="font-medium">RPM (Requisições por Minuto)</Text>
                         {isEditing ? (
                           <Form.Item name="rpm" className="mb-0">
-                            <NumericalInput placeholder="Enter RPM" />
+                            <NumericalInput placeholder="Digite o RPM" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
-                            {localModelData.litellm_params?.rpm || "Not Set"}
+                            {localModelData.litellm_params?.rpm || "Não Definido"}
                           </div>
                         )}
                       </div>
 
                       <div>
-                        <Text className="font-medium">Max Retries</Text>
+                        <Text className="font-medium">Máximo de Tentativas</Text>
                         {isEditing ? (
                           <Form.Item name="max_retries" className="mb-0">
-                            <NumericalInput placeholder="Enter max retries" />
+                            <NumericalInput placeholder="Digite o máximo de tentativas" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
-                            {localModelData.litellm_params?.max_retries || "Not Set"}
+                            {localModelData.litellm_params?.max_retries || "Não Definido"}
                           </div>
                         )}
                       </div>
 
                       <div>
-                        <Text className="font-medium">Timeout (seconds)</Text>
+                        <Text className="font-medium">Tempo Limite (segundos)</Text>
                         {isEditing ? (
                           <Form.Item name="timeout" className="mb-0">
-                            <NumericalInput placeholder="Enter timeout" />
+                            <NumericalInput placeholder="Digite o tempo limite" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
-                            {localModelData.litellm_params?.timeout || "Not Set"}
+                            {localModelData.litellm_params?.timeout || "Não Definido"}
                           </div>
                         )}
                       </div>
 
                       <div>
-                        <Text className="font-medium">Stream Timeout (seconds)</Text>
+                        <Text className="font-medium">Tempo Limite do Stream (segundos)</Text>
                         {isEditing ? (
                           <Form.Item name="stream_timeout" className="mb-0">
-                            <NumericalInput placeholder="Enter stream timeout" />
+                            <NumericalInput placeholder="Digite o tempo limite do stream" />
                           </Form.Item>
                         ) : (
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
-                            {localModelData.litellm_params?.stream_timeout || "Not Set"}
+                            {localModelData.litellm_params?.stream_timeout || "Não Definido"}
                           </div>
                         )}
                       </div>
 
                       <div>
-                        <Text className="font-medium">Model Access Groups</Text>
+                        <Text className="font-medium">Grupos de Acesso ao Modelo</Text>
                         {isEditing ? (
                           <Form.Item name="model_access_group" className="mb-0">
                             <Select
                               mode="tags"
                               showSearch
-                              placeholder="Select existing groups or type to create new ones"
+                              placeholder="Selecione grupos existentes ou digite para criar novos"
                               optionFilterProp="children"
                               tokenSeparators={[","]}
                               maxTagCount="responsive"
@@ -1074,7 +1074,7 @@ export default function ModelInfoView({
                                     ))}
                                   </div>
                                 ) : (
-                                  "No groups assigned"
+                                  "Nenhum grupo atribuído"
                                 )
                               ) : (
                                 localModelData.model_info.access_groups
@@ -1089,7 +1089,7 @@ export default function ModelInfoView({
                       <div>
                         <Text className="font-medium">
                           Guardrails
-                          <Tooltip title="Apply safety guardrails to this model to filter content or enforce policies">
+                          <Tooltip title="Aplicar guardrails de segurança a este modelo para filtrar conteúdo ou impor políticas">
                             <a
                               href="https://docs.litellm.ai/docs/proxy/guardrails/quick_start"
                               target="_blank"
@@ -1105,7 +1105,7 @@ export default function ModelInfoView({
                             <Select
                               mode="tags"
                               showSearch
-                              placeholder="Select existing guardrails or type to create new ones"
+                              placeholder="Selecione guardrails existentes ou digite para criar novos"
                               optionFilterProp="children"
                               tokenSeparators={[","]}
                               maxTagCount="responsive"
@@ -1135,7 +1135,7 @@ export default function ModelInfoView({
                                     )}
                                   </div>
                                 ) : (
-                                  "No guardrails assigned"
+                                  "Nenhum guardrail atribuído"
                                 )
                               ) : (
                                 localModelData.litellm_params.guardrails
@@ -1149,8 +1149,8 @@ export default function ModelInfoView({
 
                       <div>
                         <Text className="font-medium">
-                          Attached Knowledge Bases (RAG)
-                          <Tooltip title="Vector stores used for RAG. Every request to this model will automatically retrieve context from these knowledge bases.">
+                          Bases de Conhecimento Anexadas (RAG)
+                          <Tooltip title="Bancos de vetores usados para RAG. Cada solicitação para este modelo recuperará automaticamente o contexto destas bases de conhecimento.">
                             <a
                               href="https://docs.litellm.ai/docs/completion/knowledgebase"
                               target="_blank"
@@ -1166,7 +1166,7 @@ export default function ModelInfoView({
                             <VectorStoreSelector
                               onChange={() => {}}
                               accessToken={accessToken || ""}
-                              placeholder="Select knowledge bases (optional)"
+                              placeholder="Selecione bases de conhecimento (opcional)"
                             />
                           </Form.Item>
                         ) : (
@@ -1187,7 +1187,7 @@ export default function ModelInfoView({
                                     )}
                                   </div>
                                 ) : (
-                                  "No knowledge bases attached"
+                                  "Nenhuma base de conhecimento anexada"
                                 )
                               ) : (
                                 String(localModelData.litellm_params.vector_store_ids)
@@ -1206,7 +1206,7 @@ export default function ModelInfoView({
                             <Select
                               mode="tags"
                               showSearch
-                              placeholder="Select existing tags or type to create new ones"
+                              placeholder="Selecione tags existentes ou digite para criar novas"
                               optionFilterProp="children"
                               tokenSeparators={[","]}
                               maxTagCount="responsive"
@@ -1235,7 +1235,7 @@ export default function ModelInfoView({
                                     ))}
                                   </div>
                                 ) : (
-                                  "No tags assigned"
+                                  "Nenhuma tag atribuída"
                                 )
                               ) : (
                                 localModelData.litellm_params.tags
@@ -1247,18 +1247,18 @@ export default function ModelInfoView({
                         )}
                       </div>
                       <div>
-                        <Text className="font-medium">Existing Credentials</Text>
+                        <Text className="font-medium">Credenciais Existentes</Text>
                         {isEditing ? (
                           <Form.Item name="litellm_credential_name" className="mb-0">
                             <Select
                               showSearch
-                              placeholder="Select or search for existing credentials"
+                              placeholder="Selecione ou pesquise credenciais existentes"
                               optionFilterProp="children"
                               filterOption={(input, option) =>
                                 (option?.label ?? "").toLowerCase().includes(input.toLowerCase())
                               }
                               options={[
-                                { value: "", label: "None" },
+                                { value: "", label: "Nenhuma" },
                                 ...credentialsList.map((credential) => ({
                                   value: credential.credential_name,
                                   label: credential.credential_name,
@@ -1276,12 +1276,12 @@ export default function ModelInfoView({
 
                       {isWildcardModel && (
                         <div>
-                          <Text className="font-medium">Health Check Model</Text>
+                          <Text className="font-medium">Modelo de Verificação de Saúde</Text>
                           {isEditing ? (
                             <Form.Item name="health_check_model" className="mb-0">
                               <Select
                                 showSearch
-                                placeholder="Select existing health check model"
+                                placeholder="Selecione modelo de verificação de saúde existente"
                                 optionFilterProp="children"
                                 allowClear
                                 options={(() => {
@@ -1320,7 +1320,7 @@ export default function ModelInfoView({
                         />
                       ) : (
                         <div>
-                          <Text className="font-medium">Cache Control</Text>
+                          <Text className="font-medium">Controle de Cache</Text>
                           <div className="mt-1 p-2 bg-gray-50 rounded-sm">
                             {localModelData.litellm_params?.cache_control_injection_points ? (
                               <div>
@@ -1344,7 +1344,7 @@ export default function ModelInfoView({
                       )}
 
                       <div>
-                        <Text className="font-medium">Model Info</Text>
+                        <Text className="font-medium">Informações do Modelo</Text>
                         {isEditing ? (
                           <Form.Item name="model_info" className="mb-0">
                             <Input.TextArea
@@ -1363,8 +1363,8 @@ export default function ModelInfoView({
                       </div>
                       <div>
                         <Text className="font-medium">
-                          Polyglot Params
-                          <Tooltip title="Optional litellm params used for making a litellm.completion() call. Some params are automatically added by Polyglot.">
+                          Parâmetros Polyglot
+                          <Tooltip title="Parâmetros opcionais do litellm usados para fazer uma chamada litellm.completion(). Alguns parâmetros são adicionados automaticamente pelo Polyglot.">
                             <a
                               href="https://docs.litellm.ai/docs/completion/input"
                               target="_blank"
@@ -1395,7 +1395,7 @@ export default function ModelInfoView({
                         )}
                       </div>
                       <div>
-                        <Text className="font-medium">Team ID</Text>
+                        <Text className="font-medium">ID da Equipe</Text>
                         <div className="mt-1 p-2 bg-gray-50 rounded-sm">
                           {modelData.model_info.team_id || "Not Set"}
                         </div>
@@ -1413,10 +1413,10 @@ export default function ModelInfoView({
                           }}
                           disabled={isSaving}
                         >
-                          Cancel
+                          Cancelar
                         </TremorButton>
                         <TremorButton variant="primary" onClick={() => form.submit()} loading={isSaving}>
-                          Save Changes
+                          Salvar Alterações
                         </TremorButton>
                       </div>
                     )}
@@ -1440,26 +1440,26 @@ export default function ModelInfoView({
 
       <DeleteResourceModal
         isOpen={isDeleteModalOpen}
-        title="Delete Model"
-        alertMessage="This action cannot be undone."
-        message="Are you sure you want to delete this model?"
-        resourceInformationTitle="Model Information"
+        title="Excluir Modelo"
+        alertMessage="Esta ação não pode ser desfeita."
+        message="Tem certeza que deseja excluir este modelo?"
+        resourceInformationTitle="Informações do Modelo"
         resourceInformation={[
           {
-            label: "Model Name",
-            value: modelData?.model_name || "Not Set",
+            label: "Nome do Modelo",
+            value: modelData?.model_name || "Não Definido",
           },
           {
-            label: "Polyglot Model Name",
-            value: modelData?.litellm_model_name || "Not Set",
+            label: "Nome do Modelo Polyglot",
+            value: modelData?.litellm_model_name || "Não Definido",
           },
           {
-            label: "Provider",
-            value: modelData?.provider || "Not Set",
+            label: "Fornecedor",
+            value: modelData?.provider || "Não Definido",
           },
           {
-            label: "Created By",
-            value: modelData?.model_info?.created_by || "Not Set",
+            label: "Criado Por",
+            value: modelData?.model_info?.created_by || "Não Definido",
           },
         ]}
         onCancel={() => setIsDeleteModalOpen(false)}
@@ -1479,7 +1479,7 @@ export default function ModelInfoView({
         <Modal
           open={isCredentialModalOpen}
           onCancel={() => setIsCredentialModalOpen(false)}
-          title="Using Existing Credential"
+          title="Usando Credencial Existente"
         >
           <Text>{modelData.litellm_params.litellm_credential_name}</Text>
         </Modal>
@@ -1508,12 +1508,12 @@ export default function ModelInfoView({
       />
 
       <Modal
-        title="Connection Test Results"
+        title="Resultados do Teste de Conexão"
         open={isAutoRouterTestModalOpen}
         onCancel={() => setIsAutoRouterTestModalOpen(false)}
         footer={[
           <Button key="close" onClick={() => setIsAutoRouterTestModalOpen(false)}>
-            Close
+            Fechar
           </Button>,
         ]}
         width={700}

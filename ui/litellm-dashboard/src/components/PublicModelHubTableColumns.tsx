@@ -174,8 +174,8 @@ export const getPublicModelHubColumns = ({ onModelClick, currency, rate }: Publi
   {
     id: "model_group",
     accessorKey: "model_group",
-    meta: { title: "Nome do Modelo" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Nome do Modelo" />,
+    meta: { title: "Model Name" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Model Name" />,
     size: 200,
     enableSorting: true,
     sortingFn: "alphanumeric",
@@ -191,8 +191,8 @@ export const getPublicModelHubColumns = ({ onModelClick, currency, rate }: Publi
   {
     id: "providers",
     accessorKey: "providers",
-    meta: { title: "Provedores", skeleton: "chips" },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Provedores" />,
+    meta: { title: "Providers", skeleton: "chips" },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Providers" />,
     size: 150,
     enableSorting: true,
     sortingFn: (rowA, rowB) =>

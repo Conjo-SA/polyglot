@@ -37,7 +37,7 @@ function HeadersCell({ value }: { value: object }) {
       <button
         type="button"
         onClick={() => setShowHeaders(!showHeaders)}
-        aria-label={showHeaders ? "Hide headers" : "Show headers"}
+        aria-label={showHeaders ? "Ocultar cabeçalhos" : "Mostrar cabeçalhos"}
         className="rounded-sm p-1 hover:bg-muted"
       >
         {showHeaders ? (
@@ -76,7 +76,7 @@ function EndpointRowActions({ endpoint, onEndpointClick, onDeleteClick }: Endpoi
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Open endpoint actions"
+        aria-label="Abrir ações do endpoint"
         data-testid={`endpoint-actions-${endpointId || endpoint.path}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -89,7 +89,7 @@ function EndpointRowActions({ endpoint, onEndpointClick, onDeleteClick }: Endpoi
           onClick={() => endpointId && onEndpointClick(endpointId)}
         >
           <Pencil />
-          Edit
+          Editar
         </DropdownMenuItem>
         <DropdownMenuSeparator />
         <DropdownMenuItem
@@ -99,7 +99,7 @@ function EndpointRowActions({ endpoint, onEndpointClick, onDeleteClick }: Endpoi
           onClick={() => endpointId && onDeleteClick(endpointId)}
         >
           <Trash2 />
-          Delete
+          Excluir
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>
@@ -163,7 +163,7 @@ export const getPassThroughEndpointsTableColumns = ({
   {
     id: "methods",
     meta: { title: "Methods", skeleton: "chips" },
-    header: () => <HeaderWithTooltip title="Methods" tooltip="HTTP methods supported by this endpoint" />,
+    header: () => <HeaderWithTooltip title="Métodos" tooltip="Métodos HTTP suportados por este endpoint" />,
     size: 150,
     enableSorting: false,
     cell: ({ row }) => <MethodsCell methods={row.original.methods} />,
@@ -172,11 +172,11 @@ export const getPassThroughEndpointsTableColumns = ({
     id: "auth",
     accessorKey: "auth",
     meta: { title: "Authentication", skeleton: "badge" },
-    header: () => <HeaderWithTooltip title="Authentication" tooltip="Polyglot Virtual Key required to call endpoint" />,
+    header: () => <HeaderWithTooltip title="Autenticação" tooltip="Chave Virtual Polyglot necessária para chamar o endpoint" />,
     size: 140,
     enableSorting: false,
     cell: ({ row }) => (
-      <StatusBadge tone={row.original.auth ? "success" : "neutral"} label={row.original.auth ? "Yes" : "No"} />
+      <StatusBadge tone={row.original.auth ? "success" : "neutral"} label={row.original.auth ? "Sim" : "Não"} />
     ),
   },
   {

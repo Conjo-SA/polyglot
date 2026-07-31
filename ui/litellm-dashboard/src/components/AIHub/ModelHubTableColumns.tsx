@@ -71,7 +71,7 @@ function ModelHubRowActions({ model, onModelClick }: ModelHubRowActionsProps) {
   return (
     <DropdownMenu>
       <DropdownMenuTrigger
-        aria-label="Abrir ações do modelo"
+        aria-label="Open model actions"
         data-testid={`model-hub-actions-${model.model_group}`}
         className={cn(buttonVariants({ variant: "ghost", size: "icon-sm" }), "text-muted-foreground")}
       >
@@ -80,14 +80,14 @@ function ModelHubRowActions({ model, onModelClick }: ModelHubRowActionsProps) {
       <DropdownMenuContent align="end" className="w-52">
         <DropdownMenuItem data-testid="model-hub-action-details" onClick={() => onModelClick(model)}>
           <Info />
-          Ver detalhes
+          View details
         </DropdownMenuItem>
         <DropdownMenuItem
           data-testid="model-hub-action-copy"
-          onClick={() => void copyToClipboard(model.model_group, "Nome do modelo copiado")}
+          onClick={() => void copyToClipboard(model.model_group, "Model name copied")}
         >
           <Copy />
-          Copiar nome do modelo
+          Copy model name
         </DropdownMenuItem>
       </DropdownMenuContent>
     </DropdownMenu>

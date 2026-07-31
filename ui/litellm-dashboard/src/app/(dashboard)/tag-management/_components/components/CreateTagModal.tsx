@@ -37,28 +37,28 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
   };
 
   return (
-    <Modal title="Create New Tag" open={visible} width={800} footer={null} onCancel={handleCancel}>
+    <Modal title="Criar Nova Tag" open={visible} width={800} footer={null} onCancel={handleCancel}>
       <Form form={form} onFinish={handleFinish} labelCol={{ span: 8 }} wrapperCol={{ span: 16 }} labelAlign="left">
-        <Form.Item label="Tag Name" name="tag_name" rules={[{ required: true, message: "Please input a tag name" }]}>
+        <Form.Item label="Nome da Tag" name="tag_name" rules={[{ required: true, message: "Por favor, informe um nome para a tag" }]}>
           <TextInput />
         </Form.Item>
 
-        <Form.Item label="Description" name="description">
+        <Form.Item label="Descrição" name="description">
           <Input.TextArea rows={4} />
         </Form.Item>
 
         <Form.Item
           label={
             <span>
-              Allowed Models
-              <Tooltip title="Select which models are allowed to process requests from this tag">
+              Modelos Permitidos
+              <Tooltip title="Selecione quais modelos são permitidos para processar requisições desta tag">
                 <InfoCircleOutlined style={{ marginLeft: "4px" }} />
               </Tooltip>
             </span>
           }
           name="allowed_llms"
         >
-          <Select2 mode="multiple" placeholder="Select Models">
+          <Select2 mode="multiple" placeholder="Selecionar Modelos">
             {availableModels.map((model) => (
               <Select2.Option key={model.model_info.id} value={model.model_info.id}>
                 <div>
@@ -72,7 +72,7 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
 
         <Accordion className="mt-4 mb-4">
           <AccordionHeader>
-            <Title className="m-0">Budget & Rate Limits (Optional)</Title>
+            <Title className="m-0">Orçamento e Limites de Taxa (Opcional)</Title>
           </AccordionHeader>
           <AccordionBody>
             <Form.Item
@@ -80,7 +80,7 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
               label={
                 <span>
                   Max Budget
-                  <Tooltip title="Maximum amount this tag can spend. When reached, requests with this tag will be blocked">
+                  <Tooltip title="Valor máximo que esta tag pode gastar. Quando atingido, as requisições com esta tag serão bloqueadas">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
@@ -93,8 +93,8 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
               className="mt-4"
               label={
                 <span>
-                  Reset Budget{" "}
-                  <Tooltip title="How often the budget should reset. For example, setting 'daily' will reset the budget every 24 hours">
+                  Reiniciar Orçamento{" "}
+                  <Tooltip title="Frequência de reinicialização do orçamento. Por exemplo, definir 'diariamente' reinicia o orçamento a cada 24 horas">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>
@@ -106,14 +106,14 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
 
             <div className="mt-4 p-3 bg-gray-50 rounded-md border border-gray-200">
               <p className="text-sm text-gray-600">
-                TPM/RPM limits for tags are not currently supported. If you need this feature, please{" "}
+                Limites TPM/RPM para tags não são suportados atualmente. Se você precisa desta funcionalidade, por favor{" "}
                 <a
                   href="https://github.com/BerriAI/litellm/issues/new"
                   target="_blank"
                   rel="noopener noreferrer"
                   className="text-blue-600 hover:text-blue-800 underline"
                 >
-                  create a GitHub issue
+                  crie uma issue no GitHub
                 </a>
                 .
               </p>
@@ -122,7 +122,7 @@ const CreateTagModal: React.FC<CreateTagModalProps> = ({ visible, onCancel, onSu
         </Accordion>
 
         <div style={{ textAlign: "right", marginTop: "10px" }}>
-          <Button type="submit">Create Tag</Button>
+          <Button type="submit">Criar Tag</Button>
         </div>
       </Form>
     </Modal>

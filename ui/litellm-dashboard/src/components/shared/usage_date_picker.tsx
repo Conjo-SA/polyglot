@@ -15,7 +15,7 @@ interface UsageDatePickerProps {
 const UsageDatePicker: React.FC<UsageDatePickerProps> = ({
   value,
   onValueChange,
-  label = "Select Time Range",
+  label = "Selecionar Período",
   className = "",
   showTimeRange = true,
 }) => {

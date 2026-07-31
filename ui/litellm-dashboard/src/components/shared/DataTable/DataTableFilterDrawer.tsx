@@ -44,10 +44,10 @@ export function DataTableFilterDrawer<TData>({
   table,
   open,
   onOpenChange,
-  title = "Filters",
+  title = "Filtros",
   description,
-  applyLabel = "Apply Filters",
-  resetLabel = "Reset",
+  applyLabel = "Aplicar Filtros",
+  resetLabel = "Redefinir",
   children,
 }: DataTableFilterDrawerProps<TData>) {
   const [draft, setDraft] = React.useState<Record<string, unknown>>(() => toDraft(table.getState().columnFilters));
