@@ -16107,7 +16107,9 @@ async def get_anthropic_beta_headers_reload_status(
 
 @router.get("/", dependencies=[Depends(user_api_key_auth)])
 async def home(request: Request):
-    return "LiteLLM: RUNNING"
+    return {
+        'status': 'OK'
+    }
 
 
 @router.get(
