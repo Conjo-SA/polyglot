@@ -29,6 +29,7 @@ import React, { useMemo, useState } from "react";
 import TeamMultiSelect from "@/components/common_components/team_multi_select";
 import { ActivityMetrics, processActivityData } from "@/components/activity_metrics";
 import { UsageExportHeader } from "@/components/EntityUsageExport";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import type { EntityType } from "@/components/EntityUsageExport/types";
 import {
   agentDailyActivityCall,
@@ -109,6 +110,7 @@ const ENTITY_FETCH_FNS: Record<EntityType, (...args: any[]) => Promise<any>> = {
 
 const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, entityId, entityList, dateValue }) => {
   const { teams } = useTeams();
+  const { symbol, rate } = useCurrency();
   const [selectedTags, setSelectedTags] = useState<string[]>([]);
   const [topKeysLimit, setTopKeysLimit] = useState<number>(5);
   const [topModelsLimit, setTopModelsLimit] = useState<number>(5);
@@ -516,7 +518,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                     <Card>
                       <Title>Gasto Total</Title>
                       <Text className="text-2xl font-bold mt-2">
-                        ${formatNumberWithCommas(spendData.metadata.total_spend, 2)}
+                        <MoneyCell value={spendData.metadata.total_spend} decimals={2} />
                       </Text>
                     </Card>
                     <Card>
@@ -561,7 +563,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                       index="date"
                       categories={["metrics.spend"]}
                       colors={["cyan"]}
-                      valueFormatter={valueFormatterSpend}
+                      valueFormatter={(value) => valueFormatterSpend(value, symbol, rate)}
                       yAxisWidth={100}
                       showLegend={false}
                       customTooltip={({ payload, active }) => {
@@ -572,7 +574,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           <div className="bg-white p-4 shadow-lg rounded-lg border">
                             <p className="font-bold">{data.date}</p>
                             <p className="text-cyan-500">
-                              Gasto Total: ${formatNumberWithCommas(data.metrics.spend, 2)}
+                              Gasto Total: {(() => {
+                                const { symbol, rate } = useCurrency();
+                                return `${symbol}${formatNumberWithCommas(data.metrics.spend * rate, 2)}`;
+                              })()}
                             </p>
                             <p className="text-gray-600">Total de Requisições: {data.metrics.api_requests}</p>
                             <p className="text-gray-600">Bem-sucedidas: {data.metrics.successful_requests}</p>
@@ -594,8 +599,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                                   const metrics = entityData as EntityMetrics;
                                   return (
                                     <p key={entity} className="text-sm text-gray-600">
-                                      {getEntityLabel(entity, metrics.metadata)}: $
-                                      {formatNumberWithCommas(metrics.metrics.spend, 2)}
+                                      {getEntityLabel(entity, metrics.metadata)}: {(() => {
+                                        const { symbol, rate } = useCurrency();
+                                        return `${symbol}${formatNumberWithCommas(metrics.metrics.spend * rate, 2)}`;
+                                      })()}
                                     </p>
                                   );
                                 })}
@@ -636,7 +643,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           index="metadata.alias_display"
                           categories={["metrics.spend"]}
                           colors={["cyan"]}
-                          valueFormatter={valueFormatterSpend}
+                          valueFormatter={(value) => valueFormatterSpend(value, symbol, rate)}
                           layout="vertical"
                           showLegend={false}
                           yAxisWidth={150}
@@ -646,7 +653,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                             return (
                               <div className="bg-white p-4 shadow-lg rounded-lg border">
                                 <p className="font-bold">{data.metadata.alias}</p>
-                                <p className="text-cyan-500">Gasto: ${formatNumberWithCommas(data.metrics.spend, 4)}</p>
+                                <p className="text-cyan-500">Gasto: {(() => {
+  const { symbol, rate } = useCurrency();
+  return `${symbol}${formatNumberWithCommas(data.metrics.spend * rate, 4)}`;
+})()}</p>
                                 <p className="text-gray-600">Requisições: {data.metrics.api_requests.toLocaleString()}</p>
                                 <p className="text-green-600">
                                   Bem-sucedidas: {data.metrics.successful_requests.toLocaleString()}
@@ -749,7 +759,9 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           data={getProviderSpend()}
                           index="provider"
                           category="spend"
-                          valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+                          valueFormatter={(value) => {
+                            return `${symbol}${formatNumberWithCommas(value, 2)}`;
+                          }}
                           colors={["cyan", "blue", "indigo", "violet", "purple"]}
                           showLabel
                           startAngle={90}

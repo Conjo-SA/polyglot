@@ -17,11 +17,12 @@ import { getModelDisplayName } from "@/components/key_team_helpers/fetch_availab
 import { tagInfoCall, tagUpdateCall } from "@/components/networking";
 import { Tag } from "@/components/tag_management/types";
 import NotificationsManager from "@/components/molecules/notifications_manager";
-import NumericalInput from "@/components/shared/numerical_input";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import BudgetDurationDropdown from "@/components/common_components/budget_duration_dropdown";
 import { copyToClipboard as utilCopyToClipboard } from "@/utils/dataUtils";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { Button as AntdButton } from "antd";
+import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 
 interface TagInfoViewProps {
   tagId: string;
@@ -184,7 +185,7 @@ const TagInfoView: React.FC<TagInfoViewProps> = ({ tagId, onClose, accessToken, 
                   }
                   name="max_budget"
                 >
-                  <NumericalInput step={0.01} precision={2} width={200} />
+                  <CurrencyMoneyInput />
                 </Form.Item>
 
                 <Form.Item
@@ -270,7 +271,7 @@ const TagInfoView: React.FC<TagInfoViewProps> = ({ tagId, onClose, accessToken, 
                   tagDetails.litellm_budget_table.max_budget !== null && (
                     <div>
                       <Text className="font-medium">Orçamento Máximo</Text>
-                      <Text>${tagDetails.litellm_budget_table.max_budget}</Text>
+                      <MoneyCell value={tagDetails.litellm_budget_table.max_budget} decimals={2} showZero />
                     </div>
                   )}
                 {tagDetails.litellm_budget_table.budget_duration && (

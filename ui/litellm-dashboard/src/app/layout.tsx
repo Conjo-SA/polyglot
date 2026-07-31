@@ -6,6 +6,7 @@ import AntdGlobalProvider from "@/contexts/AntdGlobalProvider";
 import { AuthProvider } from "@/contexts/AuthContext";
 import ReactQueryProvider from "@/contexts/ReactQueryProvider";
 import I18nProvider from "@/contexts/I18nProvider";
+import { CurrencyProvider } from "@/contexts/CurrencyContext";
 
 const inter = Inter({ subsets: ["latin"] });
 
@@ -26,7 +27,9 @@ export default function RootLayout({
         <I18nProvider>
           <ReactQueryProvider>
             <AntdGlobalProvider>
-              <AuthProvider>{children}</AuthProvider>
+              <AuthProvider>
+                <CurrencyProvider>{children}</CurrencyProvider>
+              </AuthProvider>
             </AntdGlobalProvider>
           </ReactQueryProvider>
         </I18nProvider>

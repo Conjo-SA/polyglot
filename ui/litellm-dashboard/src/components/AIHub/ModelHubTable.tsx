@@ -21,13 +21,14 @@ import {
   modelHubPublicModelsCall,
 } from "@/components/networking";
 import PublicModelHub from "@/components/public_model_hub";
-import { copyToClipboard } from "@/utils/dataUtils";
+import { copyToClipboard, formatCostPerMillion } from "@/utils/dataUtils";
 import { isAdminRole, isProxyAdminRole } from "@/utils/roles";
 import { CopyOutlined } from "@ant-design/icons";
 import { SortingState } from "@tanstack/react-table";
 import { Badge, Button, Card, Tab, TabGroup, TabList, TabPanel, TabPanels, Text, Title } from "@tremor/react";
 import { Modal } from "antd";
 import { Copy, Inbox } from "lucide-react";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { useRouter } from "next/navigation";
 import React, { useCallback, useEffect, useMemo, useState } from "react";
 import { Prism as SyntaxHighlighter } from "react-syntax-highlighter";
@@ -314,8 +315,11 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
       .map(([key]) => key);
   };
 
-  const formatCost = (cost: number) => {
-    return `$${(cost * 1_000_000).toFixed(2)}`;
+  // Definir formatCost corretamente para funcionar com a moeda configurada
+  const formatCost = (cost: number, currency?: string, rate?: number) => {
+    // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
+    // Recebe o custo por token e retorna o custo por 1M de tokens formatado
+    return formatCostPerMillion(cost, currency, rate);
   };
 
   const handleMakePublicSuccess = () => {
@@ -377,7 +381,9 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
   const [agentSorting, setAgentSorting] = useState<SortingState>([{ id: "name", desc: false }]);
   const [mcpSorting, setMcpSorting] = useState<SortingState>([{ id: "server_name", desc: false }]);
 
-  const modelColumns = useMemo(() => getModelHubTableColumns({ onModelClick: showModal }), [showModal]);
+  const { currency, rate } = useCurrency();
+
+  const modelColumns = useMemo(() => getModelHubTableColumns({ onModelClick: showModal, currency, rate }), [showModal, currency, rate]);
   const agentColumns = useMemo(() => getAgentHubTableColumns({ onAgentClick: showAgentModal }), [showAgentModal]);
   const mcpColumns = useMemo(() => getMCPHubTableColumns({ onServerClick: showMcpModal }), [showMcpModal]);
 
@@ -653,7 +659,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   <Text className="font-medium">Custo de Entrada por 1M Tokens:</Text>
                   <Text>
                     {selectedModel.input_cost_per_token
-                      ? formatCost(selectedModel.input_cost_per_token)
+                      ? formatCost(selectedModel.input_cost_per_token, currency, rate)
                       : "Not specified"}
                   </Text>
                 </div>
@@ -661,7 +667,7 @@ const ModelHubTable: React.FC<ModelHubTableProps> = ({ accessToken, publicPage, 
                   <Text className="font-medium">Custo de Saída por 1M Tokens:</Text>
                   <Text>
                     {selectedModel.output_cost_per_token
-                      ? formatCost(selectedModel.output_cost_per_token)
+                      ? formatCost(selectedModel.output_cost_per_token, currency, rate)
                       : "Not specified"}
                   </Text>
                 </div>

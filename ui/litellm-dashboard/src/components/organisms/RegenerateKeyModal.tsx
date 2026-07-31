@@ -1,6 +1,8 @@
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { CheckOutlined, CopyOutlined, SyncOutlined } from "@ant-design/icons";
 import { Alert, Button, Col, Flex, Form, Input, InputNumber, Modal, Row, Space, Typography } from "antd";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
 import { useEffect, useState } from "react";
 import { CopyToClipboard } from "react-copy-to-clipboard";
 import { KeyResponse } from "../key_team_helpers/key_list";
@@ -22,6 +24,7 @@ interface RegenerateKeyModalProps {
 
 export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdate }: RegenerateKeyModalProps) {
   const { t } = useTranslation();
+  const { currency } = useCurrency();
   const DURATION_RULE = { pattern: DURATION_RULE_PATTERN, message: t("regenerateKeyModal.durationRuleMessage") };
   const { accessToken } = useAuthorized();
   const [form] = Form.useForm();
@@ -178,8 +181,8 @@ export function RegenerateKeyModal({ selectedToken, visible, onClose, onKeyUpdat
 
           <Row gutter={12}>
             <Col span={8}>
-              <Form.Item name="max_budget" label={t("regenerateKeyModal.maxBudget")}>
-                <InputNumber step={0.01} precision={2} style={{ width: "100%" }} />
+              <Form.Item name="max_budget" label={t("regenerateKeyModal.maxBudget", { currency })}>
+                <CurrencyMoneyInput />
               </Form.Item>
             </Col>
             <Col span={8}>

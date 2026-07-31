@@ -709,7 +709,7 @@ def _redact_scim_enterprise_metadata(
     return {k: v for k, v in metadata.items() if k not in _SCIM_DIRECTORY_METADATA_KEYS}
 
 
-def _build_user_info_response(
+async def _build_user_info_response(
     user_id: Optional[str],
     user_info: Optional[Any],
     keys: Optional[List[LiteLLM_VerificationToken]],
@@ -717,6 +717,8 @@ def _build_user_info_response(
     teams_1: Optional[list[Any]],
 ) -> UserInfoResponse:
     """Create UserInfoResponse while filtering sensitive fields."""
+    from litellm.litellm_core_utils.currency_conversion import convert_usd, get_display_currency
+    
     if user_info is None and keys is not None:
         spend = sum(getattr(k, "spend", 0) for k in keys)
         user_info = {"spend": spend}
@@ -728,6 +730,21 @@ def _build_user_info_response(
     if isinstance(_user_info, dict):
         _user_info.pop("password", None)
         _user_info["metadata"] = _redact_scim_enterprise_metadata(_user_info.get("metadata"))
+        spend = _user_info.get("spend")
+        if spend is not None:
+            from fastapi.concurrency import run_in_threadpool
+            spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
+            _user_info["spend_display"] = spend_display
+            _user_info["currency"] = get_display_currency()
+    
+    # Adiciona conversão de moedas para as keys
+    for _key in returned_keys:
+        spend = _key.get("spend")
+        if spend is not None:
+            from fastapi.concurrency import run_in_threadpool
+            spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
+            _key["spend_display"] = spend_display
+            _key["currency"] = get_display_currency()
 
     return UserInfoResponse(
         user_id=user_id,
@@ -802,7 +819,7 @@ async def user_info(
             query_type="find_all",
         )
 
-        response_data = _build_user_info_response(
+        response_data = await _build_user_info_response(
             user_id=user_id,
             user_info=user_info,
             keys=keys,

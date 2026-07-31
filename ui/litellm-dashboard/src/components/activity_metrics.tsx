@@ -1,5 +1,5 @@
 import { AreaChart, BarChart, CustomLegend, CustomTooltip } from "@/components/shared/charts";
-import { formatNumberWithCommas } from "@/utils/dataUtils";
+import { formatNumberWithCommas, formatSpend } from "@/utils/dataUtils";
 import { resolveTeamAliasFromTeamID } from "@/utils/teamUtils";
 import { Card, Grid, Text, Title } from "@tremor/react";
 import { Collapse } from "antd";
@@ -8,6 +8,8 @@ import { Team } from "./key_team_helpers/key_list";
 import KeyModelUsageView from "./UsagePage/components/KeyModelUsageView";
 import { DailyData, KeyMetricWithMetadata, ModelActivityData, TopApiKeyData, TopModelData } from "./UsagePage/types";
 import { valueFormatter } from "./UsagePage/utils/value_formatters";
+import { MoneyCell } from "@/components/shared/table_cells";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface ActivityMetricsProps {
   modelMetrics: Record<string, ModelActivityData>;
@@ -23,6 +25,7 @@ const ModelSection = ({
   metrics: ModelActivityData;
   hidePromptCachingMetrics?: boolean;
 }) => {
+  const { currency, rate } = useCurrency();
   return (
     <div className="space-y-2">
       {/* Summary Cards */}
@@ -42,9 +45,15 @@ const ModelSection = ({
         </Card>
         <Card>
           <Text>Total Gasto</Text>
-          <Title>${formatNumberWithCommas(metrics.total_spend, 2)}</Title>
+          <Title>{(() => {
+            const { symbol, rate } = useCurrency();
+            return `${symbol}${formatNumberWithCommas(metrics.total_spend * rate, 2)}`;
+          })()}</Title>
           <Text>
-            ${formatNumberWithCommas(metrics.total_spend / metrics.total_successful_requests, 3)} por solicitação bem-sucedida
+            {(() => {
+              const { symbol, rate } = useCurrency();
+              return `${symbol}${formatNumberWithCommas((metrics.total_spend / metrics.total_successful_requests) * rate, 3)}`;
+            })()} por solicitação bem-sucedida
           </Text>
         </Card>
       </Grid>
@@ -87,7 +96,7 @@ const ModelSection = ({
           index="date"
           categories={["metrics.spend"]}
           colors={["green"]}
-          valueFormatter={(value: number) => `$${formatNumberWithCommas(value, 2, true)}`}
+          valueFormatter={(value: number) => formatSpend(value, 2, currency, rate)}
           yAxisWidth={72}
         />
       </Card>
@@ -273,7 +282,10 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
           </Card>
           <Card>
             <Text>Total Gasto</Text>
-            <Title>${formatNumberWithCommas(totalMetrics.total_spend, 2)}</Title>
+            <Title>{(() => {
+              const { symbol, rate } = useCurrency();
+              return `${symbol}${formatNumberWithCommas(totalMetrics.total_spend * rate, 2)}`;
+            })()}</Title>
           </Card>
         </Grid>
 
@@ -330,7 +342,10 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
               <div className="flex justify-between items-center w-full">
                 <Title>{modelMetrics[modelName].label || "Item Desconhecido"}</Title>
                 <div className="flex space-x-4 text-sm text-gray-500">
-                  <span>${formatNumberWithCommas(modelMetrics[modelName].total_spend, 2)}</span>
+                  <span>{(() => {
+  const { symbol, rate } = useCurrency();
+  return `${symbol}${formatNumberWithCommas(modelMetrics[modelName].total_spend * rate, 2)}`;
+})()}</span>
                   <span>{modelMetrics[modelName].total_requests.toLocaleString()} solicitações</span>
                 </div>
               </div>

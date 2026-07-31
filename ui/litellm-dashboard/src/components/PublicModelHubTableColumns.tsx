@@ -6,6 +6,7 @@ import { DataTableSortHeader } from "@/components/shared/DataTable";
 import { CellTooltip, IdentityCell, StatusBadge, type StatusTone } from "@/components/shared/table_cells";
 import { Badge } from "@/components/ui/badge";
 import { getProviderLogoAndName } from "@/components/provider_info_helpers";
+import { formatCostPerMillion } from "@/utils/dataUtils";
 
 export interface ModelGroupInfo {
   model_group: string;
@@ -78,7 +79,11 @@ const formatCapabilityName = (key: string) =>
     .map((word) => word.charAt(0).toUpperCase() + word.slice(1))
     .join(" ");
 
-const formatCost = (cost: number) => `$${(cost * 1_000_000).toFixed(4)}`;
+const formatCost = (cost: number, currency?: string, rate?: number) => {
+  // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
+  // Recebe o custo por token e retorna o custo por 1M de tokens formatado
+  return formatCostPerMillion(cost, currency, rate); 
+};
 
 const formatTokens = (tokens: number | undefined) => {
   if (!tokens) return "N/A";
@@ -161,9 +166,11 @@ function OverflowChips({ items }: { items: string[] }) {
 
 interface PublicModelHubColumnsDeps {
   onModelClick: (model: ModelGroupInfo) => void;
+  currency?: string;
+  rate?: number;
 }
 
-export const getPublicModelHubColumns = ({ onModelClick }: PublicModelHubColumnsDeps): ColumnDef<ModelGroupInfo>[] => [
+export const getPublicModelHubColumns = ({ onModelClick, currency, rate }: PublicModelHubColumnsDeps): ColumnDef<ModelGroupInfo>[] => [
   {
     id: "model_group",
     accessorKey: "model_group",
@@ -234,7 +241,7 @@ export const getPublicModelHubColumns = ({ onModelClick }: PublicModelHubColumns
     enableSorting: true,
     cell: ({ row }) => (
       <span className="text-sm">
-        {row.original.input_cost_per_token ? formatCost(row.original.input_cost_per_token) : "Free"}
+        {row.original.input_cost_per_token ? formatCost(row.original.input_cost_per_token, currency, rate) : "Free"}
       </span>
     ),
   },
@@ -247,7 +254,7 @@ export const getPublicModelHubColumns = ({ onModelClick }: PublicModelHubColumns
     enableSorting: true,
     cell: ({ row }) => (
       <span className="text-sm">
-        {row.original.output_cost_per_token ? formatCost(row.original.output_cost_per_token) : "Free"}
+        {row.original.output_cost_per_token ? formatCost(row.original.output_cost_per_token, currency, rate) : "Free"}
       </span>
     ),
   },

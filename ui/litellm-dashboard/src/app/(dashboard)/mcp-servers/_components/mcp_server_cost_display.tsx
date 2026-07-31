@@ -1,6 +1,7 @@
 import React from "react";
 import { Text } from "@tremor/react";
 import { MCPServerCostInfo } from "@/components/mcp_tools/types";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface MCPServerCostDisplayProps {
   costConfig?: MCPServerCostInfo | null;
@@ -19,7 +20,10 @@ const MCPServerCostDisplay: React.FC<MCPServerCostDisplayProps> = ({ costConfig 
         <div className="space-y-4">
           <div className="p-4 bg-gray-50 border border-gray-200 rounded-lg">
             <Text className="text-gray-600">
-              No cost configuration set for this server. Tool calls will be charged at $0.00 per tool call.
+              No cost configuration set for this server. Tool calls will be charged at {(() => {
+                const { symbol } = useCurrency();
+                return `${symbol}0.00`;
+              })()} per tool call.
             </Text>
           </div>
         </div>
@@ -49,7 +53,10 @@ const MCPServerCostDisplay: React.FC<MCPServerCostDisplayProps> = ({ costConfig 
                   cost !== undefined && (
                     <div key={toolName} className="flex justify-between items-center p-3 bg-gray-50 rounded-lg">
                       <Text className="font-medium">{toolName}</Text>
-                      <Text className="text-green-600 font-mono">${cost.toFixed(4)} per query</Text>
+                      <Text className="text-green-600 font-mono">{(() => {
+  const { symbol, rate } = useCurrency();
+  return `${symbol}${(cost * rate).toFixed(4)} per query`;
+})()}</Text>
                     </div>
                   ),
               )}
@@ -64,7 +71,10 @@ const MCPServerCostDisplay: React.FC<MCPServerCostDisplayProps> = ({ costConfig 
               costConfig?.default_cost_per_query !== undefined &&
               costConfig?.default_cost_per_query !== null && (
                 <Text className="text-blue-700">
-                  • Default cost: ${costConfig.default_cost_per_query.toFixed(4)} per query
+                  • Default cost: {(() => {
+                    const { symbol, rate } = useCurrency();
+                    return `${symbol}${(costConfig.default_cost_per_query * rate).toFixed(4)}`;
+                  })()} per query
                 </Text>
               )}
             {hasToolCosts && costConfig?.tool_name_to_cost_per_query && (

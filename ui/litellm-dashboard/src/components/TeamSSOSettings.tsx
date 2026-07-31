@@ -1,11 +1,14 @@
 import React, { useState, useEffect } from "react";
-import { Card, Button, InputNumber, Typography, Spin, Select, Tag, Row, Col } from "antd";
+import { Card, Button, InputNumber, Typography, Spin, Select, Tag, Row, Col, Form } from "antd";
+const FormItem = Form.Item;
 import { EditOutlined, SaveOutlined } from "@ant-design/icons";
 import { getDefaultTeamSettings, updateDefaultTeamSettings } from "./networking";
 import BudgetDurationDropdown, { getBudgetDurationLabel } from "./common_components/budget_duration_dropdown";
 import { getModelDisplayName } from "./key_team_helpers/fetch_available_models_team_key";
 import NotificationsManager from "./molecules/notifications_manager";
 import { ModelSelect } from "./ModelSelect/ModelSelect";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
+import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 
 const { Title, Text } = Typography;
 
@@ -201,18 +204,17 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
               description="Orçamento máximo (em USD) para equipes criadas automaticamente."
               isEditing={isEditing}
               viewContent={
-                values.max_budget != null ? <Text>${Number(values.max_budget).toLocaleString()}</Text> : <NotSet />
+                values.max_budget != null ? <MoneyCell value={values.max_budget} decimals={2} /> : <NotSet />
               }
               editContent={
-                <InputNumber
-                  className="w-full"
-                  style={{ maxWidth: 320 }}
-                  value={editedValues.max_budget}
-                  onChange={(v) => update("max_budget", v)}
-                  placeholder="Não definido"
-                  prefix="$"
-                  min={0}
-                />
+                <FormItem name="max_budget" noStyle>
+                  <CurrencyMoneyInput
+                    value={editedValues.max_budget}
+                    onChange={(v) => update("max_budget", v)}
+                    placeholder="Não definido"
+                    min={0}
+                  />
+                </FormItem>
               }
             />
 

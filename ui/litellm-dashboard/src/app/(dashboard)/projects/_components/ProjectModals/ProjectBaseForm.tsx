@@ -15,6 +15,7 @@ import {
   Typography,
   Button,
 } from "antd";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import type { FormInstance } from "antd";
 import { PlusOutlined, MinusCircleOutlined } from "@ant-design/icons";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
@@ -193,8 +194,8 @@ export function ProjectBaseForm({ form }: ProjectBaseFormProps) {
 
       <Row gutter={24}>
         <Col span={12}>
-          <Form.Item name="max_budget" label="Orçamento Máximo (USD)">
-            <InputNumber prefix="$" style={{ width: "100%" }} placeholder="0.00" min={0} precision={2} />
+          <Form.Item name="max_budget" label="Orçamento Máximo">
+            <CurrencyMoneyInput />
           </Form.Item>
         </Col>
       </Row>

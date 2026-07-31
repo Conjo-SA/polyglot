@@ -9,6 +9,7 @@ import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
 import { Dialog, DialogContent, DialogDescription, DialogHeader, DialogTitle } from "@/components/ui/dialog";
 import { Table, TableBody, TableCell, TableHead, TableHeader, TableRow } from "@/components/ui/table";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 const LOGS_QUERY_KEY = "chat-user-logs";
 const PAGE_SIZE = 50;
@@ -64,11 +65,11 @@ function formatTokens(n: number): string {
   return (n ?? 0).toLocaleString();
 }
 
-function formatCost(spend: number): string {
+function formatCost(spend: number): React.ReactNode {
   const value = spend ?? 0;
-  if (value === 0) return "$0";
-  if (value < 0.01) return `$${value.toFixed(6)}`;
-  return `$${value.toFixed(4)}`;
+  if (value === 0) return <MoneyCell value={0} decimals={0} />;
+  if (value < 0.01) return <MoneyCell value={value} decimals={6} />;
+  return <MoneyCell value={value} decimals={4} />;
 }
 
 function durationMs(row: LogRow): number | null {

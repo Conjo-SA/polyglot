@@ -23,6 +23,7 @@ import {
   Title,
 } from "@tremor/react";
 import { Alert, Button, Segmented, Select, Tooltip, Typography } from "antd";
+import { MoneyCell } from "@/components/shared/table_cells";
 import React, { useCallback, useEffect, useMemo, useRef, useState, type UIEvent } from "react";
 
 import { BarChart } from "@/components/shared/charts";
@@ -33,6 +34,7 @@ import { useCustomers } from "@/app/(dashboard)/hooks/customers/useCustomers";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { useCurrentUser } from "@/app/(dashboard)/hooks/users/useCurrentUser";
 import { useInfiniteUsers } from "@/app/(dashboard)/hooks/users/useUsers";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { all_admin_roles, internalUserRoles } from "@/utils/roles";
 import { ActivityMetrics, processActivityData } from "@/components/activity_metrics";
@@ -630,11 +632,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                             <Card>
                               <Title>Custo médio por Requisição</Title>
                               <Text className="text-2xl font-bold mt-2">
-                                $
-                                {formatNumberWithCommas(
-                                  (totalSpend || 0) / (userSpendData.metadata?.total_api_requests || 1),
-                                  4,
-                                )}
+                                <MoneyCell value={(totalSpend || 0) / (userSpendData.metadata?.total_api_requests || 1)} decimals={4} />
                               </Text>
                             </Card>
                             <Card
@@ -700,7 +698,10 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                 index="date"
                                 categories={["metrics.spend"]}
                                 colors={["cyan"]}
-                                valueFormatter={valueFormatterSpend}
+                                valueFormatter={(value) => {
+                                  const { symbol, rate } = useCurrency();
+                                  return valueFormatterSpend(value, symbol, rate);
+                                }}
                                 yAxisWidth={100}
                                 showLegend={false}
                                 customTooltip={({ payload, active }) => {
@@ -710,7 +711,10 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                     <div className="bg-white p-4 shadow-lg rounded-lg border">
                                       <p className="font-bold">{data.date}</p>
                                       <p className="text-cyan-500">
-                                        Gasto: ${formatNumberWithCommas(data.metrics.spend, 2)}
+                                        Gasto: {(() => {
+                                          const { symbol, rate } = useCurrency();
+                                          return `${symbol}${formatNumberWithCommas(data.metrics.spend * rate, 2)}`;
+                                        })()}
                                       </p>
                                       <p className="text-gray-600">Requisições: {data.metrics.api_requests}</p>
                                       <p className="text-gray-600">Bem-sucedidas: {data.metrics.successful_requests}</p>
@@ -789,7 +793,10 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                     index="key"
                                     categories={["spend"]}
                                     colors={["cyan"]}
-                                    valueFormatter={valueFormatterSpend}
+                                    valueFormatter={(value) => {
+                                  const { symbol, rate } = useCurrency();
+                                  return valueFormatterSpend(value, symbol, rate);
+                                }}
                                     layout="vertical"
                                     yAxisWidth={200}
                                     showLegend={false}
@@ -800,7 +807,10 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                                         <div className="bg-white p-4 shadow-lg rounded-lg border">
                                           <p className="font-bold">{data.key}</p>
                                           <p className="text-cyan-500">
-                                            Gasto: ${formatNumberWithCommas(data.spend, 2)}
+                                            Gasto: {(() => {
+                                              const { symbol, rate } = useCurrency();
+                                              return `${symbol}${formatNumberWithCommas(data.spend * rate, 2)}`;
+                                            })()}
                                           </p>
                                           <p className="text-gray-600">
                                             Requisições Totais: {data.requests.toLocaleString()}

@@ -8,11 +8,10 @@ from fastapi import APIRouter, HTTPException, Request
 
 import litellm
 from litellm._logging import verbose_logger
-from litellm.litellm_core_utils.get_blog_posts import (
-    BlogPost,
-    BlogPostsResponse,
-    GetBlogPosts,
-    get_blog_posts,
+from litellm.litellm_core_utils.currency_conversion import (
+    get_display_currency,
+    get_usd_to_brl_rate,
+    get_exchange_rate_source,
 )
 from litellm.proxy._types import (
     CommonProxyErrors,
@@ -30,6 +29,7 @@ from litellm.types.proxy.public_endpoints.public_endpoints import (
     PublicModelHubInfo,
     SupportedEndpointsResponse,
 )
+from litellm.litellm_core_utils.get_blog_posts import BlogPostsResponse
 from litellm.types.utils import LlmProviders
 
 router = APIRouter()
@@ -388,6 +388,40 @@ async def get_litellm_blog_posts():
 
     posts = [BlogPost(**p) for p in posts_data[:5]]
     return BlogPostsResponse(posts=posts)
+
+
+@router.get(
+    "/public/currency-config",
+    tags=["public"],
+    description="Get current currency configuration",
+)
+async def get_currency_config() -> Dict[str, Any]:
+    """
+    Get the current currency configuration for the proxy.
+    
+    Returns:
+        Dictionary with currency, rate, and source information
+    """
+    try:
+        from fastapi.concurrency import run_in_threadpool
+        rate = await run_in_threadpool(get_usd_to_brl_rate)
+        currency = get_display_currency()
+        
+        # Get the source of the exchange rate
+        source = get_exchange_rate_source()
+        
+        return {
+            "currency": currency,
+            "rate": rate,
+            "source": source
+        }
+    except Exception as e:
+        # Return default values on error
+        return {
+            "currency": "USD",
+            "rate": 5.30,
+            "source": "fixed"
+        }
 
 
 @router.get(

@@ -18,6 +18,7 @@ import {
   Button as TremorButton,
 } from "@tremor/react";
 import { Button, Form, Input, Modal, Select, Tooltip } from "antd";
+import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 import VectorStoreSelector from "./vector_store_management/VectorStoreSelector";
 import { CheckIcon, CopyIcon } from "lucide-react";
 import { useEffect, useMemo, useState } from "react";
@@ -700,8 +701,10 @@ export default function ModelInfoView({
               <Card>
                 <Text>Preços</Text>
                 <div className="mt-2">
-                  <Text>Entrada: ${modelData.input_cost}/1M tokens</Text>
-                  <Text>Saída: ${modelData.output_cost}/1M tokens</Text>
+                  <Text>Entrada:</Text>
+                  <MoneyCell value={modelData.input_cost} decimals={6} />
+                  <Text>Saída:</Text>
+                  <MoneyCell value={modelData.output_cost} decimals={6} />
                 </div>
               </Card>
             </Grid>

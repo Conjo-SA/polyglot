@@ -9,6 +9,7 @@ import BudgetDurationDropdown, {
 import { getModelDisplayName } from "@/components/key_team_helpers/fetch_available_models_team_key";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import NotificationManager from "@/components/molecules/notifications_manager";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 interface DefaultUserSettingsProps {
   accessToken: string | null;
@@ -336,7 +337,7 @@ const DefaultUserSettings: React.FC<DefaultUserSettingsProps> = ({
                   <span className="font-medium text-gray-600">Orçamento Máximo:</span>
                   <p className="text-gray-900">
                     {team.max_budget_in_team !== undefined
-                      ? `$${formatNumberWithCommas(team.max_budget_in_team, 4)}`
+                      ? <MoneyCell value={team.max_budget_in_team} decimals={4} />
                       : "Sem limite"}
                   </p>
                 </div>

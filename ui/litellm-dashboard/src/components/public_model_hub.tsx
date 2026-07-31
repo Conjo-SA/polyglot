@@ -17,6 +17,7 @@ import {
   mcpHubPublicServersCall,
   modelHubPublicModelsCall,
 } from "./networking";
+import { formatCostPerMillion } from "@/utils/dataUtils";
 import { Plugin } from "./claude_code_plugins/types";
 import SkillHubDashboard from "./AIHub/SkillHubDashboard";
 import {
@@ -31,6 +32,7 @@ import { generateCodeSnippet } from "@/components/chat_ui/CodeSnippets";
 import { getEndpointType } from "@/components/chat_ui/mode_endpoint_mapping";
 import { MessageType } from "@/components/chat_ui/types";
 import { getProviderLogoAndName } from "./provider_info_helpers";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const { TabPane } = Tabs;
 
@@ -456,15 +458,19 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
       .map(([key]) => key);
   };
 
-  const formatCost = (cost: number) => {
-    return `$${(cost * 1_000_000).toFixed(4)}`;
+const formatCost = (cost: number, currency?: string, rate?: number) => {
+    // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
+    // Recebe o custo por token e retorna o custo por 1M de tokens formatado
+    return formatCostPerMillion(cost, currency, rate);
   };
+
+  const { currency, rate } = useCurrency();
 
   const [modelSorting, setModelSorting] = useState<SortingState>([{ id: "model_group", desc: false }]);
   const [agentSorting, setAgentSorting] = useState<SortingState>([{ id: "name", desc: false }]);
   const [mcpSorting, setMcpSorting] = useState<SortingState>([{ id: "server_name", desc: false }]);
 
-  const modelColumns = useMemo(() => getPublicModelHubColumns({ onModelClick: showModal }), [showModal]);
+  const modelColumns = useMemo(() => getPublicModelHubColumns({ onModelClick: showModal, currency, rate }), [showModal, currency, rate]);
   const agentColumns = useMemo(() => getPublicAgentHubColumns({ onAgentClick: showAgentModal }), [showAgentModal]);
   const mcpColumns = useMemo(() => getPublicMCPHubColumns({ onServerClick: showMcpModal }), [showMcpModal]);
 
@@ -942,7 +948,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                     <Text className="font-medium">Custo de Entrada por 1M de Tokens:</Text>
                     <Text>
                       {selectedModel.input_cost_per_token
-                        ? formatCost(selectedModel.input_cost_per_token)
+                        ? formatCost(selectedModel.input_cost_per_token, currency, rate)
                         : "Não especificado"}
                     </Text>
                   </div>
@@ -950,7 +956,7 @@ const PublicModelHub: React.FC<PublicModelHubProps> = ({ accessToken, isEmbedded
                     <Text className="font-medium">Custo de Saída por 1M de Tokens:</Text>
                     <Text>
                       {selectedModel.output_cost_per_token
-                        ? formatCost(selectedModel.output_cost_per_token)
+                        ? formatCost(selectedModel.output_cost_per_token, currency, rate)
                         : "Não especificado"}
                     </Text>
                   </div>

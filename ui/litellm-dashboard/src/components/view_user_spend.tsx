@@ -3,6 +3,7 @@ import React, { useEffect, useState } from "react";
 import { modelAvailableCall } from "./networking";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 // Define the props type
 interface UserSpendData {
@@ -112,7 +113,7 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
     modelsToDisplay = userModels;
   }
 
-  const displayMaxBudget = maxBudget !== null ? `$${formatNumberWithCommas(Number(maxBudget), 4)} limit` : "Sem limite";
+  const displayMaxBudget = maxBudget !== null ? <MoneyCell value={maxBudget} decimals={4} /> : "Sem limite";
 
   const roundedSpend = spend !== undefined ? formatNumberWithCommas(spend, 4) : null;
 
@@ -122,7 +123,7 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
         <div>
           <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Gasto Total</p>
           <p className="text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
-            ${roundedSpend}
+            <MoneyCell value={spend} decimals={4} />
           </p>
         </div>
         <div>

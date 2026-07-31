@@ -8,6 +8,8 @@ import { TextInput, Button as TremorButton } from "@tremor/react";
 import { Form, Input, Select, Switch, Tooltip } from "antd";
 import { useEffect, useState } from "react";
 import { useTranslation } from "react-i18next";
+import { useCurrency } from "@/contexts/CurrencyContext";
+import NumericalInput from "@/components/shared/numerical_input";
 import { rolesWithWriteAccess } from "../../utils/roles";
 import AgentSelector from "../agent_management/AgentSelector";
 import AccessGroupSelector from "../common_components/AccessGroupSelector";
@@ -33,7 +35,7 @@ import MCPToolPermissions from "../mcp_server_management/MCPToolPermissions";
 import NotificationsManager from "../molecules/notifications_manager";
 import { getPromptsList, modelAvailableCall, tagListCall } from "../networking";
 import { fetchTeamModels } from "../organisms/create_key_button";
-import NumericalInput from "../shared/numerical_input";
+import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
 import { Tag } from "../tag_management/types";
 import EditLoggingSettings from "../team/EditLoggingSettings";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
@@ -110,6 +112,7 @@ export function KeyEditView({
       ? mapInternalToDisplayNames(keyData.metadata.litellm_disabled_callbacks)
       : [],
   );
+  const { currency, rate } = useCurrency();
   const [selectedOrganizationId, setSelectedOrganizationId] = useState<string | null>(keyData.organization_id || null);
   const [autoRotationEnabled, setAutoRotationEnabled] = useState<boolean>(keyData.auto_rotate || false);
   const [rotationInterval, setRotationInterval] = useState<string>(keyData.rotation_interval || "");
@@ -488,8 +491,8 @@ export function KeyEditView({
         <Input placeholder={t("keyEditView.allowedRoutesPlaceholder")} />
       </Form.Item>
 
-      <Form.Item label={t("regenerateKeyModal.maxBudget")} name="max_budget">
-        <NumericalInput step={0.01} style={{ width: "100%" }} placeholder={t("keyEditView.enterNumericalValue")} />
+      <Form.Item label={t("regenerateKeyModal.maxBudget", { currency })} name="max_budget">
+        <CurrencyMoneyInput />
       </Form.Item>
 
       <Form.Item label={t("keyEditView.resetBudget")} name="budget_duration">

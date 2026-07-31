@@ -1,6 +1,7 @@
 import React from "react";
 import { TextInput, Accordion, AccordionHeader, AccordionBody } from "@tremor/react";
 import { Button as Button2, Modal, Form, InputNumber, Select } from "antd";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import { useCreateBudget } from "@/app/(dashboard)/hooks/budgets/useBudgets";
 import NotificationsManager from "@/components/molecules/notifications_manager";
 
@@ -72,7 +73,7 @@ const BudgetModal: React.FC<BudgetModalProps> = ({ isModalVisible, setIsModalVis
             </AccordionHeader>
             <AccordionBody>
               <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
-                <InputNumber step={0.01} precision={2} width={200} />
+                <CurrencyMoneyInput />
               </Form.Item>
               <Form.Item className="mt-8" label="Reiniciar Orçamento" name="budget_duration">
                 <Select defaultValue={null} placeholder="n/a">

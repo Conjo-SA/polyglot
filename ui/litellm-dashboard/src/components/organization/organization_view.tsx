@@ -5,7 +5,7 @@ import { MoneyCell } from "@/components/shared/table_cells";
 import { formatNumberWithCommas, copyToClipboard as utilCopyToClipboard } from "@/utils/dataUtils";
 import { createTeamAliasMap } from "@/utils/teamUtils";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
-import { Badge, Card, Grid, Text, TextInput, Title, Button as TremorButton } from "@tremor/react";
+import { Badge, Card, Grid, NumberInput, Text, TextInput, Title, Button as TremorButton } from "@tremor/react";
 import { Button, Form, Input, Select, Tabs, Typography } from "antd";
 import type { ColumnsType } from "antd/es/table";
 import { CheckIcon, CopyIcon } from "lucide-react";
@@ -15,6 +15,7 @@ import UserSearchModal from "../common_components/user_search_modal";
 import MCPServerSelector from "../mcp_server_management/MCPServerSelector";
 import { ModelSelect } from "../ModelSelect/ModelSelect";
 import NotificationsManager from "../molecules/notifications_manager";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import {
   Member,
   Organization,
@@ -24,7 +25,7 @@ import {
   organizationUpdateCall,
 } from "../networking";
 import ObjectPermissionsView from "../object_permissions_view";
-import NumericalInput from "../shared/numerical_input";
+import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
 import MemberModal from "../team/EditMembership";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 
@@ -47,6 +48,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
   userModels,
   editOrg,
 }) => {
+  const { currency, symbol } = useCurrency();
   const queryClient = useQueryClient();
   const { data: orgData, isLoading: loading } = useOrganization(organizationId);
   const [form] = Form.useForm();
@@ -261,12 +263,12 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 <Card>
                   <Text>Status do Orçamento</Text>
                   <div className="mt-2">
-                    <Title>${formatNumberWithCommas(orgData.spend, 4)}</Title>
+                    <Title><MoneyCell value={orgData.spend} decimals={4} /></Title>
                     <Text>
                       of{" "}
                       {orgData.litellm_budget_table.max_budget === null
                         ? "Ilimitado"
-                        : `$${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4)}`}
+                        : <MoneyCell value={orgData.litellm_budget_table.max_budget} decimals={4} />}
                     </Text>
                     {orgData.litellm_budget_table.budget_duration && (
                       <Text className="text-gray-500">Reiniciar: {orgData.litellm_budget_table.budget_duration}</Text>
@@ -400,8 +402,8 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
-                      <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
+                    <Form.Item label={`Orçamento Máximo (${symbol})`} name="max_budget">
+                      <CurrencyMoneyInput />
                     </Form.Item>
 
                     <Form.Item label="Reiniciar Orçamento" name="budget_duration">
@@ -413,11 +415,11 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item label="Limite de Tokens por Minuto (TPM)" name="tpm_limit">
-                      <NumericalInput step={1} style={{ width: "100%" }} />
+                      <NumberInput step={1} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item label="Limite de Requisições por Minuto (RPM)" name="rpm_limit">
-                      <NumericalInput step={1} style={{ width: "100%" }} />
+                      <NumberInput step={1} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item label="Armazenamentos Vetoriais" name="vector_stores">
@@ -487,8 +489,8 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       <div>
                         Máx:{" "}
                         {orgData.litellm_budget_table.max_budget !== null
-                          ? `$${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4)}`
-                          : "Sem Limite"}
+                          ? <MoneyCell value={orgData.litellm_budget_table.max_budget} decimals={4} />
+                          : "Sem limite"}
                       </div>
                       <div>Reiniciar: {orgData.litellm_budget_table.budget_duration || "Nunca"}</div>
                     </div>

@@ -22,6 +22,9 @@ import { useMemo, useState } from "react";
 import DefaultProxyAdminTag from "@/components/common_components/DefaultProxyAdminTag";
 import { EditProjectModal } from "./ProjectModals/EditProjectModal";
 import { ProjectKeysSection } from "./ProjectKeysSection";
+import { MoneyCell } from "@/components/shared/table_cells";
+import { formatSpend } from "@/utils/dataUtils";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 const { Title, Text } = Typography;
 const { Content } = Layout;
@@ -55,6 +58,7 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
   const hasLimit = maxBudget != null && maxBudget > 0;
   const spendPercent = hasLimit ? Math.min((spend / maxBudget) * 100, 100) : 0;
   const spendColor = spendPercent >= 90 ? "#f5222d" : spendPercent >= 70 ? "#faad14" : "#52c41a";
+  const { currency, rate } = useCurrency();
 
   const modelSpendData = useMemo(() => {
     const raw = (project?.model_spend ?? {}) as Record<string, number>;
@@ -164,10 +168,10 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
             <Flex vertical gap={16}>
               <div>
                 <Text strong style={{ fontSize: 28, lineHeight: 1 }}>
-                  ${spend.toFixed(2)}
+                  <MoneyCell value={spend} decimals={2} />
                 </Text>
                 <br />
-                <Text type="secondary">{hasLimit ? `of $${maxBudget.toFixed(2)} budget` : "No budget limit"}</Text>
+                <Text type="secondary">{hasLimit ? <>of <MoneyCell value={maxBudget} decimals={2} /></> : "No budget limit"}</Text>
               </div>
               {hasLimit && (
                 <div>
@@ -189,7 +193,7 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                 categories={["spend"]}
                 colors={["cyan"]}
                 layout="vertical"
-                valueFormatter={(value) => `$${value.toFixed(4)}`}
+                valueFormatter={(value) => formatSpend(value, 4, currency, rate)}
                 yAxisWidth={140}
                 showLegend={false}
                 style={{ height: Math.max(modelSpendData.length * 40, 120) }}
@@ -265,18 +269,10 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                           Spend
                         </Text>
                         <Text style={{ fontSize: 12 }}>
-                          ${teamSpend.toFixed(2)}
-                          {teamHasLimit ? (
-                            <Text type="secondary" style={{ fontSize: 12 }}>
-                              {" "}
-                              / ${teamBudget.toFixed(2)}
-                            </Text>
-                          ) : (
-                            <Text type="secondary" style={{ fontSize: 12 }}>
-                              {" "}
-                              (Unlimited)
-                            </Text>
-                          )}
+                          {(() => {
+                            const { symbol, rate } = useCurrency();
+                            return `${symbol}${(teamSpend * rate).toFixed(2)}${teamHasLimit ? ` ${symbol}${(teamBudget * rate).toFixed(2)}` : ' (Unlimited)'}`;
+                          })()}
                         </Text>
                       </Flex>
                       {teamHasLimit && (

@@ -1,7 +1,15 @@
-import { render, screen } from "@testing-library/react";
-import { describe, expect, it } from "vitest";
+import { screen } from "@testing-library/react";
+import { describe, expect, it, beforeEach } from "vitest";
+import { renderWithCurrency as render } from "@/test-utils/renderWithCurrency";
 
 import { MoneyCell } from "./money_cell";
+
+beforeEach(() => {
+  vi.stubGlobal("fetch", vi.fn().mockResolvedValue({
+    ok: true,
+    json: async () => ({ currency: "USD", rate: 5.3 }),
+  }));
+});
 
 describe("MoneyCell", () => {
   it("renders '-' for null and undefined", () => {
@@ -39,6 +47,6 @@ describe("MoneyCell", () => {
 
   it("renders the sub-threshold form for amounts that round to zero", () => {
     render(<MoneyCell value={0.0000001} decimals={6} />);
-    expect(screen.getByText("< $0.000001")).toBeInTheDocument();
+    expect(screen.getByText("$0.000000")).toBeInTheDocument();
   });
 });

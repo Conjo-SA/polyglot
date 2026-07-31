@@ -19,6 +19,7 @@ import { Tooltip } from "antd";
 import React, { useState } from "react";
 import { ProviderLogo } from "@/components/molecules/models/ProviderLogo";
 import { ChartLoader } from "@/components/shared/chart_loader";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 type ProviderSpendData = {
   provider: string;
@@ -36,6 +37,7 @@ interface SpendByProviderProps {
 }
 
 const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChanging, providerSpend }) => {
+  const { symbol } = useCurrency();
   const [includeZeroSpend, setIncludeZeroSpend] = useState(false);
   const [includeUnknown, setIncludeUnknown] = useState(false);
 
@@ -86,7 +88,9 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
               data={filteredProviderSpend}
               index="provider"
               category="spend"
-              valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+              valueFormatter={(value) => {
+                return `${symbol}${formatNumberWithCommas(value, 2)}`;
+              }}
               colors={["cyan"]}
               showLabel
               startAngle={90}

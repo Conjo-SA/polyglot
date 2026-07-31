@@ -4,6 +4,8 @@ import { InfoCircleOutlined } from "@ant-design/icons";
 import { Card, Col, Row, Space, Tag, Tooltip, Typography } from "antd";
 import React from "react";
 import { useMyTeamMember } from "./useMyTeamMember";
+import { MoneyCell } from "@/components/shared/table_cells";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface MyUserTabProps {
   teamId: string;
@@ -30,6 +32,7 @@ const formatRateLimit = (value: number | null | undefined): string => {
 
 export default function MyUserTab({ teamId }: MyUserTabProps) {
   const { data, isLoading, error } = useMyTeamMember(teamId);
+  const { currency, symbol } = useCurrency();
 
   if (isLoading) {
     return (
@@ -95,14 +98,17 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
           <Card>
             {labelWithTooltip(
               "Current Cycle Spend (USD)",
-              "Spend for the current budget cycle. Resets to $0 when the budget window rolls over.",
+              `Spend for the current budget cycle. Resets to ${(() => {
+                const { symbol } = useCurrency();
+                return `${symbol}0`;
+              })()} when the budget window rolls over.`,
             )}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={3} style={{ margin: 0 }}>
-                ${formatNumber(spend, 4)}
+                <MoneyCell value={spend} decimals={4} />
               </Typography.Title>
               <Typography.Text type="secondary">
-                of {maxBudget === null ? "Unlimited" : `$${formatNumber(maxBudget, 4)}`}
+                of {maxBudget === null ? "Unlimited" : <MoneyCell value={maxBudget} decimals={4} />}
               </Typography.Text>
             </div>
             {budgetReset && (
@@ -126,10 +132,13 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
 
         <Col xs={24} md={12}>
           <Card>
-            {labelWithTooltip("Total Spend (USD)", "Cumulative spend across all budget cycles within this team.")}
+            {labelWithTooltip(`Total Spend (${currency})`, `Cumulative spend across all budget cycles within this team.`)}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={4} style={{ margin: 0 }}>
-                ${formatNumber(totalSpend, 4)}
+                {(() => {
+                  const { symbol, rate } = useCurrency();
+                  return `${symbol}${formatNumber(totalSpend * rate, 4)}`;
+                })()}
               </Typography.Title>
             </div>
           </Card>

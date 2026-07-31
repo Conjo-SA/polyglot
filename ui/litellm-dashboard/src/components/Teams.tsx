@@ -28,9 +28,11 @@ import MCPServerSelector from "./mcp_server_management/MCPServerSelector";
 import MCPToolPermissions from "./mcp_server_management/MCPToolPermissions";
 import NotificationsManager from "./molecules/notifications_manager";
 import { Organization, fetchMCPAccessGroups, getGuardrailsList, getPoliciesList, teamDeleteCall } from "./networking";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import NumericalInput from "./shared/numerical_input";
 import VectorStoreSelector from "./vector_store_management/VectorStoreSelector";
 import SearchToolSelector from "./search_tools/SearchToolSelector";
+import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 
 interface TeamProps {
   accessToken: string | null;
@@ -122,6 +124,7 @@ const getOrganizationAlias = (
 
 // @deprecated
 const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser = false }) => {
+  const { currency } = useCurrency();
   const { data: organizationsData } = useOrganizations();
   const organizations = organizationsData ?? null;
   const queryClient = useQueryClient();
@@ -730,8 +733,8 @@ const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser
                 />
               </Form.Item>
 
-              <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
-                <NumericalInput step={0.01} precision={2} width={200} />
+              <Form.Item label={`Orçamento Máximo (${currency})`} name="max_budget">
+                <CurrencyMoneyInput />
               </Form.Item>
               <Form.Item className="mt-8" label="Reiniciar Orçamento" name="budget_duration">
                 <Select defaultValue={null} placeholder="n/a">
@@ -772,7 +775,7 @@ const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser
                     />
                   </Form.Item>
                   <Form.Item
-                    label="Orçamento do Membro da Equipe (USD)"
+                    label={`Orçamento do Membro da Equipe (${currency})`}
                     name="team_member_budget"
                     normalize={(value) => (value ? Number(value) : undefined)}
                     tooltip="Este é o orçamento individual para um usuário na equipe."

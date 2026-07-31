@@ -6,6 +6,7 @@ import { useQuery } from "@tanstack/react-query";
 import { userDailyActivityAggregatedCall } from "../networking";
 import { Button } from "@/components/ui/button";
 import { Skeleton } from "@/components/ui/skeleton";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 const USAGE_QUERY_KEY = "chat-user-usage";
 
@@ -107,9 +108,9 @@ const UsagePanel: React.FC<Props> = ({ accessToken, userId }) => {
   const maxSpend = Math.max(...dailySpend, 0);
   const maxRequests = Math.max(...dailyRequests, 0);
 
-  const statCards: Array<{ label: string; value: string; sub?: string; subVariant?: "error" }> = meta
+  const statCards: Array<{ label: string; value: React.ReactNode; sub?: string; subVariant?: "error" }> = meta
     ? [
-        { label: "Total Spend", value: `$${meta.total_spend.toFixed(2)}` },
+        { label: "Total Spend", value: <MoneyCell value={meta.total_spend} decimals={2} /> },
         { label: "API Requests", value: formatNumber(meta.total_api_requests) },
         {
           label: "Tokens Used",

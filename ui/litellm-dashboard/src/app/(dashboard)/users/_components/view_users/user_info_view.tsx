@@ -41,6 +41,7 @@ import { CopyIcon, CheckIcon } from "lucide-react";
 import NotificationsManager from "@/components/molecules/notifications_manager";
 import { getBudgetDurationLabel } from "@/components/common_components/budget_duration_dropdown";
 import DeleteResourceModal from "@/components/common_components/DeleteResourceModal";
+import { MoneyCell } from "@/components/shared/table_cells";
 
 interface UserInfoViewProps {
   userId: string;
@@ -434,10 +435,10 @@ export default function UserInfoView({
               <Card>
                 <Text>Gasto</Text>
                 <div className="mt-2">
-                  <Title>${formatNumberWithCommas(userData.spend || 0, 4)}</Title>
+                  <Title><MoneyCell value={userData.spend || 0} decimals={4} /></Title>
                   <Text>
-                    de{" "}
-                    {userData.max_budget !== null ? `$${formatNumberWithCommas(userData.max_budget, 4)}` : "Ilimitado"}
+                    of{" "}
+                    {userData.max_budget !== null ? <MoneyCell value={userData.max_budget} decimals={4} /> : "Ilimitado"}
                   </Text>
                 </div>
               </Card>
@@ -596,7 +597,7 @@ export default function UserInfoView({
                     <Text className="font-medium">Orçamento Máximo</Text>
                     <Text>
                       {userData.max_budget !== null && userData.max_budget !== undefined
-                        ? `$${formatNumberWithCommas(userData.max_budget, 4)}`
+                        ? <MoneyCell value={userData.max_budget} decimals={4} />
                         : "Ilimitado"}
                     </Text>
                   </div>
