@@ -101,10 +101,6 @@ from litellm.proxy.management_helpers.object_permission_utils import (
 from litellm.proxy.management_helpers.team_member_permission_checks import (
     TeamMemberPermissionChecks,
 )
-from litellm.litellm_core_utils.currency_conversion import (
-    convert_usd,
-    get_display_currency,
-)
 from litellm.proxy.management_helpers.utils import (
     add_new_member,
     management_endpoint_wrapper,
@@ -3599,20 +3595,37 @@ async def team_info(
             team_info = {"spend": spend}
 
         ## REMOVE HASHED TOKEN INFO before returning ##
-        processed_keys = []
         for key in keys:
             try:
-                _key = key.model_dump()
+                key = key.model_dump()
             except Exception:
-                _key = key.dict()
-            _key.pop('token', None)
-            if _key.get('spend') is not None:
-                from fastapi.concurrency import run_in_threadpool
-                spend_display = await run_in_threadpool(convert_usd, _key['spend'], get_display_currency())
-                _key['spend_display'] = spend_display
-                _key['currency'] = get_display_currency()
-            processed_keys.append(_key)
-        keys = processed_keys
+                # if using pydantic v1
+                key = key.dict()
+            key.pop("token", None)
+
+        ## GET ALL MEMBERSHIPS ##
+        returned_tm = await get_all_team_memberships(prisma_client, [team_id], user_id=None)
+
+        if isinstance(team_info, dict):
+            _team_info = TeamInfoResponseObjectTeamTable(**team_info)
+        elif isinstance(team_info, BaseModel):
+            _team_info = TeamInfoResponseObjectTeamTable(**team_info.model_dump())
+        else:
+            _team_info = TeamInfoResponseObjectTeamTable()
+
+        ## GET TEAM BUDGET (if exists) ##
+        team_member_budget_id = (
+            _team_info.metadata.get("team_member_budget_id") if _team_info.metadata is not None else None
+        )
+        if team_member_budget_id is not None:
+            _team_info = await _add_team_member_budget_table(
+                team_member_budget_id=team_member_budget_id,
+                prisma_client=prisma_client,
+                team_info_response_object=_team_info,
+            )
+
+        # Resolve resources inherited from access groups
+        await _resolve_team_access_group_resources(_team_info)
 
         response_object = TeamInfoResponseObject(
             team_id=team_id,

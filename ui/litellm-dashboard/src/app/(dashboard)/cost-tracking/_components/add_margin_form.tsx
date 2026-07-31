@@ -6,8 +6,6 @@ import { Providers, provider_map, providerLogoMap } from "@/components/provider_
 import { resolveLogoSrc } from "@/lib/assetPaths";
 import { MarginConfig } from "./types";
 import { handleImageError } from "./provider_display_helpers";
-import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
-
 
 interface AddMarginFormProps {
   marginConfig: MarginConfig;
@@ -149,20 +147,36 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
           label={
             <span className="text-sm font-medium text-gray-700 flex items-center">
               Valor Fixo da Margem
-              <Tooltip title="Informe um valor fixo (ex: 0.001 por requisição)">
+              <Tooltip title="Informe um valor fixo em USD (ex: 0.001 para $0.001 por requisição)">
                 <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
               </Tooltip>
             </span>
           }
           rules={[
             { required: true, message: "Por favor informe um valor fixo" },
+            {
+              validator: (_, value) => {
+                if (!value) {
+                  return Promise.reject(new Error("Por favor informe um valor fixo"));
+                }
+                const numValue = parseFloat(value);
+                if (isNaN(numValue) || numValue < 0) {
+                  return Promise.reject(new Error("O valor fixo deve ser não negativo"));
+                }
+                return Promise.resolve();
+              },
+            },
           ]}
         >
-          <CurrencyMoneyInput
-            value={fixedAmountValue !== "" ? parseFloat(fixedAmountValue) : undefined}
-            onChange={(value) => onFixedAmountChange(value !== null ? value.toString() : '')}
-            min={0}
-          />
+          <div className="flex items-center gap-2">
+            <span className="text-gray-600">$</span>
+            <TextInput
+              placeholder="0.001"
+              value={fixedAmountValue}
+              onValueChange={onFixedAmountChange}
+              className="rounded-lg border-gray-300 focus:border-blue-500 focus:ring-blue-500 flex-1"
+            />
+          </div>
         </Form.Item>
       )}
 
@@ -173,7 +187,7 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
           disabled={
             !selectedProvider ||
             (marginType === "percentage" && !percentageValue) ||
-            (marginType === "fixed" && (!fixedAmountValue || isNaN(parseFloat(fixedAmountValue))))
+            (marginType === "fixed" && !fixedAmountValue)
           }
         >
           Adicionar Margem por Provedor

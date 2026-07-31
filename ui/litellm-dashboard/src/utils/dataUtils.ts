@@ -1,5 +1,4 @@
 import NotificationsManager from "@/components/molecules/notifications_manager";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 export function updateExistingKeys<Source extends object>(target: Source, source: object): Source {
   const clonedTarget = structuredClone(target);
@@ -48,66 +47,20 @@ export const formatNumberWithCommas = (
   return `${sign}${scaled.toLocaleString("en-US", opts)}${suffix}`;
 };
 
-// Função auxiliar para formatar números
-export const formatSpend = (
-  value: number | null | undefined, 
-  decimals: number = 6, 
-  currency: string = "USD", 
-  rate: number = 1
-): string => {
+export const getSpendString = (value: number | null | undefined, decimals: number = 6): string => {
   if (value === null || value === undefined || !Number.isFinite(value) || value === 0) {
     return "-";
   }
 
-  // Converter valor para moeda configurada
-  const convertedValue = currency === "BRL" ? value * rate : value;
-  
-  const formatted = formatNumberWithCommas(convertedValue, decimals, false, false);
+  const formatted = formatNumberWithCommas(value, decimals, false, false);
   const numericFormatted = Number(formatted.replace(/,/g, ""));
 
   if (numericFormatted === 0) {
     const threshold = (1 / 10 ** decimals).toFixed(decimals);
-    return `< ${currency === "BRL" ? "R$" : "$"}${threshold}`;
+    return `< R$ ${threshold}`;
   }
 
-  return `${currency === "BRL" ? "R$" : "$"}${formatted}`;
-};
-
-/**
- * Hook para formatar valores de gasto usando a moeda configurada via contexto
- */
-export const useSpendString = (value: number | null | undefined, decimals: number = 6): string => {
-  const { currency, rate } = useCurrency(); // Usa o contexto
-  return formatSpend(value, decimals, currency, rate);
-};
-
-/**
- * Formata um valor de custo para exibição em moeda configurada (com base em 1M de tokens)
- * @param cost Valor do custo por token
- * @returns Texto formatado com o símbolo da moeda configurada
- */
-export const formatCostPerMillion = (cost: number | null | undefined, currency?: string, rate?: number): string => {
-  if (cost === null || cost === undefined || !Number.isFinite(cost)) {
-    return "-";
-  }
-  
-  const valuePerMillion = cost * 1_000_000;
-  const currencySymbol = currency === "BRL" ? "R$" : "$";
-  
-  if (valuePerMillion === 0) {
-    return `${currencySymbol} 0.0000`;
-  }
-  
-  return `${currencySymbol} ${valuePerMillion.toFixed(4)}`;
-};
-
-/**
- * @deprecated - Use useSpendString hook em vez deste método purinho
- */
-export const getSpendString = (value: number | null | undefined, decimals: number = 6): string => {
-  // Retornando o padrão anterior para compatibilidade
-  // Mas deveria estar usando o contexto de moeda configurado
-  return formatSpend(value, decimals, "USD", 1);
+  return `R$ ${formatted}`;
 };
 
 export const copyToClipboard = async (

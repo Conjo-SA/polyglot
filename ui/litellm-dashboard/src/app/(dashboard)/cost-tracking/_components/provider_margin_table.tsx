@@ -4,7 +4,6 @@ import { TrashIcon, PencilAltIcon, CheckIcon, XIcon } from "@heroicons/react/out
 import { SimpleTable } from "@/components/common_components/simple_table";
 import { MarginConfig } from "./types";
 import { getProviderDisplayInfo, handleImageError } from "./provider_display_helpers";
-import { MoneyCell } from "@/components/shared/table_cells";
 
 interface ProviderMarginTableProps {
   marginConfig: MarginConfig;
@@ -77,26 +76,18 @@ const ProviderMarginTable: React.FC<ProviderMarginTableProps> = ({
     }
   };
 
-  const formatMargin = (margin: number | { percentage?: number; fixed_amount?: number }): React.ReactNode => {
+  const formatMargin = (margin: number | { percentage?: number; fixed_amount?: number }): string => {
     if (typeof margin === "number") {
       return `${(margin * 100).toFixed(1)}%`;
     }
-    const parts: React.ReactNode[] = [];
+    const parts: string[] = [];
     if (margin.percentage !== undefined) {
       parts.push(`${(margin.percentage * 100).toFixed(1)}%`);
     }
     if (margin.fixed_amount !== undefined) {
-      parts.push(<MoneyCell key="fixed_amount" value={margin.fixed_amount} decimals={6} />);
+      parts.push(`$${margin.fixed_amount.toFixed(6)}`);
     }
-    if (parts.length === 0) {
-      return "0%";
-    }
-    return parts.map((part, index) => (
-      <React.Fragment key={index}>
-        {index > 0 && " + "}
-        {part}
-      </React.Fragment>
-    ));
+    return parts.join(" + ") || "0%";
   };
 
   // Convert margin config to array and sort (global first, then alphabetically)

@@ -2,7 +2,7 @@ import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { useProjects } from "@/app/(dashboard)/hooks/projects/useProjects";
 import { useUISettings } from "@/app/(dashboard)/hooks/uiSettings/useUISettings";
 import useTeams from "@/app/(dashboard)/hooks/useTeams";
-import { formatNumberWithCommas, formatSpend } from "@/utils/dataUtils";
+import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { mapEmptyStringToNull } from "@/utils/keyUpdateUtils";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
 import { Badge, Button, Card, Grid, Tab, TabGroup, TabList, TabPanel, TabPanels, Text, Title } from "@tremor/react";
@@ -26,8 +26,6 @@ import { RegenerateKeyModal } from "../organisms/RegenerateKeyModal";
 import { parseErrorMessage } from "../shared/errorUtils";
 import { KeyEditView } from "./key_edit_view";
 import { useTranslation } from "react-i18next";
-import { MoneyCell } from "@/components/shared/table_cells/money_cell";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface KeyInfoViewProps {
   keyId: string;
@@ -84,7 +82,6 @@ export default function KeyInfoView({
   const [isRegenerateModalOpen, setIsRegenerateModalOpen] = useState(false);
   const [isResetSpendModalOpen, setIsResetSpendModalOpen] = useState(false);
   const { mutate: resetKeySpend, isPending: resetSpendLoading } = useResetKeySpend();
-  const { currency, rate } = useCurrency();
   // Add local state to maintain key data and track regeneration
   const [currentKeyData, setCurrentKeyData] = useState<KeyResponse | undefined>(keyData);
   const [lastRegeneratedAt, setLastRegeneratedAt] = useState<Date | null>(null);
@@ -424,10 +421,10 @@ export default function KeyInfoView({
 
   const budgetDisplay =
     currentKeyData.max_budget !== null
-      ? <MoneyCell value={currentKeyData.max_budget} decimals={2} />
+      ? `$${formatNumberWithCommas(currentKeyData.max_budget, 2)}`
       : parentTeam?.max_budget != null
         ? t("keyInfoView.budgetTeamSuffix", {
-            budget: formatSpend(parentTeam.max_budget, 2, currency, rate),
+            budget: `$${formatNumberWithCommas(parentTeam.max_budget, 2)}`,
             team: parentTeam.team_alias || parentTeam.team_id,
             duration: parentTeam.budget_duration ? ` / ${parentTeam.budget_duration}` : "",
           })
@@ -494,7 +491,7 @@ export default function KeyInfoView({
           },
           {
             label: t("virtualKeysTable.spend"),
-            value: formatSpend(currentKeyData?.spend ?? 0, 4, currency, rate),
+            value: currentKeyData?.spend ? `$${formatNumberWithCommas(currentKeyData.spend, 4)}` : "$0.0000",
           },
         ]}
         onCancel={() => {
@@ -522,10 +519,7 @@ export default function KeyInfoView({
           })}
         </p>
         <p style={{ color: "#666", fontSize: "0.875rem", marginTop: 8 }}>
-          {(() => {
-            const { symbol, rate } = useCurrency();
-            return t("keyInfoView.resetSpendCurrent", { spend: `${symbol}${formatNumberWithCommas(currentKeyData.spend * rate, 4)}` });
-          })()}{" "}
+          {t("keyInfoView.resetSpendCurrent", { spend: formatNumberWithCommas(currentKeyData.spend, 4) })}{" "}
           {t("keyInfoView.resetSpendNote")}
         </p>
       </Modal>
@@ -543,10 +537,7 @@ export default function KeyInfoView({
               <Card>
                 <Text>{t("virtualKeysTable.spend")}</Text>
                 <div className="mt-2">
-                  <Title>{(() => {
-  const { symbol, rate } = useCurrency();
-  return `${symbol}${formatNumberWithCommas(currentKeyData.spend * rate, 4)}`;
-})()}</Title>
+                  <Title>${formatNumberWithCommas(currentKeyData.spend, 4)}</Title>
                   <Text>{t("keyInfoView.of")} {budgetDisplay}</Text>
                 </div>
               </Card>
@@ -753,14 +744,14 @@ export default function KeyInfoView({
 
                   <div>
                     <Text className="font-medium">{t("virtualKeysTable.spend")}</Text>
-                    <MoneyCell value={currentKeyData.spend} decimals={4} />
+                    <Text>${formatNumberWithCommas(currentKeyData.spend, 4)} USD</Text>
                   </div>
 
                   <div>
                     <Text className="font-medium">{t("virtualKeysTable.budget")}</Text>
                     <Text>
                       {currentKeyData.max_budget !== null
-                        ? <MoneyCell value={currentKeyData.max_budget} decimals={2} />
+                        ? `$${formatNumberWithCommas(currentKeyData.max_budget, 2)}`
                         : t("virtualKeysTable.unlimited")}
                     </Text>
                   </div>

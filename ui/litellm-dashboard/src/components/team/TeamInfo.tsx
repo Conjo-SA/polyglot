@@ -18,8 +18,6 @@ import { useGuardrails, GuardrailListItem } from "@/app/(dashboard)/hooks/guardr
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { mapEmptyStringToNull } from "@/utils/keyUpdateUtils";
 import { isProxyAdminRole } from "@/utils/roles";
-import { useCurrency } from "@/contexts/CurrencyContext";
-import NumericalInput from "@/components/shared/numerical_input";
 import {
   EditOutlined,
   GlobalOutlined,
@@ -29,7 +27,7 @@ import {
   SaveOutlined,
 } from "@ant-design/icons";
 import { ArrowLeftIcon } from "@heroicons/react/outline";
-import { Accordion, AccordionBody, AccordionHeader, Badge, Card, Grid, NumberInput, Text, TextInput, Title } from "@tremor/react";
+import { Accordion, AccordionBody, AccordionHeader, Badge, Card, Grid, Text, TextInput, Title } from "@tremor/react";
 import { Button, Form, Input, InputNumber, Select, Space, Switch, Tabs, Tag, Tooltip } from "antd";
 import MessageManager from "@/components/molecules/message_manager";
 import { CheckIcon, CopyIcon } from "lucide-react";
@@ -50,7 +48,7 @@ import { ModelSelect } from "../ModelSelect/ModelSelect";
 import NotificationsManager from "../molecules/notifications_manager";
 import { fetchMCPAccessGroups } from "../networking";
 import ObjectPermissionsView from "../object_permissions_view";
-import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
+import NumericalInput from "../shared/numerical_input";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 import SearchToolSelector from "../search_tools/SearchToolSelector";
 import EditLoggingSettings from "./EditLoggingSettings";
@@ -58,7 +56,6 @@ import RouterSettingsAccordion, { RouterSettingsAccordionRef } from "../common_c
 import MemberModal from "./EditMembership";
 import MemberPermissions from "./member_permissions";
 import MyUserTab from "./MyUserTab";
-import { MoneyCell } from "@/components/shared/table_cells";
 import {
   getTeamInfoDefaultTab,
   getTeamInfoVisibleTabs,
@@ -199,7 +196,6 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
   const [selectedEditMember, setSelectedEditMember] = useState<Member | null>(null);
   const [isEditing, setIsEditing] = useState(false);
   const [mcpAccessGroups, setMcpAccessGroups] = useState<string[]>([]);
-  const { currency, symbol } = useCurrency();
   const [mcpAccessGroupsLoaded, setMcpAccessGroupsLoaded] = useState(false);
   const [copiedStates, setCopiedStates] = useState<Record<string, boolean>>({});
   const { data: guardrailsData, isLoading: isGuardrailsLoading } = useGuardrails();
@@ -761,15 +757,15 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 <Card>
                   <Text>Status do Orçamento</Text>
                   <div className="mt-2">
-                    <Title><MoneyCell value={info.spend} decimals={4} /></Title>
+                    <Title>${formatNumberWithCommas(info.spend, 4)}</Title>
                     <Text>
-                      of {info.max_budget === null ? "Ilimitado" : <MoneyCell value={info.max_budget} decimals={4} />}
+                      de {info.max_budget === null ? "Ilimitado" : `$${formatNumberWithCommas(info.max_budget, 4)}`}
                     </Text>
                     {info.budget_duration && <Text className="text-gray-500">Reinício: {info.budget_duration}</Text>}
                     <br />
                     {info.team_member_budget_table && (
                       <Text className="text-gray-500">
-                        Orçamento do Membro da Equipe: <MoneyCell value={info.team_member_budget_table.max_budget} decimals={4} />
+                        Orçamento do Membro da Equipe: ${formatNumberWithCommas(info.team_member_budget_table.max_budget, 4)}
                       </Text>
                     )}
                   </div>
@@ -1071,12 +1067,12 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label={`Orçamento Máximo (${symbol})`} name="max_budget">
-                      <CurrencyMoneyInput />
+                    <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
+                      <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item label={`Orçamento Simples (${symbol})`} name="soft_budget">
-                      <CurrencyMoneyInput />
+                    <Form.Item label="Orçamento Simples (USD)" name="soft_budget">
+                      <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
                     <Form.Item
@@ -1122,11 +1118,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           </Form.Item>
                         </Form.Item>
                         <Form.Item
-                          label={`Default Budget (${symbol})`}
+                          label="Default Budget (USD)"
                           name="team_member_budget"
                           tooltip="Default spend budget for each member in this team."
                         >
-                          <NumberInput step={0.01} style={{ width: "100%" }} />
+                          <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                         </Form.Item>
                         <Form.Item label="Duração Padrão do Orçamento" name="team_member_budget_duration">
                           <DurationSelect
@@ -1146,14 +1142,14 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           name="team_member_tpm_limit"
                           tooltip="Limite padrão de tokens por minuto para cada membro. Pode ser substituído por membro."
                         >
-                          <NumberInput step={1} style={{ width: "100%" }} placeholder="ex: 1000" />
+                          <NumericalInput step={1} style={{ width: "100%" }} placeholder="ex: 1000" />
                         </Form.Item>
                         <Form.Item
                           label="Limite Padrão de RPM"
                           name="team_member_rpm_limit"
                           tooltip="Limite padrão de requisições por minuto para cada membro. Pode ser substituído por membro."
                         >
-                          <NumberInput step={1} style={{ width: "100%" }} placeholder="ex: 100" />
+                          <NumericalInput step={1} style={{ width: "100%" }} placeholder="ex: 100" />
                         </Form.Item>
                       </AccordionBody>
                     </Accordion>
@@ -1601,13 +1597,13 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       <Text className="font-medium">Orçamento da Equipe</Text>
                       <div>
                         Orçamento Máximo:{" "}
-                        {info.max_budget !== null ? <MoneyCell value={info.max_budget} decimals={4} /> : "Sem limite"}
+                        {info.max_budget !== null ? `$${formatNumberWithCommas(info.max_budget, 4)}` : "Sem Limite"}
                       </div>
                       <div>
                         Orçamento Simples:{" "}
                         {info.soft_budget !== null && info.soft_budget !== undefined
-                          ? <MoneyCell value={info.soft_budget} decimals={4} />
-                          : "Sem limite"}
+                          ? `$${formatNumberWithCommas(info.soft_budget, 4)}`
+                          : "Sem Limite"}
                       </div>
                       <div>Reinício do Orçamento: {info.budget_duration || "Nunca"}</div>
                       {info.metadata?.soft_budget_alerting_emails &&
@@ -1736,8 +1732,8 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               name: "max_budget_in_team",
               label: (
                 <span>
-                  Team Member Budget ({currency}){" "}
-                  <Tooltip title={`Maximum amount in ${currency} this member can spend within this team. This is separate from any global user budget limits`}>
+                  Team Member Budget (USD){" "}
+                  <Tooltip title="Maximum amount in USD this member can spend within this team. This is separate from any global user budget limits">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>

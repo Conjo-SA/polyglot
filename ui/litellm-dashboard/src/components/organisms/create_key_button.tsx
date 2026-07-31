@@ -5,12 +5,10 @@ import { useProjects } from "@/app/(dashboard)/hooks/projects/useProjects";
 import { useTags } from "@/app/(dashboard)/hooks/tags/useTags";
 import { useUISettings } from "@/app/(dashboard)/hooks/uiSettings/useUISettings";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
-import { useCurrency } from "@/contexts/CurrencyContext";
-import { formatNumberWithCommas, formatSpend } from "@/utils/dataUtils";
+import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { InfoCircleOutlined } from "@ant-design/icons";
 import { useQueryClient } from "@tanstack/react-query";
 import { Accordion, AccordionBody, AccordionHeader, Button, Col, Grid, Text, TextInput, Title } from "@tremor/react";
-import NumericalInput from "@/components/shared/numerical_input";
 import { Button as Button2, Form, Input, Modal, Radio, Select, Switch, Tag, Tooltip, Typography } from "antd";
 import { useDebouncedCallback } from "@tanstack/react-pacer/debouncer";
 import { DEBOUNCE_WAIT_MS } from "@/utils/debounceConstants";
@@ -58,7 +56,7 @@ import {
   userFilterUICall,
 } from "../networking";
 import CreatedKeyDisplay from "../shared/CreatedKeyDisplay";
-import { CurrencyMoneyInput } from "../shared/CurrencyMoneyInput";
+import NumericalInput from "../shared/numerical_input";
 import VectorStoreSelector from "../vector_store_management/VectorStoreSelector";
 import { simplifyKeyGenerateError } from "./utils";
 
@@ -168,7 +166,6 @@ export const fetchUserModels = async (
  * ─────────────────────────────────────────────────────────────────────────
  */
 const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOpenCreate, prefillData }) => {
-  const { currency, rate } = useCurrency();
   
   const { accessToken, userId: userID, userRole } = useAuthorized();
   const { data: organizations, isLoading: isOrganizationsLoading } = useOrganizations();
@@ -1053,31 +1050,27 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     className="mt-4"
                     label={
                       <span>
-                        {`Orçamento Máximo (${currency})`}{" "}
-                        <Tooltip title="Valor máximo que esta chave pode gastar (convertido para a moeda selecionada). Quando atingido, a chave será bloqueada de fazer requisições adicionais">
+                        Orçamento Máximo (USD){" "}
+                        <Tooltip title="Valor máximo em USD que esta chave pode gastar. Quando atingido, a chave será bloqueada de fazer requisições adicionais">
                           <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                         </Tooltip>
                       </span>
                     }
                     name="max_budget"
-                    help={
-                      team?.max_budget !== null && team?.max_budget !== undefined
-                        ? `Orçamento não pode exceder o orçamento máximo da equipe: ${formatSpend(team.max_budget, 4, currency, rate)}`
-                        : "Orçamento não pode exceder o orçamento máximo da equipe: ilimitado"
-                    }
+                    help={`Orçamento não pode exceder o orçamento máximo da equipe: $${team?.max_budget !== null && team?.max_budget !== undefined ? team?.max_budget : "ilimitado"}`}
                     rules={[
                       {
                         validator: async (_, value) => {
                           if (value && team && team.max_budget !== null && value > team.max_budget) {
                             throw new Error(
-                              `Orçamento não pode exceder o orçamento máximo da equipe: ${formatSpend(team.max_budget, 4, currency, rate)}`,
+                              `Orçamento não pode exceder o orçamento máximo da equipe: $${formatNumberWithCommas(team.max_budget, 4)}`,
                             );
                           }
                         },
                       },
                     ]}
                   >
-                    <CurrencyMoneyInput />
+                    <NumericalInput step={0.01} precision={2} width={200} />
                   </Form.Item>
                   <Form.Item
                     className="mt-4"

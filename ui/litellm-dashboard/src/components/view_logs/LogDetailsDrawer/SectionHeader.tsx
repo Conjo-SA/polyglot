@@ -4,7 +4,6 @@
 
 import { Typography, Button, Tooltip } from "antd";
 import { MessageOutlined, CopyOutlined, DownOutlined, UpOutlined } from "@ant-design/icons";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 const { Text } = Typography;
 
@@ -81,10 +80,7 @@ export function SectionHeader({
         {/* Cost */}
         {cost !== undefined && (
           <Text type="secondary" style={{ fontSize: 12 }}>
-            Cost: {(() => {
-              const { symbol, rate } = useCurrency();
-              return `${symbol}${(cost * rate).toFixed(6)}`;
-            })()}
+            Cost: ${cost.toFixed(6)}
           </Text>
         )}
 

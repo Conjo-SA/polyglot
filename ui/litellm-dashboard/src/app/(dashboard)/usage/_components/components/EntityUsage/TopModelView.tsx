@@ -2,7 +2,6 @@ import { BarChart } from "@/components/shared/charts";
 import { MoneyCell } from "@/components/shared/table_cells";
 import { Segmented } from "antd";
 import { useState } from "react";
-import { useCurrency } from "@/contexts/CurrencyContext";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { DataTable } from "@/components/view_logs/table";
 
@@ -21,7 +20,6 @@ interface TopModelViewProps {
 }
 
 export default function TopModelView({ topModels, topModelsLimit, setTopModelsLimit }: TopModelViewProps) {
-  const { symbol } = useCurrency();
   const [modelViewMode, setModelViewMode] = useState<"chart" | "table">("table");
 
   const columns = [
@@ -94,9 +92,7 @@ export default function TopModelView({ topModels, topModelsLimit, setTopModelsLi
             index="key"
             categories={["spend"]}
             colors={["cyan"]}
-            valueFormatter={(value) => {
-                return `${symbol}${formatNumberWithCommas(value, 2)}`;
-              }}
+            valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
             layout="vertical"
             yAxisWidth={200}
             tickGap={5}

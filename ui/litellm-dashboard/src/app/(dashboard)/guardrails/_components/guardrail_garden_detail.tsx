@@ -5,7 +5,6 @@ import AddGuardrailForm from "./add_guardrail_form";
 import { resolveLogoSrc } from "@/lib/assetPaths";
 import { GUARDRAIL_PRESETS } from "./guardrail_garden_configs";
 import { GuardrailCardInfo } from "./guardrail_garden_data";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface GuardrailDetailViewProps {
   card: GuardrailCardInfo;
@@ -21,10 +20,7 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({ card, onBack,
   const detailRows = [
     { property: "Provider", value: card.category === "litellm" ? "Polyglot Content Filter" : "Partner Guardrail" },
     ...(card.subcategory ? [{ property: "Subcategory", value: card.subcategory }] : []),
-    ...(card.category === "litellm" ? [{ property: "Cost", value: (() => {
-  const { symbol } = useCurrency();
-  return `${symbol}0 / request`;
-})() }] : []),
+    ...(card.category === "litellm" ? [{ property: "Cost", value: "$0 / request" }] : []),
     ...(card.category === "litellm" ? [{ property: "External Dependencies", value: "None" }] : []),
     ...(card.category === "litellm" ? [{ property: "Latency", value: card.eval?.latency || "<1ms" }] : []),
   ];

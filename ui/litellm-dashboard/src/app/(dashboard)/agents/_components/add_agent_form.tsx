@@ -15,7 +15,6 @@ import {
   modelAvailableCall,
   AgentCreateInfo,
 } from "@/components/networking";
-import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
 import useAuthorized from "@/app/(dashboard)/hooks/useAuthorized";
 import { getModelDisplayName } from "@/components/key_team_helpers/fetch_available_models_team_key";
 import { Team } from "@/components/key_team_helpers/key_list";
@@ -538,14 +537,14 @@ const AddAgentForm: React.FC<AddAgentFormProps> = ({ visible, onClose, accessTok
               <p className="text-xs text-gray-400 mt-1">Limite máximo de chamadas LLM por sessão</p>
             </div>
             <div>
-              <label className="text-sm text-gray-600 block mb-1">Orçamento Máximo Por Sessão</label>
-              <CurrencyMoneyInput
+              <label className="text-sm text-gray-600 block mb-1">Orçamento Máximo Por Sessão ($)</label>
+              <InputNumber
                 className="w-full"
                 min={0.01}
                 step={0.5}
                 placeholder="ex: 5.00"
                 disabled={!requireTraceIdOutbound}
-                value={maxBudgetPerSession === null ? undefined : maxBudgetPerSession}
+                value={maxBudgetPerSession}
                 onChange={(val) => setMaxBudgetPerSession(val)}
               />
               <p className="text-xs text-gray-400 mt-1">Gasto máximo por trace antes de retornar 429</p>

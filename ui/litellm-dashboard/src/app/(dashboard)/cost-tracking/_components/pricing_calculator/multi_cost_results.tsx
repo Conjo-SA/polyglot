@@ -6,19 +6,18 @@ import { CostEstimateResponse } from "../types";
 import { formatNumberWithCommas } from "@/utils/dataUtils";
 import { MultiModelResult } from "./types";
 import MultiExportDropdown from "./multi_export_dropdown";
-import { MoneyCell } from "@/components/shared/table_cells";
 
 interface MultiCostResultsProps {
   multiResult: MultiModelResult;
   timePeriod: "day" | "month";
 }
 
-const formatCost = (value: number | null | undefined): React.ReactNode => {
+const formatCost = (value: number | null | undefined): string => {
   if (value === null || value === undefined) return "-";
-  if (value === 0) return <MoneyCell value={0} decimals={0} />;
-  if (value < 0.0001) return <MoneyCell value={value} decimals={6} />;
-  if (value < 1) return <MoneyCell value={value} decimals={4} />;
-  return <MoneyCell value={value} decimals={2} />;
+  if (value === 0) return "$0";
+  if (value < 0.0001) return `$${value.toExponential(2)}`;
+  if (value < 1) return `$${value.toFixed(4)}`;
+  return `$${formatNumberWithCommas(value, 2, true)}`;
 };
 
 const formatRequests = (value: number | null | undefined): string => {
@@ -301,18 +300,14 @@ const MultiCostResults: React.FC<MultiCostResultsProps> = ({ multiResult, timePe
           <Col xs={24} sm={12}>
             <Statistic
               title={<span className="text-xs">Total Por Requisição</span>}
-              value={multiResult.totals.cost_per_request ?? 0}
-              formatter={() => formatCost(multiResult.totals.cost_per_request)}
+              value={formatCost(multiResult.totals.cost_per_request)}
               valueStyle={{ color: "#1890ff", fontSize: "18px", fontFamily: "monospace" }}
             />
           </Col>
           <Col xs={24} sm={12}>
             <Statistic
               title={<span className="text-xs">Total {periodLabel}</span>}
-              value={(timePeriod === "day" ? multiResult.totals.daily_cost : multiResult.totals.monthly_cost) ?? 0}
-              formatter={() =>
-                formatCost(timePeriod === "day" ? multiResult.totals.daily_cost : multiResult.totals.monthly_cost)
-              }
+              value={formatCost(timePeriod === "day" ? multiResult.totals.daily_cost : multiResult.totals.monthly_cost)}
               valueStyle={{
                 color: timePeriod === "day" ? "#52c41a" : "#722ed1",
                 fontSize: "18px",

@@ -14,9 +14,6 @@ import {
   TextInput,
 } from "@tremor/react";
 import { Button, Form, Input, Switch, InputNumber, Select } from "antd";
-import { useCurrency } from "@/contexts/CurrencyContext";
-import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
-import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 import { updatePassThroughEndpoint, deletePassThroughEndpointsCall } from "./networking";
 import { Eye, EyeOff } from "lucide-react";
 import RoutePreview from "./route_preview";
@@ -221,8 +218,7 @@ const PassThroughInfoView: React.FC<PassThroughInfoProps> = ({
                   )}
                   {endpointData.cost_per_request !== undefined && (
                     <div>
-                      <Text>Cost per request:</Text>
-                      <MoneyCell value={endpointData.cost_per_request} decimals={6} />
+                      <Text>Cost per request: ${endpointData.cost_per_request}</Text>
                     </div>
                   )}
                 </div>
@@ -354,7 +350,7 @@ const PassThroughInfoView: React.FC<PassThroughInfoProps> = ({
                     </Form.Item>
 
                     <Form.Item label="Cost per Request" name="cost_per_request">
-                      <CurrencyMoneyInput min={0} step={0.01} precision={2} placeholder="0.00" />
+                      <InputNumber min={0} step={0.01} precision={2} placeholder="0.00" addonBefore="$" />
                     </Form.Item>
 
                     <Form.Item
@@ -406,10 +402,7 @@ const PassThroughInfoView: React.FC<PassThroughInfoProps> = ({
                     {endpointData.cost_per_request !== undefined && (
                       <div>
                         <Text className="font-medium">Cost per Request</Text>
-                        <div>{(() => {
-  const { symbol, rate } = useCurrency();
-  return `${symbol}${(endpointData.cost_per_request * rate).toFixed(6)}`;
-})()}</div>
+                        <div>${endpointData.cost_per_request}</div>
                       </div>
                     )}
                     {endpointData.timeout !== undefined && endpointData.timeout !== null && (

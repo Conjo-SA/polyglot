@@ -20,7 +20,6 @@ import { useDisableShowPrompts } from "@/app/(dashboard)/hooks/useDisableShowPro
 import { clearTokenCookies } from "@/utils/cookieUtils";
 import { clearStoredReturnUrl, getLoginUrl } from "@/utils/returnUrlUtils";
 import { useTranslation } from "react-i18next";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface DashboardHeaderProps {
   page: string;
@@ -34,7 +33,6 @@ export function DashboardHeader({ page }: DashboardHeaderProps) {
   const { isControlPlane, selectedWorker } = useWorker();
   const showWorkerSwitch = isControlPlane && selectedWorker !== null;
   const hideCommunityLinks = useDisableShowPrompts();
-  const { currency, setCurrency } = useCurrency();
 
   const handleWorkerSwitch = (workerId: string) => {
     clearTokenCookies();
@@ -76,26 +74,6 @@ export function DashboardHeader({ page }: DashboardHeaderProps) {
         </Button>
         <BlogDropdown />
         {!hideCommunityLinks && <CommunityEngagementButtons />}
-        <Separator orientation="vertical" className="mx-1.5 h-5" />
-        <div className="flex items-center gap-2">
-          <span className="text-sm text-muted-foreground">USD</span>
-          <button
-            onClick={() => {
-              if (setCurrency) {
-                const newCurrency = currency === 'USD' ? 'BRL' : 'USD';
-                setCurrency(newCurrency);
-              }
-            }}
-            className="relative rounded-full w-10 h-5 bg-gray-300 transition-colors duration-200 focus:outline-none focus:ring-2 focus:ring-blue-500"
-          >
-            <span
-              className={`absolute top-0.5 w-4 h-4 rounded-full bg-white transition-all duration-200 ${
-                currency === 'BRL' ? 'left-5' : 'left-0.5'
-              }`}
-            />
-          </button>
-          <span className="text-sm text-muted-foreground">BRL</span>
-        </div>
         <Separator orientation="vertical" className="mx-1.5 h-5" />
         <NotificationsBell />
       </div>

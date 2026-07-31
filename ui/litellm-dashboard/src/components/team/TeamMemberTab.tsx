@@ -135,10 +135,7 @@ export default function TeamMemberTab({
       title: (
         <Space direction="horizontal">
           Gastos no Ciclo Atual (USD)
-          <Tooltip title="Gastos no ciclo de orçamento atual. Reseta para {(() => {
-  const { symbol } = useCurrency();
-  return `${symbol}0`;
-})()} quando a janela de orçamento do membro rollover. Este é o valor verificado contra o orçamento do membro.">
+          <Tooltip title="Gastos no ciclo de orçamento atual. Reseta para $0 quando a janela de orçamento do membro rollover. Este é o valor verificado contra o orçamento do membro.">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>

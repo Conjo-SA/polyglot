@@ -33,7 +33,7 @@ import {
 } from "./constants";
 import { ToolsSection } from "../ToolsSection";
 import { PrettyMessagesView } from "./PrettyMessagesView";
-import { useCurrency } from "@/contexts/CurrencyContext";
+
 const { Text } = Typography;
 
 export interface LogDetailContentProps {
@@ -318,10 +318,7 @@ function MetricsSection({ logEntry, metadata }: { logEntry: LogEntry; metadata: 
               />
             </Descriptions.Item>
           )}
-          <Descriptions.Item label="Cost">{(() => {
-  const { symbol, rate } = useCurrency();
-  return `${symbol}${formatNumberWithCommas((logEntry.spend || 0) * rate, 8)}`;
-})()}</Descriptions.Item>
+          <Descriptions.Item label="Cost">${formatNumberWithCommas(logEntry.spend || 0, 8)}</Descriptions.Item>
           <Descriptions.Item label="Duration">
             {logEntry.request_duration_ms != null ? (logEntry.request_duration_ms / 1000).toFixed(3) : "-"} s
           </Descriptions.Item>

@@ -30,7 +30,6 @@ from litellm.proxy.spend_tracking.spend_tracking_utils import (
     get_spend_by_team,
     get_spend_by_team_and_customer,
 )
-from litellm.litellm_core_utils.currency_conversion import convert_usd, get_display_currency
 from litellm.proxy.utils import handle_exception_on_proxy
 from litellm.repositories.table_repositories import SpendLogsRepository
 from litellm.repositories.team_repository import TeamRepository
@@ -944,14 +943,7 @@ async def get_global_spend_provider(
                         pass
 
         for provider, spend in provider_spend_mapping.items():
-            from fastapi.concurrency import run_in_threadpool
-            spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
-            ui_response.append({
-                "provider": provider, 
-                "spend": spend,
-                "spend_display": spend_display,
-                "currency": get_display_currency()
-            })
+            ui_response.append({"provider": provider, "spend": spend})
 
         return ui_response
 
@@ -2345,7 +2337,6 @@ async def view_spend_logs(
 
             # Legacy behavior: return summarized data (when summarize=true)
             # SQL query
-            from fastapi.concurrency import run_in_threadpool
             response = await SpendLogsRepository(prisma_client).table.group_by(
                 by=["api_key", "user", "model", "startTime"],
                 where=filter_query,  # type: ignore
@@ -2372,13 +2363,6 @@ async def view_spend_logs(
                     result[date]["models"][model] = result[date]["models"].get(model, 0) + record.get("_sum", {}).get(
                         "spend", 0
                     )
-                    
-                    # Add currency conversion details for backward compatibility
-                    spend_amount = record.get("_sum", {}).get("spend", 0)
-                    if spend_amount is not None:
-                        spend_display = await run_in_threadpool(convert_usd, spend_amount, get_display_currency())
-                        record["spend_display"] = spend_display
-                        record["currency"] = get_display_currency()
                 return_list = []
                 final_date = None
                 for k, v in sorted(result.items()):
@@ -2419,27 +2403,12 @@ async def view_spend_logs(
 
             if not scoped_filter:
                 spend_logs = await prisma_client.get_data(table_name="spend", query_type="find_all")
-                # Add currency conversion details for backward compatibility to all spend logs
-                for log in spend_logs:
-                    spend_amount = log.get("spend")
-                    if spend_amount is not None:
-                        spend_display = await run_in_threadpool(convert_usd, spend_amount, get_display_currency())
-                        log["spend_display"] = spend_display
-                        log["currency"] = get_display_currency()
                 return spend_logs
 
             data = await SpendLogsRepository(prisma_client).table.find_many(
                 where=scoped_filter,  # type: ignore
                 order={"startTime": "desc"},
             )
-            
-            # Add currency conversion details for backward compatibility to all spend logs
-            for log in data:
-                spend_amount = log.get("spend")
-                if spend_amount is not None:
-                    spend_display = await run_in_threadpool(convert_usd, spend_amount, get_display_currency())
-                    log["spend_display"] = spend_display
-                    log["currency"] = get_display_currency()
             return data
 
         return None
@@ -3489,31 +3458,7 @@ async def _build_ui_spend_logs_response(
         # v2 path: return raw Prisma model instances so FastAPI applies its
         # own Pydantic-aware serialisation (preserves alias handling, custom
         # serializers, etc.).
-        # Adiciona conversão de moeda para todos os registros
-        response_data = []
-        for item in data:
-            item_dict = item.model_dump() if hasattr(item, "model_dump") else dict(item)
-            spend = item_dict.get("spend", 0)
-            if spend is not None:
-                # Adiciona campos de conversão de moeda
-                from fastapi.concurrency import run_in_threadpool
-                spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
-                item_dict["spend_display"] = spend_display
-                item_dict["currency"] = get_display_currency()
-            response_data.append(item_dict)
-
-    # Adiciona conversão de moeda para todos os registros
-    # Apenas processa os registros que são dicts
-    # (Este código agora está redundante, mas mantido para consistência)
-    for item in response_data:
-        if isinstance(item, dict): 
-            spend = item.get("spend", 0)
-            if spend is not None:
-                # Adiciona campos de conversão de moeda
-                from fastapi.concurrency import run_in_threadpool
-                spend_display = await run_in_threadpool(convert_usd, spend, get_display_currency())
-                item["spend_display"] = spend_display
-                item["currency"] = get_display_currency()
+        response_data = data  # type: ignore[assignment]
 
     return {
         "data": response_data,

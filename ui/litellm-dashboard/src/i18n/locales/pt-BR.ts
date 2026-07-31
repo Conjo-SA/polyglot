@@ -83,7 +83,7 @@ const ptBR = {
     keyAlias: "Apelido da Chave",
     noAliasSet: "Nenhum apelido definido",
     virtualKey: "Chave Virtual",
-    maxBudget: "Orçamento Máximo ({{currency}})",
+    maxBudget: "Orçamento Máximo (USD)",
     tpmLimit: "Limite de TPM",
     rpmLimit: "Limite de RPM",
     expireKey: "Expirar Chave",
@@ -145,7 +145,7 @@ const ptBR = {
     monthly: "Mensal",
     budgetWindows: "Janelas de Orçamento",
     budgetWindowsTooltip:
-      "Defina múltiplas janelas de orçamento independentes (ex.: 10 por hora E 200 por mês). Cada janela contabiliza o gasto separadamente e é redefinida em seu próprio ciclo.",
+      "Defina múltiplas janelas de orçamento independentes (ex.: $10 por hora E $200 por mês). Cada janela contabiliza o gasto separadamente e é redefinida em seu próprio ciclo.",
     budgetFallbacks: "Fallbacks de Orçamento",
     budgetFallbacksTooltip:
       "Quando um modelo excede seu orçamento individual, as requisições são automaticamente redirecionadas para modelos de fallback em vez de falhar",
@@ -197,7 +197,7 @@ const ptBR = {
     invalidMetadataJson: "JSON de metadados inválido",
     keyUpdatedSuccess: "Chave atualizada com sucesso",
     keyDeletedSuccess: "Chave excluída com sucesso",
-    keySpendReset: "Gasto da chave redefinido para 0",
+    keySpendReset: "Gasto da chave redefinido para $0",
     budgetTeamSuffix: "{{budget}} (Time: {{team}}{{duration}})",
     virtualKey: "Chave Virtual",
     enterpriseFeatureTooltip: "Este é um recurso do Polyglot Enterprise e requer uma chave válida para uso.",
@@ -208,8 +208,8 @@ const ptBR = {
     keyInformation: "Informações da Chave",
     resetKeySpend: "Redefinir Gasto da Chave",
     thisKey: "esta chave",
-    resetSpendConfirm: "Redefinir o gasto de {{keyName}} para 0?",
-    resetSpendCurrent: "Gasto atual: {{spend}}.",
+    resetSpendConfirm: "Redefinir o gasto de {{keyName}} para $0?",
+    resetSpendCurrent: "Gasto atual: ${{spend}}.",
     resetSpendNote:
       "O histórico de gastos é preservado nos logs. Isso redefine o contador de gastos do período atual, assim como uma redefinição automática de orçamento.",
     overview: "Visão Geral",
@@ -284,9 +284,9 @@ const ptBR = {
     keyTypeTooltip: "Selecione o tipo de chave para determinar quais rotas e operações esta chave pode acessar",
     optionalSettings: "Configurações Opcionais",
     maxBudgetTooltip:
-      "Valor máximo que esta chave pode gastar. Ao atingir esse valor, a chave será bloqueada de fazer novas requisições",
-    budgetCannotExceedTeam: "O orçamento não pode exceder o orçamento máximo do time: {{formattedBudget}}",
-    budgetCannotExceedTeamError: "O orçamento não pode exceder o orçamento máximo do time: {{formattedBudget}}",
+      "Valor máximo em BRL que esta chave pode gastar. Ao atingir esse valor, a chave será bloqueada de fazer novas requisições",
+    budgetCannotExceedTeam: "O orçamento não pode exceder o orçamento máximo do time: R$ {{budget}}",
+    budgetCannotExceedTeamError: "O orçamento não pode exceder o orçamento máximo do time: R$ {{budget}}",
     unlimitedLower: "ilimitado",
     resetBudgetTooltip:
       "Com que frequência o orçamento deve ser redefinido. Por exemplo, definir 'diário' redefine o orçamento a cada 24 horas",

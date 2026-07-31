@@ -18,7 +18,6 @@ import {
 } from "@tremor/react";
 import { BarChart } from "@/components/shared/charts";
 import { perUserAnalyticsCall } from "./networking";
-import { MoneyCell } from "@/components/shared/table_cells/money_cell";
 
 interface PerUserMetrics {
   user_id: string;
@@ -142,7 +141,7 @@ const PerUserUsage: React.FC<PerUserUsageProps> = ({ accessToken, selectedTags, 
                       <Text>{formatAbbreviatedNumber(item.failed_requests)}</Text>
                     </TableCell>
                     <TableCell className="text-right">
-                      <MoneyCell value={item.spend} decimals={4} />
+                      <Text>${formatAbbreviatedNumber(item.spend, 4)}</Text>
                     </TableCell>
                   </TableRow>
                 ))}

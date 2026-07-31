@@ -1,8 +1,5 @@
-import { Button, Select, Form } from "antd";
-const FormItem = Form.Item;
+import { Button, InputNumber, Select } from "antd";
 import React from "react";
-import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 export interface BudgetWindowEntry {
   budget_duration: string;
@@ -48,20 +45,16 @@ export function BudgetWindowsEditor({ value, onChange }: BudgetWindowsEditorProp
                 style={{ width: 130 }}
                 options={BUDGET_WINDOW_OPTIONS.map((o) => ({ value: o.value, label: o.label }))}
               />
-              <FormItem name={`window-${idx}-max_budget`} noStyle>
-                <CurrencyMoneyInput
-                  step={0.01}
-                  min={0}
-                  precision={2}
-                  value={window.max_budget ?? undefined}
-                  onChange={(v) => updateWindow(idx, "max_budget", v ?? null)}
-                  placeholder={`Max spend (${(() => {
-  const { symbol } = useCurrency();
-  return symbol;
-})()})`}
-                  style={{ width: 160 }}
-                />
-              </FormItem>
+              <InputNumber
+                step={0.01}
+                min={0}
+                precision={2}
+                value={window.max_budget ?? undefined}
+                onChange={(v) => updateWindow(idx, "max_budget", v ?? null)}
+                placeholder="Max spend ($)"
+                style={{ width: 160 }}
+                prefix="$"
+              />
               <Button type="text" danger size="small" onClick={() => removeWindow(idx)} style={{ padding: "0 4px" }}>
                 ✕
               </Button>

@@ -1,7 +1,6 @@
 "use client";
 
-import { formatNumberWithCommas } from "@/utils/dataUtils";
-import { useCurrency } from "@/contexts/CurrencyContext";
+import { formatNumberWithCommas, getSpendString } from "@/utils/dataUtils";
 
 interface MoneyCellProps {
   value: number | null | undefined;
@@ -11,8 +10,6 @@ interface MoneyCellProps {
 }
 
 export function MoneyCell({ value, decimals = 4, emptyText = "-", showZero = false }: MoneyCellProps) {
-  const { currency, rate, symbol } = useCurrency();
-  
   if (value === null || value === undefined || Number.isNaN(value)) {
     return <span className="text-muted-foreground">{emptyText}</span>;
   }
@@ -20,11 +17,7 @@ export function MoneyCell({ value, decimals = 4, emptyText = "-", showZero = fal
     if (!showZero) {
       return <span className="text-muted-foreground">-</span>;
     }
-    const formattedValue = formatNumberWithCommas(0, decimals, false, true);
-    return <span className="whitespace-nowrap">{`${symbol}${formattedValue}`}</span>;
+    return <span className="whitespace-nowrap">{`$${formatNumberWithCommas(0, decimals, false, true)}`}</span>;
   }
-  
-  const convertedValue = currency === "BRL" ? value * rate : value;
-  const formattedValue = formatNumberWithCommas(convertedValue, decimals, false, false);
-  return <span className="whitespace-nowrap">{`${symbol}${formattedValue}`}</span>;
+  return <span className="whitespace-nowrap">{getSpendString(value, decimals)}</span>;
 }

@@ -4681,21 +4681,6 @@ class ProxyConfig:
                     default_redis_ttl=ttl,
                 )
 
-            ### CONFIGURAÇÃO DE MOEDA ###
-            # Carrega as configurações de moeda de general_settings
-            display_currency = general_settings.get("display_currency", None)
-            exchange_rate_source = general_settings.get("exchange_rate_source", None)
-            usd_to_brl_rate = general_settings.get("usd_to_brl_rate", None)
-            
-            if any([display_currency, exchange_rate_source, usd_to_brl_rate]):
-                # Importamos aqui para evitar ciclo de importações
-                from litellm.litellm_core_utils.currency_conversion import configure_currency
-                configure_currency(
-                    display_currency=display_currency,
-                    exchange_rate_source=exchange_rate_source,
-                    usd_to_brl_rate=usd_to_brl_rate
-                )
-
             ### PKCE MULTI-INSTANCE PREREQUISITE CHECK ###
             # PKCE verifiers are stored in redis_usage_cache when available so they can
             # be read back by any instance (not just the one that started the auth flow).

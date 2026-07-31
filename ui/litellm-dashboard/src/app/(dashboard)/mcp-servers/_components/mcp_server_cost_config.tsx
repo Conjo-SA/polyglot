@@ -1,11 +1,8 @@
 import React from "react";
-import { Tooltip, Collapse, Badge, Form } from "antd";
-const FormItem = Form.Item;
+import { Tooltip, InputNumber, Collapse, Badge } from "antd";
 import { InfoCircleOutlined, DollarOutlined, ToolOutlined } from "@ant-design/icons";
 import { Card, Title, Text } from "@tremor/react";
 import { MCPServerCostInfo } from "@/components/mcp_tools/types";
-import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface MCPServerCostConfigProps {
   value?: MCPServerCostInfo;
@@ -52,27 +49,23 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
 
         <div className="space-y-4">
           <div>
-<label className="block text-sm font-medium text-gray-700 mb-2">
-              Default Cost per Query ({(() => {
-                const { symbol } = useCurrency();
-                return symbol;
-              })()})
+            <label className="block text-sm font-medium text-gray-700 mb-2">
+              Default Cost per Query ($)
               <Tooltip title="Default cost charged for each tool call to this server.">
                 <InfoCircleOutlined className="ml-1 text-gray-400" />
               </Tooltip>
             </label>
-            <FormItem name="default_cost_per_query" noStyle>
-              <CurrencyMoneyInput
-                min={0}
-                step={0.0001}
-                precision={4}
-                placeholder="0.0000"
-                value={value.default_cost_per_query}
-                onChange={handleDefaultCostChange}
-                disabled={disabled}
-                width="200px"
-              />
-            </FormItem>
+            <InputNumber
+              min={0}
+              step={0.0001}
+              precision={4}
+              placeholder="0.0000"
+              value={value.default_cost_per_query}
+              onChange={handleDefaultCostChange}
+              disabled={disabled}
+              style={{ width: "200px" }}
+              addonBefore="$"
+            />
             <Text className="block mt-1 text-gray-500 text-sm">
               Set a default cost for all tool calls to this server
             </Text>
@@ -81,10 +74,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
           {tools.length > 0 && (
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Tool-Specific Costs ({(() => {
-                  const { symbol } = useCurrency();
-                  return symbol;
-                })()})
+                Tool-Specific Costs ($)
                 <Tooltip title="Override the default cost for specific tools. Leave blank to use the default rate.">
                   <InfoCircleOutlined className="ml-1 text-gray-400" />
                 </Tooltip>
@@ -117,18 +107,17 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
                               )}
                             </div>
                             <div className="ml-4">
-                              <FormItem name={`tool-cost-${tool.name}`} noStyle>
-                                <CurrencyMoneyInput
-                                  min={0}
-                                  step={0.0001}
-                                  precision={4}
-                                  placeholder="Use default"
-                                  value={value.tool_name_to_cost_per_query?.[tool.name]}
-                                  onChange={(cost) => handleToolCostChange(tool.name, cost)}
-                                  disabled={disabled}
-                                  style={{ width: "120px" }}
-                                />
-                              </FormItem>
+                              <InputNumber
+                                min={0}
+                                step={0.0001}
+                                precision={4}
+                                placeholder="Use default"
+                                value={value.tool_name_to_cost_per_query?.[tool.name]}
+                                onChange={(cost) => handleToolCostChange(tool.name, cost)}
+                                disabled={disabled}
+                                style={{ width: "120px" }}
+                                addonBefore="$"
+                              />
                             </div>
                           </div>
                         ))}
@@ -148,10 +137,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
             <div className="mt-2 space-y-1">
               {value.default_cost_per_query && (
                 <Text className="text-blue-700">
-                  • Default cost: {(() => {
-                    const { symbol, rate } = useCurrency();
-                    return `${symbol}${(value.default_cost_per_query * rate).toFixed(4)} per query`;
-                  })()}
+                  • Default cost: ${value.default_cost_per_query.toFixed(4)} per query
                 </Text>
               )}
               {value.tool_name_to_cost_per_query &&
@@ -160,10 +146,7 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
                     cost !== null &&
                     cost !== undefined && (
                       <Text key={toolName} className="text-blue-700">
-                        • {toolName}: {(() => {
-                          const { symbol, rate } = useCurrency();
-                          return `${symbol}${(cost * rate).toFixed(4)} per query`;
-                        })()}
+                        • {toolName}: ${cost.toFixed(4)} per query
                       </Text>
                     ),
                 )}

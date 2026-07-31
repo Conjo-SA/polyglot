@@ -46,15 +46,7 @@ const getModelCapabilities = (model: ModelHubData) =>
     .filter(([key, value]) => key.startsWith("supports_") && value === true)
     .map(([key]) => key);
 
-// Importar formatCostPerMillion e não fazer a multiplicação de novo
-import { formatCostPerMillion } from "@/utils/dataUtils";
-
-// Export the function to be used by parent component that has currency context
-const formatCost = (cost: number, currency?: string, rate?: number) => {
-  // Chama a função correta que já faz a multiplicação por 1_000_000 internamente
-  // Recebe o custo por token e retorna o custo por 1M de tokens formatado
-  return formatCostPerMillion(cost, currency, rate); 
-};
+const formatCost = (cost: number) => `$${(cost * 1_000_000).toFixed(2)}`;
 
 const formatTokens = (tokens: number) => {
   if (tokens >= 1_000_000) return `${(tokens / 1_000_000).toFixed(1)}M`;
@@ -96,11 +88,9 @@ function ModelHubRowActions({ model, onModelClick }: ModelHubRowActionsProps) {
 
 interface ModelHubTableColumnsDeps {
   onModelClick: (model: ModelHubData) => void;
-  currency?: string;
-  rate?: number;
 }
 
-export const getModelHubTableColumns = ({ onModelClick, currency, rate }: ModelHubTableColumnsDeps): ColumnDef<ModelHubData>[] => [
+export const getModelHubTableColumns = ({ onModelClick }: ModelHubTableColumnsDeps): ColumnDef<ModelHubData>[] => [
   {
     id: "model_group",
     accessorKey: "model_group",
@@ -188,9 +178,9 @@ export const getModelHubTableColumns = ({ onModelClick, currency, rate }: ModelH
       const model = row.original;
       return (
         <div className="flex flex-col gap-0.5 text-xs tabular-nums">
-          <span>{model.input_cost_per_token ? formatCost(model.input_cost_per_token, currency, rate) : "-"}</span>
+          <span>{model.input_cost_per_token ? formatCost(model.input_cost_per_token) : "-"}</span>
           <span className="text-muted-foreground">
-            {model.output_cost_per_token ? formatCost(model.output_cost_per_token, currency, rate) : "-"}
+            {model.output_cost_per_token ? formatCost(model.output_cost_per_token) : "-"}
           </span>
         </div>
       );
