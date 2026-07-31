@@ -269,18 +269,10 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                           Spend
                         </Text>
                         <Text style={{ fontSize: 12 }}>
-                          ${teamSpend.toFixed(2)}
-                          {teamHasLimit ? (
-                            <Text type="secondary" style={{ fontSize: 12 }}>
-                              {" "}
-                              / ${teamBudget.toFixed(2)}
-                            </Text>
-                          ) : (
-                            <Text type="secondary" style={{ fontSize: 12 }}>
-                              {" "}
-                              (Unlimited)
-                            </Text>
-                          )}
+                          {(() => {
+                            const { symbol, rate } = useCurrency();
+                            return `${symbol}${(teamSpend * rate).toFixed(2)}${teamHasLimit ? ` ${symbol}${(teamBudget * rate).toFixed(2)}` : ' (Unlimited)'}`;
+                          })()}
                         </Text>
                       </Flex>
                       {teamHasLimit && (

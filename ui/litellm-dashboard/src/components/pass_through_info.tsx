@@ -406,7 +406,10 @@ const PassThroughInfoView: React.FC<PassThroughInfoProps> = ({
                     {endpointData.cost_per_request !== undefined && (
                       <div>
                         <Text className="font-medium">Cost per Request</Text>
-                        <div>${endpointData.cost_per_request}</div>
+                        <div>{(() => {
+  const { symbol, rate } = useCurrency();
+  return `${symbol}${(endpointData.cost_per_request * rate).toFixed(6)}`;
+})()}</div>
                       </div>
                     )}
                     {endpointData.timeout !== undefined && endpointData.timeout !== null && (

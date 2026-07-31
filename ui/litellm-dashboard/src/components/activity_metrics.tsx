@@ -45,9 +45,15 @@ const ModelSection = ({
         </Card>
         <Card>
           <Text>Total Gasto</Text>
-          <Title>${formatNumberWithCommas(metrics.total_spend, 2)}</Title>
+          <Title>{(() => {
+            const { symbol, rate } = useCurrency();
+            return `${symbol}${formatNumberWithCommas(metrics.total_spend * rate, 2)}`;
+          })()}</Title>
           <Text>
-            ${formatNumberWithCommas(metrics.total_spend / metrics.total_successful_requests, 3)} por solicitação bem-sucedida
+            {(() => {
+              const { symbol, rate } = useCurrency();
+              return `${symbol}${formatNumberWithCommas((metrics.total_spend / metrics.total_successful_requests) * rate, 3)}`;
+            })()} por solicitação bem-sucedida
           </Text>
         </Card>
       </Grid>
@@ -276,7 +282,10 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
           </Card>
           <Card>
             <Text>Total Gasto</Text>
-            <Title>${formatNumberWithCommas(totalMetrics.total_spend, 2)}</Title>
+            <Title>{(() => {
+              const { symbol, rate } = useCurrency();
+              return `${symbol}${formatNumberWithCommas(totalMetrics.total_spend * rate, 2)}`;
+            })()}</Title>
           </Card>
         </Grid>
 
@@ -333,7 +342,10 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
               <div className="flex justify-between items-center w-full">
                 <Title>{modelMetrics[modelName].label || "Item Desconhecido"}</Title>
                 <div className="flex space-x-4 text-sm text-gray-500">
-                  <span>${formatNumberWithCommas(modelMetrics[modelName].total_spend, 2)}</span>
+                  <span>{(() => {
+  const { symbol, rate } = useCurrency();
+  return `${symbol}${formatNumberWithCommas(modelMetrics[modelName].total_spend * rate, 2)}`;
+})()}</span>
                   <span>{modelMetrics[modelName].total_requests.toLocaleString()} solicitações</span>
                 </div>
               </div>

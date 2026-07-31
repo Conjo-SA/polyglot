@@ -518,7 +518,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                     <Card>
                       <Title>Gasto Total</Title>
                       <Text className="text-2xl font-bold mt-2">
-                        ${formatNumberWithCommas(spendData.metadata.total_spend, 2)}
+                        {(() => {
+                          const { symbol, rate } = useCurrency();
+                          return `${symbol}${formatNumberWithCommas(spendData.metadata.total_spend * rate, 2)}`;
+                        })()}
                       </Text>
                     </Card>
                     <Card>
@@ -574,7 +577,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           <div className="bg-white p-4 shadow-lg rounded-lg border">
                             <p className="font-bold">{data.date}</p>
                             <p className="text-cyan-500">
-                              Gasto Total: ${formatNumberWithCommas(data.metrics.spend, 2)}
+                              Gasto Total: {(() => {
+                                const { symbol, rate } = useCurrency();
+                                return `${symbol}${formatNumberWithCommas(data.metrics.spend * rate, 2)}`;
+                              })()}
                             </p>
                             <p className="text-gray-600">Total de Requisições: {data.metrics.api_requests}</p>
                             <p className="text-gray-600">Bem-sucedidas: {data.metrics.successful_requests}</p>
@@ -596,8 +602,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                                   const metrics = entityData as EntityMetrics;
                                   return (
                                     <p key={entity} className="text-sm text-gray-600">
-                                      {getEntityLabel(entity, metrics.metadata)}: $
-                                      {formatNumberWithCommas(metrics.metrics.spend, 2)}
+                                      {getEntityLabel(entity, metrics.metadata)}: {(() => {
+                                        const { symbol, rate } = useCurrency();
+                                        return `${symbol}${formatNumberWithCommas(metrics.metrics.spend * rate, 2)}`;
+                                      })()}
                                     </p>
                                   );
                                 })}
@@ -648,7 +656,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                             return (
                               <div className="bg-white p-4 shadow-lg rounded-lg border">
                                 <p className="font-bold">{data.metadata.alias}</p>
-                                <p className="text-cyan-500">Gasto: ${formatNumberWithCommas(data.metrics.spend, 4)}</p>
+                                <p className="text-cyan-500">Gasto: {(() => {
+  const { symbol, rate } = useCurrency();
+  return `${symbol}${formatNumberWithCommas(data.metrics.spend * rate, 4)}`;
+})()}</p>
                                 <p className="text-gray-600">Requisições: {data.metrics.api_requests.toLocaleString()}</p>
                                 <p className="text-green-600">
                                   Bem-sucedidas: {data.metrics.successful_requests.toLocaleString()}

@@ -435,7 +435,7 @@ export default function UserInfoView({
               <Card>
                 <Text>Spend</Text>
                 <div className="mt-2">
-                  <Title>${formatNumberWithCommas(userData.spend || 0, 4)}</Title>
+                  <Title><MoneyCell value={userData.spend || 0} decimals={4} /></Title>
                   <Text>
                     of{" "}
                     {userData.max_budget !== null ? <MoneyCell value={userData.max_budget} decimals={4} /> : "Unlimited"}

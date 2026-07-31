@@ -5,6 +5,7 @@ import { InfoCircleOutlined, DollarOutlined, ToolOutlined } from "@ant-design/ic
 import { Card, Title, Text } from "@tremor/react";
 import { MCPServerCostInfo } from "@/components/mcp_tools/types";
 import { CurrencyMoneyInput } from "@/components/shared/CurrencyMoneyInput";
+import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface MCPServerCostConfigProps {
   value?: MCPServerCostInfo;
@@ -51,8 +52,11 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
 
         <div className="space-y-4">
           <div>
-            <label className="block text-sm font-medium text-gray-700 mb-2">
-              Default Cost per Query ($)
+<label className="block text-sm font-medium text-gray-700 mb-2">
+              Default Cost per Query ({(() => {
+                const { symbol } = useCurrency();
+                return symbol;
+              })()})
               <Tooltip title="Default cost charged for each tool call to this server.">
                 <InfoCircleOutlined className="ml-1 text-gray-400" />
               </Tooltip>
@@ -77,7 +81,10 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
           {tools.length > 0 && (
             <div className="space-y-4">
               <label className="block text-sm font-medium text-gray-700">
-                Tool-Specific Costs ($)
+                Tool-Specific Costs ({(() => {
+                  const { symbol } = useCurrency();
+                  return symbol;
+                })()})
                 <Tooltip title="Override the default cost for specific tools. Leave blank to use the default rate.">
                   <InfoCircleOutlined className="ml-1 text-gray-400" />
                 </Tooltip>
@@ -141,7 +148,10 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
             <div className="mt-2 space-y-1">
               {value.default_cost_per_query && (
                 <Text className="text-blue-700">
-                  • Default cost: ${value.default_cost_per_query.toFixed(4)} per query
+                  • Default cost: {(() => {
+                    const { symbol, rate } = useCurrency();
+                    return `${symbol}${(value.default_cost_per_query * rate).toFixed(4)} per query`;
+                  })()}
                 </Text>
               )}
               {value.tool_name_to_cost_per_query &&
@@ -150,7 +160,10 @@ const MCPServerCostConfig: React.FC<MCPServerCostConfigProps> = ({
                     cost !== null &&
                     cost !== undefined && (
                       <Text key={toolName} className="text-blue-700">
-                        • {toolName}: ${cost.toFixed(4)} per query
+                        • {toolName}: {(() => {
+                          const { symbol, rate } = useCurrency();
+                          return `${symbol}${(cost * rate).toFixed(4)} per query`;
+                        })()}
                       </Text>
                     ),
                 )}

@@ -263,7 +263,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 <Card>
                   <Text>Budget Status</Text>
                   <div className="mt-2">
-                    <Title>${formatNumberWithCommas(orgData.spend, 4)}</Title>
+                    <Title><MoneyCell value={orgData.spend} decimals={4} /></Title>
                     <Text>
                       of{" "}
                       {orgData.litellm_budget_table.max_budget === null

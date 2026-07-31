@@ -522,7 +522,10 @@ export default function KeyInfoView({
           })}
         </p>
         <p style={{ color: "#666", fontSize: "0.875rem", marginTop: 8 }}>
-          {t("keyInfoView.resetSpendCurrent", { spend: formatNumberWithCommas(currentKeyData.spend, 4) })}{" "}
+          {(() => {
+            const { symbol, rate } = useCurrency();
+            return t("keyInfoView.resetSpendCurrent", { spend: `${symbol}${formatNumberWithCommas(currentKeyData.spend * rate, 4)}` });
+          })()}{" "}
           {t("keyInfoView.resetSpendNote")}
         </p>
       </Modal>
@@ -540,7 +543,10 @@ export default function KeyInfoView({
               <Card>
                 <Text>{t("virtualKeysTable.spend")}</Text>
                 <div className="mt-2">
-                  <Title>${formatNumberWithCommas(currentKeyData.spend, 4)}</Title>
+                  <Title>{(() => {
+  const { symbol, rate } = useCurrency();
+  return `${symbol}${formatNumberWithCommas(currentKeyData.spend * rate, 4)}`;
+})()}</Title>
                   <Text>{t("keyInfoView.of")} {budgetDisplay}</Text>
                 </div>
               </Card>

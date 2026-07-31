@@ -98,7 +98,10 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
           <Card>
             {labelWithTooltip(
               "Current Cycle Spend (USD)",
-              "Spend for the current budget cycle. Resets to $0 when the budget window rolls over.",
+              `Spend for the current budget cycle. Resets to ${(() => {
+                const { symbol } = useCurrency();
+                return `${symbol}0`;
+              })()} when the budget window rolls over.`,
             )}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={3} style={{ margin: 0 }}>
@@ -132,7 +135,10 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
             {labelWithTooltip(`Total Spend (${currency})`, `Cumulative spend across all budget cycles within this team.`)}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={4} style={{ margin: 0 }}>
-                ${formatNumber(totalSpend, 4)}
+                {(() => {
+                  const { symbol, rate } = useCurrency();
+                  return `${symbol}${formatNumber(totalSpend * rate, 4)}`;
+                })()}
               </Typography.Title>
             </div>
           </Card>
