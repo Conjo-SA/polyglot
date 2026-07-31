@@ -170,7 +170,7 @@ _SYSTEM_PROMPT_BASE = (
     "You may call multiple tools if the question spans different dimensions.\n\n"
     "Guidelines:\n"
     "- Be concise and specific. Use exact numbers from the data.\n"
-    "- Format costs as dollar amounts (e.g. $12.34).\n"
+    "- Format costs as BRL amounts (e.g. R$ 12,34).\n"
     "- When comparing entities, show a ranked list.\n"
     "- If data is empty or no results found, say so clearly.\n"
     "- Do not hallucinate data — only use what the tools return.\n"

@@ -40,7 +40,7 @@ export default function TeamMemberTab({
       }
 
       // For decimal numbers, use toFixed and remove trailing zeros
-      return formatNumberWithCommas(normalNumber, 8).replace(/\.?0+$/, "");
+      return formatNumberWithCommas(normalNumber, 8, false, true, "pt-BR").replace(/,?0+$/, "");
     }
 
     return "0";
@@ -134,8 +134,8 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Gastos no Ciclo Atual (USD)
-          <Tooltip title="Gastos no ciclo de orçamento atual. Reseta para $0 quando a janela de orçamento do membro rollover. Este é o valor verificado contra o orçamento do membro.">
+          Gastos no Ciclo Atual (BRL)
+          <Tooltip title="Gastos no ciclo de orçamento atual. Reseta para R$ 0 quando a janela de orçamento do membro rollover. Este é o valor verificado contra o orçamento do membro.">
             <InfoCircleOutlined />
           </Tooltip>
         </Space>
@@ -148,7 +148,7 @@ export default function TeamMemberTab({
     {
       title: (
         <Space direction="horizontal">
-          Gasto Total (USD)
+          Gasto Total (BRL)
           <Tooltip title="Gasto acumulado por este membro dentro desta equipe, em todos os ciclos de orçamento. O acompanhamento começou em 2026-04-21; os gastos antes desta data não estão incluídos.">
             <InfoCircleOutlined />
           </Tooltip>
@@ -158,7 +158,7 @@ export default function TeamMemberTab({
       render: (_: unknown, record: Member) => <MoneyCell value={getUserTotalSpend(record.user_id)} decimals={4} />,
     },
     {
-      title: "Orçamento do Membro da Equipe (USD)",
+      title: "Orçamento do Membro da Equipe (BRL)",
       key: "budget",
       render: (_: unknown, record: Member) => (
         <MoneyCell value={getUserBudget(record.user_id)} decimals={4} emptyText="Ilimitado" showZero />

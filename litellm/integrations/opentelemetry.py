@@ -609,7 +609,7 @@ class OpenTelemetry(OTELGenAISemconvMixin, CustomLogger):
         self._cost_histogram = meter.create_histogram(
             name="gen_ai.client.token.cost",
             description="GenAI request cost",
-            unit="USD",
+            unit="BRL",
         )
         self._time_to_first_token_histogram = meter.create_histogram(
             name="gen_ai.client.response.time_to_first_token",

@@ -212,7 +212,7 @@ export const createColumns = (sortProps?: LogsSortProps): ColumnDef<LogEntry>[] 
 
       return (
         <div className="flex flex-col items-end">
-          <Tooltip title={spend ? `$${String(spend)}` : undefined}>
+          <Tooltip title={spend ? `R$ ${String(spend).replace(".", ",")}` : undefined}>
             <span>
               <MoneyCell value={spend} decimals={6} />
             </span>

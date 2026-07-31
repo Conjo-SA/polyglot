@@ -246,7 +246,7 @@ describe("TeamMembersComponent", () => {
       />,
     );
 
-    expect(screen.getByText("$100.5000")).toBeInTheDocument();
+    expect(screen.getByText("R$ 100,5000")).toBeInTheDocument();
     expect(screen.getByText(/100 RPM/)).toBeInTheDocument();
     expect(screen.getByText(/10000 TPM/)).toBeInTheDocument();
   });
@@ -278,7 +278,7 @@ describe("TeamMembersComponent", () => {
       />,
     );
 
-    expect(screen.getByText("$1,000.0000")).toBeInTheDocument();
+    expect(screen.getByText("R$ 1.000,0000")).toBeInTheDocument();
     expect(screen.getByText("Unlimited")).toBeInTheDocument();
   });
 

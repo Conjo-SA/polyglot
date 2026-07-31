@@ -24,11 +24,11 @@ const THIRTY_DAYS_MS = 30 * 24 * 60 * 60 * 1000;
 
 const brl = (value: number): string => {
   const decimals = value > 0 && value < 1 ? 4 : 2;
-  return `R$ ${formatNumberWithCommas(value, decimals)}`;
+  return `R$ ${formatNumberWithCommas(value, decimals, false, true, "pt-BR")}`;
 };
 
 const shortDate = (iso: string): string =>
-  new Date(`${iso}T00:00:00`).toLocaleDateString("en-US", { month: "short", day: "numeric" });
+  new Date(`${iso}T00:00:00`).toLocaleDateString("pt-BR", { month: "short", day: "numeric" });
 
 const compressionOf = (m: SpendMetrics): number => m.compression_savings_spend ?? 0;
 const cachingOf = (m: SpendMetrics): number => m.prompt_caching_savings_spend ?? 0;

@@ -1310,10 +1310,10 @@ class Logging(LiteLLMLoggingBaseClass):
             additional_costs: Free-form additional costs dict (e.g., {"azure_model_router_flat_cost": 0.00014})
             original_cost: Cost before discount
             discount_percent: Discount percentage (0.05 = 5%)
-            discount_amount: Discount amount in USD
+            discount_amount: Discount amount in BRL
             margin_percent: Margin percentage applied (0.10 = 10%)
-            margin_fixed_amount: Fixed margin amount in USD
-            margin_total_amount: Total margin added in USD
+            margin_fixed_amount: Fixed margin amount in BRL
+            margin_total_amount: Total margin added in BRL
         """
 
         self.cost_breakdown = CostBreakdown(

@@ -43,10 +43,10 @@ describe("CustomTooltip", () => {
     expect(screen.getByText("1,000")).toBeInTheDocument();
   });
 
-  it("formats spend values as dollars with two decimals", () => {
+  it("formats spend values as BRL with two decimals", () => {
     render(<CustomTooltip active={true} payload={[metricsPayload("metrics.spend", 1234.567)]} label="2026-01-15" />);
 
-    expect(screen.getByText("$1,234.57")).toBeInTheDocument();
+    expect(screen.getByText("R$ 1.234,57")).toBeInTheDocument();
   });
 
   it("shows N/A for metrics missing from the row payload", () => {
@@ -94,8 +94,8 @@ describe("ValueTooltip", () => {
   });
 
   it("applies the valueFormatter to values", () => {
-    render(<ValueTooltip active={true} payload={payload} label="2026-01-15" valueFormatter={(v) => `$${v}`} />);
+    render(<ValueTooltip active={true} payload={payload} label="2026-01-15" valueFormatter={(v) => `R$ ${v}`} />);
 
-    expect(screen.getByText("$1000")).toBeInTheDocument();
+    expect(screen.getByText("R$ 1000")).toBeInTheDocument();
   });
 });

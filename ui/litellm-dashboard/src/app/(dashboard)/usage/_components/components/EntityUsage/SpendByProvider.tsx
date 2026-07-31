@@ -59,7 +59,7 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
   return (
     <Card className="h-full">
       <div className="flex justify-between items-center mb-4">
-        <Title>Gasto por Provedor</Title>
+        <Title>Spend by Provider</Title>
         <div className="flex items-center gap-4">
           <div className="flex items-center gap-2">
             <label className="text-sm text-gray-700">Show Zero Spend</label>
@@ -86,7 +86,7 @@ const SpendByProvider: React.FC<SpendByProviderProps> = ({ loading, isDateChangi
               data={filteredProviderSpend}
               index="provider"
               category="spend"
-              valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+              valueFormatter={(value) => `R$ ${formatNumberWithCommas(value, 2, false, true, "pt-BR")}`}
               colors={["cyan"]}
               showLabel
               startAngle={90}

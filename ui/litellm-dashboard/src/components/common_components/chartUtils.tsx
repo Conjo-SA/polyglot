@@ -48,7 +48,7 @@ export const CustomTooltip = ({ active, payload, label }: CustomTooltipProps) =>
           const formattedValue =
             rawValue !== undefined
               ? isSpend
-                ? `$${rawValue.toLocaleString(undefined, { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
+                ? `R$ ${rawValue.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}`
                 : rawValue.toLocaleString()
               : "N/A";
 

@@ -198,7 +198,7 @@ const TeamSSOSettings: React.FC<TeamSSOSettingsProps> = ({ accessToken }) => {
           <div className="border-t border-gray-100">
             <SettingRow
               label="Max Budget"
-              description="Maximum budget (in USD) for new automatically created teams."
+              description="Maximum budget (in BRL) for new automatically created teams."
               isEditing={isEditing}
               viewContent={
                 values.max_budget != null ? <Text>${Number(values.max_budget).toLocaleString()}</Text> : <NotSet />

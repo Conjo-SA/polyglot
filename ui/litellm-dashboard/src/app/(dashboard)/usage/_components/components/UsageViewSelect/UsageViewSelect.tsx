@@ -85,7 +85,7 @@ const OPTIONS: OptionConfig[] = [
   },
   {
     value: "tag",
-    label: "Uso por Tag",
+    label: "Tag Usage",
     description: "Visualizar uso agrupado por tags",
     icon: <TagsOutlined style={{ fontSize: "16px" }} />,
     adminOnly: true,
@@ -116,8 +116,8 @@ export const UsageViewSelect: React.FC<UsageViewSelectProps> = ({
   onChange,
   isAdmin,
   canViewTagUsage = false,
-  title = "Uso de Dados",
-  description = "Selecione o tipo de uso que deseja visualizar",
+  title = "Usage View",
+  description = "Select the usage data you want to view",
   "data-id": dataId,
 }) => {
   const getFilteredOptions = () => {

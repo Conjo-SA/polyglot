@@ -303,16 +303,16 @@ OPENAI_FILE_SEARCH_COST_PER_1K_CALLS = float(os.getenv("OPENAI_FILE_SEARCH_COST_
 # Azure OpenAI Assistants feature costs
 # Source: https://azure.microsoft.com/en-us/pricing/details/cognitive-services/openai-service/
 AZURE_FILE_SEARCH_COST_PER_GB_PER_DAY = float(
-    os.getenv("AZURE_FILE_SEARCH_COST_PER_GB_PER_DAY", 0.1)  # $0.1 USD per 1 GB/Day
+    os.getenv("AZURE_FILE_SEARCH_COST_PER_GB_PER_DAY", 0.1)  # R$0.1 BRL per 1 GB/Day
 )
 AZURE_COMPUTER_USE_INPUT_COST_PER_1K_TOKENS = float(
-    os.getenv("AZURE_COMPUTER_USE_INPUT_COST_PER_1K_TOKENS", 3.0)  # $0.003 USD per 1K Tokens
+    os.getenv("AZURE_COMPUTER_USE_INPUT_COST_PER_1K_TOKENS", 3.0)  # R$0.003 BRL per 1K Tokens
 )
 AZURE_COMPUTER_USE_OUTPUT_COST_PER_1K_TOKENS = float(
-    os.getenv("AZURE_COMPUTER_USE_OUTPUT_COST_PER_1K_TOKENS", 12.0)  # $0.012 USD per 1K Tokens
+    os.getenv("AZURE_COMPUTER_USE_OUTPUT_COST_PER_1K_TOKENS", 12.0)  # R$0.012 BRL per 1K Tokens
 )
 AZURE_VECTOR_STORE_COST_PER_GB_PER_DAY = float(
-    os.getenv("AZURE_VECTOR_STORE_COST_PER_GB_PER_DAY", 0.1)  # $0.1 USD per 1 GB/Day (same as file search)
+    os.getenv("AZURE_VECTOR_STORE_COST_PER_GB_PER_DAY", 0.1)  # R$0.1 BRL per 1 GB/Day (same as file search)
 )
 MIN_NON_ZERO_TEMPERATURE = float(os.getenv("MIN_NON_ZERO_TEMPERATURE", 0.0001))
 #### RELIABILITY ####

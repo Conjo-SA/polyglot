@@ -142,7 +142,7 @@ class VertexAILivePassthroughLoggingHandler(BasePassthroughLoggingHandler):
             custom_llm_provider: The LLM provider (default: "vertex_ai")
 
         Returns:
-            Total cost in USD
+            Total cost in BRL
         """
         try:
             # Get model pricing information

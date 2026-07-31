@@ -164,10 +164,10 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
             <Flex vertical gap={16}>
               <div>
                 <Text strong style={{ fontSize: 28, lineHeight: 1 }}>
-                  ${spend.toFixed(2)}
+                  R$ {spend.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                 </Text>
                 <br />
-                <Text type="secondary">{hasLimit ? `of $${maxBudget.toFixed(2)} budget` : "No budget limit"}</Text>
+                <Text type="secondary">{hasLimit ? `of R$ ${maxBudget.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })} budget` : "No budget limit"}</Text>
               </div>
               {hasLimit && (
                 <div>
@@ -189,7 +189,7 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                 categories={["spend"]}
                 colors={["cyan"]}
                 layout="vertical"
-                valueFormatter={(value) => `$${value.toFixed(4)}`}
+                valueFormatter={(value) => `R$ ${value.toLocaleString("pt-BR", { minimumFractionDigits: 4, maximumFractionDigits: 4 })}`}
                 yAxisWidth={140}
                 showLegend={false}
                 style={{ height: Math.max(modelSpendData.length * 40, 120) }}
@@ -265,11 +265,11 @@ export function ProjectDetail({ projectId, onBack }: ProjectDetailProps) {
                           Spend
                         </Text>
                         <Text style={{ fontSize: 12 }}>
-                          ${teamSpend.toFixed(2)}
+                          R$ {teamSpend.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                           {teamHasLimit ? (
                             <Text type="secondary" style={{ fontSize: 12 }}>
                               {" "}
-                              / ${teamBudget.toFixed(2)}
+                              / R$ {teamBudget.toLocaleString("pt-BR", { minimumFractionDigits: 2, maximumFractionDigits: 2 })}
                             </Text>
                           ) : (
                             <Text type="secondary" style={{ fontSize: 12 }}>

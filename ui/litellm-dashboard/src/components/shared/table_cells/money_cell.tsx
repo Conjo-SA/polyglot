@@ -17,7 +17,7 @@ export function MoneyCell({ value, decimals = 4, emptyText = "-", showZero = fal
     if (!showZero) {
       return <span className="text-muted-foreground">-</span>;
     }
-    return <span className="whitespace-nowrap">{`$${formatNumberWithCommas(0, decimals, false, true)}`}</span>;
+    return <span className="whitespace-nowrap">{`R$ ${formatNumberWithCommas(0, decimals, false, true, "pt-BR")}`}</span>;
   }
   return <span className="whitespace-nowrap">{getSpendString(value, decimals)}</span>;
 }

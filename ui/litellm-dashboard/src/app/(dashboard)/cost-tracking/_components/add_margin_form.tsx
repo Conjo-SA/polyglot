@@ -147,7 +147,7 @@ const AddMarginForm: React.FC<AddMarginFormProps> = ({
           label={
             <span className="text-sm font-medium text-gray-700 flex items-center">
               Valor Fixo da Margem
-              <Tooltip title="Informe um valor fixo em USD (ex: 0.001 para $0.001 por requisição)">
+              <Tooltip title="Informe um valor fixo em BRL (ex: 0.001 para R$ 0,001 por requisição)">
                 <InfoCircleOutlined className="ml-2 text-blue-400 hover:text-blue-600 cursor-help" />
               </Tooltip>
             </span>

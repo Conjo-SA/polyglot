@@ -176,8 +176,8 @@ const TagInfoView: React.FC<TagInfoViewProps> = ({ tagId, onClose, accessToken, 
                 <Form.Item
                   label={
                     <span>
-                      Max Budget (USD){" "}
-                      <Tooltip title="Maximum amount in USD this tag can spend">
+                      Max Budget (BRL){" "}
+                      <Tooltip title="Maximum amount in BRL this tag can spend">
                         <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                       </Tooltip>
                     </span>

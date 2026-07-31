@@ -22,9 +22,9 @@ export function SpendBudgetCell({ spend, maxBudget, teamMaxBudget }: SpendBudget
   const hasBudget = typeof budget === "number" && budget > 0;
   const pct = hasBudget ? (spendValue / budget) * 100 : 0;
 
-  const spendText = spendValue > 0 ? getSpendString(spendValue, 4) : "$0.00";
+  const spendText = spendValue > 0 ? getSpendString(spendValue, 4) : `R$ ${formatNumberWithCommas(0, 2, false, true, "pt-BR")}`;
   const budgetLabel =
-    budget === null ? "· Unlimited" : `of $${formatNumberWithCommas(budget)}${isTeamBudget ? " (Team)" : ""}`;
+    budget === null ? "· Unlimited" : `of R$ ${formatNumberWithCommas(budget, 0, false, true, "pt-BR")}${isTeamBudget ? " (Team)" : ""}`;
 
   return (
     <div className="flex min-w-[130px] flex-col gap-1">
@@ -33,7 +33,7 @@ export function SpendBudgetCell({ spend, maxBudget, teamMaxBudget }: SpendBudget
         <span className="text-muted-foreground">{budgetLabel}</span>
       </div>
       {hasBudget && (
-        <Meter value={spendValue} max={budget} aria-valuetext={`${spendText} of $${formatNumberWithCommas(budget)}`}>
+        <Meter value={spendValue} max={budget} aria-valuetext={`${spendText} of R$ ${formatNumberWithCommas(budget, 0, false, true, "pt-BR")}`}>
           <MeterTrack>
             <MeterIndicator tone={meterTone(pct)} />
           </MeterTrack>

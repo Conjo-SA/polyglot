@@ -47,8 +47,8 @@ export const getDeletedTeamsTableColumns = (): ColumnDef<DeletedTeam>[] => [
   {
     id: "spend",
     accessorKey: "spend",
-    meta: { title: "Spend (USD)", numeric: true },
-    header: ({ column }) => <DataTableSortHeader column={column} title="Spend (USD)" />,
+    meta: { title: "Spend (BRL)", numeric: true },
+    header: ({ column }) => <DataTableSortHeader column={column} title="Spend (BRL)" />,
     size: 100,
     enableSorting: true,
     cell: ({ row }) => <MoneyCell value={row.original.spend} decimals={4} />,
@@ -56,8 +56,8 @@ export const getDeletedTeamsTableColumns = (): ColumnDef<DeletedTeam>[] => [
   {
     id: "max_budget",
     accessorKey: "max_budget",
-    meta: { title: "Budget (USD)", numeric: true },
-    header: "Budget (USD)",
+    meta: { title: "Budget (BRL)", numeric: true },
+    header: "Budget (BRL)",
     size: 110,
     enableSorting: false,
     cell: ({ row }) => <MoneyCell value={row.original.max_budget} decimals={0} emptyText="Unlimited" showZero />,

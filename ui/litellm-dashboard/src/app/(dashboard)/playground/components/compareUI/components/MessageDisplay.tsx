@@ -110,7 +110,7 @@ export function MessageDisplay({ messages, isLoading }: MessageDisplayProps) {
                   <div className="flex h-8 w-8 shrink-0 items-center justify-center rounded-full bg-blue-100 text-blue-600">
                     <UserRound size={16} />
                   </div>
-                  <div className="text-sm font-semibold text-gray-700">Você</div>
+                  <div className="text-sm font-semibold text-gray-700">You</div>
                 </div>
                 {renderMessageBody(block.user)}
               </div>
@@ -152,10 +152,10 @@ export function MessageDisplay({ messages, isLoading }: MessageDisplayProps) {
             ) : isLoading && blockIndex === conversationBlocks.length - 1 ? (
               <div className="flex items-center gap-2 text-sm text-gray-500">
                               <Loader2 size={18} className="animate-spin" />
-                              <span>Gerando resposta...</span>
+                              <span>Generating response...</span>
                             </div>
             ) : (
-              <div className="text-sm text-gray-500">Aguardando resposta...</div>
+              <div className="text-sm text-gray-500">Waiting for response...</div>
             )}
           </div>
         );

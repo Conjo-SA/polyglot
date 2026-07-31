@@ -20,7 +20,7 @@ const GuardrailDetailView: React.FC<GuardrailDetailViewProps> = ({ card, onBack,
   const detailRows = [
     { property: "Provider", value: card.category === "litellm" ? "Polyglot Content Filter" : "Partner Guardrail" },
     ...(card.subcategory ? [{ property: "Subcategory", value: card.subcategory }] : []),
-    ...(card.category === "litellm" ? [{ property: "Cost", value: "$0 / request" }] : []),
+    ...(card.category === "litellm" ? [{ property: "Cost", value: "R$ 0 / request" }] : []),
     ...(card.category === "litellm" ? [{ property: "External Dependencies", value: "None" }] : []),
     ...(card.category === "litellm" ? [{ property: "Latency", value: card.eval?.latency || "<1ms" }] : []),
   ];

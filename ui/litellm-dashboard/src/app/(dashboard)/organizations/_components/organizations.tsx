@@ -252,8 +252,8 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
                               <TableHeaderCell>ID da Organização</TableHeaderCell>
                               <TableHeaderCell>Nome da Organização</TableHeaderCell>
                               <TableHeaderCell>Criado</TableHeaderCell>
-                              <TableHeaderCell>Gasto (USD)</TableHeaderCell>
-                              <TableHeaderCell>Orçamento (USD)</TableHeaderCell>
+                              <TableHeaderCell>Gasto (BRL)</TableHeaderCell>
+                              <TableHeaderCell>Orçamento (BRL)</TableHeaderCell>
                               <TableHeaderCell>Modelos</TableHeaderCell>
                               <TableHeaderCell>Limites TPM / RPM</TableHeaderCell>
                               <TableHeaderCell>Informações</TableHeaderCell>
@@ -449,7 +449,7 @@ const OrganizationsTable: React.FC<OrganizationsTableProps> = ({
             />
           </Form.Item>
 
-          <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
+          <Form.Item label="Orçamento Máximo (BRL)" name="max_budget">
             <NumericalInput step={0.01} precision={2} width={200} />
           </Form.Item>
           <Form.Item label="Reiniciar Orçamento" name="budget_duration">

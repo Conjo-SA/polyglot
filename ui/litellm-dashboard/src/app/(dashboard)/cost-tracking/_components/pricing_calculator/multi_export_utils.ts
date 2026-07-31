@@ -4,10 +4,10 @@ import { MultiModelResult } from "./types";
 
 const formatCostForExport = (value: number | null | undefined): string => {
   if (value === null || value === undefined) return "-";
-  if (value === 0) return "$0.00";
-  if (value < 0.01) return `$${value.toFixed(6)}`;
-  if (value < 1) return `$${value.toFixed(4)}`;
-  return `$${formatNumberWithCommas(value, 2)}`;
+  if (value === 0) return "R$ 0,00";
+  if (value < 0.01) return `R$ ${value.toFixed(6)}`;
+  if (value < 1) return `R$ ${value.toFixed(4)}`;
+  return `R$ ${formatNumberWithCommas(value, 2, false, true, "pt-BR")}`;
 };
 
 const formatRequestsForExport = (value: number | null | undefined): string => {

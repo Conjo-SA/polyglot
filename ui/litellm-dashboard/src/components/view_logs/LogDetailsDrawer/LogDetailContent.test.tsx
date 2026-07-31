@@ -110,7 +110,7 @@ describe("LogDetailContent", () => {
     );
 
     expect(screen.getByText("Metrics")).toBeInTheDocument();
-    expect(screen.getAllByText("$0.00200000").length).toBeGreaterThanOrEqual(1);
+    expect(screen.getAllByText("R$ 0,00200000").length).toBeGreaterThanOrEqual(1);
   });
 
   it("should show Input Tokens and Output Tokens for anthropic_messages when uncached text_tokens exist", () => {

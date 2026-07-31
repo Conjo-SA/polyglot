@@ -13,12 +13,12 @@ describe("SpendBudgetCell", () => {
     expect(indicator(container)).toBeNull();
   });
 
-  it("shows $0.00 for zero or undefined spend, never a hyphen", () => {
+  it("shows R$ 0,00 for zero or undefined spend, never a hyphen", () => {
     const { rerender } = render(<SpendBudgetCell spend={0} maxBudget={100} />);
-    expect(screen.getByText("$0.00")).toBeInTheDocument();
+    expect(screen.getByText("R$ 0,00")).toBeInTheDocument();
     expect(screen.queryByText("-")).not.toBeInTheDocument();
     rerender(<SpendBudgetCell spend={null} maxBudget={null} />);
-    expect(screen.getByText("$0.00")).toBeInTheDocument();
+    expect(screen.getByText("R$ 0,00")).toBeInTheDocument();
     expect(screen.queryByText("-")).not.toBeInTheDocument();
   });
 
@@ -27,7 +27,7 @@ describe("SpendBudgetCell", () => {
     const meter = screen.getByRole("meter");
     expect(meter).toHaveAttribute("aria-valuenow", "25");
     expect(meter).toHaveAttribute("aria-valuemax", "100");
-    expect(screen.getByText("of $100")).toBeInTheDocument();
+    expect(screen.getByText("of R$ 100")).toBeInTheDocument();
   });
 
   it("keeps the default tone below 80% usage", () => {
@@ -47,7 +47,7 @@ describe("SpendBudgetCell", () => {
 
   it("falls back to the team budget and labels it", () => {
     render(<SpendBudgetCell spend={10} maxBudget={null} teamMaxBudget={200} />);
-    expect(screen.getByText("of $200 (Team)")).toBeInTheDocument();
+    expect(screen.getByText("of R$ 200 (Team)")).toBeInTheDocument();
     expect(screen.getByRole("meter")).toHaveAttribute("aria-valuemax", "200");
   });
 });

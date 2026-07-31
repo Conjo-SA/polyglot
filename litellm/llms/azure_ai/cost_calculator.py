@@ -40,7 +40,7 @@ def calculate_azure_model_router_flat_cost(model: str, prompt_tokens: int) -> fl
         prompt_tokens: Number of prompt tokens
 
     Returns:
-        float: The flat cost in USD, or 0.0 if not applicable
+        float: The flat cost in BRL, or 0.0 if not applicable
     """
     if not _is_azure_model_router(model):
         return 0.0

@@ -51,7 +51,7 @@ def create_genai_metrics(meter: Meter) -> GenAIMetrics:
         ),
         token_cost=meter.create_histogram(
             name=Metric.TOKEN_COST,
-            unit="USD",
+            unit="BRL",
             description="GenAI request cost",
         ),
         time_to_first_token=meter.create_histogram(

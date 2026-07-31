@@ -2903,10 +2903,10 @@ class CostBreakdown(TypedDict, total=False):
     additional_costs: Dict[str, float]  # Free-form additional costs (e.g., {"azure_model_router_flat_cost": 0.00014})
     original_cost: float  # Cost before discount (optional)
     discount_percent: float  # Discount percentage applied (e.g., 0.05 = 5%) (optional)
-    discount_amount: float  # Discount amount in USD (optional)
+    discount_amount: float  # Discount amount in BRL (optional)
     margin_percent: float  # Margin percentage applied (e.g., 0.10 = 10%) (optional)
-    margin_fixed_amount: float  # Fixed margin amount in USD (optional)
-    margin_total_amount: float  # Total margin added in USD (optional)
+    margin_fixed_amount: float  # Fixed margin amount in BRL (optional)
+    margin_total_amount: float  # Total margin added in BRL (optional)
 
 
 class StandardLoggingPayloadStatusFields(TypedDict, total=False):

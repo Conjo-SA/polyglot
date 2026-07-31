@@ -283,7 +283,7 @@ async def update_cost_margin_config(
     Updates the cost_margin_config in litellm_settings.
     Margins can be:
     - Percentage: {"openai": 0.10} = 10% margin
-    - Fixed amount: {"openai": {"fixed_amount": 0.001}} = $0.001 per request
+    - Fixed amount: {"openai": {"fixed_amount": 0.001}} = R$0,001 per request
     - Combined: {"vertex_ai": {"percentage": 0.08, "fixed_amount": 0.0005}}
     - Global: {"global": 0.05} = 5% global margin on all providers
 

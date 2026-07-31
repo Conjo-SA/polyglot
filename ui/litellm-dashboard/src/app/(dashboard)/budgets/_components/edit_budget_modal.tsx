@@ -67,7 +67,7 @@ const EditBudgetModal: React.FC<EditBudgetModalProps> = ({ isModalVisible, setIs
               <b>Configurações Opcionais</b>
             </AccordionHeader>
             <AccordionBody>
-              <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
+              <Form.Item label="Orçamento Máximo (BRL)" name="max_budget">
                 <InputNumber step={0.01} precision={2} width={200} />
               </Form.Item>
               <Form.Item className="mt-8" label="Reiniciar Orçamento" name="budget_duration">

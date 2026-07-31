@@ -141,7 +141,7 @@ const PerUserUsage: React.FC<PerUserUsageProps> = ({ accessToken, selectedTags, 
                       <Text>{formatAbbreviatedNumber(item.failed_requests)}</Text>
                     </TableCell>
                     <TableCell className="text-right">
-                      <Text>${formatAbbreviatedNumber(item.spend, 4)}</Text>
+                      <Text>R$ {formatAbbreviatedNumber(item.spend, 4)}</Text>
                     </TableCell>
                   </TableRow>
                 ))}

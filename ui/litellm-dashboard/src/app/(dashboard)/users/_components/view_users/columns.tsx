@@ -72,13 +72,13 @@ export const columns = (
       cell: ({ row }) => <span className="text-xs">{row.original.user_alias || "-"}</span>,
     },
     {
-      header: "Spend (USD)",
+      header: "Spend (BRL)",
       accessorKey: "spend",
       enableSorting: true,
       cell: ({ row }) => <MoneyCell value={row.original.spend} decimals={4} />,
     },
     {
-      header: "Budget (USD)",
+      header: "Budget (BRL)",
       accessorKey: "max_budget",
       enableSorting: false,
       cell: ({ row }) => <MoneyCell value={row.original.max_budget} decimals={2} emptyText="Unlimited" showZero />,

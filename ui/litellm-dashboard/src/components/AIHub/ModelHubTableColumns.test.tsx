@@ -48,8 +48,8 @@ describe("getModelHubTableColumns", () => {
   it("formats token limits and per-million costs", () => {
     renderTable([mockModel]);
     expect(screen.getByText("128.0K / 16.4K")).toBeInTheDocument();
-    expect(screen.getByText("$2.50")).toBeInTheDocument();
-    expect(screen.getByText("$10.00")).toBeInTheDocument();
+    expect(screen.getByText("R$ 2,50")).toBeInTheDocument();
+    expect(screen.getByText("R$ 10,00")).toBeInTheDocument();
   });
 
   it("shows capability badges only for supported features", () => {

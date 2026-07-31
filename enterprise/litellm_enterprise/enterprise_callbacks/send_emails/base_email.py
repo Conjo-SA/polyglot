@@ -224,12 +224,12 @@ class BaseEmailLogger(CustomLogger):
 
         # Format budget values
         soft_budget_str = (
-            f"${event.soft_budget}" if event.soft_budget is not None else "N/A"
+            f"R${event.soft_budget}" if event.soft_budget is not None else "N/A"
         )
-        spend_str = f"${event.spend}" if event.spend is not None else "$0.00"
+        spend_str = f"R${event.spend}" if event.spend is not None else "R$0.00"
         max_budget_info = ""
         if event.max_budget is not None:
-            max_budget_info = f"<b>Maximum Budget:</b> ${event.max_budget} <br />"
+            max_budget_info = f"<b>Maximum Budget:</b> R${event.max_budget} <br />"
 
         email_html_content = SOFT_BUDGET_ALERT_EMAIL_TEMPLATE.format(
             email_logo_url=email_params.logo_url,
@@ -294,12 +294,12 @@ class BaseEmailLogger(CustomLogger):
 
         # Format budget values
         soft_budget_str = (
-            f"${event.soft_budget}" if event.soft_budget is not None else "N/A"
+            f"R${event.soft_budget}" if event.soft_budget is not None else "N/A"
         )
-        spend_str = f"${event.spend}" if event.spend is not None else "$0.00"
+        spend_str = f"R${event.spend}" if event.spend is not None else "R$0.00"
         max_budget_info = ""
         if event.max_budget is not None:
-            max_budget_info = f"<b>Maximum Budget:</b> ${event.max_budget} <br />"
+            max_budget_info = f"<b>Maximum Budget:</b> R${event.max_budget} <br />"
 
         # Use team alias or generic greeting
         team_alias = event.team_alias or "Team"
@@ -345,9 +345,9 @@ class BaseEmailLogger(CustomLogger):
         )
 
         # Format budget values
-        spend_str = f"${event.spend}" if event.spend is not None else "$0.00"
+        spend_str = f"R${event.spend}" if event.spend is not None else "R$0.00"
         max_budget_str = (
-            f"${event.max_budget}" if event.max_budget is not None else "N/A"
+            f"R${event.max_budget}" if event.max_budget is not None else "N/A"
         )
 
         # Calculate percentage and alert threshold

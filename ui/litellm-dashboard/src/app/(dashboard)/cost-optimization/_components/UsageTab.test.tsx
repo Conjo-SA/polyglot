@@ -75,9 +75,9 @@ describe("UsageTab", () => {
       }),
     ]);
 
-    expect(getByText("$0.1560")).toBeInTheDocument();
-    expect(getByText("$0.1400")).toBeInTheDocument();
-    expect(getByText("$0.0160")).toBeInTheDocument();
+    expect(getByText("R$ 0,1560")).toBeInTheDocument();
+    expect(getByText("R$ 0,1400")).toBeInTheDocument();
+    expect(getByText("R$ 0,0160")).toBeInTheDocument();
     expect(getByText("140,000 tokens compressed")).toBeInTheDocument();
   });
 
@@ -97,6 +97,7 @@ describe("UsageTab", () => {
       { driver: "Compression", usd: expect.closeTo(0.14, 5) },
       { driver: "Prompt caching", usd: expect.closeTo(0.016, 5) },
     ]);
+    // Data attributes remain named 'usd' for backwards compatibility; the UI renders R$.
   });
 
   it("omits a driver slice when that driver has no savings", () => {

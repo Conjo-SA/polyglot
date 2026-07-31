@@ -288,7 +288,7 @@ describe("KeyEditView", () => {
     );
 
     await waitFor(() => {
-      expect(screen.getByLabelText("Max Budget (USD)")).toBeInTheDocument();
+      expect(screen.getByLabelText("Max Budget (BRL)")).toBeInTheDocument();
     });
   });
 

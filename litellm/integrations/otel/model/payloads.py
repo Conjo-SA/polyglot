@@ -99,7 +99,7 @@ class LLMCost:
     """Per-component cost breakdown, from the StandardLoggingPayload
     ``cost_breakdown`` (``litellm.types.utils.CostBreakdown``).
 
-    Each field is the USD cost of one component, or ``None`` when the source did
+    Each field is the BRL cost of one component, or ``None`` when the source did
     not report it — so the mapper omits absent components instead of emitting 0.
     The final (post-discount/post-margin) total is carried separately on
     ``LLMCallSpanData.response_cost``. Free-form ``additional_costs`` are not

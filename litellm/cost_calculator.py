@@ -342,7 +342,7 @@ def cost_per_token(
         call_type: Optional[str]: the call type
 
     Returns:
-        tuple: A tuple containing the cost in USD dollars for prompt tokens and completion tokens, respectively.
+        tuple: A tuple containing the cost in BRL for prompt tokens and completion tokens, respectively.
     """
 
     if model is None:
@@ -1150,7 +1150,7 @@ def completion_cost(
         custom_cost_per_second: Optional[float]: the cost per second for the llm api call.
 
     Returns:
-        float: The cost in USD dollars for the completion based on the provided parameters.
+        float: The cost in BRL for the completion based on the provided parameters.
 
     Exceptions:
         Raises exception if model not in the litellm model cost map. Register model, via custom pricing or PR - https://github.com/BerriAI/litellm/blob/main/model_prices_and_context_window.json
@@ -1964,7 +1964,7 @@ def default_image_cost_calculator(
         size (Optional[str]): Image size (e.g. "1024x1024" or "1024-x-1024")
 
     Returns:
-        float: Cost in USD for the image generation
+        float: Cost in BRL for the image generation
 
     Raises:
         Exception: If model pricing not found in cost map
@@ -2040,7 +2040,7 @@ def default_video_cost_calculator(
         video_resolution (Optional[str]): From usage (e.g. ``720p``, ``1080p``) for tiered per-second pricing.
 
     Returns:
-        float: Cost in USD for the video generation
+        float: Cost in BRL for the video generation
 
     Raises:
         Exception: If model pricing not found in cost map

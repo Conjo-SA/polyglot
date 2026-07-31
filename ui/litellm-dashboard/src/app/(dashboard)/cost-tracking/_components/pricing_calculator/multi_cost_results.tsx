@@ -14,10 +14,10 @@ interface MultiCostResultsProps {
 
 const formatCost = (value: number | null | undefined): string => {
   if (value === null || value === undefined) return "-";
-  if (value === 0) return "$0";
-  if (value < 0.0001) return `$${value.toExponential(2)}`;
-  if (value < 1) return `$${value.toFixed(4)}`;
-  return `$${formatNumberWithCommas(value, 2, true)}`;
+  if (value === 0) return "R$ 0";
+  if (value < 0.0001) return `R$ ${value.toExponential(2)}`;
+  if (value < 1) return `R$ ${value.toFixed(4)}`;
+  return `R$ ${formatNumberWithCommas(value, 2, true, true, "pt-BR")}`;
 };
 
 const formatRequests = (value: number | null | undefined): string => {
@@ -98,11 +98,11 @@ const SingleModelBreakdown: React.FC<{
         <div className="text-xs text-gray-400 pt-2 border-t border-gray-200">
           Token Pricing:{" "}
           {result.input_cost_per_token && (
-            <span>Input ${formatNumberWithCommas(result.input_cost_per_token * 1_000_000, 2)}/1M</span>
+            <span>Input R$ {formatNumberWithCommas(result.input_cost_per_token * 1_000_000, 2, false, true, "pt-BR")}/1M</span>
           )}
           {result.input_cost_per_token && result.output_cost_per_token && " | "}
           {result.output_cost_per_token && (
-            <span>Output ${formatNumberWithCommas(result.output_cost_per_token * 1_000_000, 2)}/1M</span>
+            <span>Output R$ {formatNumberWithCommas(result.output_cost_per_token * 1_000_000, 2, false, true, "pt-BR")}/1M</span>
           )}
         </div>
       )}

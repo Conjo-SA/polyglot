@@ -82,7 +82,7 @@ const en = {
     keyAlias: "Key Alias",
     noAliasSet: "No alias set",
     virtualKey: "Virtual Key",
-    maxBudget: "Max Budget (USD)",
+    maxBudget: "Max Budget (BRL)",
     tpmLimit: "TPM Limit",
     rpmLimit: "RPM Limit",
     expireKey: "Expire Key",
@@ -144,7 +144,7 @@ const en = {
     monthly: "Monthly",
     budgetWindows: "Budget Windows",
     budgetWindowsTooltip:
-      "Set multiple independent budget windows (e.g., hourly $10 AND monthly $200). Each window tracks spend separately and resets on its own schedule.",
+      "Set multiple independent budget windows (e.g., hourly R$ 10 AND monthly R$ 200). Each window tracks spend separately and resets on its own schedule.",
     budgetFallbacks: "Budget Fallbacks",
     budgetFallbacksTooltip:
       "When a model exceeds its per-model budget, requests automatically reroute to fallback models instead of failing",
@@ -196,7 +196,7 @@ const en = {
     invalidMetadataJson: "Invalid metadata JSON",
     keyUpdatedSuccess: "Key updated successfully",
     keyDeletedSuccess: "Key deleted successfully",
-    keySpendReset: "Key spend reset to $0",
+    keySpendReset: "Key spend reset to R$ 0",
     budgetTeamSuffix: "{{budget}} (Team: {{team}}{{duration}})",
     virtualKey: "Virtual Key",
     enterpriseFeatureTooltip: "This is a Polyglot Enterprise feature, and requires a valid key to use.",
@@ -207,8 +207,8 @@ const en = {
     keyInformation: "Key Information",
     resetKeySpend: "Reset Key Spend",
     thisKey: "this key",
-    resetSpendConfirm: "Reset spend for {{keyName}} to $0?",
-    resetSpendCurrent: "Current spend: ${{spend}}.",
+    resetSpendConfirm: "Reset spend for {{keyName}} to R$ 0?",
+    resetSpendCurrent: "Current spend: R$ {{spend}}.",
     resetSpendNote:
       "Spend history is preserved in logs. This resets the current period spend counter, the same as an automatic budget reset.",
     overview: "Overview",

@@ -112,9 +112,9 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
     modelsToDisplay = userModels;
   }
 
-  const displayMaxBudget = maxBudget !== null ? `$${formatNumberWithCommas(Number(maxBudget), 4)} limit` : "No limit";
+  const displayMaxBudget = maxBudget !== null ? `R$ ${formatNumberWithCommas(Number(maxBudget), 4, false, true, "pt-BR")} limit` : "No limit";
 
-  const roundedSpend = spend !== undefined ? formatNumberWithCommas(spend, 4) : null;
+  const roundedSpend = spend !== undefined ? formatNumberWithCommas(spend, 4, false, true, "pt-BR") : null;
 
   return (
     <div className="flex items-center">
@@ -122,7 +122,7 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
         <div>
           <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Total Spend</p>
           <p className="text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
-            ${roundedSpend}
+            R$ {roundedSpend}
           </p>
         </div>
         <div>

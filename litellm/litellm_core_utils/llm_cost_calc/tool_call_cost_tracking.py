@@ -493,7 +493,7 @@ class StandardBuiltInToolCostTracking:
     ) -> float:
         """ "
         OpenAI: $2.50/1k calls
-        Azure: $0.1 USD per 1 GB/Day (storage-based pricing)
+        Azure: R$0.1 BRL per 1 GB/Day (storage-based pricing)
 
         Doc: https://platform.openai.com/docs/pricing#built-in-tools
         """
@@ -559,7 +559,7 @@ class StandardBuiltInToolCostTracking:
         """
         Calculate cost for computer use feature.
 
-        Azure: $0.003 USD per 1K input tokens, $0.012 USD per 1K output tokens
+        Azure: R$0.003 BRL per 1K input tokens, R$0.012 BRL per 1K output tokens
         """
         if provider == "azure" and (input_tokens or output_tokens):
             # Check if model-specific pricing is available
@@ -621,8 +621,8 @@ class StandardBuiltInToolCostTracking:
         """
         Calculate cost for code interpreter feature.
 
-        Azure: $0.03 USD per session (from model cost map)
-        OpenAI: $0.03 USD per session (from model cost map)
+        Azure: R$0.03 BRL per session (from model cost map)
+        OpenAI: R$0.03 BRL per session (from model cost map)
         """
         if sessions is None or sessions == 0:
             return 0.0

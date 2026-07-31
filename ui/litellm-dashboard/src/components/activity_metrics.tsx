@@ -1,5 +1,5 @@
 import { AreaChart, BarChart, CustomLegend, CustomTooltip } from "@/components/shared/charts";
-import { formatNumberWithCommas } from "@/utils/dataUtils";
+import { getSpendString } from "@/utils/dataUtils";
 import { resolveTeamAliasFromTeamID } from "@/utils/teamUtils";
 import { Card, Grid, Text, Title } from "@tremor/react";
 import { Collapse } from "antd";
@@ -42,9 +42,9 @@ const ModelSection = ({
         </Card>
         <Card>
           <Text>Total Gasto</Text>
-          <Title>${formatNumberWithCommas(metrics.total_spend, 2)}</Title>
+          <Title>{getSpendString(metrics.total_spend, 2)}</Title>
           <Text>
-            ${formatNumberWithCommas(metrics.total_spend / metrics.total_successful_requests, 3)} por solicitação bem-sucedida
+            {getSpendString(metrics.total_spend / metrics.total_successful_requests, 3)} por solicitação bem-sucedida
           </Text>
         </Card>
       </Grid>
@@ -61,7 +61,7 @@ const ModelSection = ({
                     {keyData.team_id && <Text className="text-xs text-gray-500">Time: {keyData.team_id}</Text>}
                   </div>
                   <div className="text-right">
-                    <Text className="font-medium">${formatNumberWithCommas(keyData.spend, 2)}</Text>
+                    <Text className="font-medium">{getSpendString(keyData.spend, 2)}</Text>
                     <Text className="text-xs text-gray-500">
                       {keyData.requests.toLocaleString()} solicitações | {keyData.tokens.toLocaleString()} tokens
                     </Text>
@@ -87,7 +87,7 @@ const ModelSection = ({
           index="date"
           categories={["metrics.spend"]}
           colors={["green"]}
-          valueFormatter={(value: number) => `$${formatNumberWithCommas(value, 2, true)}`}
+          valueFormatter={(value: number) => `R$ ${formatNumberWithCommas(value, 2, true, true, "pt-BR")}`}
           yAxisWidth={72}
         />
       </Card>
@@ -273,7 +273,7 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
           </Card>
           <Card>
             <Text>Total Gasto</Text>
-            <Title>${formatNumberWithCommas(totalMetrics.total_spend, 2)}</Title>
+            <Title>R$ {formatNumberWithCommas(totalMetrics.total_spend, 2, false, true, "pt-BR")}</Title>
           </Card>
         </Grid>
 
@@ -330,7 +330,7 @@ export const ActivityMetrics: React.FC<ActivityMetricsProps> = ({ modelMetrics, 
               <div className="flex justify-between items-center w-full">
                 <Title>{modelMetrics[modelName].label || "Item Desconhecido"}</Title>
                 <div className="flex space-x-4 text-sm text-gray-500">
-                  <span>${formatNumberWithCommas(modelMetrics[modelName].total_spend, 2)}</span>
+                  <span>R$ {formatNumberWithCommas(modelMetrics[modelName].total_spend, 2, false, true, "pt-BR")}</span>
                   <span>{modelMetrics[modelName].total_requests.toLocaleString()} solicitações</span>
                 </div>
               </div>

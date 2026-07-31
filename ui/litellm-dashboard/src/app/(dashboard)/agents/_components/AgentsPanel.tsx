@@ -170,7 +170,7 @@ const AgentsPanel: React.FC<AgentsPanelProps> = ({ accessToken, userRole, teams 
                 <TableRow>
                   <TableHeaderCell>Agent Name</TableHeaderCell>
                   <TableHeaderCell>Agent ID</TableHeaderCell>
-                  <TableHeaderCell>Spend (USD)</TableHeaderCell>
+                  <TableHeaderCell>Spend (BRL)</TableHeaderCell>
                   <TableHeaderCell>Model</TableHeaderCell>
                   <TableHeaderCell>Created</TableHeaderCell>
                   <TableHeaderCell>Status</TableHeaderCell>

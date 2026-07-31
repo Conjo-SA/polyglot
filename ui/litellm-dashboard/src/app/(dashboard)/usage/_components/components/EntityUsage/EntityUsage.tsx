@@ -397,11 +397,11 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
   };
 
   const getFilterLabel = (entityType: string) => {
-    return `Filtrar por ${entityType}`;
+    return `Filter by ${entityType}`;
   };
 
   const getFilterPlaceholder = (entityType: string) => {
-    return `Selecionar ${entityType} para filtrar...`;
+    return `Select ${entityType} to filter...`;
   };
 
   const capitalizedEntityLabel = entityType.charAt(0).toUpperCase() + entityType.slice(1);
@@ -417,14 +417,14 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
             <div className="flex items-center justify-between">
               <span>
                 <LoadingOutlined spin className="mr-2" />
-                Atualmente buscando dados de gastos: {progress.currentPage} / {progress.totalPages} páginas carregadas. Os gráficos serão atualizados periodicamente conforme os dados carregam. Sair desta página irá parar e reiniciar este processo. Para continuar utilizando a interface meanwhile,{" "}
+                Currently fetching spend data: {progress.currentPage} / {progress.totalPages} pages loaded. Charts will update periodically as data loads. Leaving this page will stop and restart this process. To continue using the interface meanwhile,{" "}
                 <a href={window.location.href} target="_blank" rel="noopener noreferrer">
-                  abra uma nova aba <ExportOutlined />
+                  open a new tab <ExportOutlined />
                 </a>
                 .
               </span>
               <Button type="primary" danger onClick={cancel}>
-                Parar
+                Stop
               </Button>
             </div>
           }
@@ -437,7 +437,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
           className="mb-2"
           message={
             <span>
-              Mostrando dados parciais ({progress.currentPage}/{progress.totalPages} páginas carregadas)
+              Showing partial data ({progress.currentPage}/{progress.totalPages} pages loaded)
             </span>
           }
         />
@@ -451,16 +451,16 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
             <div className="flex items-center justify-between">
               <span>
                 <LoadingOutlined spin className="mr-2" />
-                Buscando dados dos agentes: {agentProgress.currentPage} / {agentProgress.totalPages} páginas carregadas.
-                Os gráficos serão atualizados periodicamente conforme os dados carregam. Sair desta página irá parar e 
-                reiniciar este processo. Para continuar utilizando a interface meanwhile,{" "}
+                Fetching agent data: {agentProgress.currentPage} / {agentProgress.totalPages} pages loaded.
+                Charts will update periodically as data loads. Leaving this page will stop and restart
+                this process. To continue using the interface meanwhile,{" "}
                 <a href={window.location.href} target="_blank" rel="noopener noreferrer">
-                  abra uma nova aba <ExportOutlined />
+                  open a new tab <ExportOutlined />
                 </a>
                 .
               </span>
               <Button type="primary" danger onClick={agentCancel}>
-                Parar
+                Stop
               </Button>
             </div>
           }
@@ -473,14 +473,14 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
           className="mb-2"
           message={
             <span>
-              Mostrando dados parciais do agente ({agentProgress.currentPage}/{agentProgress.totalPages} páginas carregadas)
+              Showing partial agent data ({agentProgress.currentPage}/{agentProgress.totalPages} pages loaded)
             </span>
           }
         />
       )}
       {entityType === "team" && (
         <div className="mb-4">
-          <Text className="mb-2">Filtrar por equipe</Text>
+          <Text className="mb-2">Filter by team</Text>
           <TeamMultiSelect value={selectedTags} onChange={setSelectedTags} />
         </div>
       )}
@@ -499,11 +499,11 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
       />
       <TabGroup>
         <TabList variant="solid" className="mt-1">
-          <Tab>Custo</Tab>
-          <Tab>{entityType === "agent" ? "Consumo de Requisições / Tokens" : "Atividade do Modelo"}</Tab>
-          {entityType === "team" ? <Tab>Atividade do Agente</Tab> : <></>}
-          <Tab>Atividade da Chave</Tab>
-          <Tab>Atividade do Endpoint</Tab>
+          <Tab>Cost</Tab>
+          <Tab>{entityType === "agent" ? "Request / Token Consumption" : "Model Activity"}</Tab>
+          {entityType === "team" ? <Tab>Agent Activity</Tab> : <></>}
+          <Tab>Key Activity</Tab>
+          <Tab>Endpoint Activity</Tab>
         </TabList>
         <TabPanels>
           <TabPanel>
@@ -511,34 +511,34 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               {/* Total Spend Card */}
               <Col numColSpan={2}>
                 <Card>
-                  <Title>Visão Geral do Gasto de {capitalizedEntityLabel}</Title>
+                  <Title>{capitalizedEntityLabel} Spend Overview</Title>
                   <Grid numItems={5} className="gap-4 mt-4">
                     <Card>
-                      <Title>Gasto Total</Title>
+                      <Title>Total Spend</Title>
                       <Text className="text-2xl font-bold mt-2">
-                        ${formatNumberWithCommas(spendData.metadata.total_spend, 2)}
+                        R$ {formatNumberWithCommas(spendData.metadata.total_spend, 2, false, true, "pt-BR")}
                       </Text>
                     </Card>
                     <Card>
-                      <Title>Total de Requisições</Title>
+                      <Title>Total Requests</Title>
                       <Text className="text-2xl font-bold mt-2">
                         {spendData.metadata.total_api_requests.toLocaleString()}
                       </Text>
                     </Card>
                     <Card>
-                      <Title>Requisições Bem-sucedidas</Title>
+                      <Title>Successful Requests</Title>
                       <Text className="text-2xl font-bold mt-2 text-green-600">
                         {spendData.metadata.total_successful_requests.toLocaleString()}
                       </Text>
                     </Card>
                     <Card>
-                      <Title>Requisições Falhas</Title>
+                      <Title>Failed Requests</Title>
                       <Text className="text-2xl font-bold mt-2 text-red-600">
                         {spendData.metadata.total_failed_requests.toLocaleString()}
                       </Text>
                     </Card>
                     <Card>
-                      <Title>Total de Tokens</Title>
+                      <Title>Total Tokens</Title>
                       <Text className="text-2xl font-bold mt-2">
                         {spendData.metadata.total_tokens.toLocaleString()}
                       </Text>
@@ -551,7 +551,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               <Col numColSpan={2}>
                 <ShadcnCard>
                   <CardHeader>
-                    <CardTitle className="text-base font-semibold">Gasto Diário</CardTitle>
+                    <CardTitle className="text-base font-semibold">Daily Spend</CardTitle>
                   </CardHeader>
                   <CardContent>
                     <BarChart
@@ -572,17 +572,17 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           <div className="bg-white p-4 shadow-lg rounded-lg border">
                             <p className="font-bold">{data.date}</p>
                             <p className="text-cyan-500">
-                              Gasto Total: ${formatNumberWithCommas(data.metrics.spend, 2)}
+                              Total Spend: R$ {formatNumberWithCommas(data.metrics.spend, 2, false, true, "pt-BR")}
                             </p>
-                            <p className="text-gray-600">Total de Requisições: {data.metrics.api_requests}</p>
-                            <p className="text-gray-600">Bem-sucedidas: {data.metrics.successful_requests}</p>
-                            <p className="text-gray-600">Falhas: {data.metrics.failed_requests}</p>
-                            <p className="text-gray-600">Tokens Totais: {data.metrics.total_tokens}</p>
+                            <p className="text-gray-600">Total Requests: {data.metrics.api_requests}</p>
+                            <p className="text-gray-600">Successful: {data.metrics.successful_requests}</p>
+                            <p className="text-gray-600">Failed: {data.metrics.failed_requests}</p>
+                            <p className="text-gray-600">Total Tokens: {data.metrics.total_tokens}</p>
                             <p className="text-gray-600">
-                              Total de {capitalizedEntityLabel}s: {entityCount}
+                              Total {capitalizedEntityLabel}s: {entityCount}
                             </p>
                             <div className="mt-2 border-t pt-2">
-                              <p className="font-semibold">Gasto por {capitalizedEntityLabel}:</p>
+                              <p className="font-semibold">Spend by {capitalizedEntityLabel}:</p>
                               {Object.entries(data.breakdown.entities || {})
                                 .sort(([, a], [, b]) => {
                                   const spendA = (a as EntityMetrics).metrics.spend;
@@ -600,7 +600,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                                   );
                                 })}
                               {entityCount > 5 && (
-                                <p className="text-sm text-gray-500 italic">...e mais {entityCount - 5}</p>
+                                <p className="text-sm text-gray-500 italic">...and {entityCount - 5} more</p>
                               )}
                             </div>
                           </div>
@@ -616,10 +616,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                 <Card>
                   <div className="flex flex-col space-y-4">
                     <div className="flex flex-col space-y-2">
-                      <Title>Gasto Por {capitalizedEntityLabel}</Title>
-                      <Subtitle className="text-xs">Mostrando os 5 principais por Gasto</Subtitle>
+                      <Title>Spend by {capitalizedEntityLabel}</Title>
+                      <Subtitle className="text-xs">Showing top 5 by Spend</Subtitle>
                       <div className="flex items-center text-sm text-gray-500">
-                        <span>Comece acompanhando o custo por {capitalizedEntityLabel} </span>
+                        <span>Start tracking cost by {capitalizedEntityLabel} </span>
                         <a
                           href="https://docs.litellm.ai/docs/proxy/enterprise#spend-tracking"
                           className="text-blue-500 hover:text-blue-700 ml-1"
@@ -646,12 +646,12 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                             return (
                               <div className="bg-white p-4 shadow-lg rounded-lg border">
                                 <p className="font-bold">{data.metadata.alias}</p>
-                                <p className="text-cyan-500">Gasto: ${formatNumberWithCommas(data.metrics.spend, 4)}</p>
-                                <p className="text-gray-600">Requisições: {data.metrics.api_requests.toLocaleString()}</p>
+                                <p className="text-cyan-500">Spend: R$ {formatNumberWithCommas(data.metrics.spend, 4, false, true, "pt-BR")}</p>
+                                <p className="text-gray-600">Requests: {data.metrics.api_requests.toLocaleString()}</p>
                                 <p className="text-green-600">
-                                  Bem-sucedidas: {data.metrics.successful_requests.toLocaleString()}
+                                  Successful: {data.metrics.successful_requests.toLocaleString()}
                                 </p>
-                                <p className="text-red-600">Falhas: {data.metrics.failed_requests.toLocaleString()}</p>
+                                <p className="text-red-600">Failed: {data.metrics.failed_requests.toLocaleString()}</p>
                                 <p className="text-gray-600">Tokens: {data.metrics.total_tokens.toLocaleString()}</p>
                               </div>
                             );
@@ -664,9 +664,9 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                             <TableHead>
                               <TableRow>
                                 <TableHeaderCell>{capitalizedEntityLabel}</TableHeaderCell>
-                                <TableHeaderCell>Gasto</TableHeaderCell>
-                                <TableHeaderCell className="text-green-600">Bem-sucedidas</TableHeaderCell>
-                                <TableHeaderCell className="text-red-600">Falhas</TableHeaderCell>
+                                <TableHeaderCell>Spend</TableHeaderCell>
+                                <TableHeaderCell className="text-green-600">Successful</TableHeaderCell>
+                                <TableHeaderCell className="text-red-600">Failed</TableHeaderCell>
                                 <TableHeaderCell>Tokens</TableHeaderCell>
                               </TableRow>
                             </TableHead>
@@ -700,7 +700,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               {/* Top API Keys */}
               <Col numColSpan={1}>
                 <Card>
-                  <Title>Principais Chaves Virtuais</Title>
+                  <Title>Top API Keys</Title>
                   <TopKeyView
                     topKeys={getTopAPIKeys()}
                     teams={null}
@@ -714,7 +714,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               {/* Top Models */}
               <Col numColSpan={1}>
                 <Card>
-                  <Title>{entityType === "agent" ? "Principais Agentes" : "Melhores Modelos"}</Title>
+                  <Title>{entityType === "agent" ? "Top Agents" : "Top Models"}</Title>
                   <TopModelView
                     topModels={getTopModels()}
                     topModelsLimit={topModelsLimit}
@@ -727,7 +727,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               {entityType === "team" && (
                 <Col numColSpan={2}>
                   <Card>
-                    <Title>Principais Agentes Gerando Gasto</Title>
+                    <Title>Top Agents Driving Spend</Title>
                     <TopModelView
                       topModels={getTopAgents()}
                       topModelsLimit={topAgentsLimit}
@@ -741,7 +741,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
               <Col numColSpan={2}>
                 <Card>
                   <div className="flex flex-col space-y-4">
-                    <Title>Uso por Provedor</Title>
+                    <Title>Usage by Provider</Title>
                     <Grid numItems={2}>
                       <Col numColSpan={1}>
                         <DonutChart
@@ -749,7 +749,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                           data={getProviderSpend()}
                           index="provider"
                           category="spend"
-                          valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+                          valueFormatter={(value) => `R$ ${formatNumberWithCommas(value, 2, false, true, "pt-BR")}`}
                           colors={["cyan", "blue", "indigo", "violet", "purple"]}
                           showLabel
                           startAngle={90}
@@ -760,10 +760,10 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                         <Table>
                           <TableHead>
                             <TableRow>
-                              <TableHeaderCell>Provedor</TableHeaderCell>
-                              <TableHeaderCell>Gasto</TableHeaderCell>
-                              <TableHeaderCell className="text-green-600">Bem-sucedidas</TableHeaderCell>
-                              <TableHeaderCell className="text-red-600">Falhas</TableHeaderCell>
+                              <TableHeaderCell>Provider</TableHeaderCell>
+                              <TableHeaderCell>Spend</TableHeaderCell>
+                              <TableHeaderCell className="text-green-600">Successful</TableHeaderCell>
+                              <TableHeaderCell className="text-red-600">Failed</TableHeaderCell>
                               <TableHeaderCell>Tokens</TableHeaderCell>
                             </TableRow>
                           </TableHead>

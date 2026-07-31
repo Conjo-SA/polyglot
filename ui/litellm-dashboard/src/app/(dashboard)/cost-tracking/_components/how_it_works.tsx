@@ -39,7 +39,7 @@ const HowItWorks: React.FC = () => {
       <div>
         <Text className="font-medium text-gray-900 text-sm mb-1">Exemplo</Text>
         <Text className="text-xs text-gray-600">
-          Um desconto de 5% em uma requisição de $10.00 resulta em: $10.00 × (1 - 0.05) = $9.50
+          Um desconto de 5% em uma requisição de R$ 10,00 resulta em: R$ 10,00 × (1 - 0.05) = R$ 9,50
         </Text>
       </div>
       <div>

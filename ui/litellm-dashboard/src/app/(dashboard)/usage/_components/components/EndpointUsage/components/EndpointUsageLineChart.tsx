@@ -75,7 +75,7 @@ export function EndpointUsageLineChart({ dailyData }: EndpointUsageLineChartProp
   return (
     <Card className="mb-6">
       <CardHeader>
-        <CardTitle className="text-base font-semibold">Tendências de Uso dos Endpoints</CardTitle>
+        <CardTitle className="text-base font-semibold">Endpoint Usage Trends</CardTitle>
       </CardHeader>
       <CardContent>
         <LineChart

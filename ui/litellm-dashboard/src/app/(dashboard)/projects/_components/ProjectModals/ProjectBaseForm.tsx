@@ -193,7 +193,7 @@ export function ProjectBaseForm({ form }: ProjectBaseFormProps) {
 
       <Row gutter={24}>
         <Col span={12}>
-          <Form.Item name="max_budget" label="Max Budget (USD)">
+          <Form.Item name="max_budget" label="Max Budget (BRL)">
             <InputNumber prefix="$" style={{ width: "100%" }} placeholder="0.00" min={0} precision={2} />
           </Form.Item>
         </Col>

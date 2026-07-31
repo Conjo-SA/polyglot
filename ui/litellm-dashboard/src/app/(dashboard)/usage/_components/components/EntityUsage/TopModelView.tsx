@@ -29,7 +29,7 @@ export default function TopModelView({ topModels, topModelsLimit, setTopModelsLi
       cell: (info: any) => info.getValue() || "-",
     },
     {
-      header: "Spend (USD)",
+      header: "Spend (BRL)",
       accessorKey: "spend",
       meta: { numeric: true },
       cell: (info: any) => <MoneyCell value={info.getValue()} decimals={2} />,
@@ -73,13 +73,13 @@ export default function TopModelView({ topModels, topModelsLimit, setTopModelsLi
             onClick={() => setModelViewMode("table")}
             className={`px-3 py-1 text-sm rounded-md ${modelViewMode === "table" ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-700"}`}
           >
-            Visualização de Tabela
+            Table View
           </button>
           <button
             onClick={() => setModelViewMode("chart")}
             className={`px-3 py-1 text-sm rounded-md ${modelViewMode === "chart" ? "bg-blue-100 text-blue-700" : "bg-gray-100 text-gray-700"}`}
           >
-            Visualização de Gráfico
+            Chart View
           </button>
         </div>
       </div>
@@ -92,7 +92,7 @@ export default function TopModelView({ topModels, topModelsLimit, setTopModelsLi
             index="key"
             categories={["spend"]}
             colors={["cyan"]}
-            valueFormatter={(value) => `$${formatNumberWithCommas(value, 2)}`}
+            valueFormatter={(value) => `R$ ${formatNumberWithCommas(value, 2, false, true, "pt-BR")}`}
             layout="vertical"
             yAxisWidth={200}
             tickGap={5}

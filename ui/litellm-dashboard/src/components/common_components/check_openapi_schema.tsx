@@ -65,7 +65,7 @@ const getFieldHelp = (key: string, property: SchemaProperty, type: string): stri
 
   // Specific field help text
   const specificHelp: { [key: string]: string } = {
-    max_budget: "Enter maximum budget in USD (e.g., 100.50)",
+    max_budget: "Enter maximum budget in BRL (e.g., 100.50)",
     budget_duration: "Select a time period for budget reset",
     tpm_limit: "Enter maximum tokens per minute (whole number)",
     rpm_limit: "Enter maximum requests per minute (whole number)",

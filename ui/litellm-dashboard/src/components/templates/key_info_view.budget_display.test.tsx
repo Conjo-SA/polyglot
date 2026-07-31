@@ -9,7 +9,7 @@ import useTeams from "@/app/(dashboard)/hooks/useTeams";
 // IMPORTANT: do not mock `@/utils/dataUtils` here. We want to exercise the
 // real `formatNumberWithCommas` so this test catches the LIT-2845 regression
 // where the overview "Spend" card formatted `max_budget` with the default 0
-// decimals, truncating sub-dollar budgets (e.g. $0.10) to "$0".
+// decimals, truncating sub-real budgets (e.g. R$ 0,10) to "R$ 0".
 
 vi.mock("./key_edit_view", () => ({
   KeyEditView: () => <div data-testid="key-edit-view-stub" />,
@@ -129,7 +129,7 @@ describe("KeyInfoView overview budget display (LIT-2845)", () => {
     vi.mocked(useAuthorized).mockReturnValue(baseAuthorized);
   });
 
-  it("renders a sub-dollar max_budget ($0.10) with 2-decimal precision in the overview Spend card", async () => {
+  it("renders a sub-real max_budget (R$ 0,10) with 2-decimal precision in the overview Spend card", async () => {
     renderWithProviders(
       <KeyInfoView
         keyData={{ ...MOCK_KEY_DATA, max_budget: 0.1 }}
@@ -142,12 +142,12 @@ describe("KeyInfoView overview budget display (LIT-2845)", () => {
 
     // Regression for LIT-2845: the overview card used to call
     // `formatNumberWithCommas(max_budget)` with no second arg, which
-    // defaults to 0 decimals — so $0.10 rendered as "$0".
-    // After the fix it must render "$0.10".
+    // defaults to 0 decimals — so R$ 0,10 rendered as "R$ 0".
+    // After the fix it must render "R$ 0,10".
     await waitFor(() => {
-      expect(screen.getByText(/of \$0\.10/)).toBeInTheDocument();
+      expect(screen.getByText(/of R\$ 0,10/)).toBeInTheDocument();
     });
-    expect(screen.queryByText(/of \$0$/)).not.toBeInTheDocument();
+    expect(screen.queryByText(/of R\$ 0$/)).not.toBeInTheDocument();
   });
 
   it("still renders whole-dollar max_budget with 2-decimal precision", async () => {
@@ -161,8 +161,8 @@ describe("KeyInfoView overview budget display (LIT-2845)", () => {
       />,
     );
     await waitFor(() => {
-      // 2-decimal formatting -> "$100.00"
-      expect(screen.getByText(/of \$100\.00/)).toBeInTheDocument();
+      // 2-decimal formatting -> "R$ 100,00"
+      expect(screen.getByText(/of R\$ 100,00/)).toBeInTheDocument();
     });
   });
 
@@ -196,7 +196,7 @@ describe("KeyInfoView overview budget display (LIT-2845)", () => {
       />,
     );
     await waitFor(() => {
-      expect(screen.getByText(/of \$1,200\.00 \(Team: Test Budget \/ 30d\)/)).toBeInTheDocument();
+      expect(screen.getByText(/of R\$ 1\.200,00 \(Team: Test Budget \/ 30d\)/)).toBeInTheDocument();
     });
   });
 
@@ -215,7 +215,7 @@ describe("KeyInfoView overview budget display (LIT-2845)", () => {
       />,
     );
     await waitFor(() => {
-      expect(screen.getByText(/of \$500\.00 \(Team: No Duration Team\)/)).toBeInTheDocument();
+      expect(screen.getByText(/of R\$ 500,00 \(Team: No Duration Team\)/)).toBeInTheDocument();
     });
   });
 

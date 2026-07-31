@@ -374,7 +374,7 @@ describe("EntityUsage", () => {
     expect(screen.getByText("Total Spend")).toBeInTheDocument();
 
     await waitFor(() => {
-      const spendElements = screen.getAllByText("$100.50");
+      const spendElements = screen.getAllByText("R$ 100,50");
       expect(spendElements.length).toBeGreaterThan(0);
     });
 
@@ -392,7 +392,7 @@ describe("EntityUsage", () => {
     expect(screen.getByText("Team Spend Overview")).toBeInTheDocument();
 
     await waitFor(() => {
-      const spendElements = screen.getAllByText("$100.50");
+      const spendElements = screen.getAllByText("R$ 100,50");
       expect(spendElements.length).toBeGreaterThan(0);
     });
   });
@@ -407,7 +407,7 @@ describe("EntityUsage", () => {
     expect(screen.getByText("Organization Spend Overview")).toBeInTheDocument();
 
     await waitFor(() => {
-      const spendElements = screen.getAllByText("$100.50");
+      const spendElements = screen.getAllByText("R$ 100,50");
       expect(spendElements.length).toBeGreaterThan(0);
     });
   });
@@ -422,7 +422,7 @@ describe("EntityUsage", () => {
     expect(screen.getByText("Customer Spend Overview")).toBeInTheDocument();
 
     await waitFor(() => {
-      const spendElements = screen.getAllByText("$100.50");
+      const spendElements = screen.getAllByText("R$ 100,50");
       expect(spendElements.length).toBeGreaterThan(0);
     });
   });
@@ -437,7 +437,7 @@ describe("EntityUsage", () => {
     expect(screen.getByText("Agent Spend Overview")).toBeInTheDocument();
 
     await waitFor(() => {
-      const spendElements = screen.getAllByText("$444.30");
+      const spendElements = screen.getAllByText("R$ 444,30");
       expect(spendElements.length).toBeGreaterThan(0);
     });
   });
@@ -452,7 +452,7 @@ describe("EntityUsage", () => {
     expect(screen.getByText("User Spend Overview")).toBeInTheDocument();
 
     await waitFor(() => {
-      const spendElements = screen.getAllByText("$100.50");
+      const spendElements = screen.getAllByText("R$ 100,50");
       expect(spendElements.length).toBeGreaterThan(0);
     });
   });
@@ -502,7 +502,7 @@ describe("EntityUsage", () => {
     });
 
     expect(await screen.findByText("Tag Spend Overview")).toBeInTheDocument();
-    expect(await screen.findByText("$0.00")).toBeInTheDocument();
+    expect(await screen.findByText("R$ 0,00")).toBeInTheDocument();
     expect(screen.getByText("Total Spend")).toBeInTheDocument();
     expect(screen.getAllByText("0")[0]).toBeInTheDocument();
   });
@@ -728,7 +728,7 @@ describe("EntityUsage", () => {
     expect(sectors[0].getAttribute("fill")).toBe("var(--color-cyan-500, #06b6d4)");
 
     const centerLabels = Array.from(container.querySelectorAll("text.fill-foreground")).map((text) => text.textContent);
-    expect(centerLabels).toContain("$100.50");
+    expect(centerLabels).toContain("R$ 100,50");
   });
 
   it("should label the chart with user_email metadata instead of the raw UUID (LIT-3889)", async () => {

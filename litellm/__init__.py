@@ -427,7 +427,7 @@ default_team_settings: Optional[List] = None
 max_user_budget: Optional[float] = None
 default_max_internal_user_budget: Optional[float] = None
 max_internal_user_budget: Optional[float] = None
-max_ui_session_budget: Optional[float] = 0.25  # $0.25 USD budgets for UI Chat sessions
+max_ui_session_budget: Optional[float] = 0.25  # R$0.25 BRL budgets for UI Chat sessions
 internal_user_budget_duration: Optional[str] = None
 tag_budget_config: Optional[Dict[str, "BudgetConfig"]] = None
 max_end_user_budget: Optional[float] = None
@@ -516,7 +516,7 @@ cost_margin_config: Dict[
     str, Union[float, Dict[str, float]]
 ] = {}  # Provider-specific or global cost margins. Examples:
 # Percentage: {"openai": 0.10} = 10% margin
-# Fixed: {"openai": {"fixed_amount": 0.001}} = $0.001 per request
+# Fixed: {"openai": {"fixed_amount": 0.001}} = R$0,001 per request
 # Global: {"global": 0.05} = 5% global margin on all providers
 # Combined: {"vertex_ai": {"percentage": 0.08, "fixed_amount": 0.0005}}
 custom_prompt_dict: Dict[str, dict] = {}

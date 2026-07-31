@@ -17,6 +17,7 @@ export const formatNumberWithCommas = (
   decimals: number = 0,
   abbreviate: boolean = false,
   showZero: boolean = true,
+  locale: string = "en-US",
 ): string => {
   if (value === null || value === undefined || !Number.isFinite(value) || (value === 0 && !showZero)) {
     return "-";
@@ -28,7 +29,7 @@ export const formatNumberWithCommas = (
   };
 
   if (!abbreviate) {
-    return value.toLocaleString("en-US", opts);
+    return value.toLocaleString(locale, opts);
   }
 
   const sign = value < 0 ? "-" : "";
@@ -44,7 +45,7 @@ export const formatNumberWithCommas = (
     suffix = "K";
   }
 
-  return `${sign}${scaled.toLocaleString("en-US", opts)}${suffix}`;
+  return `${sign}${scaled.toLocaleString(locale, opts)}${suffix}`;
 };
 
 export const getSpendString = (value: number | null | undefined, decimals: number = 6): string => {
@@ -52,11 +53,11 @@ export const getSpendString = (value: number | null | undefined, decimals: numbe
     return "-";
   }
 
-  const formatted = formatNumberWithCommas(value, decimals, false, false);
-  const numericFormatted = Number(formatted.replace(/,/g, ""));
+  const formatted = formatNumberWithCommas(value, decimals, false, false, "pt-BR");
+  const numericFormatted = Number(formatted.replace(/\./g, "").replace(",", "."));
 
   if (numericFormatted === 0) {
-    const threshold = (1 / 10 ** decimals).toFixed(decimals);
+    const threshold = (1 / 10 ** decimals).toFixed(decimals).replace(".", ",");
     return `< R$ ${threshold}`;
   }
 

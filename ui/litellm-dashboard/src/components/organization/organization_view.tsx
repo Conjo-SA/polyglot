@@ -192,7 +192,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
 
   const orgExtraColumns: ColumnsType<Member> = [
     {
-      title: "Spend (USD)",
+      title: "Spend (BRL)",
       key: "spend",
       render: (_: unknown, record: Member) => {
         const orgMember =
@@ -261,12 +261,12 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                 <Card>
                   <Text>Budget Status</Text>
                   <div className="mt-2">
-                    <Title>${formatNumberWithCommas(orgData.spend, 4)}</Title>
+                    <Title>R$ {formatNumberWithCommas(orgData.spend, 4, false, true, "pt-BR")}</Title>
                     <Text>
                       of{" "}
                       {orgData.litellm_budget_table.max_budget === null
                         ? "Unlimited"
-                        : `$${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4)}`}
+                        : `R$ ${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4, false, true, "pt-BR")}`}
                     </Text>
                     {orgData.litellm_budget_table.budget_duration && (
                       <Text className="text-gray-500">Reset: {orgData.litellm_budget_table.budget_duration}</Text>
@@ -400,7 +400,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Max Budget (USD)" name="max_budget">
+                    <Form.Item label="Max Budget (BRL)" name="max_budget">
                       <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
@@ -487,7 +487,7 @@ const OrganizationInfoView: React.FC<OrganizationInfoProps> = ({
                       <div>
                         Max:{" "}
                         {orgData.litellm_budget_table.max_budget !== null
-                          ? `$${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4)}`
+                          ? `R$ ${formatNumberWithCommas(orgData.litellm_budget_table.max_budget, 4, false, true, "pt-BR")}`
                           : "No Limit"}
                       </div>
                       <div>Reset: {orgData.litellm_budget_table.budget_duration || "Never"}</div>

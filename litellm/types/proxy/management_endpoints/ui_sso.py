@@ -189,7 +189,7 @@ class DefaultTeamSSOParams(LiteLLMPydanticObjectBase):
     )
     max_budget: Optional[float] = Field(
         default=None,
-        description="Default maximum budget (in USD) for new automatically created teams",
+        description="Default maximum budget (in BRL) for new automatically created teams",
     )
     budget_duration: Optional[str] = Field(
         default=None,

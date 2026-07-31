@@ -730,7 +730,7 @@ const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser
                 />
               </Form.Item>
 
-              <Form.Item label="Orçamento Máximo (USD)" name="max_budget">
+              <Form.Item label="Orçamento Máximo (BRL)" name="max_budget">
                 <NumericalInput step={0.01} precision={2} width={200} />
               </Form.Item>
               <Form.Item className="mt-8" label="Reiniciar Orçamento" name="budget_duration">
@@ -772,7 +772,7 @@ const Teams: React.FC<TeamProps> = ({ accessToken, userID, userRole, premiumUser
                     />
                   </Form.Item>
                   <Form.Item
-                    label="Orçamento do Membro da Equipe (USD)"
+                    label="Orçamento do Membro da Equipe (BRL)"
                     name="team_member_budget"
                     normalize={(value) => (value ? Number(value) : undefined)}
                     tooltip="Este é o orçamento individual para um usuário na equipe."

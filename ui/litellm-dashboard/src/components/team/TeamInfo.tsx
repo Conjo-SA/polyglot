@@ -757,15 +757,15 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                 <Card>
                   <Text>Budget Status</Text>
                   <div className="mt-2">
-                    <Title>${formatNumberWithCommas(info.spend, 4)}</Title>
+                    <Title>R$ {formatNumberWithCommas(info.spend, 4, false, true, "pt-BR")}</Title>
                     <Text>
-                      of {info.max_budget === null ? "Unlimited" : `$${formatNumberWithCommas(info.max_budget, 4)}`}
+                      of {info.max_budget === null ? "Unlimited" : `R$ ${formatNumberWithCommas(info.max_budget, 4, false, true, "pt-BR")}`}
                     </Text>
                     {info.budget_duration && <Text className="text-gray-500">Reset: {info.budget_duration}</Text>}
                     <br />
                     {info.team_member_budget_table && (
                       <Text className="text-gray-500">
-                        Team Member Budget: ${formatNumberWithCommas(info.team_member_budget_table.max_budget, 4)}
+                        Team Member Budget: R$ {formatNumberWithCommas(info.team_member_budget_table.max_budget, 4, false, true, "pt-BR")}
                       </Text>
                     )}
                   </div>
@@ -1067,11 +1067,11 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       />
                     </Form.Item>
 
-                    <Form.Item label="Max Budget (USD)" name="max_budget">
+                    <Form.Item label="Max Budget (BRL)" name="max_budget">
                       <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
-                    <Form.Item label="Soft Budget (USD)" name="soft_budget">
+                    <Form.Item label="Soft Budget (BRL)" name="soft_budget">
                       <NumericalInput step={0.01} precision={2} style={{ width: "100%" }} />
                     </Form.Item>
 
@@ -1119,7 +1119,7 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                           </Form.Item>
                         </Form.Item>
                         <Form.Item
-                          label="Default Budget (USD)"
+                          label="Default Budget (BRL)"
                           name="team_member_budget"
                           tooltip="Default spend budget for each member in this team."
                         >
@@ -1598,12 +1598,12 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
                       <Text className="font-medium">Team Budget</Text>
                       <div>
                         Max Budget:{" "}
-                        {info.max_budget !== null ? `$${formatNumberWithCommas(info.max_budget, 4)}` : "No Limit"}
+                        {info.max_budget !== null ? `R$ ${formatNumberWithCommas(info.max_budget, 4, false, true, "pt-BR")}` : "No Limit"}
                       </div>
                       <div>
                         Soft Budget:{" "}
                         {info.soft_budget !== null && info.soft_budget !== undefined
-                          ? `$${formatNumberWithCommas(info.soft_budget, 4)}`
+                          ? `R$ ${formatNumberWithCommas(info.soft_budget, 4, false, true, "pt-BR")}`
                           : "No Limit"}
                       </div>
                       <div>Budget Reset: {info.budget_duration || "Never"}</div>
@@ -1733,8 +1733,8 @@ const TeamInfoView: React.FC<TeamInfoProps> = ({
               name: "max_budget_in_team",
               label: (
                 <span>
-                  Team Member Budget (USD){" "}
-                  <Tooltip title="Maximum amount in USD this member can spend within this team. This is separate from any global user budget limits">
+                  Team Member Budget (BRL){" "}
+                  <Tooltip title="Maximum amount in BRL this member can spend within this team. This is separate from any global user budget limits">
                     <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                   </Tooltip>
                 </span>

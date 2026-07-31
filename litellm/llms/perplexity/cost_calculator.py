@@ -86,7 +86,7 @@ def cost_per_token(model: str, usage: Usage) -> Tuple[float, float]:
     if num_search_queries > 0 and search_cost_value is not None:
         # Handle both dict and float formats
         if isinstance(search_cost_value, dict):
-            # search_context_cost_per_query stores the per-request price in USD
+            # search_context_cost_per_query stores the per-request price in BRL
             # (e.g. sonar low = $0.005/request). Use it directly, matching the
             # gemini cost calculator which reads the same field per request.
             search_cost_per_query = _safe_float_cast(search_cost_value.get("search_context_size_low", 0))

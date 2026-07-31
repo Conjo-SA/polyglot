@@ -52,6 +52,9 @@ vi.mock("@/utils/dataUtils", () => ({
   formatNumberWithCommas: (value: number, decimals?: number) => {
     return value.toFixed(decimals || 0);
   },
+  getSpendString: (value: number, decimals?: number) => {
+    return `R$ ${value.toFixed(decimals || 0)}`;
+  },
 }));
 
 vi.mock("@/utils/teamUtils", () => ({

@@ -241,7 +241,7 @@ describe("TeamSSOSettings", () => {
     });
 
     // Descriptions
-    expect(screen.getByText("Maximum budget (in USD) for new automatically created teams.")).toBeInTheDocument();
+    expect(screen.getByText("Maximum budget (in BRL) for new automatically created teams.")).toBeInTheDocument();
     expect(screen.getByText("How frequently the team's budget resets.")).toBeInTheDocument();
   });
 
@@ -251,8 +251,8 @@ describe("TeamSSOSettings", () => {
     renderWithProviders(<TeamSSOSettings {...defaultProps} />);
 
     await waitFor(() => {
-      // max_budget displayed with $
-      expect(screen.getByText("$1,000")).toBeInTheDocument();
+      // max_budget displayed with R$
+      expect(screen.getByText("R$ 1.000")).toBeInTheDocument();
       // budget_duration through getBudgetDurationLabel
       expect(screen.getByText("monthly")).toBeInTheDocument();
       // tpm_limit formatted

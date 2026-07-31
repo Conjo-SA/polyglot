@@ -421,10 +421,10 @@ export default function KeyInfoView({
 
   const budgetDisplay =
     currentKeyData.max_budget !== null
-      ? `$${formatNumberWithCommas(currentKeyData.max_budget, 2)}`
+      ? `R$ ${formatNumberWithCommas(currentKeyData.max_budget, 2, false, true, "pt-BR")}`
       : parentTeam?.max_budget != null
         ? t("keyInfoView.budgetTeamSuffix", {
-            budget: `$${formatNumberWithCommas(parentTeam.max_budget, 2)}`,
+            budget: `R$ ${formatNumberWithCommas(parentTeam.max_budget, 2, false, true, "pt-BR")}`,
             team: parentTeam.team_alias || parentTeam.team_id,
             duration: parentTeam.budget_duration ? ` / ${parentTeam.budget_duration}` : "",
           })
@@ -491,7 +491,9 @@ export default function KeyInfoView({
           },
           {
             label: t("virtualKeysTable.spend"),
-            value: currentKeyData?.spend ? `$${formatNumberWithCommas(currentKeyData.spend, 4)}` : "$0.0000",
+            value: currentKeyData?.spend
+              ? `R$ ${formatNumberWithCommas(currentKeyData.spend, 4, false, true, "pt-BR")}`
+              : `R$ ${formatNumberWithCommas(0, 4, false, true, "pt-BR")}`,
           },
         ]}
         onCancel={() => {
@@ -537,7 +539,7 @@ export default function KeyInfoView({
               <Card>
                 <Text>{t("virtualKeysTable.spend")}</Text>
                 <div className="mt-2">
-                  <Title>${formatNumberWithCommas(currentKeyData.spend, 4)}</Title>
+                  <Title>R$ {formatNumberWithCommas(currentKeyData.spend, 4, false, true, "pt-BR")}</Title>
                   <Text>{t("keyInfoView.of")} {budgetDisplay}</Text>
                 </div>
               </Card>
@@ -744,14 +746,14 @@ export default function KeyInfoView({
 
                   <div>
                     <Text className="font-medium">{t("virtualKeysTable.spend")}</Text>
-                    <Text>${formatNumberWithCommas(currentKeyData.spend, 4)} USD</Text>
+                    <Text>R$ {formatNumberWithCommas(currentKeyData.spend, 4, false, true, "pt-BR")} BRL</Text>
                   </div>
 
                   <div>
                     <Text className="font-medium">{t("virtualKeysTable.budget")}</Text>
                     <Text>
                       {currentKeyData.max_budget !== null
-                        ? `$${formatNumberWithCommas(currentKeyData.max_budget, 2)}`
+                        ? `R$ ${formatNumberWithCommas(currentKeyData.max_budget, 2, false, true, "pt-BR")}`
                         : t("virtualKeysTable.unlimited")}
                     </Text>
                   </div>

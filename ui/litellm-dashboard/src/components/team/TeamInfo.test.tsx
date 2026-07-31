@@ -788,7 +788,7 @@ describe("TeamInfoView", () => {
 
       await waitFor(() => {
         expect(screen.getByText(/Soft Budget:/)).toBeInTheDocument();
-        expect(screen.getByText(/\$500\.75/)).toBeInTheDocument();
+        expect(screen.getByText(/R\$ 500,75/)).toBeInTheDocument();
       });
     });
 

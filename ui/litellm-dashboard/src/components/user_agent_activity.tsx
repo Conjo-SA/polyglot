@@ -422,7 +422,7 @@ const UserAgentActivity: React.FC<UserAgentActivityProps> = ({ accessToken, user
                       </div>
                       <div>
                         <Text className="text-sm text-gray-600">Total Cost</Text>
-                        <Metric className="text-lg">${formatAbbreviatedNumber(tag.total_spend, 4)}</Metric>
+                        <Metric className="text-lg">R$ {formatAbbreviatedNumber(tag.total_spend, 4)}</Metric>
                       </div>
                     </div>
                   </Card>

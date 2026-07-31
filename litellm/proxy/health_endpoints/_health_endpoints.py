@@ -344,7 +344,7 @@ async def health_services_endpoint(
 
         if service == "slack" or service == "slack_budget_alerts":
             if "slack" in general_settings.get("alerting", []):
-                # test_message = f"""\n🚨 `ProjectedLimitExceededError` 💸\n\n`Key Alias:` litellm-ui-test-alert \n`Expected Day of Error`: 28th March \n`Current Spend`: $100.00 \n`Projected Spend at end of month`: $1000.00 \n`Soft Limit`: $700"""
+                # test_message = f"""\n🚨 `ProjectedLimitExceededError` 💸\n\n`Key Alias:` litellm-ui-test-alert \n`Expected Day of Error`: 28th March \n`Current Spend`: R$ 100,00 \n`Projected Spend at end of month`: R$ 1.000,00 \n`Soft Limit`: R$ 700"""
                 # check if user has opted into unique_alert_webhooks
                 if proxy_logging_obj.slack_alerting_instance.alert_to_webhook_url is not None:
                     for alert_type in proxy_logging_obj.slack_alerting_instance.alert_to_webhook_url:

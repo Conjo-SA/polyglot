@@ -152,7 +152,7 @@ class DatadogCostManagementLogger(CustomBatchLogger):
                         "ChargePeriodStart": date_str,
                         "ChargePeriodEnd": date_str,
                         "BilledCost": 0.0,
-                        "BillingCurrency": "USD",
+                        "BillingCurrency": "BRL",
                         "Tags": tags if tags else None,
                     }
 

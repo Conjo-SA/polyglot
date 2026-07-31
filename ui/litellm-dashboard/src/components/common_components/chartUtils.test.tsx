@@ -126,7 +126,7 @@ describe("CustomTooltip", () => {
       label: "2024-01-15",
     };
     render(<CustomTooltip {...props} />);
-    expect(screen.getByText("$1,234.57")).toBeInTheDocument();
+    expect(screen.getByText("R$ 1.234,57")).toBeInTheDocument();
   });
 
   it("should format non-spend numeric values with locale string", () => {

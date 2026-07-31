@@ -80,7 +80,7 @@ export function SectionHeader({
         {/* Cost */}
         {cost !== undefined && (
           <Text type="secondary" style={{ fontSize: 12 }}>
-            Cost: ${cost.toFixed(6)}
+            Cost: R$ {cost.toFixed(6).replace(".", ",")}
           </Text>
         )}
 

@@ -46,7 +46,7 @@ class LLMResponse(BaseModel):
     num_total_tokens: int
     cost: Optional[float] = Field(
         default=None,
-        description="Total cost of the LLM call in USD as computed by LiteLLM.",
+        description="Total cost of the LLM call in BRL as computed by LiteLLM.",
     )
     output_logprobs: Optional[Dict[str, Any]] = Field(
         default=None,

@@ -54,11 +54,11 @@ describe("DonutChart", () => {
         index="provider"
         category="spend"
         colors={["cyan"]}
-        valueFormatter={(value) => `$${value.toFixed(2)}`}
+        valueFormatter={(value) => `R$ ${value.toFixed(2).replace(".", ",")}`}
         showLabel
       />,
     );
-    expect(container.querySelector("text.fill-foreground")?.textContent).toBe("$90.00");
+    expect(container.querySelector("text.fill-foreground")?.textContent).toBe("R$ 90,00");
   });
 
   it("never invokes the valueFormatter for the center label unless it is shown", () => {

@@ -215,7 +215,7 @@ def extract_and_build_metadata(
     if "response_cost" in litellm_kwargs:
         metadata["cost"] = {
             "total_tokens": litellm_kwargs["response_cost"],
-            "currency": "USD",
+            "currency": "BRL",
         }
 
     # Add debug info if cost calculation failed

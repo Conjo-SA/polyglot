@@ -1050,20 +1050,20 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     className="mt-4"
                     label={
                       <span>
-                        Orçamento Máximo (USD){" "}
-                        <Tooltip title="Valor máximo em USD que esta chave pode gastar. Quando atingido, a chave será bloqueada de fazer requisições adicionais">
+                        Orçamento Máximo (BRL){" "}
+                        <Tooltip title="Valor máximo em BRL que esta chave pode gastar. Quando atingido, a chave será bloqueada de fazer requisições adicionais">
                           <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                         </Tooltip>
                       </span>
                     }
                     name="max_budget"
-                    help={`Orçamento não pode exceder o orçamento máximo da equipe: $${team?.max_budget !== null && team?.max_budget !== undefined ? team?.max_budget : "ilimitado"}`}
+                    help={`Orçamento não pode exceder o orçamento máximo da equipe: R$ ${team?.max_budget !== null && team?.max_budget !== undefined ? team?.max_budget : "ilimitado"}`}
                     rules={[
                       {
                         validator: async (_, value) => {
                           if (value && team && team.max_budget !== null && value > team.max_budget) {
                             throw new Error(
-                              `Orçamento não pode exceder o orçamento máximo da equipe: $${formatNumberWithCommas(team.max_budget, 4)}`,
+                              `Orçamento não pode exceder o orçamento máximo da equipe: R$ ${formatNumberWithCommas(team.max_budget, 4, false, true, "pt-BR")}`,
                             );
                           }
                         },
@@ -1092,7 +1092,7 @@ const CreateKey: React.FC<CreateKeyProps> = ({ team, teams, data, addKey, autoOp
                     label={
                       <span>
                         Janelas de Orçamento{" "}
-                        <Tooltip title="Defina múltiplas janelas de orçamento independentes (por exemplo, por hora $10 E mensal $200). Cada janela rastreia gastos separadamente e se reinicia segundo seu próprio cronograma.">
+                        <Tooltip title="Defina múltiplas janelas de orçamento independentes (por exemplo, por hora R$ 10 E mensal R$ 200). Cada janela rastreia gastos separadamente e se reinicia segundo seu próprio cronograma.">
                           <InfoCircleOutlined style={{ marginLeft: "4px" }} />
                         </Tooltip>
                       </span>

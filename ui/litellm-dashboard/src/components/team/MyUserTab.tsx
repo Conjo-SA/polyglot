@@ -20,12 +20,12 @@ const labelWithTooltip = (label: string, tooltip: string) => (
 
 const formatNumber = (value: number | null | undefined, digits = 4): string => {
   if (value === null || value === undefined) return "0";
-  return formatNumberWithCommas(value, digits);
+  return formatNumberWithCommas(value, digits, false, true, "pt-BR");
 };
 
 const formatRateLimit = (value: number | null | undefined): string => {
   if (value === null || value === undefined) return "Unlimited";
-  return formatNumberWithCommas(value, 0);
+  return formatNumberWithCommas(value, 0, false, true, "pt-BR");
 };
 
 export default function MyUserTab({ teamId }: MyUserTabProps) {
@@ -94,15 +94,15 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
         <Col xs={24} md={12}>
           <Card>
             {labelWithTooltip(
-              "Current Cycle Spend (USD)",
-              "Spend for the current budget cycle. Resets to $0 when the budget window rolls over.",
+              "Current Cycle Spend (BRL)",
+              "Spend for the current budget cycle. Resets to R$ 0 when the budget window rolls over.",
             )}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={3} style={{ margin: 0 }}>
-                ${formatNumber(spend, 4)}
+                R$ {formatNumber(spend, 4)}
               </Typography.Title>
               <Typography.Text type="secondary">
-                of {maxBudget === null ? "Unlimited" : `$${formatNumber(maxBudget, 4)}`}
+                of {maxBudget === null ? "Unlimited" : `R$ ${formatNumber(maxBudget, 4)}`}
               </Typography.Text>
             </div>
             {budgetReset && (
@@ -126,10 +126,10 @@ export default function MyUserTab({ teamId }: MyUserTabProps) {
 
         <Col xs={24} md={12}>
           <Card>
-            {labelWithTooltip("Total Spend (USD)", "Cumulative spend across all budget cycles within this team.")}
+            {labelWithTooltip("Total Spend (BRL)", "Cumulative spend across all budget cycles within this team.")}
             <div style={{ marginTop: 8 }}>
               <Typography.Title level={4} style={{ margin: 0 }}>
-                ${formatNumber(totalSpend, 4)}
+                R$ {formatNumber(totalSpend, 4)}
               </Typography.Title>
             </div>
           </Card>
