@@ -1,5 +1,5 @@
 import { AreaChart, BarChart, CustomLegend, CustomTooltip } from "@/components/shared/charts";
-import { formatNumberWithCommas, getSpendString } from "@/utils/dataUtils";
+import { getSpendString } from "@/utils/dataUtils";
 import { resolveTeamAliasFromTeamID } from "@/utils/teamUtils";
 import { Card, Grid, Text, Title } from "@tremor/react";
 import { Collapse } from "antd";
