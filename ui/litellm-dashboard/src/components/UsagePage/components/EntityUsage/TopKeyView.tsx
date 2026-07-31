@@ -5,12 +5,12 @@ import { ChevronDownIcon, ChevronUpIcon } from "@heroicons/react/outline";
 import { Segmented, Tooltip } from "antd";
 import React, { useState } from "react";
 import { formatNumberWithCommas, formatSpend } from "../../../../utils/dataUtils";
+import { useCurrency } from "@/contexts/CurrencyContext";
 import { transformKeyInfo } from "../../../key_team_helpers/transform_key_info";
 import { keyInfoV1Call } from "../../../networking";
 import KeyInfoView from "../../../templates/key_info_view";
 import { DataTable } from "../../../view_logs/table";
 import { TagUsage } from "../../types";
-import { useCurrency } from "@/contexts/CurrencyContext";
 
 interface TopKeyViewProps {
   topKeys: any[];
@@ -124,7 +124,11 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
                     </div>
                     <div>
                       <span className="text-gray-300">Spend:</span>{" "}
-                      {tag.usage > 0 && tag.usage < 0.01 ? "<$0.01" : <MoneyCell value={tag.usage} decimals={2} />}
+                      {tag.usage > 0 && tag.usage < 0.01 ? (
+  <span>{`< ${currency === "BRL" ? "R$" : "$"}0.01`}</span>
+) : (
+  <MoneyCell value={tag.usage} decimals={2} />
+)}
                     </div>
                   </div>
                 }
@@ -225,7 +229,7 @@ const TopKeyView: React.FC<TopKeyViewProps> = ({ topKeys, teams, showTags = fals
                     </div>
                     <div className="text-sm">
                       <span className="text-gray-300">Spend: </span>
-                      <span className="text-white font-medium">${formatNumberWithCommas(item?.spend, 2)}</span>
+                      <span className="text-white font-medium"><MoneyCell value={item?.spend} decimals={2} /></span>
                     </div>
                   </div>
                 </div>

@@ -518,10 +518,7 @@ const EntityUsage: React.FC<EntityUsageProps> = ({ accessToken, entityType, enti
                     <Card>
                       <Title>Gasto Total</Title>
                       <Text className="text-2xl font-bold mt-2">
-                        {(() => {
-                          const { symbol, rate } = useCurrency();
-                          return `${symbol}${formatNumberWithCommas(spendData.metadata.total_spend * rate, 2)}`;
-                        })()}
+                        <MoneyCell value={spendData.metadata.total_spend} decimals={2} />
                       </Text>
                     </Card>
                     <Card>

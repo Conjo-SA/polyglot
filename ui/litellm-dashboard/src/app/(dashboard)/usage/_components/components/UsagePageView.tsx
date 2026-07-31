@@ -23,6 +23,7 @@ import {
   Title,
 } from "@tremor/react";
 import { Alert, Button, Segmented, Select, Tooltip, Typography } from "antd";
+import { MoneyCell } from "@/components/shared/table_cells";
 import React, { useCallback, useEffect, useMemo, useRef, useState, type UIEvent } from "react";
 
 import { BarChart } from "@/components/shared/charts";
@@ -632,11 +633,7 @@ const UsagePage: React.FC<UsagePageProps> = ({ teams, organizations }) => {
                             <Card>
                               <Title>Custo médio por Requisição</Title>
                               <Text className="text-2xl font-bold mt-2">
-                                {(() => {
-                                  const { symbol, rate } = useCurrency();
-                                  const costPerRequest = (totalSpend || 0) / (userSpendData.metadata?.total_api_requests || 1);
-                                  return `${symbol}${formatNumberWithCommas(costPerRequest * rate, 4)}`;
-                                })()}
+                                <MoneyCell value={(totalSpend || 0) / (userSpendData.metadata?.total_api_requests || 1)} decimals={4} />
                               </Text>
                             </Card>
                             <Card

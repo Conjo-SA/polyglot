@@ -123,7 +123,7 @@ const ViewUserSpend: React.FC<ViewUserSpendProps> = ({ userSpend, userMaxBudget,
         <div>
           <p className="text-tremor-default text-tremor-content dark:text-dark-tremor-content">Total Spend</p>
           <p className="text-2xl text-tremor-content-strong dark:text-dark-tremor-content-strong font-semibold">
-            ${roundedSpend}
+            <MoneyCell value={spend} decimals={4} />
           </p>
         </div>
         <div>
