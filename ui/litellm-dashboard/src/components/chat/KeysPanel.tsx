@@ -38,12 +38,12 @@ function relativeTime(isoString: string | null | undefined): string {
     const date = new Date(isoString);
     const diffMs = Date.now() - date.getTime();
     const diffSec = Math.floor(diffMs / 1000);
-    if (diffSec < 60) return "just now";
+    if (diffSec < 60) return "agora";
     const diffMin = Math.floor(diffSec / 60);
-    if (diffMin < 60) return `${diffMin}m ago`;
+    if (diffMin < 60) return `${diffMin}m atrás`;
     const diffHr = Math.floor(diffMin / 60);
-    if (diffHr < 24) return `${diffHr}h ago`;
-    return `${Math.floor(diffHr / 24)}d ago`;
+    if (diffHr < 24) return `${diffHr}h atrás`;
+    return `${Math.floor(diffHr / 24)}d atrás`;
   } catch {
     return "";
   }
@@ -105,13 +105,13 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
     const keyExpired = rotateTarget ? isKeyExpired(rotateTarget.expires) : false;
 
     if (formState.duration && !DURATION_RE.test(formState.duration)) {
-      errors.duration = "Must be a duration like 30s, 30m, 24h, 2d, 1w, or 1mo";
+      errors.duration = "Deve ser uma duração como 30s, 30m, 24h, 2d, 1w ou 1mo";
     }
     if (keyExpired && !formState.duration) {
-      errors.duration = "Expiration is required for expired keys";
+      errors.duration = "Expiração é obrigatória para chaves expiradas";
     }
     if (formState.grace_period && !DURATION_RE.test(formState.grace_period)) {
-      errors.grace_period = "Must be a duration like 24h, 2d";
+      errors.grace_period = "Deve ser uma duração como 24h, 2d";
     }
 
     setFormErrors(errors);
@@ -132,10 +132,10 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
 
       const response = await regenerateKeyCall(accessToken, rotateTarget.token || rotateTarget.token_id, payload);
       setRegeneratedKey(response.key);
-      MessageManager.success("Key rotated successfully");
+      MessageManager.success("Chave rotacionada com sucesso");
       queryClient.invalidateQueries({ queryKey: [KEYS_QUERY_KEY] });
     } catch {
-      MessageManager.error("Failed to rotate key");
+      MessageManager.error("Falha ao rotacionar chave");
     } finally {
       setIsRegenerating(false);
     }
@@ -162,11 +162,11 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
   return (
     <div className="w-full">
       <div className="mb-4">
-        <h2 className="text-base font-semibold text-foreground mb-0.5">Your API Keys</h2>
+        <h2 className="text-base font-semibold text-foreground mb-0.5">Suas Chaves de API</h2>
         <p className="text-sm text-muted-foreground m-0">
-          View your virtual keys and spend
+          Visualize suas chaves virtuais e gastos
           {premiumUser &&
-            ". Rotate keys to generate new credentials while optionally keeping the old key valid during a grace period"}
+            ". Rotacione chaves para gerar novas credenciais, mantendo opcionalmente a chave antiga válida durante um período de carência"}
         </p>
       </div>
 
@@ -175,10 +175,10 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="text-xs font-semibold uppercase tracking-wide">Key</TableHead>
-                <TableHead className="text-xs font-semibold uppercase tracking-wide">Spend</TableHead>
-                <TableHead className="text-xs font-semibold uppercase tracking-wide">Expires</TableHead>
-                <TableHead className="text-xs font-semibold uppercase tracking-wide">Created</TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wide">Chave</TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wide">Gasto</TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wide">Expira</TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wide">Criada</TableHead>
                 {premiumUser && (
                   <TableHead className="text-xs font-semibold uppercase tracking-wide text-right w-[80px]" />
                 )}
@@ -212,17 +212,17 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
       ) : keys.length === 0 ? (
         <div className="text-center text-muted-foreground text-sm py-12 border border-dashed rounded-lg">
           <KeyRound className="h-6 w-6 mb-3 mx-auto text-muted-foreground/50" />
-          No keys found
+          Nenhuma chave encontrada
         </div>
       ) : (
         <div className="rounded-lg border overflow-hidden">
           <Table>
             <TableHeader>
               <TableRow className="bg-muted/50">
-                <TableHead className="text-xs font-semibold uppercase tracking-wide">Key</TableHead>
-                <TableHead className="text-xs font-semibold uppercase tracking-wide">Spend</TableHead>
-                <TableHead className="text-xs font-semibold uppercase tracking-wide">Expires</TableHead>
-                <TableHead className="text-xs font-semibold uppercase tracking-wide">Created</TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wide">Chave</TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wide">Gasto</TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wide">Expira</TableHead>
+                <TableHead className="text-xs font-semibold uppercase tracking-wide">Criada</TableHead>
                 {premiumUser && (
                   <TableHead className="text-xs font-semibold uppercase tracking-wide text-right w-[80px]" />
                 )}
@@ -238,17 +238,17 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
                       {record.key_alias && <div className="text-xs text-muted-foreground">{record.key_alias}</div>}
                     </TableCell>
                     <TableCell className="text-[13px]">
-                      ${record.spend?.toFixed(2) ?? "0.00"}
+                      R$ {record.spend?.toFixed(2) ?? "0,00"}
                       {record.max_budget != null && record.max_budget > 0 && (
-                        <span className="text-muted-foreground"> / ${record.max_budget.toFixed(2)}</span>
+                        <span className="text-muted-foreground"> / R$ {record.max_budget.toFixed(2)}</span>
                       )}
                     </TableCell>
                     <TableCell>
                       {!record.expires ? (
-                        <span className="text-muted-foreground text-[13px]">Never</span>
+                        <span className="text-muted-foreground text-[13px]">Nunca</span>
                       ) : (
                         <Badge variant={expired ? "destructive" : "outline"}>
-                          {expired ? "Expired" : formatExpiresUtc(record.expires)}
+                          {expired ? "Expirada" : formatExpiresUtc(record.expires)}
                         </Badge>
                       )}
                     </TableCell>
@@ -257,9 +257,9 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
                     </TableCell>
                     {premiumUser && (
                       <TableCell className="text-right">
-                        <Button variant="outline" size="xs" onClick={() => openRotateModal(record)} title="Rotate key">
+                        <Button variant="outline" size="xs" onClick={() => openRotateModal(record)} title="Rotacionar chave">
                           <RefreshCw className="h-3 w-3" />
-                          Rotate
+                          Rotacionar
                         </Button>
                       </TableCell>
                     )}
@@ -274,15 +274,15 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
       <Dialog open={!!rotateTarget} onOpenChange={(v) => !v && closeModal()}>
         <DialogContent className="sm:max-w-[520px]">
           <DialogHeader>
-            <DialogTitle>Rotate Key</DialogTitle>
+            <DialogTitle>Rotacionar Chave</DialogTitle>
           </DialogHeader>
 
           {regeneratedKey ? (
             <div>
               <div className="rounded-lg border border-amber-200 dark:border-amber-900 bg-amber-50 dark:bg-amber-950 px-3 py-2 text-sm text-amber-800 dark:text-amber-300 mb-4">
-                Save this key now; you will not see it again
+                Salve esta chave agora; você não a verá novamente
               </div>
-              <div className="text-xs text-muted-foreground mb-1">New Key</div>
+              <div className="text-xs text-muted-foreground mb-1">Nova Chave</div>
               <div className="bg-muted border rounded-md px-4 py-3 font-mono text-sm break-all text-foreground">
                 {regeneratedKey}
               </div>
@@ -354,19 +354,19 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
             {regeneratedKey ? (
               <>
                 <Button variant="outline" onClick={closeModal}>
-                  Close
+                  Fechar
                 </Button>
                 <CopyToClipboard text={regeneratedKey} onCopy={() => setCopied(true)}>
                   <Button>
                     {copied ? <Check className="h-4 w-4 mr-1.5" /> : <Copy className="h-4 w-4 mr-1.5" />}
-                    {copied ? "Copied" : "Copy Key"}
+                    {copied ? "Copiado" : "Copiar Chave"}
                   </Button>
                 </CopyToClipboard>
               </>
             ) : (
               <>
                 <Button variant="outline" onClick={closeModal}>
-                  Cancel
+                  Cancelar
                 </Button>
                 <Button onClick={handleRegenerate} disabled={isRegenerating}>
                   {isRegenerating ? (
@@ -374,7 +374,7 @@ const KeysPanel: React.FC<Props> = ({ accessToken, userId, premiumUser }) => {
                   ) : (
                     <RefreshCw className="h-4 w-4 mr-1.5" />
                   )}
-                  Rotate
+                  Rotacionar
                 </Button>
               </>
             )}

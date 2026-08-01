@@ -7,12 +7,12 @@ export function OnboardingErrorView() {
     <div className="mx-auto w-full max-w-md mt-10">
       <Alert
         type="error"
-        message="Failed to load invitation"
-        description="The invitation link may be invalid or expired."
+        message="Falha ao carregar convite"
+        description="O link de convite pode ser inválido ou expirado."
         showIcon
       />
       <div className="mt-4">
-        <Button href={getLoginUrl()}>Back to Login</Button>
+        <Button href={getLoginUrl()}>Voltar para o Login</Button>
       </div>
     </div>
   );
